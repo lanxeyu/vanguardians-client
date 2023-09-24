@@ -1,7 +1,14 @@
 import React from 'react'
-import './lib/canvas';
+import { useEffect } from 'react';
+import { initCanvas } from './lib/canvas';
 
 const Canvas = () => {
+
+  useEffect(() => {
+    initCanvas()
+  }, []);
+
+
   return (
     <div>
       <canvas id='canvas'></canvas>

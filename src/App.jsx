@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Pages from './assets/pages';
+import * as Pages from './pages';
 
 
 const App = () => {
