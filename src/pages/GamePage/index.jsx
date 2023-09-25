@@ -3,7 +3,10 @@ import { Canvas } from '../../components'
 
 const GamePage = () => {
   return (
-    <Canvas />
+    <>
+      <Canvas />
+    </>
+    
   )
 }
 
