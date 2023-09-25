@@ -11,8 +11,11 @@ const App = () => {
         <Route index element={<Pages.Home />}/>
         <Route path="leaderboard" element={<Pages.Leaderboard />}/>
         <Route path='characters' element={<Pages.Characters />}/>
+        <Route path='login' element={<Pages.Login />}/>
+        <Route path='signup' element={<Pages.Signup />}/>
+        <Route path='/game' element={<Pages.GamePage />}/>
       </Route>
-      <Route path='/game' element={<Pages.GamePage />}/>
+      <Route path="*" element={<Pages.NotFound />}/>
     </Routes>
   )
 }
