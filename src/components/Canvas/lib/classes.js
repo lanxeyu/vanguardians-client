@@ -30,6 +30,8 @@ class Sprite {
     update() {
         if (!this.isAlive) {
             removeFromGroup(this, allSprites)
+            removeFromGroup(this, characters)
+            removeFromGroup(this, enemies)
         }
         this.updateTarget()
         this.updatePosition()
@@ -42,6 +44,11 @@ class Character extends Sprite {
     constructor() {
         super()
         addToGroup(this, characters)
+    }
+
+    // Default target for Characters if not overriden in the subclass
+    updateTarget() {
+        this.target = this.findNearestTarget(enemies, 'character' )
     }
 
     // Default movement for Characters if not overriden in the subclass
@@ -69,10 +76,6 @@ class Lanxe extends Character {
         this.movSpd = 4
     }
     
-    updateTarget() {
-        this.target = this.findNearestTarget(enemies, 'character' )
-    }
-
     draw(context) {
         context.fillStyle = 'blue'
         context.fillRect(this.position.x, this.position.y, 70, 150)
@@ -86,6 +89,11 @@ class Enemy extends Sprite {
     constructor() {
         super()
         addToGroup(this, enemies)
+    }
+
+    // Default target for Enemies if not overriden in the subclass
+    updateTarget() {
+        this.target = this.findNearestTarget(characters, 'enemy')
     }
 
     // Default movement for Enemies if not overriden in the subclass
@@ -113,10 +121,6 @@ class Skeleton extends Enemy {
         this.movSpd = 2
     }
     
-    updateTarget() {
-        this.target = this.findNearestTarget(characters, 'enemy')
-    }
-
     draw(context) {
         context.fillStyle = 'red'
         context.fillRect(this.position.x, this.position.y, 70, 150)
