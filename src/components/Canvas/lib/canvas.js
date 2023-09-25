@@ -5,7 +5,7 @@ export function initCanvas() {
     canvas.width = 1366
     canvas.height = 768
 
-    c.fillStyle = 'red'
+    c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
 
 }
