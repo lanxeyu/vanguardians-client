@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
 import { Lanxe, Skeleton } from './lib/classes';
+import { allSprites, characters, enemies, updateAllSprites } from './lib/groups';
 
 const Canvas = () => {
 
@@ -22,9 +23,7 @@ const Canvas = () => {
         // Enemy spawner function to be called
         // Collision detection function to be called
 
-        // Update objects
-        lanxe.update()
-        skeleton.update()
+        updateAllSprites()
 
         // Clear the canvas
         context.fillStyle = 'black'
