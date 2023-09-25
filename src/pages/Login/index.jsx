@@ -72,14 +72,11 @@ const Login = () => {
                     <p>
                         Need an Account?
                         <br />
-                        <span className="line">
-                            {/*put router link here*/}
-                            <Link
-                                to="/signup"
-                                style={{ textDecoration: "underline", color: "#237a20" }}>
-                                Sign Up
-                            </Link>
-                        </span>
+                        <Link
+                            to="/signup"
+                            style={{ textDecoration: "underline", color: "#237a20" }}>
+                            Sign Up
+                        </Link>
                     </p>
                 </section>
             )}
