@@ -1,12 +1,12 @@
-import { allSprites, characters, enemies } from "./groups"
+import { addToAllSprites, addToCharacters, addToEnemies, removeFromAllSprites } from "./groups"
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
     constructor(){
-        this.is_alive = true
+        this.isAlive = true
 
         // Add created Sprite into allSprites group
-        allSprites.push(this)
+        addToAllSprites(this)
     }
 
     // Methods that affect all sprites go here
@@ -16,6 +16,9 @@ class Sprite {
     }
 
     update() {
+        if (!this.isAlive) {
+            removeFromAllSprites(this)
+        }
         this.updatePosition()
         this.updateAnimation()
     }
@@ -29,7 +32,7 @@ class Character extends Sprite {
         super()
 
         // Add created Character into characters group
-        characters.push(this)
+        addToCharacters(this)
     }
 
     // Methods that affect all player characters go here
@@ -40,16 +43,16 @@ class Lanxe extends Character {
     constructor(x, y) {
         super()
         this.position = {x, y}
-        this.max_hp = 100
-        this.curr_hp = this.max_hp
-        this.attack = 5
-        this.attack_spd = 1000
-        this.move_spd = 4
+        this.maxHealth = 100
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 1000
+        this.movSpd = 4
     }
     
     updatePosition() {
         if (this.position.x <= 1200)
-            this.position.x += this.move_spd
+            this.position.x += this.movSpd
 
     }
 
@@ -67,14 +70,14 @@ class Enemy extends Sprite {
         super()
 
         // Add created Enemy into enemies group
-        enemies.push(this)
+        addToEnemies(this)
     }
 
     // Methods that affect all enemies go here
     
     updatePosition() {
         if (this.position.x >= 200)
-            this.position.x -= this.move_spd
+            this.position.x -= this.movSpd
     }
 }
 
@@ -82,15 +85,13 @@ class Skeleton extends Enemy {
     constructor(x, y) {
         super()
         this.position = {x, y}
-        this.max_hp = 20
-        this.curr_hp = this.max_hp
-        this.attack = 5
-        this.attack_spd = 1500
-        this.move_spd = 2
+        this.maxHealth = 20
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 1500
+        this.movSpd = 2
 
     }
-
-
 
     draw(context) {
         context.fillStyle = 'red';
