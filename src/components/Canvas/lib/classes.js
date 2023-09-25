@@ -44,7 +44,17 @@ class Character extends Sprite {
         addToGroup(this, characters)
     }
 
-    // Methods that affect all player characters go here
+    // Default movement for Characters if not overriden in the subclass
+    updatePosition() {
+        // Calculate direction to target
+        const direction = this.target.position.x - this.position.x
+
+        // Move towards target
+        if (direction > this.atkRange) {
+            this.position.x += this.movSpd
+        } 
+
+    }
 }
 
 class Lanxe extends Character {
@@ -63,17 +73,6 @@ class Lanxe extends Character {
         this.target = this.findNearestTarget(enemies, 'character' )
     }
 
-    updatePosition() {
-        // Calculate direction to target
-        const direction = this.target.position.x - this.position.x
-
-        // Move towards target
-        if (direction > this.atkRange) {
-            this.position.x += this.movSpd
-        } 
-
-    }
-
     draw(context) {
         context.fillStyle = 'blue'
         context.fillRect(this.position.x, this.position.y, 70, 150)
@@ -89,7 +88,7 @@ class Enemy extends Sprite {
         addToGroup(this, enemies)
     }
 
-    
+    // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
         // Calculate direction to target
         const direction = this.target.position.x - this.position.x
