@@ -3,26 +3,37 @@ import { addToGroup, removeFromGroup, allSprites, characters, enemies } from "./
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
     constructor(){
-        this.isAlive = true
-
-        // Add created Sprite into allSprites group
         addToGroup(this, allSprites)
+        this.isAlive = true
+        this.target = null
+        
     }
 
-    // Methods that affect all sprites go here
-
-    updateAnimation() {
-
+    findNearestTarget(group, type) {
+        let nearestTarget = null;
+        let nearestDistance = Infinity;
+    
+        for (const sprite of group) {
+            const distance = Math.abs(sprite.position.x - this.position.x);
+    
+            if ((type === 'character' && sprite.position.x > this.position.x) ||
+                (type === 'enemy' && sprite.position.x < this.position.x)) {
+                if (distance < nearestDistance) {
+                    nearestTarget = sprite;
+                    nearestDistance = distance;
+                }
+            }
+        }
+        return nearestTarget;
     }
-
+    
     update() {
         if (!this.isAlive) {
             removeFromGroup(this, allSprites)
         }
+        this.updateTarget()
         this.updatePosition()
-        this.updateAnimation()
     }
-
 }
 
 
@@ -30,14 +41,11 @@ class Sprite {
 class Character extends Sprite {
     constructor() {
         super()
-
-        // Add created Character into characters group
         addToGroup(this, characters)
     }
 
     // Methods that affect all player characters go here
 }
-
 
 class Lanxe extends Character {
     constructor(x, y) {
@@ -47,17 +55,27 @@ class Lanxe extends Character {
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 1000
+        this.atkRange = 200
         this.movSpd = 4
     }
     
+    updateTarget() {
+        this.target = this.findNearestTarget(enemies, 'character' )
+    }
+
     updatePosition() {
-        if (this.position.x <= 1200)
+        // Calculate direction to target
+        const direction = this.target.position.x - this.position.x
+
+        // Move towards target
+        if (direction > this.atkRange) {
             this.position.x += this.movSpd
+        } 
 
     }
 
     draw(context) {
-        context.fillStyle = 'blue';
+        context.fillStyle = 'blue'
         context.fillRect(this.position.x, this.position.y, 70, 150)
     }
 
@@ -68,16 +86,19 @@ class Lanxe extends Character {
 class Enemy extends Sprite {
     constructor() {
         super()
-
-        // Add created Enemy into enemies group
         addToGroup(this, enemies)
     }
 
-    // Methods that affect all enemies go here
     
     updatePosition() {
-        if (this.position.x >= 200)
+        // Calculate direction to target
+        const direction = this.target.position.x - this.position.x
+
+        // Move towards target
+        if (direction < -this.atkRange) {
             this.position.x -= this.movSpd
+        }
+
     }
 }
 
@@ -89,12 +110,16 @@ class Skeleton extends Enemy {
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 1500
+        this.atkRange = 100
         this.movSpd = 2
-
+    }
+    
+    updateTarget() {
+        this.target = this.findNearestTarget(characters, 'enemy')
     }
 
     draw(context) {
-        context.fillStyle = 'red';
+        context.fillStyle = 'red'
         context.fillRect(this.position.x, this.position.y, 70, 150)
     }
 }
@@ -104,4 +129,4 @@ class Skeleton extends Enemy {
 
 
 
-export { Lanxe, Skeleton };
+export { Lanxe, Skeleton }
