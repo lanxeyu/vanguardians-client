@@ -1,4 +1,4 @@
-import { addToAllSprites, addToCharacters, addToEnemies, removeFromAllSprites } from "./groups"
+import { addToGroup, removeFromGroup, allSprites, characters, enemies } from "./groups"
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -6,7 +6,7 @@ class Sprite {
         this.isAlive = true
 
         // Add created Sprite into allSprites group
-        addToAllSprites(this)
+        addToGroup(this, allSprites)
     }
 
     // Methods that affect all sprites go here
@@ -17,7 +17,7 @@ class Sprite {
 
     update() {
         if (!this.isAlive) {
-            removeFromAllSprites(this)
+            removeFromGroup(this, allSprites)
         }
         this.updatePosition()
         this.updateAnimation()
@@ -32,7 +32,7 @@ class Character extends Sprite {
         super()
 
         // Add created Character into characters group
-        addToCharacters(this)
+        addToGroup(this, characters)
     }
 
     // Methods that affect all player characters go here
@@ -70,7 +70,7 @@ class Enemy extends Sprite {
         super()
 
         // Add created Enemy into enemies group
-        addToEnemies(this)
+        addToGroup(this, enemies)
     }
 
     // Methods that affect all enemies go here

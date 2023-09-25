@@ -1,37 +1,15 @@
-const allSprites = []
-const characters = []
-const enemies = []
+const allSprites = [];
+const characters = [];
+const enemies = [];
 
-function addToAllSprites(sprite) {
-    allSprites.push(sprite);
+function addToGroup(sprite, group) {
+    group.push(sprite);
 }
 
-function removeFromAllSprites(sprite) {
-    const index = allSprites.indexOf(sprite);
+function removeFromGroup(sprite, group) {
+    const index = group.indexOf(sprite);
     if (index !== -1) {
-        allSprites.splice(index, 1);
-    }
-}
-
-function addToCharacters(sprite) {
-    characters.push(sprite);
-}
-
-function removeFromCharacters(sprite) {
-    const index = characters.indexOf(sprite);
-    if (index !== -1) {
-        characters.splice(index, 1);
-    }
-}
-
-function addToEnemies(sprite) {
-    enemies.push(sprite);
-}
-
-function removeFromEnemies(sprite) {
-    const index = enemies.indexOf(sprite);
-    if (index !== -1) {
-        enemies.splice(index, 1);
+        group.splice(index, 1);
     }
 }
 
@@ -42,8 +20,7 @@ function updateAllSprites() {
 }
 
 export { 
-        addToAllSprites, removeFromAllSprites, 
-        addToCharacters, removeFromCharacters,
-        addToEnemies, removeFromEnemies,
-        updateAllSprites
-    }
+    addToGroup, removeFromGroup,
+    allSprites, characters, enemies,
+    updateAllSprites
+};
