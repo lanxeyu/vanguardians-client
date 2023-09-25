@@ -5,8 +5,9 @@ import './index.css'
 
 export default function Header () {
     return (
-      <main>
+      <>
         <header>
+            <NavLink id='nav-title' to="/">Vanguardians</NavLink>
           <nav>
             <NavLink to="/" style={styles}>Home</NavLink>
             <NavLink to="/leaderboard" style={styles}>Leaderboard</NavLink>
@@ -17,6 +18,6 @@ export default function Header () {
           </nav>
         </header>
         <Outlet />
-      </main>
+      </>
     )
 }

@@ -15,8 +15,9 @@ const App = () => {
         <Route path='login' element={<Pages.Login />}/>
         <Route path='signup' element={<Pages.Signup />}/>
         <Route path='/game' element={<Pages.GamePage />}/>
+        <Route path="*" element={<Pages.NotFound />}/>
       </Route>
-      <Route path="*" element={<Pages.NotFound />}/>
+      
     </Routes>
   )
 }
