@@ -13,7 +13,7 @@ const Canvas = () => {
 
       // Spawn objects // to be removed and use a dynamic spawner function
       const lanxe = new Lanxe(50, 500)
-      const skeleton = new Skeleton(500, 500)
+      const skeleton = new Skeleton(1000, 500)
 
       // Main game loop logic
       const gameLoop = () => {
@@ -22,6 +22,9 @@ const Canvas = () => {
         // Enemy spawner function to be called
         // Collision detection function to be called
 
+        // Update objects
+        lanxe.update()
+        skeleton.update()
 
         // Clear the canvas
         context.fillStyle = 'black'
