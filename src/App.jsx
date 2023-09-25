@@ -11,6 +11,7 @@ const App = () => {
         <Route index element={<Pages.Home />}/>
         <Route path="leaderboard" element={<Pages.Leaderboard />}/>
         <Route path='characters' element={<Pages.Characters />}/>
+        <Route path='characters/:id' element={<Pages.CharacterPage />}/>
         <Route path='login' element={<Pages.Login />}/>
         <Route path='signup' element={<Pages.Signup />}/>
         <Route path='/game' element={<Pages.GamePage />}/>
