@@ -27,6 +27,10 @@ class Sprite {
         }
         return nearestTarget;
     }
+
+    checkTargetInRange() {
+        return (Math.abs(this.target.position.x - this.position.x) > this.atkRange)
+    }
 }
 
 
@@ -44,14 +48,8 @@ class Guardian extends Sprite {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target) {
-          // Calculate direction to target
-          const direction = this.target.position.x - this.position.x;
-      
-            // Move towards target
-            if (direction > this.atkRange) {
-                this.position.x += this.movSpd;
-            }
+        if (this.target && this.checkTargetInRange()) {
+            this.position.x += this.movSpd;
         }
     }
 
@@ -87,14 +85,21 @@ class Lanxe extends Guardian {
     }
 
     attack() {
+        if (this.target)
         this.isAttacking = true
-        this.isAttacking = false
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 100)
     }
     
     draw(context) {
         context.fillStyle = 'blue'
         context.fillRect(this.position.x, this.position.y, this.width, this.height)
-        context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
+
+        if (this.isAttacking) {
+            context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
+        }
+
     }
 
 }
@@ -134,16 +139,8 @@ class Enemy extends Sprite {
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        if (this.target) {
-            // Calculate direction to target
-            const direction = this.target.position.x - this.position.x;
-        
-            // Check if the direction is greater than the attack range
-            if (Math.abs(direction) > this.atkRange) {
-                // Move towards the target
-                const moveAmount = Math.sign(direction) * this.movSpd;
-                this.position.x += moveAmount;
-            }
+        if (this.target && this.checkTargetInRange()) {
+            this.position.x -= this.movSpd;
         }
     }
 

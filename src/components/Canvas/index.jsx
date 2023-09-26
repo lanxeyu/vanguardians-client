@@ -22,7 +22,7 @@ const Canvas = () => {
       // Main game loop logic
       const gameLoop = () => {
 
-        // Game calculations function to be called
+
         // Enemy spawner function to be called
         
         checkAtkBoxCollisions(guardians, enemies)
