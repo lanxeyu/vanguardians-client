@@ -4,26 +4,25 @@ import './index.css'
 
 const GuardianCard = ({ guardian }) => {
   const [imgUrl, setImgUrl] = useState("")
-  
   useEffect(() => {
     switch(guardian.name){
       case 'Duncan':
-        setImgUrl("src\\pages\\Home\\images\\heavyarmor.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\heavyarmor.gif");
         break;
       case 'James':
-        setImgUrl("src\\pages\\Home\\images\\fireworm.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\fireworm.gif");
         break;
       case 'Stephanie':
-        setImgUrl("src\\pages\\Home\\images\\huntress.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\huntress.gif");
         break;
       case 'Alex':
-        setImgUrl("src\\pages\\Home\\images\\fantasywarrior.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\fantasywarrior.gif");
         break;
       case 'Robbie':
-        setImgUrl("src\\pages\\Home\\images\\wizard.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\wizard.gif");
         break;
       case 'Lanxe':
-        setImgUrl("src\\pages\\Home\\images\\martialhero.gif");
+        setImgUrl("\\src\\pages\\Home\\images\\martialhero.gif");
         break;
     }
   }, [])

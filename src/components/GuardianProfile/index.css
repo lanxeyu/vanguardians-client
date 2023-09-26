@@ -1,13 +1,36 @@
-.guardian-card> img{
+.guardian-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guardian-profile-card> img{
   height: 38vh;
   margin-top: -10vh;
 }
 
-/* .guardian-card> img:hover{
-  transform: scale(1.1);
-} */
+#card-2 {
+  flex-direction: column;
+}
 
-.guardian-card> h1, h2 {
+.prof-section {
+  text-align: center;
+  background-color:#33312a;
+  margin: 2vh;
+  border-radius: 3vh;
+  padding: 1vh;
+  max-width: 18vw;
+}
+
+.prof-section> h3 {
+  font-size: 3.7vh;
+}
+
+.prof-section> p {
+  font-size: 3vh;
+}
+
+.guardian-profile-card> h1, h2 {
   color: rgba(0, 0, 0, 0.794);
   position: absolute;
   font-size: 7vh;
@@ -15,16 +38,16 @@
   padding: 1vh;
 }
 
-.guardian-card> h2 {
+.guardian-profile-card> h2 {
   margin-bottom: -38vh;
   font-size: 5vh;
 }
 
-.guardian-card> h1 {
+.guardian-profile-card> h1 {
   margin-top: -70vh;
 }
 
-.guardian-card {
+.guardian-profile-card {
   height: 70vh;
   width: 26vw;
   padding-top: 7vh;
@@ -39,6 +62,5 @@
   border: 3px solid #5b5047c6;
 }
 
-.guardian-card:hover {
-  transform: scale(0.96);
-}
+
+
