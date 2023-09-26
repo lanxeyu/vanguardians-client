@@ -42,6 +42,10 @@ class Guardian extends Sprite {
         addToGroup(this, guardians)
     }
 
+    attack() {
+    
+    }
+
     // Default target for Guardians if not overriden in the subclass
     updateTarget() {
         this.target = this.findNearestTarget(enemies, 'guardian' )
@@ -66,6 +70,8 @@ class Guardian extends Sprite {
             this.attack()
         }
         console.log(this.isAttacking)
+
+
     }
 }
 
@@ -104,7 +110,6 @@ class Lanxe extends Guardian {
         if (this.isAttacking) {
             context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
         }
-
     }
 
 }
@@ -121,8 +126,9 @@ class Robbie extends Guardian {
         this.atkSpd = 600
         this.atkRange = 400
         this.movSpd = 3
+        
     }
-
+    
     draw(context) {
         context.fillStyle = 'green'
         context.fillRect(this.position.x, this.position.y, this.width, this.height)
@@ -171,7 +177,7 @@ class Skeleton extends Enemy {
         this.atk = 5
         this.atkSpd = 1500
         this.atkRange = 100
-        this.movSpd = 2
+        this.movSpd = 4
     }
     
     draw(context) {
