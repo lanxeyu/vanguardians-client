@@ -83,6 +83,24 @@ class Lanxe extends Character {
 
 }
 
+class Robbie extends Character {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.maxHealth = 60
+        this.currHealth = this.maxHealth
+        this.atk = 3
+        this.atkSpd = 600
+        this.atkRange = 400
+        this.movSpd = 3
+    }
+
+    draw(context) {
+        context.fillStyle = 'green'
+        context.fillRect(this.position.x, this.position.y, 70, 150)
+    }
+}
+
 
 // --------------------  ENEMY CLASSES  ------------------------- 
 class Enemy extends Sprite {
@@ -132,4 +150,4 @@ class Skeleton extends Enemy {
 
 
 
-export { Lanxe, Skeleton }
+export { Robbie, Lanxe, Skeleton }
