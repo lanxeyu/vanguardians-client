@@ -16,6 +16,7 @@ const Canvas = () => {
             // Spawn objects // to be removed and use a dynamic spawner function
             new Lanxe(50, 500);
             new Robbie(50, 500);
+            new Duncan(50, 500);
             new Skeleton(1800, 500);
 
             // Main game loop logic
