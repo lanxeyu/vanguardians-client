@@ -140,7 +140,7 @@ class Enemy extends Sprite {
             this.position.x += moveAmount;
           }
         }
-      }
+    }
 
     update() {
         if (this.currHealth <= 0) {
