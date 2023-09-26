@@ -1,17 +1,19 @@
 
 
-function checkAtkBoxCollisions(characters, enemies) {
-    for (const spriteA of characters) {
-      for (const spriteB of enemies) {
-        if (isColliding(spriteA.atkBox, spriteB)) {
-          spriteB.currHealth -= spriteA.atk
-          console.log(spriteB.currHealth)
+function checkAtkBoxCollisions(guardians, enemies) {
+    for (const spriteA of guardians) {
+        if (spriteA.isAttacking == true) {
+            for (const spriteB of enemies) {
+                if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
+                    spriteB.currHealth -= spriteA.atk
+                    console.log(spriteB.currHealth)
+                }
+            }
         }
-      }
     }
 }
 
-function isColliding(atkBoxA, spriteB) {
+function isAtkBoxColliding(atkBoxA, spriteB) {
     const atkBoxAX1 = atkBoxA.position.x;
     const atkBoxAY1 = atkBoxA.position.y;
     const atkBoxAX2 = atkBoxAX1 + atkBoxA.width;
