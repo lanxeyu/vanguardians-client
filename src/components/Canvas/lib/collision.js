@@ -1,5 +1,3 @@
-
-
 function checkAtkBoxCollisions(guardians, enemies) {
     for (const spriteA of guardians) {
         if (spriteA.isAttacking == true) {

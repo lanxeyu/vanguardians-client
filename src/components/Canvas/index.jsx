@@ -16,14 +16,12 @@ const Canvas = () => {
 
       // Spawn objects // to be removed and use a dynamic spawner function
       new Lanxe(50, 500)
-      new Robbie(50, 500)
-      new Steph(50, 500)
+      // new Robbie(50, 500)
       new Skeleton(1800, 500)
 
       // Main game loop logic
       const gameLoop = () => {
 
-        // Game calculations function to be called
         // Enemy spawner function to be called
         
         checkAtkBoxCollisions(guardians, enemies)
