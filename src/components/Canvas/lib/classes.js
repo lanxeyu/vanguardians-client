@@ -1,5 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups"
-
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -12,12 +11,14 @@ class Sprite {
     findNearestTarget(group, type) {
         let nearestTarget = null;
         let nearestDistance = Infinity;
-    
+
         for (const sprite of group) {
             const distance = Math.abs(sprite.position.x - this.position.x);
-    
-            if ((type === 'guardian' && sprite.position.x > this.position.x) ||
-                (type === 'enemy' && sprite.position.x < this.position.x)) {
+
+            if (
+                (type === "guardian" && sprite.position.x > this.position.x) ||
+                (type === "enemy" && sprite.position.x < this.position.x)
+            ) {
                 if (distance < nearestDistance) {
                     nearestTarget = sprite;
                     nearestDistance = distance;
@@ -32,12 +33,11 @@ class Sprite {
     }
 }
 
-
-// --------------------  GUARDIAN CLASSES  ------------------------- 
+// --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Sprite {
     constructor() {
-        super()
-        addToGroup(this, guardians)
+        super();
+        addToGroup(this, guardians);
     }
 
     attack() {
@@ -46,23 +46,23 @@ class Guardian extends Sprite {
 
     // Default target for Guardians if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(enemies, 'guardian' )
+        this.target = this.findNearestTarget(enemies, "guardian");
     }
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && (this.checkTargetInRange() == false)) {
+        if (this.target && this.checkTargetInRange() == false) {
             this.position.x += this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive = false
+            this.isAlive = false;
             // Guardian knocked-out logic to be implemented
         }
-        this.updateTarget()
-        this.updatePosition()
+        this.updateTarget();
+        this.updatePosition();
 
         if (this.target && this.checkTargetInRange() && this.attackCooldown <= 0) {
             // Call the attack method
@@ -81,9 +81,6 @@ class Guardian extends Sprite {
         if (this.attackCooldown > 0) {
         this.attackCooldown -= 16; // 16 milliseconds per frame (adjust as needed)
         }
-        console.log(this.isAttacking)
-
-
     }
 }
 
@@ -102,81 +99,121 @@ class Lanxe extends Guardian {
         this.attackTimer = null; // Initialize the attack timer
         this.attackCooldown = 0;
 
-        this.isAttacking = false
+        this.isAttacking = false;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50
-        }
+            height: 50,
+        };
     }
 
     attack() {
-        this.isAttacking = true
+        this.isAttacking = true;
         setTimeout(() => {
-            this.isAttacking = false
-        }, 50)
+            this.isAttacking = false;
+        }, 50);
     }
-    
+
     draw(context) {
-        context.fillStyle = 'blue'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillStyle = "blue";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
-            context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
         }
     }
-
 }
 
 class Robbie extends Guardian {
     constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 60
-        this.currHealth = this.maxHealth
-        this.atk = 3
-        this.atkSpd = 600
-        this.atkRange = 400
-        this.movSpd = 3
-        
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 60;
+        this.currHealth = this.maxHealth;
+        this.atk = 3;
+        this.atkSpd = 600;
+        this.atkRange = 400;
+        this.movSpd = 3;
     }
     
     draw(context) {
-        context.fillStyle = 'green'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillStyle = "green";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
+class Duncan extends Guardian {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 175;
+        this.currHealth = this.maxHealth;
+        this.atk = 2;
+        this.atkSpd = 1200;
+        this.atkRange = 100;
+        this.movSpd = 4.5;
 
-// --------------------  ENEMY CLASSES  ------------------------- 
+        /* this.isAttacking = false;
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 50,
+        }; */
+    }
+
+    /* attack() {
+        this.isAttacking = true;
+        this.isAttacking = false;
+    } */
+
+    draw(context) {
+        context.fillStyle = "purple";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        /* context.fillRect(
+            this.atkBox.position.x,
+            this.atkBox.position.y,
+            this.atkBox.width,
+            this.atkBox.height
+        ); */
+    }
+}
+
+// --------------------  ENEMY CLASSES  -------------------------
 class Enemy extends Sprite {
     constructor() {
-        super()
-        addToGroup(this, enemies)
+        super();
+        addToGroup(this, enemies);
     }
 
     // Default target for Enemies if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(guardians, 'enemy')
+        this.target = this.findNearestTarget(guardians, "enemy");
     }
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.target && (this.checkTargetInRange() == false)) {
+        if (this.target && this.target && this.checkTargetInRange() == false) {
             this.position.x -= this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive = false
-            removeFromGroup(this, allSprites)
-            removeFromGroup(this, enemies)
+            this.isAlive = false;
+            removeFromGroup(this, allSprites);
+            removeFromGroup(this, enemies);
         }
-        this.updateTarget()
-        this.updatePosition()
+        this.updateTarget();
+        this.updatePosition();
     }
 }
 
@@ -193,16 +230,13 @@ class Skeleton extends Enemy {
         this.atkRange = 100
         this.movSpd = 4
     }
-    
+
     draw(context) {
-        context.fillStyle = 'red'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillStyle = "red";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
-// --------------------  PROJECTILE CLASSES  ------------------------- 
+// --------------------  PROJECTILE CLASSES  -------------------------
 
-
-
-
-export { Robbie, Lanxe, Skeleton }
+export { Robbie, Lanxe, Duncan, Skeleton };
