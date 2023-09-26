@@ -29,7 +29,8 @@ class Sprite {
     }
 
     checkTargetInRange() {
-        return (Math.abs(this.target.position.x - this.position.x) > this.atkRange)
+
+        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
     }
 }
 
@@ -48,18 +49,23 @@ class Guardian extends Sprite {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.checkTargetInRange()) {
+        if (this.target && (this.checkTargetInRange() == false)) {
             this.position.x += this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive == false
+            this.isAlive = false
             // Guardian knocked-out logic to be implemented
         }
         this.updateTarget()
         this.updatePosition()
+
+        if (this.target && this.checkTargetInRange()) {
+            this.attack()
+        }
+        console.log(this.isAttacking)
     }
 }
 
@@ -85,11 +91,10 @@ class Lanxe extends Guardian {
     }
 
     attack() {
-        if (this.target)
         this.isAttacking = true
         setTimeout(() => {
             this.isAttacking = false
-        }, 100)
+        }, 50)
     }
     
     draw(context) {
@@ -139,14 +144,14 @@ class Enemy extends Sprite {
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.checkTargetInRange()) {
+        if (this.target && this.target && (this.checkTargetInRange() == false)) {
             this.position.x -= this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive == false
+            this.isAlive = false
             removeFromGroup(this, allSprites)
             removeFromGroup(this, enemies)
         }
