@@ -1,4 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, characters, enemies } from "./groups"
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups"
 
 
 // --------------------  MAIN SPRITE CLASS  --------------------
@@ -17,7 +17,7 @@ class Sprite {
         for (const sprite of group) {
             const distance = Math.abs(sprite.position.x - this.position.x);
     
-            if ((type === 'character' && sprite.position.x > this.position.x) ||
+            if ((type === 'guardian' && sprite.position.x > this.position.x) ||
                 (type === 'enemy' && sprite.position.x < this.position.x)) {
                 if (distance < nearestDistance) {
                     nearestTarget = sprite;
@@ -30,42 +30,42 @@ class Sprite {
 }
 
 
-// --------------------  CHARACTER CLASSES  ------------------------- 
-class Character extends Sprite {
+// --------------------  GUARDIAN CLASSES  ------------------------- 
+class Guardian extends Sprite {
     constructor() {
         super()
-        addToGroup(this, characters)
+        addToGroup(this, guardians)
     }
 
-    // Default target for Characters if not overriden in the subclass
+    // Default target for Guardians if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(enemies, 'character' )
+        this.target = this.findNearestTarget(enemies, 'guardian' )
     }
 
-    // Default movement for Characters if not overriden in the subclass
+    // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
         if (this.target) {
           // Calculate direction to target
           const direction = this.target.position.x - this.position.x;
       
-          // Move towards target
-          if (direction > this.atkRange) {
-            this.position.x += this.movSpd;
-          }
+            // Move towards target
+            if (direction > this.atkRange) {
+                this.position.x += this.movSpd;
+            }
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
             this.isAlive == false
-            // Character knocked-out logic to be implemented
+            // Guardian knocked-out logic to be implemented
         }
         this.updateTarget()
         this.updatePosition()
     }
 }
 
-class Lanxe extends Character {
+class Lanxe extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
@@ -78,11 +78,17 @@ class Lanxe extends Character {
         this.atkRange = 200
         this.movSpd = 4
 
+        this.isAttacking = false
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
             height: 50
         }
+    }
+
+    attack() {
+        this.isAttacking = true
+        this.isAttacking = false
     }
     
     draw(context) {
@@ -93,7 +99,7 @@ class Lanxe extends Character {
 
 }
 
-class Robbie extends Character {
+class Robbie extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
@@ -141,22 +147,21 @@ class Enemy extends Sprite {
 
     // Default target for Enemies if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(characters, 'enemy')
-        console.log(this.target)
+        this.target = this.findNearestTarget(guardians, 'enemy')
     }
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
         if (this.target) {
-          // Calculate direction to target
-          const direction = this.target.position.x - this.position.x;
+            // Calculate direction to target
+            const direction = this.target.position.x - this.position.x;
         
-          // Check if the direction is greater than the attack range
-          if (Math.abs(direction) > this.atkRange) {
-            // Move towards the target
-            const moveAmount = Math.sign(direction) * this.movSpd;
-            this.position.x += moveAmount;
-          }
+            // Check if the direction is greater than the attack range
+            if (Math.abs(direction) > this.atkRange) {
+                // Move towards the target
+                const moveAmount = Math.sign(direction) * this.movSpd;
+                this.position.x += moveAmount;
+            }
         }
     }
 
@@ -186,7 +191,6 @@ class Skeleton extends Enemy {
     }
     
     draw(context) {
-        console.log('draw skeleton', this.position)
         context.fillStyle = 'red'
         context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
