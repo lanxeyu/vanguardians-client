@@ -26,8 +26,6 @@ const Canvas = () => {
 
       // Main game loop logic
       const gameLoop = () => {
-
-        
         
         checkAtkBoxCollisions(guardians, enemies)
         updateAllSprites()

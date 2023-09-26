@@ -7,7 +7,6 @@ class Sprite {
         addToGroup(this, allSprites)
         this.isAlive = true
         this.target = null
-        
     }
 
     findNearestTarget(group, type) {
@@ -29,7 +28,6 @@ class Sprite {
     }
 
     checkTargetInRange() {
-
         return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
     }
 }
@@ -66,8 +64,22 @@ class Guardian extends Sprite {
         this.updateTarget()
         this.updatePosition()
 
-        if (this.target && this.checkTargetInRange()) {
-            this.attack()
+        if (this.target && this.checkTargetInRange() && this.attackCooldown <= 0) {
+            // Call the attack method
+            this.attack();
+            
+            // Set the attack cooldown based on this.atkSpd
+            this.attackCooldown = this.atkSpd;
+            
+            // Start a timer to reset isAttacking after a delay
+            this.attackTimer = setTimeout(() => {
+              this.isAttacking = false;
+            }, 50); // Adjust the delay as needed
+        }
+      
+        // Decrement the attack cooldown
+        if (this.attackCooldown > 0) {
+        this.attackCooldown -= 16; // 16 milliseconds per frame (adjust as needed)
         }
         console.log(this.isAttacking)
 
@@ -87,6 +99,8 @@ class Lanxe extends Guardian {
         this.atkSpd = 1000
         this.atkRange = 200
         this.movSpd = 4
+        this.attackTimer = null; // Initialize the attack timer
+        this.attackCooldown = 0;
 
         this.isAttacking = false
         this.atkBox = {
@@ -172,7 +186,7 @@ class Skeleton extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 150
-        this.maxHealth = 20
+        this.maxHealth = 150
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 1500
