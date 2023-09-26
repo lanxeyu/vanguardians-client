@@ -65,7 +65,7 @@ class Guardian extends Sprite {
         if (this.target && this.checkTargetInRange()) {
             this.attack()
         }
-        console.log(this.isAttacking)
+        // console.log(this.isAttacking)
     }
 }
 
@@ -141,8 +141,9 @@ class Steph extends Guardian {
         this.atkSpd = 1000
         this.atkRange = 700
         this.movSpd = 2
+
+        new Projectile(this.position)
     }
-    
     draw(context) {
         context.fillStyle = 'LightSkyBlue'
         context.fillRect(this.position.x, this.position.y, this.width, this.height)
@@ -202,29 +203,27 @@ class Skeleton extends Enemy {
 
 // --------------------  PROJECTILE CLASSES  ------------------------- 
 class Projectile extends Sprite {
-    constructor({ position, movSpd }){
-        super()
-        this.position = position
-        this.movSpd = movSpd
-        this.radius = 10
+    constructor(x, y){
+        super()    
+        this.position= {x, y}
+        this.movSpd = 5
+        this.width = 100
+        this.height = 5
     }
 
-    draw(context) {
-        context.beginPath()
-        context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+    draw(context) {    
         context.fillStyle = 'plum'
-        context.fill()
-        context.closePath()
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    updatePosition() {
+        this.position.x += this.movSpd
     }
 
     update() {
-        this.draw()
-        this.position.x += this.movSpd.x
-        this.position.y += this.movSpd.y
+        this.updatePosition()
     }
 }
-
-
 
 
 export { Robbie, Lanxe, Steph, Skeleton, Projectile }
