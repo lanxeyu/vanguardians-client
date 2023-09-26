@@ -119,16 +119,18 @@ class Robbie extends Guardian {
     }
 }
 
-class Steph extends Character {
+class Steph extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
+        this.width = 70
+        this.height = 150
         this.maxHealth = 80
         this.currHealth = this.maxHealth
         this.atk = 4
         this.atkSpd = 1000
-        this.atkRange = 360
-        this.movSpd = 5
+        this.atkRange = 700
+        this.movSpd = 2
     }
     
     draw(context) {
@@ -198,11 +200,11 @@ class Skeleton extends Enemy {
 
 // --------------------  PROJECTILE CLASSES  ------------------------- 
 class Projectile extends Sprite {
-    constructor({ position, movSpd}){
+    constructor({ position, movSpd }){
         super()
         this.position = position
         this.movSpd = movSpd
-        this.radius = 3
+        this.radius = 10
     }
 
     draw(context) {
