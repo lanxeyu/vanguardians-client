@@ -27,6 +27,11 @@ class Sprite {
         }
         return nearestTarget;
     }
+
+    checkTargetInRange() {
+
+        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
+    }
 }
 
 // --------------------  GUARDIAN CLASSES  -------------------------
@@ -43,24 +48,23 @@ class Guardian extends Sprite {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target) {
-            // Calculate direction to target
-            const direction = this.target.position.x - this.position.x;
-
-            // Move towards target
-            if (direction > this.atkRange) {
-                this.position.x += this.movSpd;
-            }
+        if (this.target && (this.checkTargetInRange() == false)) {
+            this.position.x += this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive == false;
+            this.isAlive = false
             // Guardian knocked-out logic to be implemented
         }
-        this.updateTarget();
-        this.updatePosition();
+        this.updateTarget()
+        this.updatePosition()
+
+        if (this.target && this.checkTargetInRange()) {
+            this.attack()
+        }
+        console.log(this.isAttacking)
     }
 }
 
@@ -86,20 +90,20 @@ class Lanxe extends Guardian {
     }
 
     attack() {
-        this.isAttacking = true;
-        this.isAttacking = false;
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
     }
 
     draw(context) {
-        context.fillStyle = "blue";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        context.fillRect(
-            this.atkBox.position.x,
-            this.atkBox.position.y,
-            this.atkBox.width,
-            this.atkBox.height
-        );
+        context.fillStyle = 'blue'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
     }
+
+}
+
 }
 
 class Robbie extends Guardian {
@@ -174,24 +178,16 @@ class Enemy extends Sprite {
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        if (this.target) {
-            // Calculate direction to target
-            const direction = this.target.position.x - this.position.x;
-
-            // Check if the direction is greater than the attack range
-            if (Math.abs(direction) > this.atkRange) {
-                // Move towards the target
-                const moveAmount = Math.sign(direction) * this.movSpd;
-                this.position.x += moveAmount;
-            }
+        if (this.target && this.target && (this.checkTargetInRange() == false)) {
+            this.position.x -= this.movSpd;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            this.isAlive == false;
-            removeFromGroup(this, allSprites);
-            removeFromGroup(this, enemies);
+            this.isAlive = false
+            removeFromGroup(this, allSprites)
+            removeFromGroup(this, enemies)
         }
         this.updateTarget();
         this.updatePosition();
