@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
 import { Robbie, Lanxe, James, Skeleton, DamageNumber } from './lib/classes';
 import { updateAllSprites } from './lib/groups';
+import { drawAllSprites, updateAllSprites } from './lib/groups';
+import { checkAtkBoxCollisions } from './lib/collision';
+import { guardians, enemies } from './lib/groups';
 
 const Canvas = () => {
 
@@ -16,17 +19,16 @@ const Canvas = () => {
       const lanxe = new Lanxe(50, 500)
       const robbie = new Robbie(50, 500)
       const james = new James(900, 500)
-      const skeleton = new Skeleton(1000, 500)
+      const skeleton = new Skeleton(1800, 500)
 
       const damageNumber = new DamageNumber(skeleton, skeleton.position.x + (skeleton.width / 2), skeleton.position.y)
 
       // Main game loop logic
       const gameLoop = () => {
 
-        // Game calculations function to be called
         // Enemy spawner function to be called
-        // Collision detection function to be called
-
+        
+        checkAtkBoxCollisions(guardians, enemies)
         updateAllSprites()
 
         // Clear the canvas
@@ -34,10 +36,7 @@ const Canvas = () => {
         context.fillRect(0, 0, canvas.width, canvas.height)
 
         // Render game objects
-        lanxe.draw(context)
-        robbie.draw(context)
-        james.draw(context)
-        skeleton.draw(context)
+        drawAllSprites(context)
 
         damageNumber.draw(context)
 

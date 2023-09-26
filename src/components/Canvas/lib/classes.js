@@ -1,4 +1,5 @@
-import { addToGroup, removeFromGroup, allSprites, characters, enemies } from "./groups"
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups"
+
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -16,7 +17,7 @@ class Sprite {
         for (const sprite of group) {
             const distance = Math.abs(sprite.position.x - this.position.x);
     
-            if ((type === 'character' && sprite.position.x > this.position.x) ||
+            if ((type === 'guardian' && sprite.position.x > this.position.x) ||
                 (type === 'enemy' && sprite.position.x < this.position.x)) {
                 if (distance < nearestDistance) {
                     nearestTarget = sprite;
@@ -52,27 +53,41 @@ const CHAR_MODES = {
     MODE_2: 1
 }
 
-
-
-// --------------------  CHARACTER CLASSES  ------------------------- 
-class Character extends Sprite {    
-    
-
+// --------------------  GUARDIAN CLASSES  ------------------------- 
+class Guardian extends Sprite {
     constructor() {
         super()
-        addToGroup(this, characters)
+        addToGroup(this, guardians)
 
         this.currentState = CHAR_STATES.IDLE
         this.currentMode = CHAR_MODES.MODE_1
     }
 
-    // Default target for Characters if not overriden in the subclass
+    // Default target for Guardians if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(enemies, 'character' )
+        this.target = this.findNearestTarget(enemies, 'guardian' )
     }
 
-    // Default movement for Characters if not overriden in the subclass
+    // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
+        if (this.target && (this.checkTargetInRange() == false)) {
+            this.position.x += this.movSpd;
+        }
+    }
+
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false
+            // Guardian knocked-out logic to be implemented
+        }
+        this.updateTarget()
+        this.updatePosition()
+
+        if (this.target && this.checkTargetInRange()) {
+            this.attack()
+        }
+        console.log(this.isAttacking)
+    
         // Calculate direction to target
         const direction = Math.abs(this.target.position.x - this.position.x)
 
@@ -129,31 +144,38 @@ class Character extends Sprite {
     }
 }
 
-class Lanxe extends Character {
+class Lanxe extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
+        this.width = 70
+        this.height = 150
         this.maxHealth = 100
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 1000
         this.atkRange = 200
         this.movSpd = 4
-
-        this.currentState = CHAR_STATES.FORWARD
     }
     
     draw(context) {
         context.fillStyle = 'blue'
-        context.fillRect(this.position.x, this.position.y, 70, 150)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+        if (this.isAttacking) {
+            context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
+        }
+
     }
 
 }
 
-class Robbie extends Character {
+class Robbie extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
+        this.width = 70
+        this.height = 150
         this.maxHealth = 60
         this.currHealth = this.maxHealth
         this.atk = 3
@@ -166,11 +188,11 @@ class Robbie extends Character {
 
     draw(context) {
         context.fillStyle = 'green'
-        context.fillRect(this.position.x, this.position.y, 70, 150)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
-class James extends Character {
+class James extends Guardian {
     constructor(x, y) {
         super()
         this.position = {x, y}
@@ -220,19 +242,24 @@ class Enemy extends Sprite {
 
     // Default target for Enemies if not overriden in the subclass
     updateTarget() {
-        this.target = this.findNearestTarget(characters, 'enemy')
+        this.target = this.findNearestTarget(guardians, 'enemy')
     }
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        // Calculate direction to target
-        const direction = this.target.position.x - this.position.x
-
-        // Move towards target
-        if (direction < -this.atkRange) {
-            this.position.x -= this.movSpd
+        if (this.target && this.target && (this.checkTargetInRange() == false)) {
+            this.position.x -= this.movSpd;
         }
+    }
 
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false
+            removeFromGroup(this, allSprites)
+            removeFromGroup(this, enemies)
+        }
+        this.updateTarget()
+        this.updatePosition()
     }
 }
 
@@ -240,6 +267,8 @@ class Skeleton extends Enemy {
     constructor(x, y) {
         super()
         this.position = {x, y}
+        this.width = 70
+        this.height = 150
         this.maxHealth = 20
         this.currHealth = this.maxHealth
         this.atk = 5
@@ -252,7 +281,7 @@ class Skeleton extends Enemy {
     
     draw(context) {
         context.fillStyle = 'red'
-        context.fillRect(this.position.x, this.position.y, 70, 150)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
