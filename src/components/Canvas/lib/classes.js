@@ -41,7 +41,10 @@ class Guardian extends Sprite {
     }
 
     attack() {
-    
+        this.isAttacking = true;
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 50);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -79,7 +82,7 @@ class Guardian extends Sprite {
       
         // Decrement the attack cooldown
         if (this.attackCooldown > 0) {
-        this.attackCooldown -= 16; // 16 milliseconds per frame (adjust as needed)
+        this.attackCooldown -= 20; // 20 milliseconds per frame (adjust as needed)
         }
     }
 }
@@ -96,7 +99,7 @@ class Lanxe extends Guardian {
         this.atkSpd = 1000
         this.atkRange = 200
         this.movSpd = 4
-        this.attackTimer = null; // Initialize the attack timer
+        this.attackTimer = null;
         this.attackCooldown = 0;
 
         this.isAttacking = false;
@@ -105,13 +108,6 @@ class Lanxe extends Guardian {
             width: this.atkRange,
             height: 50,
         };
-    }
-
-    attack() {
-        this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 50);
     }
 
     draw(context) {
@@ -153,37 +149,37 @@ class Duncan extends Guardian {
     constructor(x, y) {
         super();
         this.position = { x, y };
-        this.width = 70;
-        this.height = 150;
+        this.width = 90;
+        this.height = 170;
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 1200;
-        this.atkRange = 100;
+        this.atkSpd = 4000;
+        this.atkRange = 150;
         this.movSpd = 4.5;
+        this.attackTimer = null;
+        this.attackCooldown = 0;
 
-        /* this.isAttacking = false;
+        this.isAttacking = false;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
             height: 50,
-        }; */
+        }
     }
-
-    /* attack() {
-        this.isAttacking = true;
-        this.isAttacking = false;
-    } */
 
     draw(context) {
         context.fillStyle = "purple";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-        /* context.fillRect(
-            this.atkBox.position.x,
-            this.atkBox.position.y,
-            this.atkBox.width,
-            this.atkBox.height
-        ); */
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
     }
 }
 
