@@ -7,7 +7,7 @@
   transform: scale(1.1);
 } */
 
-.guardian-card> h1, h2 {
+.guardian-card> h4, h5 {
   color: rgba(0, 0, 0, 0.794);
   position: absolute;
   font-size: 7vh;
@@ -15,12 +15,12 @@
   padding: 1vh;
 }
 
-.guardian-card> h2 {
+.guardian-card> h5 {
   margin-bottom: -38vh;
   font-size: 5vh;
 }
 
-.guardian-card> h1 {
+.guardian-card> h4 {
   margin-top: -70vh;
 }
 

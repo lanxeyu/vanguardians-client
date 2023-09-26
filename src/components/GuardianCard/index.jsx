@@ -30,8 +30,8 @@ const GuardianCard = ({ guardian }) => {
   return (
     <Link to={`${guardian.g_id}`}>
       <div className = "guardian-card">
-        <h1>{guardian.name}</h1>
-        <h2>Type: {guardian.g_class}</h2>
+        <h4>{guardian.name}</h4>
+        <h5>Type: {guardian.g_class}</h5>
         <img src={imgUrl} alt={guardian.name} />
       </div>
     </Link>

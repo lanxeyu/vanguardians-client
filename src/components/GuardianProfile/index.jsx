@@ -34,8 +34,8 @@ const GuardianProfile = ({ guardian }) => {
     <>
     <div className="guardian-profile">
       <div className="guardian-profile-card">
-        <h1>{g.name}</h1>
-        <h2>Type: {g.g_class}</h2>
+        <h4>{g.name}</h4>
+        <h5>Type: {g.g_class}</h5>
         <img src={imgUrl} alt={guardian.name} />
       </div>
 
