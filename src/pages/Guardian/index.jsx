@@ -14,7 +14,7 @@ const Guardian = () => {
 
   async function fetchGuardian() {
     try{
-      const response = await fetch(`http://localhost:5000/guardians/${id}`)
+      const response = await fetch(`https://vanguardians-server.onrender.com/guardians/${id}`)
       const data = await response.json()
       setGuardian(data)
       setLoading(false)
