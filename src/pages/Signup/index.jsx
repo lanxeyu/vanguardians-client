@@ -14,11 +14,11 @@ const Signup = () => {
     // Allows focus to be set on error for screen reader to announce
     const errRef = useRef();
 
-    const [user, setUser] = useState("");
+    const [username, setUsername] = useState("");
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
 
-    const [pwd, setPwd] = useState("");
+    const [password, setPassword] = useState("");
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
@@ -34,66 +34,75 @@ const Signup = () => {
     }, []);
 
     useEffect(() => {
-        const result = USER_REGEX.test(user);
+        const result = USER_REGEX.test(username);
         console.log(result);
-        console.log(user);
+        console.log(username);
         setValidName(result);
-    }, [user]);
+    }, [username]);
 
     useEffect(() => {
-        const result = PWD_REGEX.test(pwd);
+        const result = PWD_REGEX.test(password);
         console.log(result);
-        console.log(pwd);
+        console.log(password);
         setValidPwd(result);
-        const match = pwd === matchPwd;
+        const match = password === matchPwd;
         setValidMatch(match);
-    }, [pwd, matchPwd]);
+    }, [password, matchPwd]);
 
     useEffect(() => {
         setErrMsg("");
-    }, [user, pwd, matchPwd]);
+    }, [username, password, matchPwd]);
 
     useEffect(() => {
-        if (validName) {
-            document.querySelector("#userNameCheck svg path").classList.add("valid");
-        } else {
-            console.log(document.querySelector("#userNameCross svg path"));
-            document.querySelector("#userNameCross svg path").classList.add("invalid");
+        if (!success) {
+            if (validName) {
+                document.querySelector("#userNameCheck svg path").classList.add("valid");
+            } else {
+                console.log(document.querySelector("#userNameCross svg path"));
+                document.querySelector("#userNameCross svg path").classList.add("invalid");
+            }
         }
     }, [validName]);
 
     useEffect(() => {
-        if (validPwd) {
-            document.querySelector("#pwdCheck svg path").classList.add("valid");
-        } else {
-            document.querySelector("#pwdCross svg path").classList.add("invalid");
+        if (!success) {
+            if (validPwd) {
+                document.querySelector("#pwdCheck svg path").classList.add("valid");
+            } else {
+                document.querySelector("#pwdCross svg path").classList.add("invalid");
+            }
         }
     }, [validPwd]);
 
     useEffect(() => {
-        if (validMatch && matchPwd) {
-            document.querySelector("#matchCheck svg path").classList.add("valid");
-        } else {
-            document.querySelector("#matchCross svg path").classList.add("invalid");
+        if (!success) {
+            if (validMatch && matchPwd) {
+                document.querySelector("#matchCheck svg path").classList.add("valid");
+            } else {
+                document.querySelector("#matchCross svg path").classList.add("invalid");
+            }
         }
     }, [validPwd, validMatch]);
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        const v1 = USER_REGEX.test(user);
-        const v2 = PWD_REGEX.test(pwd);
+        const v1 = USER_REGEX.test(username);
+        const v2 = PWD_REGEX.test(password);
         if (!v1 || !v2) {
             setErrMsg("Invalid Entry");
             return;
         }
+
+        console.log(JSON.stringify({ username, password }));
+
         try {
             const response = await axios.post(
-                "https://think-fast.onrender.com/register",
-                JSON.stringify({ user, pwd }),
+                "http://127.0.0.1:5000/users",
+                JSON.stringify({ username, password }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
+                    withCredentials: "true",
                 }
             );
 
@@ -102,9 +111,9 @@ const Signup = () => {
             setSuccess(true);
             //clear state and controlled inputs
             //need value attrib on inputs for this
-            /* setUser("");
-            setPwd("");
-            setMatchPwd(""); */
+            setUsername("");
+            setPassword("");
+            setMatchPwd("");
         } catch (err) {
             if (!err?.response) {
                 setErrMsg("No Server Response");
@@ -145,7 +154,7 @@ const Signup = () => {
                             </span>
                             <span
                                 id="userNameCross"
-                                className={validName || !user ? "hide" : "invalid"}>
+                                className={validName || !username ? "hide" : "invalid"}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
@@ -154,7 +163,7 @@ const Signup = () => {
                             id="username"
                             ref={userRef}
                             autoComplete="off"
-                            onChange={e => setUser(e.target.value)}
+                            onChange={e => setUsername(e.target.value)}
                             required
                             aria-invalid={validName ? "false" : "true"}
                             aria-describedby="uidnote"
@@ -164,7 +173,7 @@ const Signup = () => {
                         <p
                             id="uidnote"
                             className={
-                                userFocus && user && !validName ? "instructions" : "offscreen"
+                                userFocus && username && !validName ? "instructions" : "offscreen"
                             }>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             4 to 24 characters.
@@ -178,14 +187,16 @@ const Signup = () => {
                             <span id="pwdCheck" className={validPwd ? "valid" : "hide"}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </span>
-                            <span id="pwdCross" className={validPwd || !pwd ? "hide" : "invalid"}>
+                            <span
+                                id="pwdCross"
+                                className={validPwd || !password ? "hide" : "invalid"}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
                         <input
                             type="password"
                             id="password"
-                            onChange={e => setPwd(e.target.value)}
+                            onChange={e => setPassword(e.target.value)}
                             required
                             aria-invalid={validPwd ? "false" : "true"}
                             aria-describedby="pwdnote"
