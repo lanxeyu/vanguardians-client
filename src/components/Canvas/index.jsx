@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { initCanvas } from "./lib/canvas";
-import { Robbie, Lanxe, Duncan, Skeleton } from "./lib/classes";
+import { Robbie, Lanxe, Duncan, Steph, Skeleton, Projectile } from "./lib/classes";
 import { drawAllSprites, updateAllSprites } from "./lib/groups";
 import { checkAtkBoxCollisions } from "./lib/collision";
 import { guardians, enemies } from "./lib/groups";
@@ -12,17 +12,19 @@ const Canvas = () => {
 
     if (canvas) {
       initCanvas(canvas);
+        // Spawn objects // to be removed and use a dynamic spawner function
+        new Lanxe(50, 500);
+        new Robbie(50, 500);
+        new Duncan(50, 480);
+        new Steph(50, 500);
 
-      // Spawn objects // to be removed and use a dynamic spawner function
-      new Lanxe(50, 500);
-      new Robbie(50, 500);
-      new Duncan(50, 480);
-
-      const spawnSkeleton = () => {
-        new Skeleton(1920, 500);
-        setTimeout(spawnSkeleton, 1500);
-      }
-      spawnSkeleton();
+        const spawnSkeleton = () => {
+          new Skeleton(1800, 500);
+          setTimeout(spawnSkeleton, 1500);
+        }
+        spawnSkeleton();
+        
+        new Projectile(50, 500)
 
       // Main game loop logic
       const gameLoop = () => {

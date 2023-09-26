@@ -145,6 +145,27 @@ class Robbie extends Guardian {
     }
 }
 
+class Steph extends Guardian {
+    constructor(x, y) {
+        super();
+        this.position = {x, y};
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 80;
+        this.currHealth = this.maxHealth;
+        this.atk = 4;
+        this.atkSpd = 1000;
+        this.atkRange = 700;
+        this.movSpd = 2;
+
+        new Projectile(this.position);
+    }
+    draw(context) {
+        context.fillStyle = 'LightSkyBlue';
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
 class Duncan extends Guardian {
     constructor(x, y) {
         super();
@@ -233,6 +254,29 @@ class Skeleton extends Enemy {
     }
 }
 
-// --------------------  PROJECTILE CLASSES  -------------------------
+// --------------------  PROJECTILE CLASSES  ------------------------- 
+class Projectile extends Sprite {
+    constructor(x, y){
+        super()    
+        this.position= {x, y}
+        this.movSpd = 5
+        this.width = 100
+        this.height = 5
+    }
 
-export { Robbie, Lanxe, Duncan, Skeleton };
+    draw(context) {    
+        context.fillStyle = 'plum'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    updatePosition() {
+        this.position.x += this.movSpd
+    }
+
+    update() {
+        this.updatePosition()
+    }
+}
+
+
+export { Robbie, Lanxe, Duncan, Steph, Skeleton, Projectile }
