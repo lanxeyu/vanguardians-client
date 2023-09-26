@@ -1,19 +1,41 @@
+import { addToGroup, removeFromGroup, allSprites, characters, enemies } from "./groups"
+
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
     constructor(){
-        this.is_alive = true
-
+        addToGroup(this, allSprites)
+        this.isAlive = true
+        this.target = null
+        
     }
 
-    updateAnimation() {
-
+    findNearestTarget(group, type) {
+        let nearestTarget = null;
+        let nearestDistance = Infinity;
+    
+        for (const sprite of group) {
+            const distance = Math.abs(sprite.position.x - this.position.x);
+    
+            if ((type === 'character' && sprite.position.x > this.position.x) ||
+                (type === 'enemy' && sprite.position.x < this.position.x)) {
+                if (distance < nearestDistance) {
+                    nearestTarget = sprite;
+                    nearestDistance = distance;
+                }
+            }
+        }
+        return nearestTarget;
     }
-
+    
     update() {
+        if (!this.isAlive) {
+            removeFromGroup(this, allSprites)
+            removeFromGroup(this, characters)
+            removeFromGroup(this, enemies)
+        }
+        this.updateTarget()
         this.updatePosition()
-        this.updateAnimation()
     }
-
 }
 
 
@@ -21,27 +43,62 @@ class Sprite {
 class Character extends Sprite {
     constructor() {
         super()
+        addToGroup(this, characters)
+    }
+
+    // Default target for Characters if not overriden in the subclass
+    updateTarget() {
+        this.target = this.findNearestTarget(enemies, 'character' )
+    }
+
+    // Default movement for Characters if not overriden in the subclass
+    updatePosition() {
+        // Calculate direction to target
+        const direction = this.target.position.x - this.position.x
+
+        // Move towards target
+        if (direction > this.atkRange) {
+            this.position.x += this.movSpd
+        } 
+
     }
 }
-
 
 class Lanxe extends Character {
     constructor(x, y) {
         super()
         this.position = {x, y}
-        this.move_spd = 4
+        this.maxHealth = 100
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 1000
+        this.atkRange = 200
+        this.movSpd = 4
     }
     
-    updatePosition() {
-        this.position.x += this.move_spd
-
-    }
-
     draw(context) {
-        context.fillStyle = 'blue';
+        context.fillStyle = 'blue'
         context.fillRect(this.position.x, this.position.y, 70, 150)
     }
 
+}
+
+class Robbie extends Character {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.maxHealth = 60
+        this.currHealth = this.maxHealth
+        this.atk = 3
+        this.atkSpd = 600
+        this.atkRange = 400
+        this.movSpd = 3
+    }
+
+    draw(context) {
+        context.fillStyle = 'green'
+        context.fillRect(this.position.x, this.position.y, 70, 150)
+    }
 }
 
 
@@ -49,6 +106,24 @@ class Lanxe extends Character {
 class Enemy extends Sprite {
     constructor() {
         super()
+        addToGroup(this, enemies)
+    }
+
+    // Default target for Enemies if not overriden in the subclass
+    updateTarget() {
+        this.target = this.findNearestTarget(characters, 'enemy')
+    }
+
+    // Default movement for Enemies if not overriden in the subclass
+    updatePosition() {
+        // Calculate direction to target
+        const direction = this.target.position.x - this.position.x
+
+        // Move towards target
+        if (direction < -this.atkRange) {
+            this.position.x -= this.movSpd
+        }
+
     }
 }
 
@@ -56,16 +131,16 @@ class Skeleton extends Enemy {
     constructor(x, y) {
         super()
         this.position = {x, y}
-        this.move_spd = 2
-
+        this.maxHealth = 20
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 1500
+        this.atkRange = 100
+        this.movSpd = 2
     }
-
-    updatePosition() {
-        this.position.x -= this.move_spd
-    }
-
+    
     draw(context) {
-        context.fillStyle = 'red';
+        context.fillStyle = 'red'
         context.fillRect(this.position.x, this.position.y, 70, 150)
     }
 }
@@ -75,4 +150,4 @@ class Skeleton extends Enemy {
 
 
 
-export { Lanxe, Skeleton };
+export { Robbie, Lanxe, Skeleton }

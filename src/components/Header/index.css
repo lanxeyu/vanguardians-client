@@ -3,7 +3,7 @@
 *{
   padding: 0px;
   margin: 0px;
-  font-family: 'Bungee', cursive;
+  font-family: "Lilita One", cursive;
   color: white;
 }
 
@@ -16,20 +16,20 @@ html, body {
   height: 100%;
   width: 100%;
 }
-
-body{
-  background-color: #c4c8ba;
+  
+body {
+    background-color: #c4c8ba;
 }
 
 nav > a {
-  border-left: solid 2px #453c34;
-  padding: 0.5rem 1rem;
-  font-size: 1.7rem;
+    border-left: solid 2px #453c34;
+    padding: 0.5rem 1rem;
+    font-size: 1.7rem;
 }
 
 #nav-title {
-  font-size: 3.4rem;
-  text-decoration: none;
+    font-size: 3.4rem;
+    text-decoration: none;
 }
 
 header{
@@ -40,4 +40,3 @@ header{
   background-color: #5b5047;
   height: 3.9rem;
 }
-

@@ -7,7 +7,7 @@ export default function Header () {
     return (
       <>
         <header>
-            <NavLink id='nav-title' to="/">Vanguardians</NavLink>
+            <NavLink id='nav-title' to="/">VanGuardians</NavLink>
           <nav>
             <NavLink to="/" style={styles}>Home</NavLink>
             <NavLink to="/leaderboard" style={styles}>Leaderboard</NavLink>
