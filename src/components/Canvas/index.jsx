@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
-import { Robbie, Lanxe, Skeleton } from './lib/classes';
+import { Robbie, Lanxe, Skeleton, Projectile } from './lib/classes';
 import { allSprites, drawAllSprites, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions } from './lib/collision';
 import { characters, enemies } from './lib/groups';

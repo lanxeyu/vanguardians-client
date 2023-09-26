@@ -127,7 +127,7 @@ class Steph extends Character {
     
     draw(context) {
         context.fillStyle = 'LightSkyBlue'
-        context.fillRect(this.position.x, this.position.y, 70, 150)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
@@ -193,8 +193,30 @@ class Skeleton extends Enemy {
 }
 
 // --------------------  PROJECTILE CLASSES  ------------------------- 
+class Projectile extends Sprite {
+    constructor({ position, movSpd}){
+        super()
+        this.position = position
+        this.movSpd = movSpd
+        this.radius = 3
+    }
+
+    draw(context) {
+        context.beginPath()
+        context.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        context.fillStyle = 'plum'
+        context.fill()
+        context.closePath()
+    }
+
+    update() {
+        this.draw()
+        this.position.x += this.movSpd.x
+        this.position.y += this.movSpd.y
+    }
+}
 
 
 
 
-export { Robbie, Lanxe, Steph, Skeleton }
+export { Robbie, Lanxe, Steph, Skeleton, Projectile }
