@@ -154,12 +154,30 @@ class Robbie extends Guardian {
         this.atkSpd = 600;
         this.atkRange = 400;
         this.movSpd = 3;
-    }
 
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 50,
+    };
+    }
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
     }
+    
 }
 
 class James extends Guardian {
