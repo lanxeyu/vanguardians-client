@@ -1,51 +1,5 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
-
-// --------------------  MAIN SPRITE CLASS  --------------------
-class Sprite {
-    constructor(){
-        addToGroup(this, allSprites)
-        this.isAlive = true
-        this.target = null
-    }
-
-    findNearestTarget(group, type) {
-        let nearestTarget = null;
-        let nearestDistance = Infinity;
-
-        for (const sprite of group) {
-            const distance = Math.abs(sprite.position.x - this.position.x);
-
-            if (
-                (type === "guardian" && sprite.position.x > this.position.x) ||
-                (type === "enemy" && sprite.position.x < this.position.x)
-            ) {
-                if (distance < nearestDistance) {
-                    nearestTarget = sprite;
-                    nearestDistance = distance;
-                }
-            }
-        }
-        return nearestTarget;
-    }
-
-    checkTargetInRange() {
-        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
-    }
-}
-
-// --------------------  STATE MANAGERS -----------------------------
-
-const CHAR_STATES = {
-    IDLE: 0,
-    FORWARD: 1,
-    ATTACKING: 2,
-    FLEEING: 3
-}
-
-const CHAR_MODES = {
-    MODE_1: 0,
-    MODE_2: 1
-}
+import { addToGroup, guardians, enemies } from "./groups";
+import { Sprite, CHAR_STATES, CHAR_MODES } from "./sprite";
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Sprite {
@@ -61,7 +15,7 @@ class Guardian extends Sprite {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 50);
+        }, 5);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -136,9 +90,7 @@ class Guardian extends Sprite {
         // Decrement the attack cooldown
         if (this.attackCooldown > 0) {
         this.attackCooldown -= 20; // 20 milliseconds per frame (adjust as needed)
-        }
-        console.log(this.isAttacking)
-    
+        }  
     }
 
     toggleModes() {
@@ -207,13 +159,6 @@ class Robbie extends Guardian {
         this.movSpd = 3;
     }
 
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 50)
-    }
-
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -230,7 +175,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 4
         this.atkSpd = 800
-        this.atkRange = 50
+        this.atkRange = 400
         this.movSpd = 4
 
         this.isAttacking = false
@@ -241,13 +186,6 @@ class James extends Guardian {
         }
 
         this.currentState = CHAR_STATES.FLEEING
-    }
-
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 50)
     }
 
     draw(context) {
@@ -288,15 +226,6 @@ class Steph extends Guardian {
         this.atkSpd = 1000;
         this.atkRange = 700;
         this.movSpd = 2;
-
-        new Projectile(this.position);
-    }
-
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 50)
     }
 
     draw(context) {
@@ -314,7 +243,7 @@ class Duncan extends Guardian {
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 4000;
+        this.atkSpd = 3300;
         this.atkRange = 150;
         this.movSpd = 4.5;
         this.attackTimer = null;
@@ -326,13 +255,6 @@ class Duncan extends Guardian {
             width: this.atkRange,
             height: 50,
         }
-    }
-
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 50)
     }
 
     draw(context) {
@@ -350,57 +272,7 @@ class Duncan extends Guardian {
     }
 }
 
-// --------------------  ENEMY CLASSES  -------------------------
-class Enemy extends Sprite {
-    constructor() {
-        super();
-        addToGroup(this, enemies);
-    }
-
-    // Default target for Enemies if not overriden in the subclass
-    updateTarget() {
-        this.target = this.findNearestTarget(guardians, "enemy");
-    }
-
-    // Default movement for Enemies if not overriden in the subclass
-    updatePosition() {
-        if (this.target && this.target && this.checkTargetInRange() == false) {
-            this.position.x -= this.movSpd;
-        }
-    }
-
-    update() {
-        if (this.currHealth <= 0) {
-            this.isAlive = false;
-            removeFromGroup(this, allSprites);
-            removeFromGroup(this, enemies);
-        }
-        this.updateTarget();
-        this.updatePosition();
-    }
-}
-
-class Skeleton extends Enemy {
-    constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 150
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 1500
-        this.atkRange = 100
-        this.movSpd = 4
-    }
-
-    draw(context) {
-        context.fillStyle = "red";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-}
-
-// --------------------  PROJECTILE CLASSES  ------------------------- 
+// --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
 class Projectile extends Sprite {
     constructor(x, y){
         super()    
@@ -424,67 +296,4 @@ class Projectile extends Sprite {
     }
 }
 
-
-
-// -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
-
-class DamageNumber extends Sprite {
-    constructor(text, x, y) {
-        super()
-        this.offsetY = 20
-        this.offsetX = 0
-        let newPointY = y - this.offsetY
-        let newPointX = x - this.offsetX
-        this.position = { x: newPointX, y: newPointY }
-        this.movSpd = 1
-        this.lifeTime = 1000
-
-        this.endTime = new Date()
-        this.endTime.setSeconds(this.endTime.getSeconds() + this.lifeTime / 1000)
-        
-        this.elapsedTime = 0
-        this.text = text
-
-        this.alpha = 1
-
-        console.log(x, y)
-        console.log(newPointX, newPointY)
-        console.log(this.position)
-        // setTimeout(() => {
-
-        // }, this.lifeTime * 1000)
-        console.log(this.lifeTime - (this.endTime - new Date()))
-    }
-
-    update() {
-        let newPointY = this.position.y - this.movSpd
-        let newPointX = this.position.x
-        // if (this.target) newPointX = this.target.position.x + (this.target.width / 2)
-
-        this.position = { x: newPointX, y:  newPointY }
-
-        if (this.elapsedTime >= this.lifeTime) {
-            this.elapsedTime = this.lifeTime
-        }
-        else {
-            this.elapsedTime =  this.lifeTime - (this.endTime - new Date())
-        }
-        
-        if (this.alpha <= 0) {
-            this.alpha = 0
-        }
-        else {
-            this.alpha = 1 - (Math.round((this.elapsedTime / this.lifeTime) * 100) / 100)
-        }
-        
-    }
-
-    draw(context) {
-        context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "18px Arial";
-        // context.textAlign = "center";
-        context.fillText(this.text, this.position.x, this.position.y)
-    }
-}
-
-export { Robbie, Lanxe, Duncan, James, Steph, Skeleton, DamageNumber, Projectile }
+export { Lanxe, Robbie, Duncan, Steph, James, Projectile }
