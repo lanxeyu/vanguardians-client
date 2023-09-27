@@ -41,7 +41,7 @@ class Skeleton extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 150
-        this.maxHealth = 10
+        this.maxHealth = 20
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 1500

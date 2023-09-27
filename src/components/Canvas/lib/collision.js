@@ -11,7 +11,7 @@ function checkAtkBoxCollisions(guardians, enemies) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
                     spriteB.currHealth -= spriteA.atk
                     new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
-                    // console.log(spriteB.currHealth)
+                    console.log('go')
                 }
             }
         }
@@ -38,4 +38,4 @@ function isAtkBoxColliding(atkBoxA, spriteB) {
 }
   
 
-export { checkAtkBoxCollisions }
+export { checkAtkBoxCollisions, isAtkBoxColliding }

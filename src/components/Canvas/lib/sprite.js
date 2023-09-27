@@ -49,7 +49,8 @@ class Sprite {
     }
 
     checkTargetInRange() {
-        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
+        if (this.target)
+            return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
     }
 }
 

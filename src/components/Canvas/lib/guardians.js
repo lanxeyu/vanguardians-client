@@ -1,5 +1,6 @@
-import { addToGroup, guardians, enemies } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite, CHAR_STATES, CHAR_MODES } from "./sprite";
+
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Sprite {
@@ -9,13 +10,6 @@ class Guardian extends Sprite {
 
         this.currentState = CHAR_STATES.IDLE
         this.currentMode = CHAR_MODES.MODE_1
-    }
-
-    attack() {
-        this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 10);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -66,31 +60,34 @@ class Guardian extends Sprite {
         */
     }
 
+    attack() {
+        this.isAttacking = true;
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 5); 
+    }
+
+    updateAttacking() {
+        if (this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
+            this.attack();
+            this.atkCooldown = this.atkSpd;
+            this.atkTimer = setTimeout(() => {
+              this.isAttacking = false;
+            }, 50);
+        }
+        if (this.atkCooldown > 0) {
+        this.atkCooldown -= 16;
+        }
+    }
+
     update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             // Guardian knocked-out logic to be implemented
         }
-        this.updateTarget();
-        this.updatePosition();
-
-        if (this.target && this.checkTargetInRange() && this.attackCooldown <= 0) {
-            // Call the attack method
-            this.attack();
-            
-            // Set the attack cooldown based on this.atkSpd
-            this.attackCooldown = this.atkSpd;
-            
-            // Start a timer to reset isAttacking after a delay
-            this.attackTimer = setTimeout(() => {
-              this.isAttacking = false;
-            }, 50); // Adjust the delay as needed
-        }
-      
-        // Decrement the attack cooldown
-        if (this.attackCooldown > 0) {
-        this.attackCooldown -= 20; // 20 milliseconds per frame (adjust as needed)
-        }  
+        this.updateTarget()
+        this.updatePosition()
+        this.updateAttacking()
     }
 
     toggleModes() {
@@ -116,22 +113,18 @@ class Lanxe extends Guardian {
         this.maxHealth = 100
         this.currHealth = this.maxHealth
         this.atk = 5
-        this.atkSpd = 1000
+        this.atkSpd = 2000
         this.atkRange = 200
         this.movSpd = 4
-        this.attackTimer = null;
-        this.attackCooldown = 0;
 
         this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
             height: 50,
         };
-    }
-
-    updateTarget() {
-        this.target = this.findNearestTarget(enemies, "guardian");
     }
 
     draw(context) {
@@ -237,10 +230,10 @@ class Steph extends Guardian {
     }
 
     shootArrow() {
-        this.shootArrowInterval = setInterval(() => {
+        setInterval(() => {
             if (this.isAlive) {
                 this.isAttacking = true
-                new Arrow(this.position.x, this.position.y);
+                new Spear(this.position.x, this.position.y);
             }
         }, this.atkSpd);
     }
@@ -263,10 +256,10 @@ class Duncan extends Guardian {
         this.atkSpd = 3300;
         this.atkRange = 150;
         this.movSpd = 4.5;
-        this.attackTimer = null;
-        this.attackCooldown = 0;
 
         this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
@@ -304,11 +297,12 @@ class Projectile extends Sprite {
     }
 }
 
-class Arrow extends Projectile {
+class Spear extends Projectile {
     constructor(x,y) {
         super()
+        addToGroup(this, guardianProjectiles)
         this.position= {x, y}
-        this.movSpd = 5
+        this.movSpd = 20
         this.width = 100
         this.height = 5
     }
