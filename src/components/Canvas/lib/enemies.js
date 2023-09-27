@@ -7,6 +7,9 @@ class Enemy extends Sprite {
     constructor() {
         super();
         addToGroup(this, enemies);
+
+        this.attackTimer = null;
+        this.attackCooldown = 0;
     }
 
     // Default target for Enemies if not overriden in the subclass
@@ -44,6 +47,14 @@ class Skeleton extends Enemy {
         this.atkSpd = 1500
         this.atkRange = 100
         this.movSpd = 4
+
+
+        // this.isAttacking = false;
+        // this.atkBox = {
+        //     position: this.position,
+        //     width: this.atkRange,
+        //     height: 50,
+        // };
     }
 
     draw(context) {

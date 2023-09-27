@@ -15,7 +15,7 @@ class Guardian extends Sprite {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5);
+        }, 10);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -127,7 +127,12 @@ class Lanxe extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
+            hasCollided: false
         };
+    }
+
+    updateTarget() {
+        this.target = this.findNearestTarget(enemies, "guardian");
     }
 
     draw(context) {
