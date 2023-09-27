@@ -18,21 +18,21 @@ html, body {
 }
   
 body {
-    background-color: #c4c8ba;
+  background-color: #c4c8ba;
 }
 
 nav > a {
-    border-left: solid 2px #453c34;
-    padding: 0.5rem 1rem;
-    font-size: 1.7rem;
+  border-left: solid 2px #453c34;
+  padding: 0.5rem 1rem;
+  font-size: 1.7rem;
 }
 
 #nav-title {
-    font-size: 3.4rem;
-    text-decoration: none;
+  font-size: 3.4rem;
+  text-decoration: none;
 }
 
-header{
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -11,7 +11,7 @@ export default function Header () {
           <nav>
             <NavLink to="/" style={styles}>Home</NavLink>
             <NavLink to="/leaderboard" style={styles}>Leaderboard</NavLink>
-            <NavLink to="/characters" style={styles}>Characters</NavLink>
+            <NavLink to="/guardians" style={styles}>Guardians</NavLink>
             <NavLink to="/game" style={styles}>Game</NavLink>
             <NavLink to="/login" style={styles}>Login</NavLink>
             <NavLink to="/signup" style={styles}>Sign Up</NavLink>

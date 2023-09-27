@@ -1,0 +1,44 @@
+.guardian-card> img{
+  height: 38vh;
+  margin-top: -10vh;
+}
+
+/* .guardian-card> img:hover{
+  transform: scale(1.1);
+} */
+
+.guardian-card> h4, h5 {
+  color: rgba(0, 0, 0, 0.794);
+  position: absolute;
+  font-size: 7vh;
+  border-radius: 3vh;
+  padding: 1vh;
+}
+
+.guardian-card> h5 {
+  margin-bottom: -38vh;
+  font-size: 5vh;
+}
+
+.guardian-card> h4 {
+  margin-top: -70vh;
+}
+
+.guardian-card {
+  height: 70vh;
+  width: 26vw;
+  padding-top: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3vh;
+  background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png);
+  background-position: center;
+  background-size: cover;
+  border-radius: 3vh;
+  border: 3px solid #5b5047c6;
+}
+
+.guardian-card:hover {
+  transform: scale(0.96);
+}

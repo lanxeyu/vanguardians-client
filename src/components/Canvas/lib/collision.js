@@ -4,7 +4,6 @@ function checkAtkBoxCollisions(guardians, enemies) {
             for (const spriteB of enemies) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
                     spriteB.currHealth -= spriteA.atk
-                    console.log(spriteB.currHealth)
                 }
             }
         }

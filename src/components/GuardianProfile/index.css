@@ -1,0 +1,66 @@
+.guardian-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guardian-profile-card> img{
+  height: 38vh;
+  margin-top: -10vh;
+}
+
+#card-2 {
+  flex-direction: column;
+}
+
+.prof-section {
+  text-align: center;
+  background-color:#33312a;
+  margin: 2vh;
+  border-radius: 3vh;
+  padding: 1vh;
+  max-width: 18vw;
+}
+
+.prof-section> h3 {
+  font-size: 3.7vh;
+}
+
+.prof-section> p {
+  font-size: 3vh;
+}
+
+.guardian-profile-card> h4, h5 {
+  color: rgba(0, 0, 0, 0.794);
+  position: absolute;
+  font-size: 7vh;
+  border-radius: 3vh;
+  padding: 1vh;
+}
+
+.guardian-profile-card> h5 {
+  margin-bottom: -38vh;
+  font-size: 5vh;
+}
+
+.guardian-profile-card> h4 {
+  margin-top: -70vh;
+}
+
+.guardian-profile-card {
+  height: 70vh;
+  width: 26vw;
+  padding-top: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3vh;
+  background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png);
+  background-position: center;
+  background-size: cover;
+  border-radius: 3vh;
+  border: 3px solid #5b5047c6;
+}
+
+
+
