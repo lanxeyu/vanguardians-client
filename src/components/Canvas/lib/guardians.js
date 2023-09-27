@@ -104,6 +104,14 @@ class Guardian extends Sprite {
                 this.currentMode = CHAR_MODES.MODE_1
         }
     }
+
+    drawHealthBar() {
+        context.fillStyle = 'grey';
+        context.fillRect(this.position.x, this.position.y - 15, this.width, this.healthBarHeight);
+
+        context.fillStyle = 'red';
+        context.fillRect(this.position.x, this.position.y - 15, this.currHealth/this.maxHealth * 100, this.healthBarHeight);
+    }
 }
 
 class Lanxe extends Guardian {
@@ -242,6 +250,9 @@ class Steph extends Guardian {
         this.height = 150;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
+
+        this.healthBarHeight= 8
+
         this.atk = 4;
         this.atkSpd = 2000;
         this.atkRange = 700;
@@ -264,6 +275,12 @@ class Steph extends Guardian {
     draw(context) {
         context.fillStyle = 'LightSkyBlue';
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        context.fillStyle = 'grey';
+        context.fillRect(this.position.x, this.position.y - 15, this.width, this.healthBarHeight);
+
+        context.fillStyle = 'red';
+        context.fillRect(this.position.x, this.position.y - 15, this.currHealth/this.maxHealth * 100, this.healthBarHeight);
     }
 }
 
