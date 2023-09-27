@@ -223,9 +223,18 @@ class Steph extends Guardian {
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
         this.atk = 4;
-        this.atkSpd = 1000;
+        this.atkSpd = 2000;
         this.atkRange = 700;
         this.movSpd = 2;
+        this.shootArrow();
+    }
+
+    shootArrow() {
+        this.shootArrowInterval = setInterval(() => {
+            if (this.isAlive) {
+                new Arrow(this.position.x, this.position.y);
+            }
+        }, this.atkSpd);
     }
 
     draw(context) {
@@ -274,17 +283,8 @@ class Duncan extends Guardian {
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
 class Projectile extends Sprite {
-    constructor(x, y){
-        super()    
-        this.position= {x, y}
-        this.movSpd = 5
-        this.width = 100
-        this.height = 5
-    }
-
-    draw(context) {    
-        context.fillStyle = 'plum'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    constructor(){
+        super();
     }
 
     updatePosition() {
@@ -296,4 +296,19 @@ class Projectile extends Sprite {
     }
 }
 
-export { Lanxe, Robbie, Duncan, Steph, James, Projectile }
+class Arrow extends Projectile {
+    constructor(x,y) {
+        super()
+        this.position= {x, y}
+        this.movSpd = 5
+        this.width = 100
+        this.height = 5
+    }
+
+    draw(context) {    
+        context.fillStyle = 'plum'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+export { Lanxe, Robbie, Duncan, Steph, James }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
-import { Lanxe, Robbie, Duncan, Steph, James, Projectile } from './lib/guardians';
+import { Lanxe, Robbie, Duncan, Steph, James } from './lib/guardians';
 import { spawnSkeleton } from './lib/spawner';
 import { drawAllSprites, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions } from './lib/collision';
@@ -21,8 +21,6 @@ const Canvas = () => {
       new James(50,500)
 
       spawnSkeleton();
-
-      new Projectile(50, 500)
 
       // Main game loop logic
       const gameLoop = () => {
