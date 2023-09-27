@@ -15,15 +15,16 @@ const Leaderboard = () => {
       }
     } catch (error) {
         console.error('Error fetching data:', error);
-        setLeaderboardData([{
-          'name': 'Simon',
-          'score': 20000
-        },
-        {
-          'name': 'Daniel',
-          'score': 5500
-        }
-      ]);
+        setLeaderboardData([])
+      //   setLeaderboardData([{
+      //     'name': 'Simon',
+      //     'score': 20000
+      //   },
+      //   {
+      //     'name': 'Daniel',
+      //     'score': 5500
+      //   }
+      // ]);
     }
   }
 
