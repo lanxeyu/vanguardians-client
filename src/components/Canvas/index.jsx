@@ -34,7 +34,6 @@ const Canvas = () => {
         // Render game objects
         drawAllSprites(context);
 
-        // damageNumber.draw(context)
         requestAnimationFrame(gameLoop);
       };
       gameLoop();

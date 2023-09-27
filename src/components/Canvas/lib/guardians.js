@@ -230,12 +230,16 @@ class Steph extends Guardian {
         this.atkSpd = 2000;
         this.atkRange = 700;
         this.movSpd = 2;
+
+        this.isAttacking = false;
+
         this.shootArrow();
     }
 
     shootArrow() {
         this.shootArrowInterval = setInterval(() => {
             if (this.isAlive) {
+                this.isAttacking = true
                 new Arrow(this.position.x, this.position.y);
             }
         }, this.atkSpd);
