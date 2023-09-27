@@ -19,7 +19,7 @@ class Guardian extends Sprite {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.checkTargetInRange() == false) {
+        if (this.target && (this.position.x < 900) && (this.checkTargetInRange() == false)) {
             this.position.x += this.movSpd;
         }
         /*
@@ -128,6 +128,8 @@ class Lanxe extends Guardian {
     }
 
     draw(context) {
+        this.atkBox.position.x = this.position.x
+        this.atkBox.position.y = this.position.y
         context.fillStyle = "blue";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
@@ -151,7 +153,7 @@ class Robbie extends Guardian {
         this.maxHealth = 60;
         this.currHealth = this.maxHealth;
         this.atk = 3;
-        this.atkSpd = 600;
+        this.atkSpd = 2000;
         this.atkRange = 400;
         this.movSpd = 3;
 
@@ -162,7 +164,8 @@ class Robbie extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
-    };
+    }
+
     }
     draw(context) {
         context.fillStyle = "green";
