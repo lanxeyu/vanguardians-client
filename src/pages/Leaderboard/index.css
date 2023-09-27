@@ -1,0 +1,17 @@
+#leaderboard-container {
+    height: calc(100% - 4.9rem);
+    width: 100%;
+    /* background-color: #fffeee; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#leaderboard-title {
+    font-weight: bold;
+    font-size: 1.9rem;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2.5rem;
+}

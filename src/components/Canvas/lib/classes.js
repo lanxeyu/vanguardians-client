@@ -33,11 +33,28 @@ class Sprite {
     }
 }
 
+// --------------------  STATE MANAGERS -----------------------------
+
+const CHAR_STATES = {
+    IDLE: 0,
+    FORWARD: 1,
+    ATTACKING: 2,
+    FLEEING: 3
+}
+
+const CHAR_MODES = {
+    MODE_1: 0,
+    MODE_2: 1
+}
+
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Sprite {
     constructor() {
         super();
         addToGroup(this, guardians);
+
+        this.currentState = CHAR_STATES.IDLE
+        this.currentMode = CHAR_MODES.MODE_1
     }
 
     attack() {
@@ -57,6 +74,42 @@ class Guardian extends Sprite {
         if (this.target && this.checkTargetInRange() == false) {
             this.position.x += this.movSpd;
         }
+        /*
+        let homePositionX = 50
+        // Distance between player and home
+        const retreatDistance = Math.abs(this.position.x - homePositionX) 
+        switch(this.currentState) {
+            case CHAR_STATES.IDLE:
+
+            break
+            case CHAR_STATES.FORWARD:
+                // Move towards target
+                if (direction > this.atkRange) {
+                    this.position.x += this.movSpd
+                } 
+            break
+            case CHAR_STATES.ATTACKING:
+
+            break
+            case CHAR_STATES.FLEEING:
+                if (retreatDistance > this.movSpd) {
+                    if (homePositionX > this.position.x) {
+                        this.position.x += this.movSpd
+                    } 
+                    else if (homePositionX < this.position.x) {
+                        this.position.x -= this.movSpd
+                    }
+                }
+                else {
+                    this.position.x = homePositionX
+                    this.currentState = CHAR_STATES.IDLE
+                }
+                
+            break
+            default:
+
+        }
+        */
     }
 
     update() {
@@ -83,6 +136,21 @@ class Guardian extends Sprite {
         // Decrement the attack cooldown
         if (this.attackCooldown > 0) {
         this.attackCooldown -= 20; // 20 milliseconds per frame (adjust as needed)
+        }
+        console.log(this.isAttacking)
+    
+    }
+
+    toggleModes() {
+        switch(this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.currentMode = CHAR_MODES.MODE_2
+            break
+            case CHAR_MODES.MODE_2:
+                this.currentMode = CHAR_MODES.MODE_1
+            break
+            default:
+                this.currentMode = CHAR_MODES.MODE_1
         }
     }
 }
@@ -138,10 +206,73 @@ class Robbie extends Guardian {
         this.atkRange = 400;
         this.movSpd = 3;
     }
-    
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
+    }
+
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+class James extends Guardian {
+    constructor(x, y) {
+        super() 
+        this.position = {x, y}
+        this.width = 150
+        this.height = 70
+        this.maxHealth = 120
+        this.currHealth = this.maxHealth
+        this.atk = 4
+        this.atkSpd = 800
+        this.atkRange = 50
+        this.movSpd = 4
+
+        this.isAttacking = false
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 50
+        }
+
+        this.currentState = CHAR_STATES.FLEEING
+    }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
+    }
+
+    draw(context) {
+        switch(this.currentState) {
+            case CHAR_STATES.FORWARD:
+                context.fillStyle = `rgb(
+                    200,
+                    20,
+                    200)`
+            break
+            case CHAR_STATES.FLEEING:
+                context.fillStyle = `rgb(
+                    200,
+                    200,
+                    0)`
+                
+            break
+            case CHAR_STATES.IDLE:
+                context.fillStyle = `rgb(
+                    200,
+                    200,
+                    200)`
+            break
+        }
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
@@ -160,6 +291,14 @@ class Steph extends Guardian {
 
         new Projectile(this.position);
     }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
+    }
+
     draw(context) {
         context.fillStyle = 'LightSkyBlue';
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -187,6 +326,13 @@ class Duncan extends Guardian {
             width: this.atkRange,
             height: 50,
         }
+    }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
     }
 
     draw(context) {
@@ -279,4 +425,66 @@ class Projectile extends Sprite {
 }
 
 
-export { Robbie, Lanxe, Duncan, Steph, Skeleton, Projectile }
+
+// -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
+
+class DamageNumber extends Sprite {
+    constructor(text, x, y) {
+        super()
+        this.offsetY = 20
+        this.offsetX = 0
+        let newPointY = y - this.offsetY
+        let newPointX = x - this.offsetX
+        this.position = { x: newPointX, y: newPointY }
+        this.movSpd = 1
+        this.lifeTime = 1000
+
+        this.endTime = new Date()
+        this.endTime.setSeconds(this.endTime.getSeconds() + this.lifeTime / 1000)
+        
+        this.elapsedTime = 0
+        this.text = text
+
+        this.alpha = 1
+
+        console.log(x, y)
+        console.log(newPointX, newPointY)
+        console.log(this.position)
+        // setTimeout(() => {
+
+        // }, this.lifeTime * 1000)
+        console.log(this.lifeTime - (this.endTime - new Date()))
+    }
+
+    update() {
+        let newPointY = this.position.y - this.movSpd
+        let newPointX = this.position.x
+        // if (this.target) newPointX = this.target.position.x + (this.target.width / 2)
+
+        this.position = { x: newPointX, y:  newPointY }
+
+        if (this.elapsedTime >= this.lifeTime) {
+            this.elapsedTime = this.lifeTime
+        }
+        else {
+            this.elapsedTime =  this.lifeTime - (this.endTime - new Date())
+        }
+        
+        if (this.alpha <= 0) {
+            this.alpha = 0
+        }
+        else {
+            this.alpha = 1 - (Math.round((this.elapsedTime / this.lifeTime) * 100) / 100)
+        }
+        
+    }
+
+    draw(context) {
+        context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
+        context.font = "18px Arial";
+        // context.textAlign = "center";
+        context.fillText(this.text, this.position.x, this.position.y)
+    }
+}
+
+export { Robbie, Lanxe, Duncan, James, Steph, Skeleton, DamageNumber, Projectile }

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { initCanvas } from "./lib/canvas";
-import { Robbie, Lanxe, Duncan, Steph, Skeleton, Projectile } from "./lib/classes";
-import { drawAllSprites, updateAllSprites } from "./lib/groups";
-import { checkAtkBoxCollisions } from "./lib/collision";
-import { guardians, enemies } from "./lib/groups";
+import React, { useEffect } from 'react';
+import { initCanvas } from './lib/canvas';
+import { Robbie, Lanxe, Duncan, James, Steph, Skeleton, DamageNumber, Projectile } from './lib/classes';
+import { drawAllSprites, updateAllSprites } from './lib/groups';
+import { checkAtkBoxCollisions } from './lib/collision';
+import { guardians, enemies } from './lib/groups';
 
 const Canvas = () => {
   useEffect(() => {
@@ -17,6 +17,14 @@ const Canvas = () => {
         new Robbie(50, 500);
         new Duncan(50, 480);
         new Steph(50, 500);
+
+      // Spawn objects // to be removed and use a dynamic spawner function
+      const lanxe = new Lanxe(50, 500)
+      const robbie = new Robbie(50, 500)
+      const james = new James(900, 500)
+      const skeleton = new Skeleton(1800, 500)
+
+      const damageNumber = new DamageNumber('9999', skeleton.position.x , skeleton.position.y)
 
         const spawnSkeleton = () => {
           new Skeleton(1800, 500);
@@ -38,6 +46,8 @@ const Canvas = () => {
 
         // Render game objects
         drawAllSprites(context);
+
+        damageNumber.draw(context)
 
         requestAnimationFrame(gameLoop);
       };
