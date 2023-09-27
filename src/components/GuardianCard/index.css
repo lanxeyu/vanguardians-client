@@ -1,6 +1,6 @@
 .guardian-card> img{
-  height: 38vh;
-  margin-top: -10vh;
+  height: 36vh;
+  margin-top: -5vh;
 }
 
 /* .guardian-card> img:hover{
@@ -8,7 +8,8 @@
 } */
 
 .guardian-card> h4, h5 {
-  color: #5b5047;
+  color: white;
+  font-family: 'Lilita One', cursive;
   position: absolute;
   font-size: 7vh;
   border-radius: 3vh;
@@ -16,24 +17,25 @@
 }
 
 .guardian-card> h5 {
-  color: #5b5047;
-  margin-bottom: -38vh;
+  color: white;
+  margin-bottom: -42vh;
   font-size: 5vh;
 }
 
 .guardian-card> h4 {
-  margin-top: -70vh;
+  margin-top: -60vh;
 }
 
 .guardian-card {
-  height: 70vh;
-  width: 26vw;
+  height: 60vh;
+  width: 24vw;
   padding-top: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 3vh;
-  background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png);
+  /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
+  background-color: #5b5047;
   background-position: center;
   background-size: cover;
   border-radius: 3vh;

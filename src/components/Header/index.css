@@ -3,7 +3,7 @@
 *{
   padding: 0px;
   margin: 0px;
-  font-family: "Lilita One", cursive;
+  font-family: 'Lilita One', cursive;
   color: white;
 }
 
@@ -24,7 +24,7 @@ body {
 nav > a {
   border-left: solid 2px #453c34;
   padding: 0.5rem 1rem;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
 }
 
 #nav-title {
@@ -33,6 +33,7 @@ nav > a {
 }
 
 header {
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
