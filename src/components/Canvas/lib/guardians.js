@@ -1,4 +1,4 @@
-import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite, CHAR_STATES, CHAR_MODES } from "./sprite";
 
 
@@ -84,6 +84,8 @@ class Guardian extends Sprite {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             // Guardian knocked-out logic to be implemented
+            removeFromGroup(this, allSprites);
+            removeFromGroup(this, guardians);
         }
         this.updateTarget()
         this.updatePosition()

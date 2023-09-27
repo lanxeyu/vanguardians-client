@@ -26,6 +26,8 @@ const Canvas = () => {
       const gameLoop = () => {
         updateAllSprites();
         checkAtkBoxCollisions(guardians, enemies);
+        checkAtkBoxCollisions(enemies, guardians);
+
         
         // Clear the canvas
         context.fillStyle = "black";
