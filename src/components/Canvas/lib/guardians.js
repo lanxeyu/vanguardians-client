@@ -127,7 +127,6 @@ class Lanxe extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
-            hasCollided: false
         };
     }
 
