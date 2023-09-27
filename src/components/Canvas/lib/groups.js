@@ -1,6 +1,7 @@
 const allSprites = [];
 const guardians = [];
 const enemies = [];
+const damageNumbers = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -27,6 +28,6 @@ function drawAllSprites(context) {
 
 export { 
     addToGroup, removeFromGroup,
-    allSprites, guardians, enemies,
+    allSprites, guardians, enemies, damageNumbers,
     updateAllSprites, drawAllSprites
 };
