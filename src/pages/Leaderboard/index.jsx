@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import LeaderboardBox from '../../components/LeaderboardBox'
+import axios from 'axios'
 
 import './index.css'
 
@@ -8,9 +9,11 @@ const Leaderboard = () => {
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/leaderboard`);
+      const response = await axios.get(`https://vanguardians-server.onrender.com/scores`);
       if (response.status === 200) {
-          const data = await response.json();
+          const data = response.data;
+          
+          console.log(data)
           setLeaderboardData(data);      
       }
     } catch (error) {

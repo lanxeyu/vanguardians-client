@@ -22,13 +22,13 @@ class DamageNumber extends Sprite {
 
         this.alpha = 1
 
-        console.log(x, y)
-        console.log(newPointX, newPointY)
-        console.log(this.position)
+        // console.log(x, y)
+        // console.log(newPointX, newPointY)
+        // console.log(this.position)
         // setTimeout(() => {
 
         // }, this.lifeTime * 1000)
-        console.log(this.lifeTime - (this.endTime - new Date()))
+        // console.log(this.lifeTime - (this.endTime - new Date()))
     }
 
     update() {
