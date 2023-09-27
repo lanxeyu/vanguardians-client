@@ -1,9 +1,12 @@
+import { DamageNumber } from "./utilclasses";
+
 function checkAtkBoxCollisions(guardians, enemies) {
     for (const spriteA of guardians) {
         if (spriteA.isAttacking == true) {
             for (const spriteB of enemies) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
                     spriteB.currHealth -= spriteA.atk
+                    new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
                 }
             }
         }

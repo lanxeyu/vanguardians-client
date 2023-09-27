@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
-import { Robbie, Lanxe, Duncan, James, Steph, Skeleton, DamageNumber, Projectile } from './lib/classes';
+import { Lanxe, Robbie, Duncan, Steph, James, Projectile } from './lib/guardians';
+import { Skeleton } from './lib/enemies';
 import { drawAllSprites, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions } from './lib/collision';
 import { guardians, enemies } from './lib/groups';
