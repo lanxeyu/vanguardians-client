@@ -27,15 +27,10 @@ class Sprite {
         }
         return nearestTarget;
     }
-    
-    update() {
-        if (!this.isAlive) {
-            removeFromGroup(this, allSprites)
-            removeFromGroup(this, characters)
-            removeFromGroup(this, enemies)
-        }
-        this.updateTarget()
-        this.updatePosition()
+
+    checkTargetInRange() {
+
+        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
     }
 }
 
@@ -73,26 +68,7 @@ class Guardian extends Sprite {
         if (this.target && (this.checkTargetInRange() == false)) {
             this.position.x += this.movSpd;
         }
-    }
-
-    update() {
-        if (this.currHealth <= 0) {
-            this.isAlive = false
-            // Guardian knocked-out logic to be implemented
-        }
-        this.updateTarget()
-        this.updatePosition()
-
-        if (this.target && this.checkTargetInRange()) {
-            this.attack()
-        }
-        console.log(this.isAttacking)
-    
-        // Calculate direction to target
-        const direction = Math.abs(this.target.position.x - this.position.x)
-
-        // Home position (temporary) - retreat point
-
+        /*
         let homePositionX = 50
         // Distance between player and home
         const retreatDistance = Math.abs(this.position.x - homePositionX) 
@@ -127,6 +103,24 @@ class Guardian extends Sprite {
             default:
 
         }
+        */
+    }
+
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false
+            // Guardian knocked-out logic to be implemented
+        }
+        this.updateTarget()
+        this.updatePosition()
+
+        if (this.target && this.checkTargetInRange()) {
+            this.attack()
+        }
+        console.log(this.isAttacking)
+    
+
+        
         
     }
 
@@ -156,6 +150,20 @@ class Lanxe extends Guardian {
         this.atkSpd = 1000
         this.atkRange = 200
         this.movSpd = 4
+
+        this.isAttacking = false
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 50
+        }
+    }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
     }
     
     draw(context) {
@@ -165,9 +173,7 @@ class Lanxe extends Guardian {
         if (this.isAttacking) {
             context.fillRect(this.atkBox.position.x, this.atkBox.position.y, this.atkBox.width, this.atkBox.height)
         }
-
     }
-
 }
 
 class Robbie extends Guardian {
@@ -182,8 +188,13 @@ class Robbie extends Guardian {
         this.atkSpd = 600
         this.atkRange = 400
         this.movSpd = 3
+    }
 
-        this.currentState = CHAR_STATES.FORWARD
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
     }
 
     draw(context) {
@@ -194,8 +205,10 @@ class Robbie extends Guardian {
 
 class James extends Guardian {
     constructor(x, y) {
-        super()
+        super() 
         this.position = {x, y}
+        this.width = 150
+        this.height = 70
         this.maxHealth = 120
         this.currHealth = this.maxHealth
         this.atk = 4
@@ -203,7 +216,21 @@ class James extends Guardian {
         this.atkRange = 50
         this.movSpd = 4
 
+        this.isAttacking = false
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 50
+        }
+
         this.currentState = CHAR_STATES.FLEEING
+    }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 50)
     }
 
     draw(context) {
@@ -228,7 +255,7 @@ class James extends Guardian {
                     200)`
             break
         }
-        context.fillRect(this.position.x, this.position.y, 150, 50)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
@@ -292,7 +319,7 @@ class Skeleton extends Enemy {
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
 
 class DamageNumber extends Sprite {
-    constructor(target, x, y) {
+    constructor(text, x, y) {
         super()
         this.offsetY = 20
         this.offsetX = 0
@@ -306,11 +333,9 @@ class DamageNumber extends Sprite {
         this.endTime.setSeconds(this.endTime.getSeconds() + this.lifeTime / 1000)
         
         this.elapsedTime = 0
-        this.text = '9999'
+        this.text = text
 
         this.alpha = 1
-
-        this.target = target
 
         console.log(x, y)
         console.log(newPointX, newPointY)
