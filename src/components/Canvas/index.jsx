@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
-import { Lanxe, Robbie, Duncan, Steph, James, Projectile } from './lib/guardians';
-import { Skeleton } from './lib/enemies';
+import { Lanxe, Robbie, Duncan, Steph, James } from './lib/guardians';
+import { spawnSkeleton } from './lib/spawner';
 import { drawAllSprites, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions } from './lib/collision';
 import { guardians, enemies } from './lib/groups';
@@ -20,14 +20,7 @@ const Canvas = () => {
       new Steph(50, 500);
       new James(50,500)
 
-      // const damageNumber = new DamageNumber('9999', skeleton.position.x , skeleton.position.y)
-      const spawnSkeleton = () => {
-        new Skeleton(1366, 500);
-        setTimeout(spawnSkeleton, 1500);
-      }
       spawnSkeleton();
-      
-      new Projectile(50, 500)
 
       // Main game loop logic
       const gameLoop = () => {
