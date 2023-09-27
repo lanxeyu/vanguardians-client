@@ -15,7 +15,7 @@
 
 .prof-section {
   text-align: center;
-  background-color:#33312a;
+  background-color:#5b5047;
   margin: 2vh;
   border-radius: 3vh;
   padding: 1vh;
@@ -31,7 +31,7 @@
 }
 
 .guardian-profile-card> h4, h5 {
-  color: rgba(0, 0, 0, 0.794);
+  color: #5b5047;
   position: absolute;
   font-size: 7vh;
   border-radius: 3vh;

@@ -8,7 +8,7 @@
 } */
 
 .guardian-card> h4, h5 {
-  color: rgba(0, 0, 0, 0.794);
+  color: #5b5047;
   position: absolute;
   font-size: 7vh;
   border-radius: 3vh;
@@ -16,6 +16,7 @@
 }
 
 .guardian-card> h5 {
+  color: #5b5047;
   margin-bottom: -38vh;
   font-size: 5vh;
 }
