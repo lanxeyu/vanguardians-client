@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GuardianGallery } from '../../components'
+import './index.css'
 
 const Guardians = () => {
   const [guardians, setGuardians] = useState([]);
@@ -24,8 +25,9 @@ const Guardians = () => {
     const errorOrGallery = error ? 'error' : <GuardianGallery guardians={guardians} />
   return (
     <>
+      <h1 id='guardians-title'>GUARDIANS</h1>
       {
-        loading ? <p>Loading...</p> : errorOrGallery
+        loading ? <p style={{"fontSize": "8vh", "textAlign": "center"}}>Loading...</p> : errorOrGallery
       }
     </>
   )
