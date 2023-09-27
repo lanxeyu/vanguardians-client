@@ -15,7 +15,7 @@ class Guardian extends Sprite {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 16);
+        }, 5);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -90,9 +90,7 @@ class Guardian extends Sprite {
         // Decrement the attack cooldown
         if (this.attackCooldown > 0) {
         this.attackCooldown -= 20; // 20 milliseconds per frame (adjust as needed)
-        }
-        console.log(this.isAttacking)
-    
+        }  
     }
 
     toggleModes() {
@@ -177,7 +175,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 4
         this.atkSpd = 800
-        this.atkRange = 50
+        this.atkRange = 400
         this.movSpd = 4
 
         this.isAttacking = false
@@ -245,7 +243,7 @@ class Duncan extends Guardian {
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 4000;
+        this.atkSpd = 3300;
         this.atkRange = 150;
         this.movSpd = 4.5;
         this.attackTimer = null;
