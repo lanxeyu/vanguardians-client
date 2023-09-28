@@ -110,7 +110,7 @@ const Signup = () => {
 
             console.log(JSON.stringify(response?.data));
 
-            navigate("/");
+            navigate("/login");
             //clear state and controlled inputs
             //need value attrib on inputs for this
             setUsername("");
