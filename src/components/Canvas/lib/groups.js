@@ -16,9 +16,9 @@ function removeFromGroup(sprite, group) {
     }
 }
 
-function updateAllSprites() {
+function updateAllSprites(context) {
     for (const sprite of allSprites) {
-        sprite.update();
+        sprite.update(context);
     }
 }
 
@@ -32,4 +32,4 @@ export {
     addToGroup, removeFromGroup,
     allSprites, guardians, guardianProjectiles, enemies, enemyProjectiles, damageNumbers,
     updateAllSprites, drawAllSprites
-};
+}
