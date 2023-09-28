@@ -196,7 +196,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 4
         this.atkSpd = 800
-        this.atkRange = 400
+        this.atkRange = 900
         this.movSpd = 4
 
         this.isAttacking = false

@@ -3,7 +3,7 @@ import { addToGroup, allSprites } from "./groups";
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
     constructor(){
-
+        addToGroup(this, allSprites)
     }
 
     // Animation methods go here
@@ -14,7 +14,6 @@ class Sprite {
 class Character extends Sprite {
     constructor(){
         super()
-        addToGroup(this, allSprites)
         this.isAlive = true
         this.target = null
 
