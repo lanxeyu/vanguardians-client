@@ -104,14 +104,6 @@ class Guardian extends Sprite {
                 this.currentMode = CHAR_MODES.MODE_1
         }
     }
-
-    drawHealthBar() {
-        context.fillStyle = 'grey';
-        context.fillRect(this.position.x, this.position.y - 15, this.width, this.healthBarHeight);
-
-        context.fillStyle = 'red';
-        context.fillRect(this.position.x, this.position.y - 15, this.currHealth/this.maxHealth * 100, this.healthBarHeight);
-    }
 }
 
 class Lanxe extends Guardian {
