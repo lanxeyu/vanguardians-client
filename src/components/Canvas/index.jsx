@@ -15,23 +15,25 @@ const Canvas = () => {
       initCanvas(canvas);
       // Spawn objects // to be removed and use a dynamic spawner function
       new Lanxe(50, 500)
-      new Robbie(50, 500)
-      new Duncan(50, 480)
+      // new Robbie(50, 500)
+      // new Duncan(50, 480)
       new Steph(50, 500)
-      new James(50,500)
+      // new James(50,500)
 
       spawnSkeleton();
 
       // Main game loop logic
       const gameLoop = () => {
-        updateAllSprites();
+        // Clear the canvas
+        context.fillStyle = "black";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        updateAllSprites(context);
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
 
         
-        // Clear the canvas
-        context.fillStyle = "black";
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        
 
         // Render game objects
         drawAllSprites(context);

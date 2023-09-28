@@ -1,9 +1,9 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
-import { Sprite, CHAR_STATES, CHAR_MODES } from "./sprite";
+import { Character, CHAR_STATES, CHAR_MODES,  } from "./sprite";
 
 
 // --------------------  GUARDIAN CLASSES  -------------------------
-class Guardian extends Sprite {
+class Guardian extends Character {
     constructor() {
         super();
         addToGroup(this, guardians);
@@ -80,7 +80,7 @@ class Guardian extends Sprite {
         }
     }
 
-    update() {
+    update(context) {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             // Guardian knocked-out logic to be implemented
@@ -90,6 +90,7 @@ class Guardian extends Sprite {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
+        this.drawHealthbars(context)
     }
 
     toggleModes() {
@@ -132,7 +133,7 @@ class Lanxe extends Guardian {
     draw(context) {
         this.atkBox.position.x = this.position.x
         this.atkBox.position.y = this.position.y
-        context.fillStyle = "blue";
+        context.fillStyle = "blue"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -242,9 +243,6 @@ class Steph extends Guardian {
         this.height = 150;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
-
-        this.healthBarHeight= 8
-
         this.atk = 4;
         this.atkSpd = 2000;
         this.atkRange = 700;
@@ -267,12 +265,6 @@ class Steph extends Guardian {
     draw(context) {
         context.fillStyle = 'LightSkyBlue';
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        context.fillStyle = 'grey';
-        context.fillRect(this.position.x, this.position.y - 15, this.width, this.healthBarHeight);
-
-        context.fillStyle = 'red';
-        context.fillRect(this.position.x, this.position.y - 15, this.currHealth/this.maxHealth * 100, this.healthBarHeight);
     }
 }
 
@@ -315,7 +307,7 @@ class Duncan extends Guardian {
 }
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
-class Projectile extends Sprite {
+class Projectile extends Character {
     constructor(){
         super();
     }

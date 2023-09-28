@@ -1,15 +1,12 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
-import { Sprite } from "./sprite";
+import { Character } from "./sprite";
 
 
 // --------------------  ENEMY CLASSES  -------------------------
-class Enemy extends Sprite {
+class Enemy extends Character {
     constructor() {
         super();
         addToGroup(this, enemies);
-
-        this.attackTimer = null;
-        this.attackCooldown = 0;
     }
 
     // Default target for Enemies if not overriden in the subclass
@@ -44,7 +41,7 @@ class Enemy extends Sprite {
         }
     }
 
-    update() {
+    update(context) {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             removeFromGroup(this, allSprites);
@@ -53,6 +50,7 @@ class Enemy extends Sprite {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
+        this.drawHealthbars(context)
     }
 }
 
@@ -62,11 +60,11 @@ class Skeleton extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 150
-        this.maxHealth = 20
+        this.maxHealth = 10
         this.currHealth = this.maxHealth
         this.atk = 20
         this.atkSpd = 2000
-        this.atkRange = 200
+        this.atkRange = 100
         this.movSpd = 4
 
         this.isAttacking = false;
@@ -83,7 +81,7 @@ class Skeleton extends Enemy {
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x - this.atkRange
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
         this.atkBox.position.y = this.position.y + 50
         context.fillStyle = "red"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);

@@ -1,8 +1,8 @@
 import { addToGroup, damageNumbers, removeFromGroup } from "./groups"
-import { Sprite } from "./sprite"
+import { Character } from "./sprite"
 
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
-class DamageNumber extends Sprite {
+class DamageNumber extends Character {
     constructor(text, x, y) {
         super()
         addToGroup(this, damageNumbers)
