@@ -19,7 +19,7 @@ class Enemy extends Character {
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance
         }
-        else if (!this.isKnockedBack && !this.isStunned && this.target && this.checkTargetInRange() == false) {
+        else if (!this.isKnockedBack && !this.isStunned && this.target && !this.checkTargetInRange()) {
             this.position.x -= this.movSpd;
         }
     }
@@ -53,6 +53,7 @@ class Enemy extends Character {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
+        this.draw(context)
         this.drawHealthbars(context)
     }
 }

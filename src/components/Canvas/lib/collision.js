@@ -1,13 +1,13 @@
 import { DamageNumber } from "./utilclasses";
-import { Duncan, Robbie } from "./guardians";
+import { Duncan, Robbie, Spear } from "./guardians";
 import { Skeleton } from "./enemies";
+import { allSprites, guardianProjectiles, removeFromGroup } from "./groups";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
         if (
             spriteA.atkBox &&
-            spriteA.isAttacking == true && 
-            !spriteA.atkBox.hasCollided) {
+            spriteA.isAttacking == true) {
 
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
@@ -34,6 +34,31 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     }
 }
 
+function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
+    for (const spriteA of spriteGroup1) {
+        for (const spriteB of spriteGroup2) {
+            if (areSpritesColliding(spriteA, spriteB)) {
+                spriteB.currHealth -= spriteA.atk
+                new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
+
+                // --------- SPECIAL HIT INTERACTIONS ---------
+
+                // GUARDIANS             
+                if (spriteA instanceof Spear) {
+                    spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                }
+
+
+                // ENEMIES
+
+            }
+        }
+        
+    }
+}
+
 function isAtkBoxColliding(atkBoxA, spriteB) {
     const atkBoxAX1 = atkBoxA.position.x;
     const atkBoxAY1 = atkBoxA.position.y;
@@ -52,6 +77,26 @@ function isAtkBoxColliding(atkBoxA, spriteB) {
       atkBoxAY1 > spriteBY2
     );
 }
+
+function areSpritesColliding(spriteA, spriteB) {
+    const spriteAX1 = spriteA.position.x;
+    const spriteAY1 = spriteA.position.y;
+    const spriteAX2 = spriteAX1 + spriteA.width;
+    const spriteAY2 = spriteAY1 + spriteA.height;
+  
+    const spriteBX1 = spriteB.position.x;
+    const spriteBY1 = spriteB.position.y;
+    const spriteBX2 = spriteBX1 + spriteB.width;
+    const spriteBY2 = spriteBY1 + spriteB.height;
+  
+    return !(
+      spriteAX2 < spriteBX1 ||
+      spriteAX1 > spriteBX2 ||
+      spriteAY2 < spriteBY1 ||
+      spriteAY1 > spriteBY2
+    );
+}
+
   
 
-export { checkAtkBoxCollisions, isAtkBoxColliding }
+export { checkAtkBoxCollisions, checkProjectileCollisions, isAtkBoxColliding, areSpritesColliding }

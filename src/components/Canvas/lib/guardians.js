@@ -22,7 +22,7 @@ class Guardian extends Character {
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance
         }
-        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < 900) && this.checkTargetInRange() == false) {
+        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < 900) && !this.checkTargetInRange()) {
             this.position.x += this.movSpd;
         }
 
@@ -94,6 +94,7 @@ class Guardian extends Character {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
+        this.draw(context)
         this.drawHealthbars(context)
     }
 
@@ -255,17 +256,16 @@ class Steph extends Guardian {
         this.movSpd = 2;
 
         this.isAttacking = false;
-
-        this.shootArrow();
+        this.atkTimer = null;
+        this.atkCooldown = 0;
     }
 
-    shootArrow() {
-        setInterval(() => {
-            if (this.isAlive) {
-                this.isAttacking = true
-                new Spear(this.position.x, this.position.y);
-            }
-        }, this.atkSpd);
+    attack() {
+        this.isAttacking = true;
+        new Spear(this.position.x, this.position.y)
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 5); 
     }
 
     draw(context) {
@@ -287,7 +287,7 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-        this.knockBackStrength = 15
+        this.knockBackStrength = 10
         this.knockBackResistance = 2
 
         this.isAttacking = false;
@@ -328,25 +328,29 @@ class Duncan extends Guardian {
 class Projectile extends Character {
     constructor(){
         super();
+        addToGroup(this, guardianProjectiles)
     }
 
     updatePosition() {
         this.position.x += this.movSpd
     }
 
-    update() {
+    update(context) {
         this.updatePosition()
+        this.draw(context)
     }
 }
 
 class Spear extends Projectile {
     constructor(x,y) {
         super()
-        addToGroup(this, guardianProjectiles)
         this.position= {x, y}
-        this.movSpd = 20
+        this.atk = 7
+        this.movSpd = 25
         this.width = 100
         this.height = 5
+
+        this.knockBackStrength = 30
     }
 
     draw(context) {    
@@ -355,4 +359,7 @@ class Spear extends Projectile {
     }
 }
 
-export { Lanxe, Robbie, Duncan, Steph, James }
+export { 
+    Lanxe, Robbie, Duncan, Steph, James,
+    Spear
+}
