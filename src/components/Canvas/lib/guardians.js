@@ -167,9 +167,9 @@ class Robbie extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
+        }
     }
-
-    }
+    
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
