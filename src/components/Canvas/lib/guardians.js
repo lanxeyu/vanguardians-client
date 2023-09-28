@@ -1,15 +1,21 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
-import { Character, CHAR_STATES, CHAR_MODES,  } from "./sprite";
-
+import {
+    addToGroup,
+    removeFromGroup,
+    allSprites,
+    guardians,
+    enemies,
+    guardianProjectiles,
+} from "./groups";
+import { Character, CHAR_STATES, CHAR_MODES } from "./sprite";
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Character {
     constructor() {
         super();
-        addToGroup(this, guardians);
+        addToGroup(this, guardians); // Add this Guardian to the guardians group.
 
-        this.currentState = CHAR_STATES.IDLE
-        this.currentMode = CHAR_MODES.MODE_1
+        this.currentState = CHAR_STATES.IDLE; // Set the initial state to IDLE.
+        this.currentMode = CHAR_MODES.MODE_1; // Set the initial mode to MODE_1.
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -19,7 +25,7 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && (this.position.x < 900) && (this.checkTargetInRange() == false)) {
+        if (this.target && this.position.x < 900 && this.checkTargetInRange() == false) {
             this.position.x += this.movSpd;
         }
         /*
@@ -64,19 +70,24 @@ class Guardian extends Character {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5); 
+        }, 5);
     }
 
     updateAttacking() {
         if (this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
             this.attack();
             this.atkCooldown = this.atkSpd;
+
+            // Set a timer to reset the character's attacking state after a short duration (50 milliseconds).
+            // This ensures that the character doesn't keep attacking continuously.
             this.atkTimer = setTimeout(() => {
-              this.isAttacking = false;
+                this.isAttacking = false;
             }, 50);
         }
+        // Decrease the attack cooldown timer, allowing the character to attack again when it reaches 0.
         if (this.atkCooldown > 0) {
-        this.atkCooldown -= 16;
+            // Decrease the cooldown timer by a fixed interval (16 milliseconds).
+            this.atkCooldown -= 16;
         }
     }
 
@@ -87,38 +98,38 @@ class Guardian extends Character {
             removeFromGroup(this, allSprites);
             removeFromGroup(this, guardians);
         }
-        this.updateTarget()
-        this.updatePosition()
-        this.updateAttacking()
-        this.drawHealthbars(context)
+        this.updateTarget();
+        this.updatePosition();
+        this.updateAttacking();
+        this.drawHealthbars(context);
     }
 
     toggleModes() {
-        switch(this.currentMode) {
+        switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.currentMode = CHAR_MODES.MODE_2
-            break
+                this.currentMode = CHAR_MODES.MODE_2;
+                break;
             case CHAR_MODES.MODE_2:
-                this.currentMode = CHAR_MODES.MODE_1
-            break
+                this.currentMode = CHAR_MODES.MODE_1;
+                break;
             default:
-                this.currentMode = CHAR_MODES.MODE_1
+                this.currentMode = CHAR_MODES.MODE_1;
         }
     }
 }
 
 class Lanxe extends Guardian {
     constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 100
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 2000
-        this.atkRange = 200
-        this.movSpd = 4
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 2000;
+        this.atkRange = 200;
+        this.movSpd = 4;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -131,11 +142,12 @@ class Lanxe extends Guardian {
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "blue"
+        this.atkBox.position.x = this.position.x;
+        this.atkBox.position.y = this.position.y;
+        context.fillStyle = "blue";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
+        // Draw the attack box when the Guardian is attacking.
         if (this.isAttacking) {
             context.fillRect(
                 this.atkBox.position.x,
@@ -167,8 +179,7 @@ class Robbie extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
-    }
-
+        };
     }
     draw(context) {
         context.fillStyle = "green";
@@ -183,62 +194,61 @@ class Robbie extends Guardian {
             );
         }
     }
-    
 }
 
 class James extends Guardian {
     constructor(x, y) {
-        super() 
-        this.position = {x, y}
-        this.width = 150
-        this.height = 70
-        this.maxHealth = 120
-        this.currHealth = this.maxHealth
-        this.atk = 4
-        this.atkSpd = 800
-        this.atkRange = 400
-        this.movSpd = 4
+        super();
+        this.position = { x, y };
+        this.width = 150;
+        this.height = 70;
+        this.maxHealth = 120;
+        this.currHealth = this.maxHealth;
+        this.atk = 4;
+        this.atkSpd = 800;
+        this.atkRange = 400;
+        this.movSpd = 4;
 
-        this.isAttacking = false
+        this.isAttacking = false;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50
-        }
+            height: 50,
+        };
 
-        this.currentState = CHAR_STATES.FLEEING
+        this.currentState = CHAR_STATES.FLEEING;
     }
 
     draw(context) {
-        switch(this.currentState) {
+        switch (this.currentState) {
             case CHAR_STATES.FORWARD:
                 context.fillStyle = `rgb(
                     200,
                     20,
-                    200)`
-            break
+                    200)`;
+                break;
             case CHAR_STATES.FLEEING:
                 context.fillStyle = `rgb(
                     200,
                     200,
-                    0)`
-                
-            break
+                    0)`;
+
+                break;
             case CHAR_STATES.IDLE:
                 context.fillStyle = `rgb(
                     200,
                     200,
-                    200)`
-            break
+                    200)`;
+                break;
         }
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
 class Steph extends Guardian {
     constructor(x, y) {
         super();
-        this.position = {x, y};
+        this.position = { x, y };
         this.width = 70;
         this.height = 150;
         this.maxHealth = 80;
@@ -256,14 +266,14 @@ class Steph extends Guardian {
     shootArrow() {
         setInterval(() => {
             if (this.isAlive) {
-                this.isAttacking = true
+                this.isAttacking = true;
                 new Spear(this.position.x, this.position.y);
             }
         }, this.atkSpd);
     }
 
     draw(context) {
-        context.fillStyle = 'LightSkyBlue';
+        context.fillStyle = "LightSkyBlue";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
@@ -288,7 +298,7 @@ class Duncan extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
-        }
+        };
     }
 
     draw(context) {
@@ -306,35 +316,36 @@ class Duncan extends Guardian {
     }
 }
 
-// --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
+// --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
 class Projectile extends Character {
-    constructor(){
+    constructor() {
         super();
     }
 
     updatePosition() {
-        this.position.x += this.movSpd
+        // Move the projectile horizontally based on its movement speed (movSpd).
+        this.position.x += this.movSpd;
     }
 
     update() {
-        this.updatePosition()
+        this.updatePosition();
     }
 }
 
 class Spear extends Projectile {
-    constructor(x,y) {
-        super()
-        addToGroup(this, guardianProjectiles)
-        this.position= {x, y}
-        this.movSpd = 20
-        this.width = 100
-        this.height = 5
+    constructor(x, y) {
+        super();
+        addToGroup(this, guardianProjectiles);
+        this.position = { x, y };
+        this.movSpd = 20;
+        this.width = 100;
+        this.height = 5;
     }
 
-    draw(context) {    
-        context.fillStyle = 'plum'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    draw(context) {
+        context.fillStyle = "plum";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
-export { Lanxe, Robbie, Duncan, Steph, James }
+export { Lanxe, Robbie, Duncan, Steph, James };
