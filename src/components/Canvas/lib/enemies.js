@@ -16,7 +16,10 @@ class Enemy extends Character {
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.target && this.checkTargetInRange() == false) {
+        if (this.isKnockedBack) {
+            this.position.x += this.knockBackDistance
+        }
+        else if (!this.isKnockedBack && !this.isStunned && this.target && this.checkTargetInRange() == false) {
             this.position.x -= this.movSpd;
         }
     }
@@ -29,7 +32,7 @@ class Enemy extends Character {
     }
 
     updateAttacking() {
-        if (this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
+        if (!this.isStunned && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
             this.attack();
             this.atkCooldown = this.atkSpd;
             this.atkTimer = setTimeout(() => {
@@ -60,12 +63,12 @@ class Skeleton extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 150
-        this.maxHealth = 10
+        this.maxHealth = 50
         this.currHealth = this.maxHealth
-        this.atk = 20
+        this.atk = 5
         this.atkSpd = 2000
         this.atkRange = 100
-        this.movSpd = 4
+        this.movSpd = 6
 
         this.isAttacking = false;
         this.atkTimer = null;

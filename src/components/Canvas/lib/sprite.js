@@ -17,8 +17,29 @@ class Character extends Sprite {
         this.isAlive = true
         this.target = null
 
+        this.isKnockedBack = false
+        this.knockBackDistance = 0
+        this.isStunned = false
+
         this.healthBarHeight = 8
         this.healthBarWidth = 70
+    }
+
+    getKnockedBack(distance) {
+        this.isKnockedBack = true
+        this.knockBackDistance = distance
+        setTimeout(() => {
+            this.isKnockedBack = false;
+            this.getStunned(200)
+        }, 150);
+    }
+
+    getStunned(duration) {
+        this.isStunned = true
+        setTimeout(() => {
+            this.isStunned = false;
+        }, duration);
+
     }
 
     findNearestTarget(group, type) {
