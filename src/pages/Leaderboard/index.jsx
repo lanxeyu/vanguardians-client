@@ -8,7 +8,7 @@ const Leaderboard = () => {
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/leaderboard`);
+      const response = await fetch(`https://vanguardians-server.onrender.com/scores`);
       if (response.status === 200) {
           const data = await response.json();
           setLeaderboardData(data);      
@@ -27,7 +27,7 @@ const Leaderboard = () => {
       // ]);
     }
   }
-
+  
   useEffect(() => {
     fetchLeaderboardData()
 
@@ -41,4 +41,6 @@ const Leaderboard = () => {
   )
 }
 
-export default Leaderboard
+export {
+  Leaderboard
+}
