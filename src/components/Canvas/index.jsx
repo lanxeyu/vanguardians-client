@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { initCanvas } from "./lib/canvas";
 import { Lanxe, Robbie, Duncan, Steph, James } from "./lib/guardians";
 import { spawnSkeleton } from "./lib/spawner";
-import { drawAllSprites, updateAllSprites } from "./lib/groups";
-import { checkAtkBoxCollisions } from "./lib/collision";
+import { guardianProjectiles, updateAllSprites } from "./lib/groups";
+import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { guardians, enemies } from "./lib/groups";
 
 const Canvas = () => {
@@ -18,7 +18,7 @@ const Canvas = () => {
             new Robbie(50, 500);
             new Duncan(50, 480);
             new Steph(50, 500);
-            new James(50, 500);
+            new James(50, 580);
 
             spawnSkeleton();
 
@@ -31,9 +31,7 @@ const Canvas = () => {
                 updateAllSprites(context);
                 checkAtkBoxCollisions(guardians, enemies);
                 checkAtkBoxCollisions(enemies, guardians);
-
-                // Render game objects
-                drawAllSprites(context);
+                checkProjectileCollisions(guardianProjectiles, enemies);
 
                 requestAnimationFrame(gameLoop);
             };

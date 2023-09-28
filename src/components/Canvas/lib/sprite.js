@@ -13,11 +13,9 @@ class Sprite {
 class Character extends Sprite {
     constructor() {
         super();
+        addToGroup(this, allSprites);
         this.isAlive = true;
         this.target = null;
-
-        this.isKnockedBack = false;
-        this.isStunned = false;
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
@@ -41,6 +39,7 @@ class Character extends Sprite {
         }, duration);
     }
 
+    // Method to find the nearest target in a group of sprites, based on type and position
     findNearestTarget(group, type) {
         let nearestTarget = null;
         let nearestDistance = Infinity;
