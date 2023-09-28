@@ -2,7 +2,9 @@ import { addToGroup, allSprites } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
-    constructor() {}
+    constructor() {
+        addToGroup(this, allSprites);
+    }
 
     // Animation methods go here
 }
@@ -10,16 +12,35 @@ class Sprite {
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
     constructor() {
-        super(); // Call the constructor of the parent class
-        addToGroup(this, allSprites);
+        super();
         this.isAlive = true;
         this.target = null;
+
+        this.isKnockedBack = false;
+        this.isStunned = false;
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
     }
 
-    // Method to find the nearest target in a group of sprites, based on type and position
+    getKnockedBack(distance) {
+        this.isKnockedBack = true;
+        this.knockBackDistance = distance;
+        setTimeout(() => {
+            this.isKnockedBack = false;
+            if (!this.isStunned) {
+                this.getStunned(200);
+            }
+        }, 150);
+    }
+
+    getStunned(duration) {
+        this.isStunned = true;
+        setTimeout(() => {
+            this.isStunned = false;
+        }, duration);
+    }
+
     findNearestTarget(group, type) {
         let nearestTarget = null;
         let nearestDistance = Infinity;

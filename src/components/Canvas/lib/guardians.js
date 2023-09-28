@@ -25,9 +25,18 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && this.position.x < 900 && this.checkTargetInRange() == false) {
+        if (this.isKnockedBack) {
+            this.position.x += this.knockBackDistance;
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < 900 &&
+            this.checkTargetInRange() == false
+        ) {
             this.position.x += this.movSpd;
         }
+
         /*
         let homePositionX = 50
         // Distance between player and home
@@ -169,8 +178,10 @@ class Robbie extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 3;
         this.atkSpd = 2000;
-        this.atkRange = 400;
+        this.atkRange = 600;
         this.movSpd = 3;
+
+        this.stunDuration = 1000;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -181,6 +192,7 @@ class Robbie extends Guardian {
             height: 50,
         };
     }
+
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -206,7 +218,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 4;
         this.atkSpd = 800;
-        this.atkRange = 400;
+        this.atkRange = 900;
         this.movSpd = 4;
 
         this.isAttacking = false;
@@ -287,9 +299,12 @@ class Duncan extends Guardian {
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 3300;
+        this.atkSpd = 2300;
         this.atkRange = 150;
         this.movSpd = 4.5;
+
+        this.knockBackStrength = 15;
+        this.knockBackResistance = 2;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -299,6 +314,20 @@ class Duncan extends Guardian {
             width: this.atkRange,
             height: 50,
         };
+    }
+
+    updatePosition() {
+        if (this.isKnockedBack) {
+            this.position.x += this.knockBackDistance / this.knockBackResistance;
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < 900 &&
+            this.checkTargetInRange() == false
+        ) {
+            this.position.x += this.movSpd;
+        }
     }
 
     draw(context) {

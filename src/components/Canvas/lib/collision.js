@@ -1,4 +1,6 @@
 import { DamageNumber } from "./utilclasses";
+import { Duncan, Robbie } from "./guardians";
+import { Skeleton } from "./enemies";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     // Iterate through each sprite in the first group (attackers).
@@ -8,10 +10,22 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
             // Iterate through each sprite in the second group (potential targets).
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
-                    // Decrease the target sprite's current health by the attacker's attack value.
                     spriteB.currHealth -= spriteA.atk;
-                    // Create a DamageNumber instance to display the damage inflicted.
                     new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y);
+
+                    // --------- SPECIAL HIT INTERACTIONS ---------
+
+                    // GUARDIANS
+                    if (spriteA instanceof Duncan) {
+                        spriteB.getKnockedBack(spriteA.knockBackStrength);
+                    } else if (spriteA instanceof Robbie) {
+                        spriteB.getStunned(spriteA.stunDuration);
+                    }
+
+                    // ENEMIES
+                    else if (spriteA instanceof Skeleton) {
+                        spriteB.getKnockedBack(spriteA.knockBackStrength);
+                    }
                 }
             }
         }
