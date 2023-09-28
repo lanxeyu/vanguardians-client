@@ -70,6 +70,8 @@ class Skeleton extends Enemy {
         this.atkRange = 100
         this.movSpd = 6
 
+        this.knockBackStrength = -7
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;

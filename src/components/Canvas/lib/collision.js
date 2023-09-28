@@ -18,15 +18,15 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
 
                     // GUARDIANS             
                     if (spriteA instanceof Duncan) {
-                        spriteB.getKnockedBack(15)
+                        spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
                     else if (spriteA instanceof Robbie) {
-                        spriteB.getStunned(1000)
+                        spriteB.getStunned(spriteA.stunDuration)
                     }
 
                     // ENEMIES
                     else if (spriteA instanceof Skeleton){
-                        spriteB.getKnockedBack(-5)
+                        spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
                 }
             }

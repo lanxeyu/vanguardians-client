@@ -18,7 +18,6 @@ class Character extends Sprite {
         this.target = null
 
         this.isKnockedBack = false
-        this.knockBackDistance = 0
         this.isStunned = false
 
         this.healthBarHeight = 8
@@ -30,7 +29,9 @@ class Character extends Sprite {
         this.knockBackDistance = distance
         setTimeout(() => {
             this.isKnockedBack = false;
-            this.getStunned(200)
+            if (!this.isStunned) {
+                this.getStunned(200)
+            }
         }, 150);
     }
 

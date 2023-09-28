@@ -164,6 +164,8 @@ class Robbie extends Guardian {
         this.atkRange = 600;
         this.movSpd = 3;
 
+        this.stunDuration = 1000;
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -285,6 +287,9 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
+        this.knockBackStrength = 15
+        this.knockBackResistance = 2
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -292,6 +297,15 @@ class Duncan extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
+        }
+    }
+
+    updatePosition() {
+        if (this.isKnockedBack) {
+            this.position.x += (this.knockBackDistance / this.knockBackResistance)
+        }
+        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < 900) && this.checkTargetInRange() == false) {
+            this.position.x += this.movSpd;
         }
     }
 
