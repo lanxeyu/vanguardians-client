@@ -50,12 +50,10 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     removeFromGroup(spriteA, allSprites)
                 }
 
-
                 // ENEMIES
 
             }
         }
-        
     }
 }
 

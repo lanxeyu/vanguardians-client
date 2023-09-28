@@ -1,5 +1,5 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
-import { Character, CHAR_STATES, CHAR_MODES,  } from "./sprite";
+import { Character, CHAR_STATES, CHAR_MODES, Sprite,  } from "./sprite";
 
 
 // --------------------  GUARDIAN CLASSES  -------------------------
@@ -122,7 +122,7 @@ class Lanxe extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 2000
-        this.atkRange = 200
+        this.atkRange = 250
         this.movSpd = 4
 
         this.isAttacking = false;
@@ -325,7 +325,7 @@ class Duncan extends Guardian {
 }
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
-class Projectile extends Character {
+class Projectile extends Sprite {
     constructor(){
         super();
         addToGroup(this, guardianProjectiles)

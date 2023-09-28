@@ -3,12 +3,31 @@ import { addToGroup, allSprites } from "./groups";
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
     constructor(){
-        addToGroup(this, allSprites)
+    addToGroup(this, allSprites)
     }
 
-    // Animation methods go here
+    update(context) {
+        this.draw(context)
+    }
 }
 
+class Background extends Sprite {
+    constructor(x, y, imageSrc){
+        super()
+        this.position = {x,y}
+        this.width = 1366
+        this.height = 768
+        this.image = new Image()
+        this.image.src = imageSrc
+        this.scale = 1
+    }
+
+    draw(context) {
+        context.drawImage(this.image, this.position.x, this.position.y, this.width * this.scale, this.height * this.scale)
+    }
+
+
+}
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -113,4 +132,4 @@ const CHAR_MODES = {
 
 
 
-export { Character, Sprite, CHAR_STATES, CHAR_MODES}
+export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES}

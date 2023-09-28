@@ -22,14 +22,8 @@ function updateAllSprites(context) {
     }
 }
 
-function drawAllSprites(context) {
-    for (const sprite of allSprites) {
-        sprite.draw(context);
-    }
-}
-
 export { 
     addToGroup, removeFromGroup,
     allSprites, guardians, guardianProjectiles, enemies, enemyProjectiles, damageNumbers,
-    updateAllSprites, drawAllSprites
+    updateAllSprites
 }
