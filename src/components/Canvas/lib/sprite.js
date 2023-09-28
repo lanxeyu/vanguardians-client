@@ -28,8 +28,29 @@ class Sprite {
         return nearestTarget;
     }
 
+    findRandomTarget(group, type) {
+        const validTargets = [];
+    
+        for (const sprite of group) {
+            if (
+                (type === "guardian" && sprite.position.x > this.position.x) ||
+                (type === "enemy" && sprite.position.x < this.position.x)
+            ) {
+                validTargets.push(sprite);
+            }
+        }
+    
+        if (validTargets.length === 0) {
+            return null;
+        }
+    
+        const randomIndex = Math.floor(Math.random() * validTargets.length);
+        return validTargets[randomIndex];
+    }
+
     checkTargetInRange() {
-        return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
+        if (this.target)
+            return !(Math.abs(this.target.position.x - this.position.x) > this.atkRange)
     }
 }
 

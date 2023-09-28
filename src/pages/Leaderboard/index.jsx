@@ -30,7 +30,7 @@ const Leaderboard = () => {
       // ]);
     }
   }
-
+  
   useEffect(() => {
     fetchLeaderboardData()
 
@@ -44,4 +44,6 @@ const Leaderboard = () => {
   )
 }
 
-export default Leaderboard
+export {
+  Leaderboard
+}

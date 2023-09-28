@@ -1,4 +1,4 @@
-import { addToGroup, damageNumbers } from "./groups"
+import { addToGroup, damageNumbers, removeFromGroup } from "./groups"
 import { Sprite } from "./sprite"
 
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
@@ -40,6 +40,7 @@ class DamageNumber extends Sprite {
 
         if (this.elapsedTime >= this.lifeTime) {
             this.elapsedTime = this.lifeTime
+            removeFromGroup(this, damageNumbers)
         }
         else {
             this.elapsedTime =  this.lifeTime - (this.endTime - new Date())
