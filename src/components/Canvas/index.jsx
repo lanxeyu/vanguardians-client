@@ -15,10 +15,10 @@ const Canvas = () => {
       initCanvas(canvas);
       // Spawn objects // to be removed and use a dynamic spawner function
       new Lanxe(50, 500)
-      // new Robbie(50, 500)
-      // new Duncan(50, 480)
+      new Robbie(50, 500)
+      new Duncan(50, 480)
       new Steph(50, 500)
-      // new James(50,500)
+      new James(50,500)
 
       spawnSkeleton();
 
@@ -31,9 +31,6 @@ const Canvas = () => {
         updateAllSprites(context);
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
-
-        
-        
 
         // Render game objects
         drawAllSprites(context);
