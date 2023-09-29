@@ -58,7 +58,7 @@ class DamageNumber extends Character {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "18px Arial";
+        context.font = "18px Silkscreen";
         // context.textAlign = "center";
         context.fillText(this.text, this.position.x, this.position.y)
     }

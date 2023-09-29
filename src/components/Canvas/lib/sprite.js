@@ -29,6 +29,50 @@ class Background extends Sprite {
 
 }
 
+class Layer extends Sprite {
+    constructor(x, y, width, height, image, movSpd) {
+        super()
+        this.position = {x, y}
+        this.width = width;
+        this.height = height;
+        this.x2 = this.width;
+
+        this.image = image;
+        this.movSpd = movSpd;
+        this.isMoving = false
+        this.isMovingRight = false
+    }
+
+    update(context) {
+        if (this.isMoving) {
+            if (this.position.x < - this.width) {
+                this.position.x = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.position.x -= this.movSpd;
+            }
+
+            if (this.x2 < -this.width) {
+                this.x2 = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.x2 -= this.movSpd;
+            }
+        }
+        
+        this.draw(context)
+    }
+
+    draw(context) {
+        context.drawImage(this.img, this.position.x, this.position.y, this.width, this.height)
+    }
+
+    setIsMoving(isMoving) {
+        this.isMoving = isMoving;
+    }
+
+}
+
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
     constructor(){

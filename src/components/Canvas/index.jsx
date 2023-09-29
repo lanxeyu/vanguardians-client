@@ -6,6 +6,9 @@ import { guardianProjectiles, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions, checkProjectileCollisions } from './lib/collision';
 import { guardians, enemies } from './lib/groups';
 import { Background } from './lib/sprite';
+import { loadFonts } from './lib/resources'
+
+let C
 
 const Canvas = () => {
   useEffect(() => {
@@ -14,6 +17,8 @@ const Canvas = () => {
 
     if (canvas) {
       initCanvas(canvas);
+
+      loadFonts();
 
       new Background(0 ,0, './src/assets/images/bg_sample.png');
 
@@ -28,6 +33,7 @@ const Canvas = () => {
 
       // Main game loop logic
       const gameLoop = () => {
+        context.clearRect(0, 0, canvas.width, canvas.height)
         updateAllSprites(context);
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
