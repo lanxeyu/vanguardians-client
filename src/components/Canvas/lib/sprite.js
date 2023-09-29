@@ -2,14 +2,7 @@ import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./group
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
-    constructor() {
-        addToGroup(this, allSprites);
-    }
-}
-
-class Img extends Sprite {
     constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
-        super();
         this.position = { x, y };
         this.width = 50;
         this.height = 150;
@@ -20,6 +13,7 @@ class Img extends Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+        addToGroup(this, allSprites);
     }
 
     draw(context) {
@@ -35,7 +29,6 @@ class Img extends Sprite {
             this.image.height * this.scale
         );
     }
-
     update() {
         this.framesElapsed++;
 
@@ -212,4 +205,4 @@ const CHAR_MODES = {
     MODE_2: 1,
 };
 
-export { Sprite, Img, Character, CHAR_STATES, CHAR_MODES, Van };
+export { Sprite, Character, CHAR_STATES, CHAR_MODES, Van };
