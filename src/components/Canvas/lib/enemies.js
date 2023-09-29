@@ -44,7 +44,7 @@ class Enemy extends Character {
         }
     }
 
-    update(context) {
+    update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             removeFromGroup(this, allSprites);
@@ -53,8 +53,6 @@ class Enemy extends Character {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
-        this.draw(context)
-        this.drawHealthbars(context)
     }
 }
 

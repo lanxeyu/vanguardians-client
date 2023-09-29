@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
 import { Lanxe, Robbie, Duncan, Steph, James } from './lib/guardians';
 import { spawnSkeleton } from './lib/spawner';
-import { guardianProjectiles, updateAllSprites } from './lib/groups';
+import { drawAllHealthbars, drawDamageNumbers, drawEnemies, drawGuardianProjectiles, drawGuardians, guardianProjectiles, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions, checkProjectileCollisions } from './lib/collision';
 import { guardians, enemies } from './lib/groups';
 import { Background } from './lib/sprite';
@@ -33,11 +33,17 @@ const Canvas = () => {
 
       // Main game loop logic
       const gameLoop = () => {
-        context.clearRect(0, 0, canvas.width, canvas.height)
         updateAllSprites(context);
+
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
         checkProjectileCollisions(guardianProjectiles, enemies)
+
+        drawGuardians(context)
+        drawEnemies(context)
+        drawAllHealthbars(context)
+        drawGuardianProjectiles(context)
+        drawDamageNumbers(context)
 
         requestAnimationFrame(gameLoop);
       };

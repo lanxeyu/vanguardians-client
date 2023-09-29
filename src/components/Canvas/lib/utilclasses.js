@@ -31,8 +31,7 @@ class DamageNumber extends Character {
         // console.log(this.lifeTime - (this.endTime - new Date()))
     }
 
-    update(context) {
-        this.draw(context)
+    update() {
         let newPointY = this.position.y - this.movSpd
         let newPointX = this.position.x
         // if (this.target) newPointX = this.target.position.x + (this.target.width / 2)
