@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GuardianGallery } from '../../components'
+import axios from 'axios'
 import './index.css'
 
 const Guardians = () => {
@@ -13,9 +14,8 @@ const Guardians = () => {
 
   async function fetchGuardians() {
     try{
-      const response = await fetch('https://vanguardians-server.onrender.com/guardians')
-      const data = await response.json()
-      setGuardians(data)
+      const response = await axios.get('https://vanguardians-server.onrender.com/guardians')
+      setGuardians(response.data)
       setLoading(false)
     } catch (err) {
       setError(err.message)

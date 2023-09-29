@@ -1,8 +1,8 @@
 import { addToGroup, damageNumbers, removeFromGroup } from "./groups"
-import { Sprite } from "./sprite"
+import { Character } from "./sprite"
 
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
-class DamageNumber extends Sprite {
+class DamageNumber extends Character {
     constructor(text, x, y) {
         super()
         addToGroup(this, damageNumbers)
@@ -31,7 +31,8 @@ class DamageNumber extends Sprite {
         // console.log(this.lifeTime - (this.endTime - new Date()))
     }
 
-    update() {
+    update(context) {
+        this.draw(context)
         let newPointY = this.position.y - this.movSpd
         let newPointX = this.position.x
         // if (this.target) newPointX = this.target.position.x + (this.target.width / 2)

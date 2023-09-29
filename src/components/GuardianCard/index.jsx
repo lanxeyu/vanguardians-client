@@ -28,8 +28,8 @@ const GuardianCard = ({ guardian }) => {
   }, [])
 
   return (
-    <Link to={`${guardian.g_id}`}>
-      <div className = "guardian-card">
+    <Link id="guardian-card-link" to={`${guardian.g_id}`}>
+      <div className = "guardian-card" id='guardian-card-container'>
         <h4>{guardian.name}</h4>
         <h5>Type: {guardian.g_class}</h5>
         <img src={imgUrl} alt={guardian.name} />
