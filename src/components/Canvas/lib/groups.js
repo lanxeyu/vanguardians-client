@@ -4,6 +4,7 @@ const guardianProjectiles = [];
 const enemies = [];
 const enemyProjectiles = [];
 const damageNumbers = [];
+const van = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -61,9 +62,15 @@ function drawAllHealthbars (context) {
     }
 }
 
+function drawVan (context) {
+    for (const sprite of guardians) {
+        sprite.draw(context)
+    }
+}
+
 export { 
     addToGroup, removeFromGroup,
     allSprites, guardians, guardianProjectiles, enemies, enemyProjectiles, damageNumbers,
     updateAllSprites,
-    drawGuardians, drawEnemies, drawGuardianProjectiles, drawEnemyProjectiles, drawDamageNumbers, drawAllHealthbars
+    drawGuardians, drawEnemies, drawGuardianProjectiles, drawEnemyProjectiles, drawDamageNumbers, drawAllHealthbars, drawVan, van
 }

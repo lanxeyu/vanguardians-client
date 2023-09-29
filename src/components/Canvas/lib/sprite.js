@@ -1,4 +1,4 @@
-import { addToGroup, allSprites } from "./groups";
+import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -22,6 +22,59 @@ class Background extends Sprite {
     }
 
     update() {}
+}
+
+class Van extends Sprite {
+    constructor(x,y){
+        super()
+        addToGroup(this, guardians)
+        addToGroup(this, van)
+        this.position = {x, y}
+        this.width = 180;
+        this.height = 150;
+        this.maxHealth = 100
+        this.currHealth = this.maxHealth
+        this.healthBarHeight = 8;
+        this.healthBarWidth = 70;
+        this.exp
+        this.lvl
+    }
+    draw(context) {
+        context.fillStyle = "violet";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
+    drawHealthbars(context) {
+        context.fillStyle = "grey";
+        context.fillRect(
+            this.position.x,
+            this.position.y - 25,
+            this.healthBarWidth,
+            this.healthBarHeight
+        );
+
+        context.fillStyle = "red";
+        context.fillRect(
+            this.position.x,
+            this.position.y - 25,
+            (this.currHealth / this.maxHealth) * this.healthBarWidth,
+            this.healthBarHeight
+        );
+    }
+
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false;
+            // Guardian knocked-out logic to be implemented
+            removeFromGroup(this, allSprites);
+            removeFromGroup(this, guardians);
+            removeFromGroup(this, van);
+            // Game over logic
+        }
+    }
+
+    getKnockedBack() {}
+    getStunned() {}
 }
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
@@ -134,4 +187,4 @@ const CHAR_MODES = {
     MODE_2: 1,
 };
 
-export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES };
+export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES, Van };

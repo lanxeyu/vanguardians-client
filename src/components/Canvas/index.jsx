@@ -13,7 +13,7 @@ import {
 } from "./lib/groups";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { guardians, enemies } from "./lib/groups";
-import { Background } from "./lib/sprite";
+import { Background, Van } from "./lib/sprite";
 
 const Canvas = () => {
     useEffect(() => {
@@ -29,11 +29,13 @@ const Canvas = () => {
                 "src/components/canvas/img/test-background.png"
             );
 
+            new Van(50, 533)
+
             // Spawn objects // to be removed and use a dynamic spawner function
-            new Duncan(50, 513);
-            new Lanxe(50, 533);
-            new Robbie(50, 533);
-            new Steph(50, 533);
+            // new Duncan(50, 513);
+            // new Lanxe(50, 533);
+            // new Robbie(50, 533);
+            // new Steph(50, 533);
             new James(50, 613);
 
             spawnSkeleton();
@@ -50,6 +52,7 @@ const Canvas = () => {
                 checkProjectileCollisions(guardianProjectiles, enemies);
 
                 background.draw(context);
+
                 drawGuardians(context);
                 drawEnemies(context);
                 drawAllHealthbars(context);
