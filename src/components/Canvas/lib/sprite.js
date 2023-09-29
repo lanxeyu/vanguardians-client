@@ -7,18 +7,25 @@ class Sprite {
     }
 }
 
-class Background extends Sprite {
-    constructor(x, y, imageSrc) {
+class Img extends Sprite {
+    constructor(x, y, imageSrc, scale = 1) {
         super();
         this.position = { x, y };
         this.width = 50;
         this.height = 150;
         this.image = new Image();
         this.image.src = imageSrc;
+        this.scale = scale;
     }
 
     draw(context) {
-        context.drawImage(this.image, this.position.x, this.position.y);
+        context.drawImage(
+            this.image,
+            this.position.x,
+            this.position.y,
+            this.image.width * this.scale,
+            this.image.height * this.scale
+        );
     }
 
     update() {}
@@ -134,4 +141,4 @@ const CHAR_MODES = {
     MODE_2: 1,
 };
 
-export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES };
+export { Sprite, Img, Character, CHAR_STATES, CHAR_MODES };
