@@ -7,36 +7,74 @@ class Sprite {
     }
 }
 
-class Img extends Sprite {
-    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
+class Background extends Sprite {
+    constructor(x, y, imageSrc) {
         super();
         this.position = { x, y };
         this.width = 50;
         this.height = 150;
         this.image = new Image();
         this.image.src = imageSrc;
-        this.scale = scale;
-        this.framesMax = framesMax;
-        this.framesCurrent = 0;
-        this.framesElapsed = 0;
-        this.framesHold = 5;
     }
 
     draw(context) {
-        context.drawImage(
-            this.image,
-            this.framesCurrent * (this.image.width / this.framesMax),
-            0,
-            this.image.width / this.framesMax,
-            this.image.height,
-            this.position.x,
-            this.position.y,
-            (this.image.width / this.framesMax) * this.scale,
-            this.image.height * this.scale
-        );
+        context.drawImage(this.image, this.position.x, this.position.y);
     }
 
     update() {}
+}
+
+class Van extends Sprite {
+    constructor(x, y) {
+        super();
+        addToGroup(this, guardians);
+        addToGroup(this, van);
+        this.position = { x, y };
+        this.width = 180;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.healthBarHeight = 8;
+        this.healthBarWidth = 70;
+        this.exp;
+        this.lvl;
+    }
+    draw(context) {
+        context.fillStyle = "violet";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
+    drawHealthbars(context) {
+        context.fillStyle = "grey";
+        context.fillRect(
+            this.position.x,
+            this.position.y - 25,
+            this.healthBarWidth,
+            this.healthBarHeight
+        );
+
+        context.fillStyle = "red";
+        context.fillRect(
+            this.position.x,
+            this.position.y - 25,
+            (this.currHealth / this.maxHealth) * this.healthBarWidth,
+            this.healthBarHeight
+        );
+    }
+
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false;
+            // Guardian knocked-out logic to be implemented
+            removeFromGroup(this, allSprites);
+            removeFromGroup(this, guardians);
+            removeFromGroup(this, van);
+            // Game over logic
+        }
+    }
+
+    getKnockedBack() {}
+    getStunned() {}
 }
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
