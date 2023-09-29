@@ -103,8 +103,8 @@ class Van extends Sprite {
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
-    constructor() {
-        super();
+    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
+        super(x, y, imageSrc, scale, framesMax);
         this.isAlive = true;
         this.target = null;
 
@@ -113,6 +113,10 @@ class Character extends Sprite {
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
+
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
     }
 
     getKnockedBack(distance) {

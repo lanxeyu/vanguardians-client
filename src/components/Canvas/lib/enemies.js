@@ -1,4 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./sprite";
 
 
@@ -101,4 +101,53 @@ class Skeleton extends Enemy {
     }
 }
 
-export { Skeleton }
+class Demon extends Enemy {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.width = 70
+        this.height = 70
+        this.maxHealth = 50
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 2000
+        this.atkRange = 100
+        this.movSpd = 6
+
+        this.knockBackStrength = -7
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            width: this.atkRange,
+            height: 120,
+        }
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y + 50
+        context.fillStyle = "brown"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+
+    updateTarget() {
+        this.target = this.findNearestTarget(van, "enemy");
+    }
+}
+
+export { Skeleton, Demon }

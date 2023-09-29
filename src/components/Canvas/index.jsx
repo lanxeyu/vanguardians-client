@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Lanxe, Robbie, Duncan, Steph, James } from "./lib/guardians";
 import { Background, Van } from "./lib/sprite";
-import { spawnSkeleton } from "./lib/spawner";
+import { spawnSkeleton, spawnDemon } from "./lib/spawner";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { 
     guardians, enemies, guardianProjectiles,
@@ -45,6 +45,7 @@ const Canvas = () => {
             }
 
             spawnSkeleton();
+            spawnDemon();
 
             // Main game loop logic
             const gameLoop = () => {
