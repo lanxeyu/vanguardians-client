@@ -1,9 +1,9 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
-import { Sprite, CHAR_STATES, CHAR_MODES } from "./sprite";
+import { Character, CHAR_STATES, CHAR_MODES, Sprite,  } from "./sprite";
 
 
 // --------------------  GUARDIAN CLASSES  -------------------------
-class Guardian extends Sprite {
+class Guardian extends Character {
     constructor() {
         super();
         addToGroup(this, guardians);
@@ -19,9 +19,13 @@ class Guardian extends Sprite {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        if (this.target && (this.position.x < 900) && (this.checkTargetInRange() == false)) {
+        if (this.isKnockedBack) {
+            this.position.x += this.knockBackDistance
+        }
+        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < 900) && !this.checkTargetInRange()) {
             this.position.x += this.movSpd;
         }
+
         /*
         let homePositionX = 50
         // Distance between player and home
@@ -80,7 +84,7 @@ class Guardian extends Sprite {
         }
     }
 
-    update() {
+    update(context) {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             // Guardian knocked-out logic to be implemented
@@ -90,6 +94,8 @@ class Guardian extends Sprite {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
+        this.draw(context)
+        this.drawHealthbars(context)
     }
 
     toggleModes() {
@@ -116,7 +122,7 @@ class Lanxe extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 2000
-        this.atkRange = 200
+        this.atkRange = 250
         this.movSpd = 4
 
         this.isAttacking = false;
@@ -132,7 +138,7 @@ class Lanxe extends Guardian {
     draw(context) {
         this.atkBox.position.x = this.position.x
         this.atkBox.position.y = this.position.y
-        context.fillStyle = "blue";
+        context.fillStyle = "blue"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -156,8 +162,10 @@ class Robbie extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 3;
         this.atkSpd = 2000;
-        this.atkRange = 400;
+        this.atkRange = 600;
         this.movSpd = 3;
+
+        this.stunDuration = 1000;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -166,9 +174,9 @@ class Robbie extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
+        }
     }
 
-    }
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
@@ -195,7 +203,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth
         this.atk = 4
         this.atkSpd = 800
-        this.atkRange = 400
+        this.atkRange = 900
         this.movSpd = 4
 
         this.isAttacking = false
@@ -242,37 +250,27 @@ class Steph extends Guardian {
         this.height = 150;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
-
-        this.healthBarHeight= 8
-
         this.atk = 4;
         this.atkSpd = 2000;
         this.atkRange = 700;
         this.movSpd = 2;
 
         this.isAttacking = false;
-
-        this.shootArrow();
+        this.atkTimer = null;
+        this.atkCooldown = 0;
     }
 
-    shootArrow() {
-        setInterval(() => {
-            if (this.isAlive) {
-                this.isAttacking = true
-                new Spear(this.position.x, this.position.y);
-            }
-        }, this.atkSpd);
+    attack() {
+        this.isAttacking = true;
+        new Spear(this.position.x, this.position.y)
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 5); 
     }
 
     draw(context) {
         context.fillStyle = 'LightSkyBlue';
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        context.fillStyle = 'grey';
-        context.fillRect(this.position.x, this.position.y - 15, this.width, this.healthBarHeight);
-
-        context.fillStyle = 'red';
-        context.fillRect(this.position.x, this.position.y - 15, this.currHealth/this.maxHealth * 100, this.healthBarHeight);
     }
 }
 
@@ -285,9 +283,12 @@ class Duncan extends Guardian {
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 3300;
+        this.atkSpd = 2300;
         this.atkRange = 150;
         this.movSpd = 4.5;
+
+        this.knockBackStrength = 10
+        this.knockBackResistance = 2
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -296,6 +297,15 @@ class Duncan extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
+        }
+    }
+
+    updatePosition() {
+        if (this.isKnockedBack) {
+            this.position.x += (this.knockBackDistance / this.knockBackResistance)
+        }
+        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < 900) && this.checkTargetInRange() == false) {
+            this.position.x += this.movSpd;
         }
     }
 
@@ -318,25 +328,29 @@ class Duncan extends Guardian {
 class Projectile extends Sprite {
     constructor(){
         super();
+        addToGroup(this, guardianProjectiles)
     }
 
     updatePosition() {
         this.position.x += this.movSpd
     }
 
-    update() {
+    update(context) {
         this.updatePosition()
+        this.draw(context)
     }
 }
 
 class Spear extends Projectile {
     constructor(x,y) {
         super()
-        addToGroup(this, guardianProjectiles)
         this.position= {x, y}
-        this.movSpd = 20
+        this.atk = 7
+        this.movSpd = 25
         this.width = 100
         this.height = 5
+
+        this.knockBackStrength = 30
     }
 
     draw(context) {    
@@ -345,4 +359,7 @@ class Spear extends Projectile {
     }
 }
 
-export { Lanxe, Robbie, Duncan, Steph, James }
+export { 
+    Lanxe, Robbie, Duncan, Steph, James,
+    Spear
+}
