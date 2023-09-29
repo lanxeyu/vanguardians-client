@@ -50,7 +50,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     removeFromGroup(spriteA, allSprites)
                 }
 
-                if (spriteA instanceof Lightning) {
+                else if (spriteA instanceof Lightning) {
                     spriteB.getStunned(spriteA.stunDuration)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)

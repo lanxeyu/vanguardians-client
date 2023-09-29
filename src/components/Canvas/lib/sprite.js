@@ -1,4 +1,4 @@
-import { addToGroup, allSprites } from "./groups";
+import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -36,17 +36,7 @@ class Img extends Sprite {
         );
     }
 
-    update() {
-        this.framesElapsed++;
-
-        if (this.framesElapsed % this.framesHold === 0) {
-            if (this.framesCurrent < this.framesMax - 1) {
-                this.framesCurrent++;
-            } else {
-                this.framesCurrent = 0;
-            }
-        }
-    }
+    update() {}
 }
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
@@ -159,4 +149,4 @@ const CHAR_MODES = {
     MODE_2: 1,
 };
 
-export { Sprite, Img, Character, CHAR_STATES, CHAR_MODES };
+export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES, Van };
