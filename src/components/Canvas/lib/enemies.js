@@ -1,4 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./sprite";
 
 
@@ -143,6 +143,10 @@ class Demon extends Enemy {
                 this.atkBox.height
             );
         }
+    }
+
+    updateTarget() {
+        this.target = this.findNearestTarget(van, "enemy");
     }
 }
 
