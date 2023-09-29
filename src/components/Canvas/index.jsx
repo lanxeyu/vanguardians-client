@@ -95,7 +95,6 @@ const Canvas = () => {
                     <Link to={"/"}>Return Home</Link>
                 </div>
             </div>
-            )}
         </div>
     );
 };
