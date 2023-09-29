@@ -15,6 +15,8 @@ import {
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { guardians, enemies } from "./lib/groups";
 import { Sprite, Van } from "./lib/sprite";
+// import { checkGameOver } from "./lib/utils"
+import "../../pages/Home/index.css";
 
 const Canvas = () => {
     const [showGameOver, setShowGameOver] = useState(false);
@@ -25,9 +27,9 @@ const Canvas = () => {
         if (canvas) {
             initCanvas(canvas);
 
-            const background = new Img(0, 0, "src/components/canvas/img/test-background.png");
+            const background = new Sprite(0, 0, "src/components/canvas/img/test-background.png");
 
-            const van = new Van(50, 533);
+            const van = new Van(50, 533, "src/components/canvas/img/van.png");
 
             // Spawn objects // to be removed and use a dynamic spawner function
             new Duncan(50, 513);
@@ -83,6 +85,16 @@ const Canvas = () => {
                         <Link to={"/"}>Return Home</Link>
                     </div>
                 </div>
+            )}
+            <div id="popup-container">
+                <div id="popup">
+                    <p>GameOver...</p>
+                    <p>Score: 1000</p>
+                    <p>High Score: 3043</p>
+                    <p>Total Kills: 340</p>
+                    <Link to={"/"}>Return Home</Link>
+                </div>
+            </div>
             )}
         </div>
     );
