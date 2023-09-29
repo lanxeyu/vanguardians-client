@@ -1,4 +1,4 @@
-import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./groups";
+import { addToGroup, allSprites, guardians, van, removeFromGroup, background } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -10,6 +10,7 @@ class Sprite {
 class Img extends Sprite {
     constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
         super();
+        addToGroup(this, background)
         this.position = { x, y };
         this.width = 50;
         this.height = 150;

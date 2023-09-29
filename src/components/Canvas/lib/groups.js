@@ -5,6 +5,7 @@ const enemies = [];
 const enemyProjectiles = [];
 const damageNumbers = [];
 const van = [];
+const background = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -68,6 +69,12 @@ function drawVan(context) {
     }
 }
 
+function drawBackground(context) {
+    for (const sprite of background) {
+        sprite.draw(context)
+    }
+}
+
 export {
     addToGroup,
     removeFromGroup,
@@ -77,6 +84,8 @@ export {
     enemies,
     enemyProjectiles,
     damageNumbers,
+    van,
+    background,
     updateAllSprites,
     drawGuardians,
     drawEnemies,
@@ -85,5 +94,5 @@ export {
     drawDamageNumbers,
     drawAllHealthbars,
     drawVan,
-    van,
+    drawBackground    
 };
