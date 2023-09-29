@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { initCanvas } from './lib/canvas';
 import { Lanxe, Robbie, Duncan, Steph, James } from './lib/guardians';
 import { spawnSkeleton } from './lib/spawner';
-import { guardianProjectiles, updateAllSprites } from './lib/groups';
+import { drawAllHealthbars, drawDamageNumbers, drawEnemies, drawGuardianProjectiles, drawGuardians, guardianProjectiles, updateAllSprites } from './lib/groups';
 import { checkAtkBoxCollisions, checkProjectileCollisions } from './lib/collision';
 import { guardians, enemies } from './lib/groups';
 import { Background } from './lib/sprite';
@@ -15,8 +15,6 @@ const Canvas = () => {
     if (canvas) {
       initCanvas(canvas);
 
-      new Background(0 ,0, './src/assets/images/bg_sample.png');
-
       // Spawn objects // to be removed and use a dynamic spawner function
       new Duncan(50, 513);
       new Lanxe(50, 533);
@@ -28,10 +26,21 @@ const Canvas = () => {
 
       // Main game loop logic
       const gameLoop = () => {
+
+        context.fillStyle = 'black'
+        context.fillRect(0,0, canvas.width, canvas.height)
+
         updateAllSprites(context);
+
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
         checkProjectileCollisions(guardianProjectiles, enemies)
+
+        drawGuardians(context)
+        drawEnemies(context)
+        drawAllHealthbars(context)
+        drawGuardianProjectiles(context)
+        drawDamageNumbers(context)
 
         requestAnimationFrame(gameLoop);
       };
