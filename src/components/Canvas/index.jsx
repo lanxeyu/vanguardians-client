@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Lanxe, Robbie, Duncan, Steph, James } from "./lib/guardians";
 import { spawnSkeleton } from "./lib/spawner";
@@ -16,6 +17,7 @@ import { guardians, enemies } from "./lib/groups";
 import { Sprite, Van } from "./lib/sprite";
 
 const Canvas = () => {
+    const [showGameOver, setShowGameOver] = useState(false);
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
@@ -23,9 +25,9 @@ const Canvas = () => {
         if (canvas) {
             initCanvas(canvas);
 
-            const background = new Sprite(0, 0, "src/components/canvas/img/test-background.png");
+            const background = new Img(0, 0, "src/components/canvas/img/test-background.png");
 
-            new Van(50, 533);
+            const van = new Van(50, 533);
 
             // Spawn objects // to be removed and use a dynamic spawner function
             new Duncan(50, 513);
@@ -56,7 +58,14 @@ const Canvas = () => {
                 drawDamageNumbers(context);
 
                 requestAnimationFrame(gameLoop);
+                function checkGameOver() {
+                    if (van.currHealth < 1) {
+                        setShowGameOver(true);
+                    }
+                }
+                checkGameOver();
             };
+
             gameLoop();
         }
     }, []);
@@ -64,6 +73,17 @@ const Canvas = () => {
     return (
         <div>
             <canvas id="canvas"></canvas>
+            {showGameOver && (
+                <div id="popup-container">
+                    <div id="popup">
+                        <p>GameOver...</p>
+                        <p>Score: 1000</p>
+                        <p>High Score: 3043</p>
+                        <p>Total Kills: 340</p>
+                        <Link to={"/"}>Return Home</Link>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
