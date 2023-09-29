@@ -161,34 +161,37 @@ class Robbie extends Guardian {
         this.maxHealth = 60;
         this.currHealth = this.maxHealth;
         this.atk = 3;
-        this.atkSpd = 2000;
+        this.atkSpd = 1000;
         this.atkRange = 600;
         this.movSpd = 3;
 
-        this.stunDuration = 1000;
+        this.stunDuration = 20000;
 
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-        this.atkBox = {
-            position: this.position,
-            width: this.atkRange,
-            height: 50,
-        }
+        // this.atkBox = {
+        //     position: this.position,
+        //     width: this.atkRange,
+        //     height: 50,
+        // }
+    }
+
+    updateTarget() {
+        this.target = this.findRandomTarget(enemies, "guardian");
+    }
+
+    attack() {
+        this.isAttacking = true;
+        new Lightning(this.target.position.x, this.target.position.y -650)
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 5); 
     }
 
     draw(context) {
         context.fillStyle = "green";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
     }
     
 }
@@ -341,6 +344,26 @@ class Projectile extends Sprite {
     }
 }
 
+class Lightning extends Projectile {
+    constructor(x, y){
+        super()
+        this.position= {x, y}
+        this.atk = 2
+        this.movSpd = 0
+        this.width = 60
+        this.height = 800
+    }
+
+    updatePosition() {
+        this.position.y
+    }
+
+    draw(context) {    
+        context.fillStyle = 'orange'
+        context.fillRect(this.position.x + 5, this.position.y, this.width, this.height)
+    }
+}
+
 class Spear extends Projectile {
     constructor(x,y) {
         super()
@@ -361,5 +384,5 @@ class Spear extends Projectile {
 
 export { 
     Lanxe, Robbie, Duncan, Steph, James,
-    Spear
+    Spear, Lightning
 }
