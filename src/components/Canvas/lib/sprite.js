@@ -2,15 +2,8 @@ import { addToGroup, allSprites, guardians, van, removeFromGroup, background } f
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
-    constructor() {
-        addToGroup(this, allSprites);
-    }
-}
-
-class Img extends Sprite {
     constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
-        super();
-        addToGroup(this, background)
+        addToGroup(this, allSprites);
         this.position = { x, y };
         this.width = 50;
         this.height = 150;
@@ -21,6 +14,7 @@ class Img extends Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+        
     }
 
     draw(context) {
@@ -36,7 +30,6 @@ class Img extends Sprite {
             this.image.height * this.scale
         );
     }
-
     update() {
         this.framesElapsed++;
 
@@ -50,11 +43,19 @@ class Img extends Sprite {
     }
 }
 
+class Background extends Sprite {
+    constructor(x, y, imageSrc, scale = 1){
+        super(x, y, imageSrc, scale)
+        addToGroup(this, background)
+    }
+}
+
 class Van extends Sprite {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 1) {
+        super(x, y, imageSrc, scale);
         addToGroup(this, guardians);
         addToGroup(this, van);
+        this.isAlive = true
         this.position = { x, y };
         this.width = 180;
         this.height = 150;
@@ -65,15 +66,15 @@ class Van extends Sprite {
         this.exp;
         this.lvl;
     }
+
     draw(context) {
-        context.fillStyle = "violet";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.drawImage(this.image, this.position.x, this.position.y);
     }
 
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x,
+            this.position.x + 50,
             this.position.y - 25,
             this.healthBarWidth,
             this.healthBarHeight
@@ -81,7 +82,7 @@ class Van extends Sprite {
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x,
+            this.position.x + 50,
             this.position.y - 25,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
@@ -91,11 +92,8 @@ class Van extends Sprite {
     update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;
-            // Guardian knocked-out logic to be implemented
             removeFromGroup(this, allSprites);
             removeFromGroup(this, guardians);
-            removeFromGroup(this, van);
-            // Game over logic
         }
     }
 
@@ -213,4 +211,4 @@ const CHAR_MODES = {
     MODE_2: 1,
 };
 
-export { Sprite, Img, Character, CHAR_STATES, CHAR_MODES, Van };
+export { Sprite, Background, Van, Character, CHAR_STATES, CHAR_MODES };
