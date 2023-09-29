@@ -28,10 +28,10 @@ const Canvas = () => {
             new Van(50, 533);
 
             // Spawn objects // to be removed and use a dynamic spawner function
-            // new Duncan(50, 513);
-            // new Lanxe(50, 533);
-            // new Robbie(50, 533);
-            // new Steph(50, 533);
+            new Duncan(50, 513);
+            new Lanxe(50, 533);
+            new Robbie(50, 533);
+            new Steph(50, 533);
             new James(50, 613);
 
             spawnSkeleton();

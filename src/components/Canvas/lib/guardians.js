@@ -159,8 +159,8 @@ class Robbie extends Guardian {
         this.maxHealth = 60;
         this.currHealth = this.maxHealth;
         this.atk = 3;
-        this.atkSpd = 4000;
-        this.atkRange = 600;
+        this.atkSpd = 5000;
+        this.atkRange = 800;
         this.movSpd = 3;
 
         this.isAttacking = false;
@@ -338,10 +338,10 @@ class Lightning extends Projectile {
     constructor(x, y){
         super()
         this.position= {x, y}
-        this.atk = 2
-        this.movSpd = 5
+        this.atk = "Stunned"
+        this.movSpd = 15
         this.width = 60
-        this.height = 600
+        this.height = 590
         this.stunDuration = 3000
     }
 
@@ -352,6 +352,28 @@ class Lightning extends Projectile {
     draw(context) {    
         context.fillStyle = 'orange'
         context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    explodeOnImpact(){
+        if (this.position.y === this.target.position.y)
+        new Explosion(this.position.x, this.position.y + 100)
+    }
+}
+
+class Explosion extends Projectile {
+    constructor(x,y) {
+        super()
+        this.position= {x, y}
+        this.atk = 5
+        this.movSpd = 0
+        this.width = 200
+        this.height = 150
+        this.stunDuration = 4000
+    }
+
+    draw(context) {    
+        context.fillStyle = 'pink'
+        context.fillRect(this.position.x -75, this.position.y, this.width, this.height)
     }
 }
 
@@ -375,5 +397,5 @@ class Spear extends Projectile {
 
 export { 
     Lanxe, Robbie, Duncan, Steph, James,
-    Spear, Lightning
+    Spear, Lightning, Explosion
 }
