@@ -65,7 +65,7 @@ class Van extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x,
+            this.position.x + 50,
             this.position.y - 25,
             this.healthBarWidth,
             this.healthBarHeight
@@ -73,7 +73,7 @@ class Van extends Sprite {
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x,
+            this.position.x + 50,
             this.position.y - 25,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
