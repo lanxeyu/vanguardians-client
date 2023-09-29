@@ -5,10 +5,6 @@ class Sprite {
     constructor(){
     addToGroup(this, allSprites)
     }
-
-    update(context) {
-        this.draw(context)
-    }
 }
 
 class Background extends Sprite {
@@ -16,7 +12,6 @@ class Background extends Sprite {
         super()
 
     }
-
 }
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------

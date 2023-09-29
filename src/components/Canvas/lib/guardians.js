@@ -84,7 +84,7 @@ class Guardian extends Character {
         }
     }
 
-    update(context) {
+    update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;
             // Guardian knocked-out logic to be implemented
@@ -94,8 +94,6 @@ class Guardian extends Character {
         this.updateTarget()
         this.updatePosition()
         this.updateAttacking()
-        this.draw(context)
-        this.drawHealthbars(context)
     }
 
     toggleModes() {
@@ -335,9 +333,8 @@ class Projectile extends Sprite {
         this.position.x += this.movSpd
     }
 
-    update(context) {
+    update() {
         this.updatePosition()
-        this.draw(context)
     }
 }
 

@@ -16,14 +16,54 @@ function removeFromGroup(sprite, group) {
     }
 }
 
-function updateAllSprites(context) {
+function updateAllSprites() {
     for (const sprite of allSprites) {
-        sprite.update(context);
+        sprite.update();
+    }
+}
+
+function drawGuardians (context) {
+    for (const sprite of guardians) {
+        sprite.draw(context)
+    }
+}
+
+function drawEnemies (context) {
+    for (const sprite of enemies) {
+        sprite.draw(context)
+    }
+}
+
+function drawGuardianProjectiles (context) {
+    for (const sprite of guardianProjectiles) {
+        sprite.draw(context)
+    }
+}
+
+function drawEnemyProjectiles (context) {
+    for (const sprite of enemyProjectiles) {
+        sprite.draw(context)
+    }
+}
+
+function drawDamageNumbers (context) {
+    for (const sprite of damageNumbers) {
+        sprite.draw(context)
+    }
+}
+
+function drawAllHealthbars (context) {
+    for (const sprite of guardians) {
+        sprite.drawHealthbars(context)
+    }
+    for (const sprite of enemies) {
+        sprite.drawHealthbars(context)
     }
 }
 
 export { 
     addToGroup, removeFromGroup,
     allSprites, guardians, guardianProjectiles, enemies, enemyProjectiles, damageNumbers,
-    updateAllSprites
+    updateAllSprites,
+    drawGuardians, drawEnemies, drawGuardianProjectiles, drawEnemyProjectiles, drawDamageNumbers, drawAllHealthbars
 }
