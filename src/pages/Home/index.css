@@ -102,3 +102,9 @@
 #popup::-webkit-scrollbar-track {
     background-color: #453c34;
 }
+
+.game {
+    background-image: url("src/components/canvas/img/test-background.png");
+    background-position: bottom;
+    background-position-y:1% ;
+}
