@@ -1,6 +1,6 @@
 export {default as GamePage} from './GamePage';
 export {default as Home} from './Home'
-export {Leaderboard as Leaderboard} from './Leaderboard'
+export {default as Leaderboard} from './Leaderboard'
 export {default as Guardians} from './Guardians'
 export {default as Login} from './Login'
 export {default as Signup} from './Signup'

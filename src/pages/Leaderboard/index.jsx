@@ -5,17 +5,22 @@ import axios from 'axios'
 import './index.css'
 
 const Leaderboard = () => {
-  const [leaderboardData, setLeaderboardData] = useState([])
+  const [leaderboardData, setLeaderboardData] = useState([-1])
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await axios.get(`https://vanguardians-server.onrender.com/scores`);
+      const response = await axios.get(`http://127.0.0.1:5000/scores`);
+      console.log('Middle')
       if (response.status === 200) {
           const data = response.data;
           
           console.log(data)
           setLeaderboardData(data);      
       }
+      else {
+        throw response.status;
+      }
+      
     } catch (error) {
         console.error('Error fetching data:', error);
         setLeaderboardData([])
@@ -39,11 +44,9 @@ const Leaderboard = () => {
   return (
     <div id="leaderboard-container">
       <h2 id="leaderboard-title">LEADERBOARD</h2>
-      <LeaderboardBox leaderboardData={leaderboardData} ></LeaderboardBox>
+      <LeaderboardBox leaderboardData={leaderboardData}></LeaderboardBox>
     </div>
   )
 }
 
-export {
-  Leaderboard
-}
+export default Leaderboard
