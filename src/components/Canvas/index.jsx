@@ -32,11 +32,11 @@ const Canvas = () => {
             const van = new Van(50, 533, "src/components/canvas/img/van.png");
 
             // Spawn objects // to be removed and use a dynamic spawner function
-            new Duncan(50, 513);
-            new Lanxe(50, 533);
-            new Robbie(50, 533);
-            new Steph(50, 533);
-            new James(50, 613);
+            // new Duncan(50, 513);
+            // new Lanxe(50, 533);
+            // new Robbie(50, 533);
+            // new Steph(50, 533);
+            // new James(50, 613);
 
             spawnSkeleton();
 
@@ -67,7 +67,6 @@ const Canvas = () => {
                 }
                 checkGameOver();
             };
-
             gameLoop();
         }
     }, []);
@@ -86,15 +85,6 @@ const Canvas = () => {
                     </div>
                 </div>
             )}
-            <div id="popup-container">
-                <div id="popup">
-                    <p>GameOver...</p>
-                    <p>Score: 1000</p>
-                    <p>High Score: 3043</p>
-                    <p>Total Kills: 340</p>
-                    <Link to={"/"}>Return Home</Link>
-                </div>
-            </div>
         </div>
     );
 };
