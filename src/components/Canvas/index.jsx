@@ -25,7 +25,7 @@ const Canvas = () => {
 
             const background = new Sprite(0, 0, "src/components/canvas/img/test-background.png");
 
-            new Van(50, 533);
+            new Van(50, 533, "src/components/canvas/img/van.png");
 
             // Spawn objects // to be removed and use a dynamic spawner function
             new Duncan(50, 513);

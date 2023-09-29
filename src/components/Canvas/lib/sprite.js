@@ -43,8 +43,8 @@ class Sprite {
 }
 
 class Van extends Sprite {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 1) {
+        super(x, y, imageSrc, scale);
         addToGroup(this, guardians);
         addToGroup(this, van);
         this.position = { x, y };
@@ -57,9 +57,9 @@ class Van extends Sprite {
         this.exp;
         this.lvl;
     }
+
     draw(context) {
-        context.fillStyle = "violet";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        context.drawImage(this.image, this.position.x, this.position.y);
     }
 
     drawHealthbars(context) {
