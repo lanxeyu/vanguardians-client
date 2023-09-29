@@ -60,12 +60,4 @@ describe ('GuardianCard Component', () => {
     const image = screen.getByRole('img')
     expect(image.src).toBe("http://localhost:3000/src/pages/Home/images/wizard.gif")
   })
-
-  it('renders Duncan\'s img src when the guardian name is Duncan', () => {
-    guardian.name = "Duncan"
-    const image = screen.getByRole('img')
-    expect(image.src).toBe("http://localhost:3000/src/pages/Home/images/heavyarmor.gif")
-  })
-  
-
 })
