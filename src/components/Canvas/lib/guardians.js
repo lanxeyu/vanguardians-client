@@ -159,20 +159,13 @@ class Robbie extends Guardian {
         this.maxHealth = 60;
         this.currHealth = this.maxHealth;
         this.atk = 3;
-        this.atkSpd = 1000;
+        this.atkSpd = 4000;
         this.atkRange = 600;
         this.movSpd = 3;
-
-        this.stunDuration = 20000;
 
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-        // this.atkBox = {
-        //     position: this.position,
-        //     width: this.atkRange,
-        //     height: 50,
-        // }
     }
 
     updateTarget() {
@@ -184,7 +177,7 @@ class Robbie extends Guardian {
         new Lightning(this.target.position.x, this.target.position.y -650)
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5); 
+        }, 10); 
     }
 
     draw(context) {
@@ -346,18 +339,19 @@ class Lightning extends Projectile {
         super()
         this.position= {x, y}
         this.atk = 2
-        this.movSpd = 0
+        this.movSpd = 5
         this.width = 60
-        this.height = 800
+        this.height = 600
+        this.stunDuration = 3000
     }
 
     updatePosition() {
-        this.position.y
+        this.position.y += this.movSpd
     }
 
     draw(context) {    
         context.fillStyle = 'orange'
-        context.fillRect(this.position.x + 5, this.position.y, this.width, this.height)
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
