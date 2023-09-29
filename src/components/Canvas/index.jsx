@@ -13,7 +13,7 @@ import {
     updateAllSprites,
 } from "./lib/groups";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
-import { guardians, enemies } from "./lib/groups";
+import { guardians, enemies, van } from "./lib/groups";
 import { Img, Van } from "./lib/sprite";
 // import { checkGameOver } from "./lib/utils"
 import '../../pages/Home/index.css'
@@ -33,15 +33,15 @@ const Canvas = () => {
             const background = new Img(0, 0, "src/components/canvas/img/test-background.png");
 
 
-            const van = new Van(50, 533);
+            new Van(50, 533);
 
 
             // Spawn objects // to be removed and use a dynamic spawner function
-            new Duncan(50, 513);
-            new Lanxe(50, 533);
-            new Robbie(50, 533);
-            new Steph(50, 533);
-            new James(50, 613);
+            // new Duncan(50, 513);
+            // new Lanxe(50, 533);
+            // new Robbie(50, 533);
+            // new Steph(50, 533);
+            // new James(50, 613);
 
 
             spawnSkeleton();
@@ -73,7 +73,7 @@ const Canvas = () => {
 
                 requestAnimationFrame(gameLoop);
                 function checkGameOver(){
-                  if(van.currHealth < 1){
+                  if(van[0].currHealth < 1){
                     setShowGameOver(true)
                   }
                 };
