@@ -12,20 +12,10 @@ class Sprite {
 }
 
 class Background extends Sprite {
-    constructor(x, y, imageSrc){
+    constructor(){
         super()
-        this.position = {x,y}
-        this.width = 1366
-        this.height = 768
-        this.image = new Image()
-        this.image.src = imageSrc
-        this.scale = 1
-    }
 
-    draw(context) {
-        context.drawImage(this.image, this.position.x, this.position.y, this.width * this.scale, this.height * this.scale)
     }
-
 
 }
 

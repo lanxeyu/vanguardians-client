@@ -15,8 +15,6 @@ const Canvas = () => {
     if (canvas) {
       initCanvas(canvas);
 
-      new Background(0 ,0, './src/assets/images/bg_sample.png');
-
       // Spawn objects // to be removed and use a dynamic spawner function
       new Duncan(50, 513);
       new Lanxe(50, 533);
@@ -28,6 +26,10 @@ const Canvas = () => {
 
       // Main game loop logic
       const gameLoop = () => {
+
+        context.fillStyle = 'black'
+        context.fillRect(0,0, canvas.width, canvas.height)
+
         updateAllSprites(context);
         checkAtkBoxCollisions(guardians, enemies);
         checkAtkBoxCollisions(enemies, guardians);
