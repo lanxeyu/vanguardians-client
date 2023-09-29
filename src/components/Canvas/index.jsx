@@ -13,7 +13,7 @@ import {
 } from "./lib/groups";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { guardians, enemies } from "./lib/groups";
-import { Background, Van } from "./lib/sprite";
+import { Img, Van } from "./lib/sprite";
 
 const Canvas = () => {
     useEffect(() => {
@@ -23,11 +23,7 @@ const Canvas = () => {
         if (canvas) {
             initCanvas(canvas);
 
-            const background = new Background(
-                0,
-                0,
-                "src/components/canvas/img/test-background.png"
-            );
+            const background = new Img(0, 0, "src/components/canvas/img/test-background.png");
 
             new Van(50, 533);
 
