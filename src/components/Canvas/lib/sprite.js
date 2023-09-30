@@ -14,7 +14,6 @@ class Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
-        
     }
 
     draw(context) {
@@ -63,8 +62,9 @@ class Van extends Sprite {
         this.currHealth = this.maxHealth;
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
-        this.exp;
-        this.lvl;
+        this.maxExp = 10;
+        this.currExp = 0;
+        this.lvl = 1;
     }
 
     draw(context) {
@@ -72,6 +72,24 @@ class Van extends Sprite {
     }
 
     drawHealthbars(context) {
+        // Healthbar
+        context.fillStyle = "grey";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 15,
+            this.healthBarWidth,
+            this.healthBarHeight
+        );
+
+        context.fillStyle = "red";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 15,
+            (this.currHealth / this.maxHealth) * this.healthBarWidth,
+            this.healthBarHeight
+        );
+        
+        // Expbar
         context.fillStyle = "grey";
         context.fillRect(
             this.position.x + 50,
@@ -80,11 +98,11 @@ class Van extends Sprite {
             this.healthBarHeight
         );
 
-        context.fillStyle = "red";
+        context.fillStyle = "white";
         context.fillRect(
             this.position.x + 50,
             this.position.y - 25,
-            (this.currHealth / this.maxHealth) * this.healthBarWidth,
+            (this.currExp / this.maxExp) * this.healthBarWidth,
             this.healthBarHeight
         );
     }
@@ -95,6 +113,12 @@ class Van extends Sprite {
             removeFromGroup(this, allSprites);
             removeFromGroup(this, guardians);
         }
+        else if (this.currExp >= this.maxExp) {
+            this.lvl += 1;
+            this.currExp = 0;
+            this.maxExp = 10 * (2 ** this.lvl)
+        }
+
     }
 
     getKnockedBack() {}

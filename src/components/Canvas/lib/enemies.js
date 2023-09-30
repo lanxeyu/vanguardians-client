@@ -46,6 +46,7 @@ class Enemy extends Character {
 
     update() {
         if (this.currHealth <= 0) {
+            van[0].currExp += this.expGrant
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
@@ -68,6 +69,7 @@ class Skeleton extends Enemy {
         this.atkSpd = 2000
         this.atkRange = 100
         this.movSpd = 4
+        this.expGrant = 1
 
         this.knockBackStrength = -7
 
@@ -113,6 +115,7 @@ class Demon extends Enemy {
         this.atkSpd = 2000
         this.atkRange = 100
         this.movSpd = 3
+        this.expGrant = 3
 
         this.knockBackStrength = -7
 
@@ -127,6 +130,9 @@ class Demon extends Enemy {
             width: this.atkRange,
             height: 120,
         }
+
+        // Constant target
+        this.target = van[0];
     }
 
     draw(context) {
@@ -145,9 +151,9 @@ class Demon extends Enemy {
         }
     }
 
-    updateTarget() {
-        this.target = this.findNearestTarget(van, "enemy");
-    }
+    // No need to update target as it is constantly the van
+    updateTarget() {}
+    
 }
 
 export { Skeleton, Demon }

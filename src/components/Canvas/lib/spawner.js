@@ -1,6 +1,6 @@
 import { Skeleton, Demon } from "./enemies";
 
-const spawnSkeleton = () => {
+function spawnSkeleton() {
     const minX = 1366
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
@@ -10,7 +10,7 @@ const spawnSkeleton = () => {
     setTimeout(spawnSkeleton, 3000);
 }
 
-const spawnDemon = () => {
+function spawnDemon() {
     const minX = 1366
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
@@ -20,4 +20,9 @@ const spawnDemon = () => {
     setTimeout(spawnDemon, 9000);
 }
 
+// function spawnGuardians() {
+
+// }
+
 export { spawnSkeleton, spawnDemon }
+
