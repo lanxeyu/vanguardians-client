@@ -119,7 +119,7 @@ class Lanxe extends Guardian {
         this.maxHealth = 100
         this.currHealth = this.maxHealth
         this.atk = 5
-        this.atkSpd = 2000
+        this.atkSpd = 1000
         this.atkRange = 250
         this.movSpd = 4
 
@@ -386,7 +386,7 @@ class Spear extends Projectile {
         this.width = 100
         this.height = 5
 
-        this.knockBackStrength = 30
+        this.knockBackStrength = 50
     }
 
     draw(context) {    

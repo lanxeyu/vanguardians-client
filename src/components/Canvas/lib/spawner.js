@@ -15,9 +15,9 @@ const spawnDemon = () => {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Demon(randomX, 450);
+    new Demon(randomX, 480);
 
-    setTimeout(spawnDemon, 5000);
+    setTimeout(spawnDemon, 9000);
 }
 
 export { spawnSkeleton, spawnDemon }

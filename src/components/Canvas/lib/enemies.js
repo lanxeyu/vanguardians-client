@@ -67,7 +67,7 @@ class Skeleton extends Enemy {
         this.atk = 5
         this.atkSpd = 2000
         this.atkRange = 100
-        this.movSpd = 6
+        this.movSpd = 4
 
         this.knockBackStrength = -7
 
@@ -112,7 +112,7 @@ class Demon extends Enemy {
         this.atk = 5
         this.atkSpd = 2000
         this.atkRange = 100
-        this.movSpd = 6
+        this.movSpd = 3
 
         this.knockBackStrength = -7
 

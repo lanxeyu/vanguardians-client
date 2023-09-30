@@ -68,7 +68,6 @@ const Canvas = () => {
                     drawGuardianProjectiles(context);
                     drawDamageNumbers(context);
 
-
                     requestAnimationFrame(gameLoop);
                 }
             };
