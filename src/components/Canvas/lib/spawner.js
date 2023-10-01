@@ -5,7 +5,7 @@ const spawnSkeleton = () => {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, 533);
+    new Skeleton(randomX, 331);
 
     setTimeout(spawnSkeleton, 3000);
 }

@@ -12,38 +12,48 @@ class Sprite {
 }
 
 class Background extends Sprite {
-    constructor(x, y, imageSrc){
-        super()
-        this.position = {x,y}
-        this.width = 1366
-        this.height = 768
-        this.image = new Image()
-        this.image.src = imageSrc
-        this.scale = 1
+    constructor(x, y, imageSrc) {
+        super();
+        this.position = { x, y };
+        this.width = 50;
+        this.height = 150;
+        this.image = new Image();
+        this.image.src = imageSrc;
+
+        console.log(this.image)
     }
 
     draw(context) {
-        context.drawImage(this.image, this.position.x, this.position.y, this.width * this.scale, this.height * this.scale)
+        context.drawImage(this.image, this.position.x, this.position.y);
     }
+
+    update() {}
 
 
 }
 
 class Layer extends Sprite {
-    constructor(x, y, width, height, image, movSpd) {
+    constructor(x, y, width, height, offsetX, offsetY, imageSrc, movSpd) {
         super()
-        this.position = {x, y}
+        console.log(x)
+        let posX = x + offsetX;
+        let posY = y + offsetY;
+        this.position = {x: posX, y: posY}
         this.width = width;
         this.height = height;
         this.x2 = this.width;
 
-        this.image = image;
+        
         this.movSpd = movSpd;
         this.isMoving = false
         this.isMovingRight = false
+
+        this.image = new Image();
+        this.image.src = imageSrc;
+        
     }
 
-    update(context) {
+    update() {
         if (this.isMoving) {
             if (this.position.x < - this.width) {
                 this.position.x = this.width - this.movSpd + this.x2;
@@ -59,34 +69,59 @@ class Layer extends Sprite {
                 this.x2 -= this.movSpd;
             }
         }
-        
-        this.draw(context)
     }
 
     draw(context) {
-        
-        context.drawImage(this.img, this.position.x, this.position.y, this.width, this.height)
+        context.drawImage(this.image, this.position.x, this.position.y)
     }
 
     setIsMoving(isMoving) {
         this.isMoving = isMoving;
     }
+}
 
-    constructor(x, y, imageSrc) {
+class PortraitIcon extends Sprite {
+    constructor(x, y, increment, imageSrc) {
         super();
         this.position = { x, y };
-        this.width = 50;
-        this.height = 150;
+        this.increment = increment;
+        this.width = 64;
+        this.height = 64;
         this.image = new Image();
         this.image.src = imageSrc;
+        this.spacing = 20;
+
+        console.log(this.image)
     }
 
     draw(context) {
-        context.drawImage(this.image, this.position.x, this.position.y);
+        context.fillStyle = 'rgb(45,46,55)'
+        context.fillRect(20 + this.increment * this.spacing , canvas.height - 168 - this.height - 30, this.width, this.height);
+        context.lineWidth = 5;
+
+        context.drawImage(this.image, this.position.x, this.position.y)
+
+        context.strokeStyle = 'rgb(24,24,39)'
+        context.strokeRect(20 + this.increment * this.spacing, canvas.height - 168 - this.height  - 30, this.width, this.height);
+        
     }
 
     update() {}
-}
+} 
+
+// --------------------  STATE MANAGERS -----------------------------
+
+const CHAR_STATES = {
+    IDLE: 0,
+    FORWARD: 1,
+    ATTACKING: 2,
+    FLEEING: 3,
+};
+
+const CHAR_MODES = {
+    MODE_1: 0,
+    MODE_2: 1,
+};
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -184,18 +219,4 @@ class Character extends Sprite {
     }
 }
 
-// --------------------  STATE MANAGERS -----------------------------
-
-const CHAR_STATES = {
-    IDLE: 0,
-    FORWARD: 1,
-    ATTACKING: 2,
-    FLEEING: 3,
-};
-
-const CHAR_MODES = {
-    MODE_1: 0,
-    MODE_2: 1,
-};
-
-export { Sprite, Background, Character, CHAR_STATES, CHAR_MODES };
+export { Sprite, Background, Layer, Character, PortraitIcon, CHAR_STATES, CHAR_MODES };
