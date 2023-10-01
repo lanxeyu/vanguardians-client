@@ -1,5 +1,5 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
-import { Character } from "./sprite";
+import { Character } from "./guardians";
 
 
 // --------------------  ENEMY CLASSES  -------------------------
@@ -47,6 +47,7 @@ class Enemy extends Character {
     update() {
         if (this.currHealth <= 0) {
             van[0].currExp += this.expGrant
+            van[0].score += this.expGrant
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
@@ -69,7 +70,7 @@ class Skeleton extends Enemy {
         this.atkSpd = 2000
         this.atkRange = 100
         this.movSpd = 4
-        this.expGrant = 1
+        this.expGrant = 4
 
         this.knockBackStrength = -7
 
@@ -115,7 +116,7 @@ class Demon extends Enemy {
         this.atkSpd = 2000
         this.atkRange = 100
         this.movSpd = 3
-        this.expGrant = 3
+        this.expGrant = 7
 
         this.knockBackStrength = -7
 

@@ -1,5 +1,5 @@
 import { addToGroup, damageNumbers, removeFromGroup } from "./groups"
-import { Character } from "./sprite"
+import { Character } from "./guardians"
 
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
 class DamageNumber extends Character {

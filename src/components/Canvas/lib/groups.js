@@ -1,11 +1,11 @@
-const allSprites = [];
-const guardians = [];
-const guardianProjectiles = [];
-const enemies = [];
-const enemyProjectiles = [];
-const damageNumbers = [];
-const van = [];
-const background = [];
+let allSprites = [];
+let guardians = [];
+let guardianProjectiles = [];
+let enemies = [];
+let enemyProjectiles = [];
+let damageNumbers = [];
+let van = [];
+let background = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -22,6 +22,10 @@ function updateAllSprites() {
     for (const sprite of allSprites) {
         sprite.update();
     }
+}
+
+function clearAllSprites() {
+    allSprites = [];
 }
 
 function drawGuardians(context) {
@@ -87,6 +91,7 @@ export {
     van,
     background,
     updateAllSprites,
+    clearAllSprites,
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
-import { Lanxe, Robbie, Duncan, Steph, James } from "./lib/guardians";
-import { Background, Van } from "./lib/sprite";
-import { spawnSkeleton, spawnDemon } from "./lib/spawner";
+import { Background } from "./lib/sprite";
+import { Van } from "./lib/van";
+import { spawnDuncan, spawnEnemies, spawnJames, spawnLanxe, spawnRobbie, spawnSteph } from "./lib/spawner";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { 
     guardians, enemies, guardianProjectiles,
@@ -16,6 +16,7 @@ import {
     drawBackground,
     updateAllSprites,
     van,
+    clearAllSprites,
 } from "./lib/groups";
 import { useGameStart } from "./lib/utils";
 import "../../pages/Home/index.css";
@@ -28,30 +29,34 @@ const Canvas = () => {
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-
+        
         if (canvas) {
-            initCanvas(canvas);
-
+            initCanvas(canvas)
+            
             if (gameStarted){
                 new Background(0, 0, "src/components/canvas/img/test-background.png");
                 new Van(50, 533, "src/components/canvas/img/van.png");
     
-                // Spawn objects // to be removed and use a dynamic spawner function
-                new Duncan(50, 513);
-                new Lanxe(50, 533);
-                new Robbie(50, 533);
-                new Steph(50, 533);
-                new James(50, 613);
+                // --- Enable spawn to test Guardian ---
+                // Default start has Duncan and Steph at lvl 1
+                spawnDuncan();
+                spawnLanxe();
+                // spawnSteph();
+                // spawnRobbie();
+                // spawnJames();
+                // spawnAlex();
             }
-
-            spawnSkeleton();
-            spawnDemon();
 
             // Main game loop logic
             const gameLoop = () => {
                 if (gameStarted) {
                     if (!van[0].isAlive) {
+                        clearAllSprites();
                         setShowGameOver(true);
+                    }
+
+                    else if (enemies.length == 0) {
+                        spawnEnemies();
                     }
 
                     updateAllSprites(context);

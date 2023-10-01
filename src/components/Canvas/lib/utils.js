@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { guardians, van } from "./groups";
 
-export function useGameStart() {
+function useGameStart() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
@@ -19,3 +20,13 @@ export function useGameStart() {
 
   return gameStarted;
 }
+
+function restoreAllHealth() {
+  for (const guardian of guardians) {
+    guardian.currHealth = guardian.maxHealth
+  }
+  van[0].currHealth = van[0].maxHealth
+}
+
+
+export { useGameStart, restoreAllHealth }
