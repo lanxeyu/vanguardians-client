@@ -1,4 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies } from "./groups";
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./sprite";
 
 
@@ -46,6 +46,7 @@ class Enemy extends Character {
 
     update() {
         if (this.currHealth <= 0) {
+            van[0].currExp += this.expGrant
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
@@ -67,7 +68,8 @@ class Skeleton extends Enemy {
         this.atk = 5
         this.atkSpd = 2000
         this.atkRange = 100
-        this.movSpd = 6
+        this.movSpd = 4
+        this.expGrant = 1
 
         this.knockBackStrength = -7
 
@@ -101,4 +103,57 @@ class Skeleton extends Enemy {
     }
 }
 
-export { Skeleton }
+class Demon extends Enemy {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.width = 70
+        this.height = 70
+        this.maxHealth = 50
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 2000
+        this.atkRange = 100
+        this.movSpd = 3
+        this.expGrant = 3
+
+        this.knockBackStrength = -7
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            width: this.atkRange,
+            height: 120,
+        }
+
+        // Constant target
+        this.target = van[0];
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y + 50
+        context.fillStyle = "brown"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+
+    // No need to update target as it is constantly the van
+    updateTarget() {}
+    
+}
+
+export { Skeleton, Demon }

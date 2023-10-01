@@ -32,17 +32,17 @@ const GuardianProfile = ({ guardian }) => {
   console.log(imgUrl)
   return (
     <>
-    <div className="guardian-profile">
+    <div className="guardian-profile" id="guardian-profile-container">
       <div className="guardian-profile-card">
         <h4>{g.name}</h4>
         <h5>Type: {g.g_class}</h5>
-        <img src={imgUrl} alt={guardian.name} />
+        <img src={imgUrl} alt={g.name} />
       </div>
 
       <div className="guardian-profile-card" id='card-2'>
         <div className="prof-section" id='about'>
           <h3>About:</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, hic adipisci! Minus est veniam ea aut.{g.about}</p>
+          <p>{g.about}</p>
         </div>
         <div className="prof-section" id='attack-type'>
           <h3>Attack type:</h3>
@@ -51,9 +51,6 @@ const GuardianProfile = ({ guardian }) => {
         
       </div>
     </div>
-      
-
-      
     </>
         
   )

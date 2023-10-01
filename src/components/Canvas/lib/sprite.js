@@ -1,8 +1,8 @@
-import { addToGroup, allSprites } from "./groups";
+import { addToGroup, allSprites, guardians, van, removeFromGroup, background } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
-    constructor() {
+    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
         addToGroup(this, allSprites);
     }
 
@@ -19,17 +19,120 @@ class Background extends Sprite {
         this.height = 150;
         this.image = new Image();
         this.image.src = imageSrc;
+        this.scale = scale;
+        this.framesMax = framesMax;
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
+    }
 
-        console.log(this.image)
+    draw(context) {
+        context.drawImage(
+            this.image,
+            this.framesCurrent * (this.image.width / this.framesMax),
+            0,
+            this.image.width / this.framesMax,
+            this.image.height,
+            this.position.x,
+            this.position.y,
+            (this.image.width / this.framesMax) * this.scale,
+            this.image.height * this.scale
+        );
+    }
+    update() {
+        this.framesElapsed++;
+
+        if (this.framesElapsed % this.framesHold === 0) {
+            if (this.framesCurrent < this.framesMax - 1) {
+                this.framesCurrent++;
+            } else {
+                this.framesCurrent = 0;
+            }
+        }
+    }
+}
+
+class Background extends Sprite {
+    constructor(x, y, imageSrc, scale = 1){
+        super(x, y, imageSrc, scale)
+        addToGroup(this, background)
+    }
+}
+
+class Van extends Sprite {
+    constructor(x, y, imageSrc, scale = 1) {
+        super(x, y, imageSrc, scale);
+        addToGroup(this, guardians);
+        addToGroup(this, van);
+        this.isAlive = true
+        this.position = { x, y };
+        this.width = 180;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.healthBarHeight = 8;
+        this.healthBarWidth = 70;
+        this.maxExp = 10;
+        this.currExp = 0;
+        this.lvl = 1;
     }
 
     draw(context) {
         context.drawImage(this.image, this.position.x, this.position.y);
     }
 
-    update() {}
+    drawHealthbars(context) {
+        // Healthbar
+        context.fillStyle = "grey";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 15,
+            this.healthBarWidth,
+            this.healthBarHeight
+        );
 
+        context.fillStyle = "red";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 15,
+            (this.currHealth / this.maxHealth) * this.healthBarWidth,
+            this.healthBarHeight
+        );
+        
+        // Expbar
+        context.fillStyle = "grey";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 25,
+            this.healthBarWidth,
+            this.healthBarHeight
+        );
 
+        context.fillStyle = "white";
+        context.fillRect(
+            this.position.x + 50,
+            this.position.y - 25,
+            (this.currExp / this.maxExp) * this.healthBarWidth,
+            this.healthBarHeight
+        );
+    }
+
+    update() {
+        if (this.currHealth <= 0) {
+            this.isAlive = false;
+            removeFromGroup(this, allSprites);
+            removeFromGroup(this, guardians);
+        }
+        else if (this.currExp >= this.maxExp) {
+            this.lvl += 1;
+            this.currExp = 0;
+            this.maxExp = 10 * (2 ** this.lvl)
+        }
+
+    }
+
+    getKnockedBack() {}
+    getStunned() {}
 }
 
 class Layer extends Sprite {
@@ -125,8 +228,8 @@ const CHAR_MODES = {
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
-    constructor() {
-        super();
+    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
+        super(x, y, imageSrc, scale, framesMax);
         this.isAlive = true;
         this.target = null;
 
@@ -135,6 +238,10 @@ class Character extends Sprite {
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
+
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
     }
 
     getKnockedBack(distance) {
@@ -219,4 +326,4 @@ class Character extends Sprite {
     }
 }
 
-export { Sprite, Background, Layer, Character, PortraitIcon, CHAR_STATES, CHAR_MODES };
+export { Sprite, Background, Van, Character, CHAR_STATES, CHAR_MODES };

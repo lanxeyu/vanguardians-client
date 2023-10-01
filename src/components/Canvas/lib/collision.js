@@ -1,5 +1,5 @@
 import { DamageNumber } from "./utilclasses";
-import { Duncan, Robbie, Spear, Lightning } from "./guardians";
+import { Duncan, Robbie, Spear, Lightning, Explosion } from "./guardians";
 import { Skeleton } from "./enemies";
 import { allSprites, guardianProjectiles, removeFromGroup } from "./groups";
 
@@ -38,8 +38,13 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
         for (const spriteB of spriteGroup2) {
             if (areSpritesColliding(spriteA, spriteB)) {
-                spriteB.currHealth -= spriteA.atk
-                new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
+                if(spriteA.atk !== "Stunned"){
+                    spriteB.currHealth -= spriteA.atk
+                    new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
+                } else {
+                    new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y + 20)
+                }
+                
 
                 // --------- SPECIAL HIT INTERACTIONS ---------
 
@@ -51,10 +56,18 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 else if (spriteA instanceof Lightning) {
-                    spriteB.getStunned(spriteA.stunDuration)
+                    // spriteB.getStunned(spriteA.stunDuration)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
+                    new Explosion(spriteB.position.x, spriteB.position.y)
                 }
+
+                else if(spriteA instanceof Explosion) {
+                    spriteB.getStunned(spriteA.stunDuration)
+                    setTimeout(removeFromGroup(spriteA, guardianProjectiles), 5)
+                    removeFromGroup(spriteA, allSprites)
+                }
+
 
                 // ENEMIES
 
