@@ -38,7 +38,7 @@ const Canvas = () => {
                 new Van(50, 533, "src/components/canvas/img/van.png");
     
                 // --- Enable spawn to test Guardian ---
-                // Default start has Duncan and Steph at lvl 1
+                // Default start has Duncan and Lanxe at lvl 1
                 spawnDuncan();
                 spawnLanxe();
                 // spawnSteph();
