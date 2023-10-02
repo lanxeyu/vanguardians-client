@@ -38,6 +38,9 @@ function spawnEnemies() {
             for (let i = 0; i < 3; i++) {
                 spawnGoblin();
             }
+            for (let i = 0; i < 1; i++) {
+                spawnMushroom()
+            }
             break;
         case 2:
             for (let i = 0; i < 20; i++) {
