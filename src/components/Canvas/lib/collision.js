@@ -12,7 +12,7 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
                     spriteB.getDamaged(spriteA.atk)
-                    new DamageNumber((spriteA.atk-spriteB.damageResistance), spriteB.position.x, spriteB.position.y)
+                    new DamageNumber((spriteA.atk-spriteB.damageResistance), spriteB.position.x + (spriteB.width / 2), spriteB.position.y)
 
                     // --------- SPECIAL HIT INTERACTIONS ---------
 
