@@ -24,13 +24,9 @@ import "../../pages/Home/index.css";
 
 
 const Canvas = () => {
-    const [retreating, setRetreating] = useState(false);
     const [showGameOver, setShowGameOver] = useState(false);
     const gameStarted = useGameStart();
 
-    function handleClick() {
-        setRetreating(true)
-    }
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
@@ -78,6 +74,8 @@ const Canvas = () => {
                     drawGuardianProjectiles(context);
                     drawDamageNumbers(context);
                     drawLevelUpMsgs(context)
+
+                    
 
                     requestAnimationFrame(gameLoop);
                 }
