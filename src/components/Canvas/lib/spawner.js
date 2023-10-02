@@ -21,11 +21,11 @@ function spawnGuardians() {
     }
 }
 
-let waveCounter = 0
+let waveCounter = 0;
 
 function spawnEnemies() {
-    waveCounter += 1
-    console.log('Wave starting: ', waveCounter)
+    waveCounter += 1;
+    console.log("Wave starting: ", waveCounter);
 
     switch (waveCounter) {
         case 1:
@@ -70,23 +70,23 @@ function spawnEnemies() {
 }
 
 function spawnDuncan() {
-    new Duncan(50, 513);
+    new Duncan(50, 513, "src/components/canvas/img/Duncan/Idle.png");
 }
 
 function spawnLanxe() {
-    new Lanxe(50, 533);
+    new Lanxe(50, 533, "src/components/canvas/img/Lanxe/Idle.png");
 }
 
 function spawnRobbie() {
-    new Robbie(50, 533);
+    new Robbie(50, 533, "src/components/canvas/img/Robbie/Idle.png");
 }
 
 function spawnSteph() {
-    new Steph(50, 533);
+    new Steph(50, 533, "src/components/canvas/img/Stephanie/Idle.png");
 }
 
 function spawnJames() {
-    new James(50, 613);
+    new James(50, 613, "src/components/canvas/img/James/Idle.png");
 }
 
 function spawnAlex() {
@@ -94,16 +94,16 @@ function spawnAlex() {
 }
 
 function spawnSkeleton() {
-    const minX = 1366
-    const maxX = 2000
+    const minX = 1366;
+    const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Skeleton(randomX, 533);
 }
 
 function spawnDemon() {
-    const minX = 1366
-    const maxX = 2000
+    const minX = 1366;
+    const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Demon(randomX, 480);
@@ -118,8 +118,13 @@ function spawnMushroom() {
 }
 
 
-export { 
-    spawnGuardians, spawnEnemies,
-    spawnDuncan, spawnLanxe, spawnRobbie, spawnSteph, spawnJames, spawnAlex
-}
-
+export {
+    spawnGuardians,
+    spawnEnemies,
+    spawnDuncan,
+    spawnLanxe,
+    spawnRobbie,
+    spawnSteph,
+    spawnJames,
+    spawnAlex,
+};

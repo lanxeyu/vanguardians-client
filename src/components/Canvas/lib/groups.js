@@ -76,7 +76,7 @@ function drawVan(context) {
 
 function drawBackground(context) {
     for (const sprite of background) {
-        sprite.draw(context)
+        sprite.draw(context);
     }
 }
 
@@ -108,5 +108,5 @@ export {
     drawPopUpMsgs,
     drawAllHealthbars,
     drawVan,
-    drawBackground    
+    drawBackground,
 };
