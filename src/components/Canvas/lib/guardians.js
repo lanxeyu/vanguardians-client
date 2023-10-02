@@ -254,7 +254,7 @@ class Lanxe extends Guardian {
         this.atkSpd = 700
         this.atkRange = 250
         this.movSpd = 4
-        this.damageResistance = 2
+        this.damageResistance = 0
 
         this.isAttacking = false;
         this.atkTimer = null;
