@@ -1,4 +1,4 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
@@ -10,6 +10,7 @@ class Character extends Sprite {
 
         this.isKnockedBack = false;
         this.isStunned = false;
+        this.damageResistance = 0;
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
@@ -17,6 +18,15 @@ class Character extends Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+    }
+
+    getDamaged(damage) {
+        if (this.damageResistance > 0) {
+            const reducedDamage = damage / this.damageResistance;
+            this.currHealth -= reducedDamage;
+        } else {
+            this.currHealth -= damage;
+        }
     }
 
     getKnockedBack(distance) {
@@ -121,9 +131,17 @@ class Guardian extends Character {
         super();
         addToGroup(this, guardians);
         this.positionXLimit = 900
+        this.isKnockedOut = false
 
         this.currentState = CHAR_STATES.IDLE
         this.currentMode = CHAR_MODES.MODE_1
+    }
+
+    getKnockedOut() {
+        this.isKnockedOut = true;
+        setTimeout(() => {
+            this.isKnockedOut = false;
+        }, 10000);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -199,15 +217,14 @@ class Guardian extends Character {
     }
 
     update() {
-        if (this.currHealth <= 0) {
-            this.isAlive = false;
-            // Guardian knocked-out logic to be implemented
-            removeFromGroup(this, allSprites);
-            removeFromGroup(this, guardians);
+        if (!this.isKnockedOut) {
+            if (this.currHealth <= 0) {
+                this.getKnockedOut()
+            }
+            this.updateTarget()
+            this.updatePosition()
+            this.updateAttacking()
         }
-        this.updateTarget()
-        this.updatePosition()
-        this.updateAttacking()
     }
 
     toggleModes() {
@@ -221,6 +238,7 @@ class Guardian extends Character {
             default:
                 this.currentMode = CHAR_MODES.MODE_1
         }
+        this.toggleAttributes()
     }
 }
 
@@ -233,9 +251,10 @@ class Lanxe extends Guardian {
         this.maxHealth = 100
         this.currHealth = this.maxHealth
         this.atk = 5
-        this.atkSpd = 1000
+        this.atkSpd = 700
         this.atkRange = 250
         this.movSpd = 4
+        this.damageResistance = 2
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -247,6 +266,28 @@ class Lanxe extends Guardian {
         };
     }
 
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atk = 5;
+                this.atkSpd = 700;
+                this.atkRange = 250;
+                this.damageResistance = 0;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.atk = 8;
+                this.atkSpd = 2000;
+                this.atkRange = 250;
+                this.damageResistance = 2;
+                break;
+            default:
+                this.atk = 5;
+                this.atkSpd = 700;
+                this.atkRange = 250;
+                this.damageResistance = 0;
+        }
+    }
+    
     draw(context) {
         this.atkBox.position.x = this.position.x
         this.atkBox.position.y = this.position.y

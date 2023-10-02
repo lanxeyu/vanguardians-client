@@ -49,6 +49,7 @@ class Enemy extends Character {
         if (this.currHealth <= 0) {
             van[0].currExp += this.expGrant
             van[0].score += this.expGrant
+            van[0].enemiesKilled += 1
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);

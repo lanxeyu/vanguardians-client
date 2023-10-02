@@ -2,7 +2,7 @@ import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./group
 import { Sprite } from "./sprite";
 import { spawnGuardians } from "./spawner";
 import { restoreAllHealth } from "./utils";
-import { DamageNumber, LevelUp } from "./utilclasses";
+import { LevelUp } from "./utilclasses";
 
 
 class Van extends Sprite {
@@ -14,6 +14,7 @@ class Van extends Sprite {
         this.position = { x, y };
         this.width = 180;
         this.height = 150;
+        this.damageResistance = 0;
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
         this.healthBarHeight = 8;
@@ -22,6 +23,7 @@ class Van extends Sprite {
         this.currExp = 0;
         this.lvl = 1;
         this.score = 0;
+        this.enemiesKilled = 0;
     }
 
     draw(context) {
@@ -64,6 +66,11 @@ class Van extends Sprite {
         );
     }
 
+    
+    getDamaged(damage){
+        this.currHealth -= damage
+    }
+
     update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;
@@ -77,7 +84,6 @@ class Van extends Sprite {
             restoreAllHealth();
             spawnGuardians();
             new LevelUp(`Level Up!`, 527, 500)
-            // 1366
         }
     }
 }

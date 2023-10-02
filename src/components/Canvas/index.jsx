@@ -17,25 +17,22 @@ import {
     updateAllSprites,
     van,
     clearAllSprites,
-    drawLevelUpMsgs,
+    drawPopUpMsgs,
     drawEnemyProjectiles,
 } from "./lib/groups";
 import { useGameStart } from "./lib/utils";
+import { addKeyListener } from "./lib/utils";
 import "../../pages/Home/index.css";
 
 
 const Canvas = () => {
-    const [retreating, setRetreating] = useState(false);
     const [showGameOver, setShowGameOver] = useState(false);
     const gameStarted = useGameStart();
 
-    function handleClick() {
-        setRetreating(true)
-    }
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-        
+     
         if (canvas) {
             initCanvas(canvas)
             
@@ -72,14 +69,14 @@ const Canvas = () => {
                     checkProjectileCollisions(guardianProjectiles, enemies);
 
                     drawBackground(context);
-                    drawVan(context)
+                    drawVan(context);
                     drawGuardians(context);
                     drawEnemies(context);
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
                     drawEnemyProjectiles(context)
                     drawDamageNumbers(context);
-                    drawLevelUpMsgs(context)
+                    drawPopUpMsgs(context);
 
                     requestAnimationFrame(gameLoop);
                 }
@@ -89,6 +86,19 @@ const Canvas = () => {
             }
         }
     }, [gameStarted]);
+
+    useEffect(() => {
+        addKeyListener((key) => {
+            switch (key) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                default:
+                    break;
+            }
+        });
+    }, []);
 
     return (
         <div>
