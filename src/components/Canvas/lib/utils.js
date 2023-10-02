@@ -41,9 +41,17 @@ function addKeyListener() {
     };
   }
 
-  keyFunctions["Backspace"] = function () {
-    console.log("Backspace key pressed");
-  };
+  keyFunctions["r"] = function () {
+    for (const guardian of guardians) {
+      guardian.isRetreating = true;
+    }
+  }
+
+  keyFunctions["a"] = function () {
+    for (const guardian of guardians) {
+      guardian.isRetreating = false;
+    }
+  }
 
   document.addEventListener("keydown", (event) => {
     const key = event.key;
@@ -52,7 +60,5 @@ function addKeyListener() {
     }
   });
 }
-
-
 
 export { useGameStart, restoreAllHealth, addKeyListener }

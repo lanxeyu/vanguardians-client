@@ -173,8 +173,26 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
+        let homePositionX = 50
+        // Distance between player and home
+        const retreatDistance = Math.abs(this.position.x - homePositionX) 
+
+
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
+        } else if(this.isRetreating){
+            if (retreatDistance > this.movSpd) {
+                if (homePositionX > this.position.x) {
+                    this.position.x += this.movSpd
+                } 
+                else if (homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd
+                }
+            }
+            else {
+                this.position.x = homePositionX
+                this.currentState = CHAR_STATES.IDLE
+            }
         } else if (
             !this.isKnockedBack &&
             !this.isStunned &&
@@ -186,9 +204,6 @@ class Guardian extends Character {
         }
 
         /*
-        let homePositionX = 50
-        // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - homePositionX) 
         switch(this.currentState) {
             case CHAR_STATES.IDLE:
 
@@ -203,18 +218,6 @@ class Guardian extends Character {
 
             break
             case CHAR_STATES.FLEEING:
-                if (retreatDistance > this.movSpd) {
-                    if (homePositionX > this.position.x) {
-                        this.position.x += this.movSpd
-                    } 
-                    else if (homePositionX < this.position.x) {
-                        this.position.x -= this.movSpd
-                    }
-                }
-                else {
-                    this.position.x = homePositionX
-                    this.currentState = CHAR_STATES.IDLE
-                }
                 
             break
             default:
@@ -304,6 +307,7 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -369,6 +373,7 @@ class Robbie extends Guardian {
         this.atkRange = 1000;
         this.movSpd = 3;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -408,6 +413,7 @@ class James extends Guardian {
         this.atkRange = 900;
         this.movSpd = 4;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkBox = {
             position: this.position,
@@ -457,6 +463,7 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -495,6 +502,7 @@ class Duncan extends Guardian {
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -513,8 +521,23 @@ class Duncan extends Guardian {
     }
 
     updatePosition() {
+        let homePositionX = 50
+        const retreatDistance = Math.abs(this.position.x - homePositionX) 
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance / this.knockBackResistance;
+        } else if(this.isRetreating){
+            if (retreatDistance > this.movSpd) {
+                if (homePositionX > this.position.x) {
+                    this.position.x += this.movSpd
+                } 
+                else if (homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd
+                }
+            }
+            else {
+                this.position.x = homePositionX
+                this.currentState = CHAR_STATES.IDLE
+            }
         } else if (
             !this.isKnockedBack &&
             !this.isStunned &&
