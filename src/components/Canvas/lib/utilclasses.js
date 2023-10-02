@@ -74,7 +74,7 @@ class LevelUp extends Character {
         let newPointX = x - this.offsetX
         this.position = { x: newPointX, y: newPointY }
         this.movSpd = 1
-        this.lifeTime = 2000
+        this.lifeTime = 2500
 
         this.endTime = new Date()
         this.endTime.setSeconds(this.endTime.getSeconds() + this.lifeTime / 1000)
@@ -119,7 +119,7 @@ class LevelUp extends Character {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "30px Arial";
+        context.font = "50px Arial";
         // context.textAlign = "center";
         context.fillText(this.text, this.position.x, this.position.y)
     }

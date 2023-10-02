@@ -39,6 +39,10 @@ function addKeyListener() {
     };
   }
 
+  keyFunctions["Backspace"] = function () {
+    console.log("Backspace key pressed");
+  };
+
   document.addEventListener("keydown", (event) => {
     const key = event.key;
     if (key in keyFunctions) {
@@ -48,4 +52,5 @@ function addKeyListener() {
 }
 
 
-export { useGameStart, restoreAllHealth, addKeyListener}
+
+export { useGameStart, restoreAllHealth, addKeyListener }

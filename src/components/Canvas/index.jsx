@@ -68,13 +68,13 @@ const Canvas = () => {
                     checkProjectileCollisions(guardianProjectiles, enemies);
 
                     drawBackground(context);
-                    drawVan(context)
+                    drawVan(context);
                     drawGuardians(context);
                     drawEnemies(context);
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
                     drawDamageNumbers(context);
-                    drawLevelUpMsgs(context)
+                    drawLevelUpMsgs(context);
 
                     requestAnimationFrame(gameLoop);
                 }
