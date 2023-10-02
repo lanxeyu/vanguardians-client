@@ -1,4 +1,4 @@
-import { addToGroup, allSprites, removeFromGroup, background, foreground} from "./groups";
+import { addToGroup, allSprites, background, foreground} from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {

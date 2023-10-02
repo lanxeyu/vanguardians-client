@@ -87,14 +87,14 @@ class Skeleton extends Enemy {
                 y: this.position.y,
             },
             width: this.atkRange,
-            height: 50,
-        };
+            height: 100,
+        }
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
-        this.atkBox.position.y = this.position.y + 50;
-        context.fillStyle = "red";
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "red"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -107,6 +107,7 @@ class Skeleton extends Enemy {
         }
     }
 }
+
 
 class Goblin extends Enemy {
     constructor(x, y) {
@@ -133,14 +134,14 @@ class Goblin extends Enemy {
                 y: this.position.y,
             },
             width: this.atkRange,
-            height: 50,
-        };
+            height: 100,        
+        }
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
-        this.atkBox.position.y = this.position.y + 50;
-        context.fillStyle = "green";
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "green"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -204,6 +205,53 @@ class Demon extends Enemy {
 
     // No need to update target as it is constantly the van
     updateTarget() {}
+}
+
+class Troll extends Enemy {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.width = 70
+        this.height = 200
+        this.maxHealth = 200
+        this.currHealth = this.maxHealth
+        this.atk = 20
+        this.atkSpd = 4000
+        this.atkRange = 100
+        this.movSpd = 2
+        this.expGrant = 50
+
+        this.knockBackStrength = -60
+        this.knockBackResistance = 5
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            width: this.atkRange,
+            height: 50,
+        }
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "maroon"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
 }
 
 class Mushroom extends Enemy {
@@ -312,4 +360,6 @@ class Mushroom extends Enemy {
     }
 }
 
-export { Skeleton, Demon, Goblin, Mushroom }
+export { Skeleton, Goblin, Demon, Troll, Mushroom }
+
+

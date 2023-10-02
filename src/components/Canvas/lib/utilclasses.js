@@ -1,6 +1,6 @@
 import { addToGroup, damageNumbers, removeFromGroup, popUpMsgs } from "./groups";
 import { Sprite } from "./sprite";
-import { waveCounter } from "./spawner";
+
 
 // -------------------- DAMAGE NUMBERS CLASS (Trial) -------------------------
 class DamageNumber extends Sprite {
