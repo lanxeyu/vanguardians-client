@@ -1,4 +1,4 @@
-import { addToGroup, allSprites, background } from "./groups";
+import { addToGroup, allSprites, removeFromGroup, background, foreground} from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
@@ -44,11 +44,108 @@ class Sprite {
     }
 }
 
+// class Background extends Sprite {
+//     constructor(x, y, imageSrc, scale = 1){
+//         super(x, y, imageSrc, scale)
+//         addToGroup(this, background)
+//     }
+// }
+
 class Background extends Sprite {
-    constructor(x, y, imageSrc, scale = 1) {
-        super(x, y, imageSrc, scale);
-        addToGroup(this, background);
+    constructor(x, y, width, height, offsetX, offsetY, imageSrc, movSpd) {
+        super()
+        addToGroup(this, background)
+        let posX = x + offsetX;
+        let posY = y + offsetY;
+        this.position = {x: posX, y: posY}
+        this.width = width;
+        this.height = height;
+        this.x2 = this.width;
+
+        
+        this.movSpd = movSpd;
+        this.isMoving = false
+        this.isMovingRight = false
+
+        this.image = new Image();
+        this.image.src = imageSrc;
+        
+    }
+
+    update() {
+        if (this.isMoving) {
+            if (this.position.x < - this.width) {
+                this.position.x = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.position.x -= this.movSpd;
+            }
+
+            if (this.x2 < -this.width) {
+                this.x2 = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.x2 -= this.movSpd;
+            }
+        }
+    }
+
+    draw(context) {
+        context.drawImage(this.image, this.position.x, this.position.y)
+    }
+
+    setIsMoving(isMoving) {
+        this.isMoving = isMoving;
     }
 }
 
-export { Sprite, Background };
+class Foreground extends Sprite {
+    constructor(x, y, width, height, offsetX, offsetY, imageSrc, movSpd) {
+        super()
+        addToGroup(this, foreground)
+        let posX = x + offsetX;
+        let posY = y + offsetY;
+        this.position = {x: posX, y: posY}
+        this.width = width;
+        this.height = height;
+        this.x2 = this.width;
+
+        
+        this.movSpd = movSpd;
+        this.isMoving = false
+        this.isMovingRight = false
+
+        this.image = new Image();
+        this.image.src = imageSrc;
+        
+    }
+
+    update() {
+        if (this.isMoving) {
+            if (this.position.x < - this.width) {
+                this.position.x = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.position.x -= this.movSpd;
+            }
+
+            if (this.x2 < -this.width) {
+                this.x2 = this.width - this.movSpd + this.x2;
+            }
+            else {
+                this.x2 -= this.movSpd;
+            }
+        }
+    }
+
+    draw(context) {
+        context.drawImage(this.image, this.position.x, this.position.y)
+    }
+
+    setIsMoving(isMoving) {
+        this.isMoving = isMoving;
+    }
+}
+
+
+export { Sprite, Background, Foreground };
