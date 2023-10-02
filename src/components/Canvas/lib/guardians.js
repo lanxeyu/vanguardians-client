@@ -486,6 +486,7 @@ class Duncan extends Guardian {
 
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
+        this.damageResistance = 0;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -504,19 +505,48 @@ class Duncan extends Guardian {
         this.healthBarPosition.y = 110;
     }
 
-    updatePosition() {
-        if (this.isKnockedBack) {
-            this.position.x += this.knockBackDistance / this.knockBackResistance;
-        } else if (
-            !this.isKnockedBack &&
-            !this.isStunned &&
-            this.target &&
-            this.position.x < this.positionXLimit &&
-            this.checkTargetInRange() == false
-        ) {
-            this.position.x += this.movSpd;
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.damageResistance = 0;
+                this.knockBackResistance = 2;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.damageResistance = 3;
+                this.knockBackResistance = 5;
+                break;
+            default:
+                this.damageResistance = 0;
+                this.knockBackResistance = 2;
         }
     }
+
+    updateAttacking() {
+        if (this.currentMode == CHAR_MODES.MODE_1) {
+            super.updateAttacking();
+        }
+    }
+
+    updatePosition() {
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+            } else if (
+                !this.isKnockedBack &&
+                !this.isStunned &&
+                this.target &&
+                this.position.x < this.positionXLimit &&
+                this.checkTargetInRange() == false
+            ) {
+                this.position.x += this.movSpd;
+            }
+        } else {
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+            }
+        }
+    }
+
 
     // draw(context) {
     //     context.fillStyle = "purple";
