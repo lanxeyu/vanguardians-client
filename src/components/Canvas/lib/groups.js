@@ -6,6 +6,7 @@ let enemyProjectiles = [];
 let damageNumbers = [];
 let van = [];
 let background = [];
+let popUpMsgs = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -79,6 +80,12 @@ function drawBackground(context) {
     }
 }
 
+function drawPopUpMsgs(context) {
+    for (const sprite of popUpMsgs) {
+        sprite.draw(context)
+    }
+}
+
 export {
     addToGroup,
     removeFromGroup,
@@ -92,11 +99,13 @@ export {
     background,
     updateAllSprites,
     clearAllSprites,
+    popUpMsgs,
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,
     drawEnemyProjectiles,
     drawDamageNumbers,
+    drawPopUpMsgs,
     drawAllHealthbars,
     drawVan,
     drawBackground,

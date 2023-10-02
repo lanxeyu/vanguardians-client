@@ -30,6 +30,7 @@ class Sprite {
             this.image.height * this.scale
         );
     }
+    
     update() {
         this.framesElapsed++;
 
