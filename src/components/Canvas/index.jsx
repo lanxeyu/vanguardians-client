@@ -51,8 +51,8 @@ const Canvas = () => {
                 // Default start has Duncan and Lanxe at lvl 1
                 spawnDuncan();
                 spawnLanxe();
-                spawnSteph();
-                spawnRobbie();
+                // spawnSteph();
+                // spawnRobbie();
                 // spawnJames();
                 // spawnAlex();
             }
