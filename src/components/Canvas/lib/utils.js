@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
+import { SwitchMode } from "./utilclasses";
 
 function useGameStart() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -35,6 +36,7 @@ function addKeyListener() {
     keyFunctions[i.toString()] = function () {
       if (guardians[i]) {
         guardians[i].toggleModes();
+        new SwitchMode('Switch!', guardians[i].position.x, guardians[i].position.y)
       }
     };
   }

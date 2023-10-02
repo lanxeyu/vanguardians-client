@@ -14,6 +14,7 @@ class Van extends Sprite {
         this.position = { x, y };
         this.width = 180;
         this.height = 150;
+        this.damageResistance = 0;
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
         this.healthBarHeight = 8;
@@ -63,6 +64,11 @@ class Van extends Sprite {
             (this.currExp / this.maxExp) * this.healthBarWidth,
             this.healthBarHeight
         );
+    }
+
+    
+    getDamaged(damage){
+        this.currHealth -= damage
     }
 
     update() {

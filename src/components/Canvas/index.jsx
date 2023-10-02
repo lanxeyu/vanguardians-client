@@ -17,7 +17,7 @@ import {
     updateAllSprites,
     van,
     clearAllSprites,
-    drawLevelUpMsgs,
+    drawPopUpMsgs,
 } from "./lib/groups";
 import { useGameStart } from "./lib/utils";
 import { addKeyListener } from "./lib/utils";
@@ -74,7 +74,7 @@ const Canvas = () => {
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
                     drawDamageNumbers(context);
-                    drawLevelUpMsgs(context);
+                    drawPopUpMsgs(context);
 
                     requestAnimationFrame(gameLoop);
                 }
