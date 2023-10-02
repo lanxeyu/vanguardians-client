@@ -28,5 +28,24 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
+function addKeyListener() {
+  const keyFunctions = {};
 
-export { useGameStart, restoreAllHealth }
+  for (let i = 1; i <= 6; i++) {
+    keyFunctions[i.toString()] = function () {
+      if (guardians[i]) {
+        guardians[i].toggleModes();
+      }
+    };
+  }
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (key in keyFunctions) {
+      keyFunctions[key]();
+    }
+  });
+}
+
+
+export { useGameStart, restoreAllHealth, addKeyListener}

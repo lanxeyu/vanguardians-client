@@ -20,6 +20,7 @@ import {
     drawLevelUpMsgs,
 } from "./lib/groups";
 import { useGameStart } from "./lib/utils";
+import { addKeyListener } from "./lib/utils";
 import "../../pages/Home/index.css";
 
 
@@ -30,7 +31,7 @@ const Canvas = () => {
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-        
+     
         if (canvas) {
             initCanvas(canvas)
             
@@ -83,6 +84,19 @@ const Canvas = () => {
             }
         }
     }, [gameStarted]);
+
+    useEffect(() => {
+        addKeyListener((key) => {
+            switch (key) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                default:
+                    break;
+            }
+        });
+    }, []);
 
     return (
         <div>
