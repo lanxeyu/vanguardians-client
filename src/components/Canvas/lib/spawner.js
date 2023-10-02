@@ -5,7 +5,7 @@ function spawnSkeleton() {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, 331);
+    new Skeleton(randomX, 344);
 
     setTimeout(spawnSkeleton, 3000);
 }
@@ -15,7 +15,7 @@ function spawnDemon() {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Demon(randomX, 480);
+    new Demon(randomX, 294);
 
     setTimeout(spawnDemon, 9000);
 }

@@ -123,6 +123,8 @@ class Lanxe extends Guardian {
         this.atkRange = 250
         this.movSpd = 4
 
+        this.name = "lanxe"
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -163,6 +165,8 @@ class Robbie extends Guardian {
         this.atkRange = 800;
         this.movSpd = 3;
 
+        this.name = "robbie";
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -199,6 +203,8 @@ class James extends Guardian {
         this.atkSpd = 800
         this.atkRange = 900
         this.movSpd = 4
+
+        this.name = "james";
 
         this.isAttacking = false
         this.atkBox = {
@@ -249,6 +255,8 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
+        this.name = "steph";
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -280,6 +288,8 @@ class Duncan extends Guardian {
         this.atkSpd = 2300;
         this.atkRange = 150;
         this.movSpd = 4.5;
+
+        this.name = "duncan";
 
         this.knockBackStrength = 10
         this.knockBackResistance = 2
