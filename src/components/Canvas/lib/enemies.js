@@ -1,5 +1,6 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
-import { Character } from "./guardians";
+import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van, enemyProjectiles } from "./groups";
+import { Character, Projectile } from "./guardians";
+import { Sprite } from "./sprite";
 
 
 // --------------------  ENEMY CLASSES  -------------------------
@@ -154,7 +155,72 @@ class Demon extends Enemy {
 
     // No need to update target as it is constantly the van
     updateTarget() {}
-    
 }
 
-export { Skeleton, Demon }
+class Mushroom extends Enemy {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.width = 70
+        this.height = 150
+        this.maxHealth = 10000
+        this.currHealth = this.maxHealth
+        this.atk = 5
+        this.atkSpd = 2000
+        this.atkRange = 400
+        this.movSpd = 4
+        this.expGrant = 4
+
+        this.knockBackStrength = -7
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+    }
+
+    attack() {
+        this.isAttacking = true;
+        new MushroomProjectile(this.position.x, this.position.y)
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 5)
+    }
+
+    draw(context) {
+        context.fillStyle = "hotpink"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
+    // updateTarget() {
+    //     this.target = this.findRandomTarget(guardians, "enemy")
+    // }
+}
+
+class MushroomProjectile extends Projectile {
+    constructor(x,y) {
+        super()
+        addToGroup(this, enemyProjectiles)
+        this.position= {x, y}
+        this.atk = 0
+        this.movSpd = 30
+        this.width = 40
+        this.height = 40
+
+        this.movSpdy = 5
+        this.time = 0
+        this.gravity = 0.5
+    }
+
+    draw(context) {    
+        context.fillStyle = 'violet'
+        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+
+    updatePosition() {
+        this.position.x -= this.movSpd
+        this.position.y -= (this.movSpdy * this.time - 0.5 * this.gravity * this.time * this.time)
+        this.time += 1
+    }
+}
+
+export { Skeleton, Demon, Mushroom, MushroomProjectile }

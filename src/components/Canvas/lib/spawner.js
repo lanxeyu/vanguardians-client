@@ -1,5 +1,5 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
-import { Skeleton, Demon } from "./enemies";
+import { Skeleton, Demon, Mushroom } from "./enemies";
 import { van } from "./groups";
 
 function spawnGuardians() {
@@ -32,6 +32,7 @@ function spawnEnemies() {
         case 1:
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
+                spawnMushroom();
             }
             break;
         case 2:
@@ -101,6 +102,13 @@ function spawnDemon() {
     new Demon(randomX, 480);
 }
 
+function spawnMushroom() {
+    const minX = 1366
+    const maxX = 2000
+    const randomX = Math.random() * (maxX - minX) + minX;
+
+    new Mushroom(randomX, 533);
+}
 
 
 export { 
