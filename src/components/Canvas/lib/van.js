@@ -101,6 +101,7 @@ class Van extends Sprite {
             else if(this.lvl === 5) {
                 new LevelUp('New Guardian: Alex the Battlemage', this.position.x + (this.width / 2) + 60, this.position.y - 0)
             }
+            
         }
     }
 }

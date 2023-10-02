@@ -83,7 +83,6 @@ const Canvas = () => {
 
                 new TopBar((canvas.width / 2) - 40, 0, 140, 70, scores);
                 new BottomBar(0, canvas.height, canvas.width, 168, null)
-
             }
 
             // Main game loop logic
@@ -96,7 +95,6 @@ const Canvas = () => {
                         clearAllSprites();
                         setShowGameOver(true);
                     } else if (enemies.length == 0) {
-
                         spawnEnemies();
                     }
 
@@ -130,7 +128,6 @@ const Canvas = () => {
                     drawForeground(context)
 
                     drawUI(context);
-
                 }
                 else {
                     context.fillStyle = 'rgb(255, 255, 255)'
@@ -156,7 +153,6 @@ const Canvas = () => {
 
                 // Loop from last drawn
                 for (let i = guardians.length-1; i >= 0; i--) {
-                    console.log(guardians[i].name)
                     if (y > guardians[i].position.y && y < guardians[i].position.y + guardians[i].height 
                         && x > guardians[i].position.x && x < guardians[i].position.x + guardians[i].width) {
                             
