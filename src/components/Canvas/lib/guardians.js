@@ -149,6 +149,7 @@ class Guardian extends Character {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
         this.positionXLimit = 900;
+        this.homePositionX = 50;
         this.isKnockedOut = false;
 
         this.currentState = CHAR_STATES.IDLE;
@@ -173,23 +174,27 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        let homePositionX = 50;
         // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - homePositionX);
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX);
 
+        // Knockback check
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
+
+            // Retreat block
         } else if (this.isRetreating) {
             if (retreatDistance > this.movSpd) {
-                if (homePositionX > this.position.x) {
+                if (this.homePositionX > this.position.x) {
                     this.position.x += this.movSpd;
-                } else if (homePositionX < this.position.x) {
+                } else if (this.homePositionX < this.position.x) {
                     this.position.x -= this.movSpd;
                 }
             } else {
-                this.position.x = homePositionX;
+                this.position.x = this.homePositionX;
                 this.currentState = CHAR_STATES.IDLE;
             }
+
+            // Normal movement block
         } else if (
             !this.isKnockedBack &&
             !this.isStunned &&
@@ -199,28 +204,6 @@ class Guardian extends Character {
         ) {
             this.position.x += this.movSpd;
         }
-
-        /*
-        switch(this.currentState) {
-            case CHAR_STATES.IDLE:
-
-            break
-            case CHAR_STATES.FORWARD:
-                // Move towards target
-                if (direction > this.atkRange) {
-                    this.position.x += this.movSpd
-                } 
-            break
-            case CHAR_STATES.ATTACKING:
-
-            break
-            case CHAR_STATES.FLEEING:
-                
-            break
-            default:
-
-        }
-        */
     }
 
     attack() {
@@ -509,6 +492,7 @@ class Duncan extends Guardian {
 
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
+        this.damageResistance = 0;
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -528,32 +512,89 @@ class Duncan extends Guardian {
         this.healthBarPosition.y = 110;
     }
 
-    updatePosition() {
-        let homePositionX = 50;
-        const retreatDistance = Math.abs(this.position.x - homePositionX);
-        if (this.isKnockedBack) {
-            this.position.x += this.knockBackDistance / this.knockBackResistance;
-        } else if (this.isRetreating) {
-            if (retreatDistance > this.movSpd) {
-                if (homePositionX > this.position.x) {
-                    this.position.x += this.movSpd;
-                } else if (homePositionX < this.position.x) {
-                    this.position.x -= this.movSpd;
-                }
-            } else {
-                this.position.x = homePositionX;
-                this.currentState = CHAR_STATES.IDLE;
-            }
-        } else if (
-            !this.isKnockedBack &&
-            !this.isStunned &&
-            this.target &&
-            this.position.x < this.positionXLimit &&
-            this.checkTargetInRange() == false
-        ) {
-            this.position.x += this.movSpd;
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.damageResistance = 0;
+                this.knockBackResistance = 2;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.damageResistance = 3;
+                this.knockBackResistance = 10;
+                break;
+            default:
+                this.damageResistance = 0;
+                this.knockBackResistance = 2;
         }
     }
+
+    updatePosition() {
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX);
+
+        // Mode 1 Block
+        if (this.currentMode == CHAR_MODES.MODE_1) {
+            // Knockback check
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+
+                // Retreat block
+            } else if (this.isRetreating) {
+                if (retreatDistance > this.movSpd) {
+                    if (this.homePositionX > this.position.x) {
+                        this.position.x += this.movSpd;
+                    } else if (this.homePositionX < this.position.x) {
+                        this.position.x -= this.movSpd;
+                    }
+                } else {
+                    this.position.x = this.homePositionX;
+                    this.currentState = CHAR_STATES.IDLE;
+                }
+
+                // Normal movement block
+            } else if (
+                !this.isKnockedBack &&
+                !this.isStunned &&
+                this.target &&
+                this.position.x < this.positionXLimit &&
+                this.checkTargetInRange() == false
+            ) {
+                this.position.x += this.movSpd;
+            }
+        }
+
+        // Mode 2 Block
+        else {
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+            }
+        }
+    }
+
+    updateAttacking() {
+        if (this.currentMode == CHAR_MODES.MODE_1) {
+            super.updateAttacking();
+        }
+    }
+
+    // updatePosition() {
+    //     if (this.currentMode == CHAR_MODES.MODE_1){
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         } else if (
+    //             !this.isKnockedBack &&
+    //             !this.isStunned &&
+    //             this.target &&
+    //             this.position.x < this.positionXLimit &&
+    //             this.checkTargetInRange() == false
+    //         ) {
+    //             this.position.x += this.movSpd;
+    //         }
+    //     } else {
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         }
+    //     }
+    // }
 
     // draw(context) {
     //     context.fillStyle = "purple";
