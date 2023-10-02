@@ -271,7 +271,7 @@ class Lanxe extends Guardian {
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.healthBarPosition.x = 130;
@@ -381,7 +381,7 @@ class James extends Guardian {
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.currentState = CHAR_STATES.FLEEING;
@@ -481,7 +481,7 @@ class Duncan extends Guardian {
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.framesCurrent = 0;
@@ -552,27 +552,6 @@ class Duncan extends Guardian {
             super.updateAttacking();
         }
     }
-
-    // updatePosition() {
-    //     if (this.currentMode == CHAR_MODES.MODE_1){
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         } else if (
-    //             !this.isKnockedBack &&
-    //             !this.isStunned &&
-    //             this.target &&
-    //             this.position.x < this.positionXLimit &&
-    //             this.checkTargetInRange() == false
-    //         ) {
-    //             this.position.x += this.movSpd;
-    //         }
-    //     } else {
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         }
-    //     }
-    // }
-
 
     // draw(context) {
     //     super.draw(context)

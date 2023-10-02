@@ -1,5 +1,5 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
-import { Skeleton, Demon, Mushroom } from "./enemies";
+import { Skeleton, Goblin, Demon, Mushroom } from "./enemies";
 import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 
@@ -32,9 +32,11 @@ function spawnEnemies() {
 
     switch (waveCounter) {
         case 1:
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 2; i++) {
                 spawnSkeleton();
-                spawnMushroom();
+            }
+            for (let i = 0; i < 3; i++) {
+                spawnGoblin();
             }
             break;
         case 2:
@@ -102,6 +104,14 @@ function spawnSkeleton() {
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Skeleton(randomX, 340);
+}
+
+function spawnGoblin() {
+    const minX = 1366;
+    const maxX = 2000;
+    const randomX = Math.random() * (maxX - minX) + minX;
+
+    new Goblin(randomX, 410);
 }
 
 function spawnDemon() {
