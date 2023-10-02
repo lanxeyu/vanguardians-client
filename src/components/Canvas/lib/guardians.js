@@ -283,7 +283,15 @@ class Guardian extends Character {
 }
 
 class Lanxe extends Guardian {
-    constructor(x, y, imageSrc, scale = 3.8, framesMax = 8, offset = { x: 215, y: 355 }) {
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 3.8,
+        framesMax = 8,
+        offset = { x: 215, y: 355 },
+        animations
+    ) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
