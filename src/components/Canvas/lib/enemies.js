@@ -86,8 +86,6 @@ class Skeleton extends Enemy {
             width: this.atkRange,
             height: 50,
         }
-
-        console.log('spawn Skeleton')
     }
 
     draw(context) {
@@ -134,8 +132,6 @@ class Goblin extends Enemy {
             width: this.atkRange,
             height: 50,        
         }
-
-        console.log('spawn Goblin')
     }
 
     draw(context) {

@@ -128,9 +128,6 @@ const Canvas = () => {
                     drawForeground(context)
 
                     drawUI(context);
-
-                    console.log(enemies.length)
-
                 }
                 else {
                     context.fillStyle = 'rgb(255, 255, 255)'
