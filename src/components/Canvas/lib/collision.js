@@ -11,8 +11,13 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
 
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
+<<<<<<< HEAD
                     spriteB.currHealth -= spriteA.atk
                     new DamageNumber(spriteA.atk, spriteB.position.x + (spriteB.width /2), spriteB.position.y)
+=======
+                    spriteB.getDamaged(spriteA.atk)
+                    new DamageNumber((spriteA.atk-spriteB.damageResistance), spriteB.position.x, spriteB.position.y)
+>>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
 
                     // --------- SPECIAL HIT INTERACTIONS ---------
 
@@ -39,7 +44,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
         for (const spriteB of spriteGroup2) {
             if (areSpritesColliding(spriteA, spriteB)) {
                 if(spriteA.atk !== "Stunned"){
-                    spriteB.currHealth -= spriteA.atk
+                    spriteB.getDamaged(spriteA.atk)
                     new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
                 } else {
                     new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y + 20)

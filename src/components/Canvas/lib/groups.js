@@ -8,6 +8,7 @@ const van = [];
 const background = [];
 const ui = [];
 const foreground = [];
+let popUpMsgs = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -24,6 +25,10 @@ function updateAllSprites() {
     for (const sprite of allSprites) {
         sprite.update();
     }
+}
+
+function clearAllSprites() {
+    allSprites = [];
 }
 
 function drawGuardians(context) {
@@ -73,6 +78,12 @@ function drawVan(context) {
 
 function drawBackground(context) {
     for (const sprite of background) {
+        sprite.draw(context);
+    }
+}
+
+function drawPopUpMsgs(context) {
+    for (const sprite of popUpMsgs) {
         sprite.draw(context)
     }
 }
@@ -104,14 +115,20 @@ export {
     ui,
     foreground,
     updateAllSprites,
+    clearAllSprites,
+    popUpMsgs,
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,
     drawEnemyProjectiles,
     drawDamageNumbers,
+    drawPopUpMsgs,
     drawAllHealthbars,
     drawVan,
     drawBackground,
+<<<<<<< HEAD
     drawForeground,
     drawUI
+=======
+>>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
 };
