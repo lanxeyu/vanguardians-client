@@ -6,7 +6,9 @@ const GamePage = () => {
   return (
     <>
     <div className="game">
+      <div id="canvas-left-border"></div>
       <Canvas />
+      <div id="canvas-right-border"></div>
     </div>
     </>
     

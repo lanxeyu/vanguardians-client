@@ -5,7 +5,7 @@ import { restoreAllHealth } from "./utils";
 import { LevelUp } from "./utilclasses";
 
 class Van extends Sprite {
-    constructor(x, y, imageSrc, scale = 1.5) {
+    constructor(x, y, imageSrc, scale = 1.0) {
         super(x, y, imageSrc, scale);
         addToGroup(this, guardians);
         addToGroup(this, van);
@@ -23,10 +23,15 @@ class Van extends Sprite {
         this.lvl = 1;
         this.score = 0;
         this.enemiesKilled = 0;
+
+        this.name = "van"
     }
 
     // draw(context) {
+    //     super.draw(context)
     //     context.drawImage(this.image, this.position.x, this.position.y);
+    //     context.fillStyle = 'purple'
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
 
     drawHealthbars(context) {
@@ -83,18 +88,18 @@ class Van extends Sprite {
             this.maxExp = 10 * 2 ** this.lvl;
             restoreAllHealth();
             spawnGuardians();
-            new LevelUp(`Level Up!`, 527, 430);
+            new LevelUp(`Level Up!`, this.position.x + (this.width / 2) + 60, this.position.y - 30);
             if (this.lvl === 2) {
-                new LevelUp('New Guardian: Steph the Huntress', 230, 500)
+                new LevelUp('New Guardian: Steph the Huntress', this.position.x + (this.width / 2) + 60, this.position.y - 0)
             }
             else if(this.lvl === 3) {
-                new LevelUp('New Guardian: Robbie the Wizard', 235, 500)
+                new LevelUp('New Guardian: Robbie the Wizard', this.position.x + (this.width / 2) + 60, this.position.y - 0)
             }
             else if(this.lvl === 4) {
-                new LevelUp('New Guardian: James the Fire Worm', 235, 500)
+                new LevelUp('New Guardian: James the Fire Worm', this.position.x + (this.width / 2) + 60, this.position.y - 0)
             }
             else if(this.lvl === 5) {
-                new LevelUp('New Guardian: Alex the Battlemage', 235, 500)
+                new LevelUp('New Guardian: Alex the Battlemage', this.position.x + (this.width / 2) + 60, this.position.y - 0)
             }
         }
     }
