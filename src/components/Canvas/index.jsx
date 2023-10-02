@@ -207,7 +207,6 @@ const Canvas = () => {
 
                     // Loop from last drawn
                     for (let i = guardians.length - 1; i >= 0; i--) {
-                        console.log(guardians[i].name);
                         if (
                             y > guardians[i].position.y &&
                             y < guardians[i].position.y + guardians[i].height &&

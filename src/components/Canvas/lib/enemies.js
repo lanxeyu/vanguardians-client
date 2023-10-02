@@ -108,6 +108,98 @@ class Skeleton extends Enemy {
     }
 }
 
+class Goblin extends Enemy {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 50;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 2000;
+        this.atkRange = 100;
+        this.movSpd = 4;
+        this.expGrant = 4;
+
+        this.knockBackStrength = -7;
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y,
+            },
+            width: this.atkRange,
+            height: 50,
+        };
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
+        this.atkBox.position.y = this.position.y + 50;
+        context.fillStyle = "red";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+}
+
+class Goblin extends Enemy {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 80;
+        this.maxHealth = 10;
+        this.currHealth = this.maxHealth;
+        this.atk = 2;
+        this.atkSpd = 1000;
+        this.atkRange = 100;
+        this.movSpd = 6;
+        this.expGrant = 1;
+
+        this.knockBackStrength = 0;
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y,
+            },
+            width: this.atkRange,
+            height: 50,
+        };
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
+        this.atkBox.position.y = this.position.y + 50;
+        context.fillStyle = "green";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+}
+
 class Demon extends Enemy {
     constructor(x, y) {
         super();
@@ -122,7 +214,7 @@ class Demon extends Enemy {
         this.movSpd = 3;
         this.expGrant = 7;
 
-        this.knockBackStrength = -7;
+        this.knockBackStrength = 0;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -160,4 +252,4 @@ class Demon extends Enemy {
     updateTarget() {}
 }
 
-export { Skeleton, Demon };
+export { Skeleton, Goblin, Demon };
