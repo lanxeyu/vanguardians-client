@@ -71,6 +71,9 @@ class Van extends Sprite {
         this.currHealth -= damage;
     }
 
+    getKnockedBack() {}
+    getStunned() {}
+
     update() {
         if (this.currHealth <= 0) {
             this.isAlive = false;

@@ -127,11 +127,17 @@ const Canvas = () => {
                     drawDamageNumbers(context);
                     drawPopUpMsgs(context);
 
+<<<<<<< HEAD
                     drawForeground(context)
 
                     drawUI(context);
 
 
+=======
+                    
+
+                    requestAnimationFrame(gameLoop);
+>>>>>>> be9a3010fecd3b28c971b0ee4e1cde51cae139e6
                 }
                 else {
                     context.fillStyle = 'rgb(255, 255, 255)'
@@ -180,16 +186,7 @@ const Canvas = () => {
     }, [gameStarted]);
 
     useEffect(() => {
-        addKeyListener(key => {
-            switch (key) {
-                case "1":
-                    break;
-                case "2":
-                    break;
-                default:
-                    break;
-            }
-        });
+        addKeyListener();
     }, []);
 
     return (
