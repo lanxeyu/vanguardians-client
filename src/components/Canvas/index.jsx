@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
-import { Background } from "./lib/sprite";
+import { Background, Foreground } from "./lib/sprite";
+import { PortraitIcon, TopBar, BottomBar } from "./lib/gui"
 import { Van } from "./lib/van";
 import {
     spawnDuncan,
@@ -69,18 +70,11 @@ const Canvas = () => {
 
                 new Van(50, 348, "src/components/canvas/img/van.png");
 
-                // Spawn objects // to be removed and use a dynamic spawner function
-                // new Duncan(50, canvas.height - 168 - 280);
-                // new Lanxe(50, canvas.height - 168 - 260);
-                // new Robbie(50, canvas.height - 168 - 260);
-                // new Steph(50, canvas.height - 168 - 260);
-                // new James(50, canvas.height - 168 - 180);
-
                 spawnDuncan();
                 spawnLanxe();
                 // spawnSteph();
                 // spawnRobbie();
-                // spawnJames();
+                spawnJames();
                 // spawnAlex();
 
                 for (let i = 0; i < guardians.length; i++) {
@@ -90,24 +84,7 @@ const Canvas = () => {
                 new TopBar((canvas.width / 2) - 40, 0, 140, 70, scores);
                 new BottomBar(0, canvas.height, canvas.width, 168, null)
 
-                spawnSkeleton();
-                spawnDemon();
             }
-
-            
-            // if (gameStarted) {
-            //     new Background(0, 0, "src/components/canvas/img/test-background.png");
-            //     new Van(50, 420, "src/components/canvas/img/van.png");
-
-            //     // --- Enable spawn to test Guardian ---
-            //     // Default start has Duncan and Lanxe at lvl 1
-            //     spawnDuncan();
-            //     spawnLanxe();
-            //     // spawnSteph();
-            //     // spawnRobbie();
-            //     // spawnJames();
-            //     // spawnAlex();
-            // }
 
             // Main game loop logic
             const gameLoop = () => {
@@ -119,6 +96,7 @@ const Canvas = () => {
                         clearAllSprites();
                         setShowGameOver(true);
                     } else if (enemies.length == 0) {
+
                         spawnEnemies();
                     }
 
@@ -132,9 +110,6 @@ const Canvas = () => {
                     // console.log(firstPosX)
 
                     // context.transform(1, 0, 0, 1, -firstPosX , 0)
-
-
-
 
                     updateAllSprites(context);
 
@@ -156,10 +131,6 @@ const Canvas = () => {
 
                     drawUI(context);
 
-                    // for (let i = 0; i < guardians.length; i++) {
-                    // console.log(typeof guardians[i])
-                    // // new PortraitIcon(20, canvas.height - 168)
-                    // }
 
                 }
                 else {
@@ -186,8 +157,10 @@ const Canvas = () => {
 
                 // Loop from last drawn
                 for (let i = guardians.length-1; i >= 0; i--) {
+                    console.log(guardians[i].name)
                     if (y > guardians[i].position.y && y < guardians[i].position.y + guardians[i].height 
                         && x > guardians[i].position.x && x < guardians[i].position.x + guardians[i].width) {
+                            
                         if (gameStarted) { // Game Started
                             console.log(`${guardians[i].name} has been Clicked!`)
                             for (let j = 0; j < ui.length; j++) {

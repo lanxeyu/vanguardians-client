@@ -5,7 +5,7 @@ import { restoreAllHealth } from "./utils";
 import { LevelUp } from "./utilclasses";
 
 class Van extends Sprite {
-    constructor(x, y, imageSrc, scale = 1.5) {
+    constructor(x, y, imageSrc, scale = 1.0) {
         super(x, y, imageSrc, scale);
         addToGroup(this, guardians);
         addToGroup(this, van);
@@ -82,7 +82,7 @@ class Van extends Sprite {
             this.maxExp = 10 * 2 ** this.lvl;
             restoreAllHealth();
             spawnGuardians();
-            new LevelUp(`Level Up!`, 527, 500);
+            new LevelUp(`Level Up!`, this.position.x + (this.width / 2) + 60, this.position.y - 30);
         }
     }
 }

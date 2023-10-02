@@ -1,6 +1,8 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
 import { Skeleton, Demon } from "./enemies";
-import { van } from "./groups";
+import { van, guardians } from "./groups";
+import { PortraitIcon } from "./gui";
+
 
 function spawnGuardians() {
     switch (van[0].lvl) {
@@ -19,6 +21,7 @@ function spawnGuardians() {
         default:
             break;
     }
+    new PortraitIcon(guardians[guardians.length-1], 20, 768 - 160 - 120, guardians.length-1);
 }
 
 let waveCounter = 0;
@@ -77,7 +80,7 @@ function spawnLanxe() {
 }
 
 function spawnRobbie() {
-    new Robbie(50, canvas.height - 168 - 260, "src/components/canvas/img/Robbie/Idle.png");
+    new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png");
 }
 
 function spawnSteph() {
@@ -85,7 +88,7 @@ function spawnSteph() {
 }
 
 function spawnJames() {
-    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Idle.png");
+    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Worm/Idle.png");
 }
 
 function spawnAlex() {
@@ -97,7 +100,7 @@ function spawnSkeleton() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, 533);
+    new Skeleton(randomX, 340);
 }
 
 function spawnDemon() {
@@ -105,7 +108,7 @@ function spawnDemon() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Demon(randomX, 480);
+    new Demon(randomX, 300);
 }
 
 export {

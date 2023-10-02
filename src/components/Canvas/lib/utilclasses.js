@@ -104,7 +104,8 @@ class LevelUp extends Sprite {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "50px Arial";
+        context.font = "50px Silkscreen";
+        context.textAlign = "center"
         context.fillText(this.text, this.position.x, this.position.y)
     }
 }

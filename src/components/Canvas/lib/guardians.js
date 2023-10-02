@@ -1,5 +1,6 @@
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
+import { CHAR_MODES, CHAR_STATES } from "./statemanager"
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -105,35 +106,21 @@ class Character extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x + this.healthBarPosition.x,
-            this.position.y - this.healthBarPosition.y,
+            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.y - 10,
             this.healthBarWidth,
             this.healthBarHeight
         );
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x + this.healthBarPosition.x,
-            this.position.y - this.healthBarPosition.y,
+            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.y - 10,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
         );
     }
 }
-
-// --------------------  STATE MANAGERS -----------------------------
-
-const CHAR_STATES = {
-    IDLE: 0,
-    FORWARD: 1,
-    ATTACKING: 2,
-    FLEEING: 3,
-};
-
-const CHAR_MODES = {
-    MODE_1: 0,
-    MODE_2: 1,
-};
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Character {
@@ -283,7 +270,7 @@ class Guardian extends Character {
 }
 
 class Lanxe extends Guardian {
-    constructor(x, y, imageSrc, scale = 3.8, framesMax = 8, offset = { x: 215, y: 355 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 225, y: 166 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -333,29 +320,30 @@ class Lanxe extends Guardian {
         }
     }
 
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x
-    //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "blue"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    draw(context) {
+        super.draw(context)
+        // this.atkBox.position.x = this.position.x
+        // this.atkBox.position.y = this.position.y
+        // context.fillStyle = "blue"
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
-    // }
+        // if (this.isAttacking) {
+        //     context.fillRect(
+        //         this.atkBox.position.x,
+        //         this.atkBox.position.y,
+        //         this.atkBox.width,
+        //         this.atkBox.height
+        //     );
+        // }
+    }
 }
 
 class Robbie extends Guardian {
-    constructor(x, y, imageSrc, scale = 2, framesMax = 6, offset = { x: 215, y: 175 }) {
+    constructor(x, y, imageSrc, scale = 1.5, framesMax = 6, offset = { x: 120, y: 70 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
-        this.height = 150;
+        this.height = 140;
         this.maxHealth = 60;
         this.currHealth = this.maxHealth;
         this.atk = 3;
@@ -385,14 +373,15 @@ class Robbie extends Guardian {
         }, 10);
     }
 
-    // draw(context) {
-    //     context.fillStyle = "green";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
+    draw(context) {
+        super.draw(context)
+        // context.fillStyle = "green";
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
 }
 
 class James extends Guardian {
-    constructor(x, y, imageSrc, scale = 3, framesMax = 9, offset = { x: 215, y: 250 }) {
+    constructor(x, y, imageSrc, scale = 2.8, framesMax = 9, offset = { x: 40, y: 90 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 150;
@@ -404,13 +393,10 @@ class James extends Guardian {
         this.atkRange = 900;
         this.movSpd = 4;
 
-<<<<<<< HEAD
         this.name = "james";
 
         this.isAttacking = false
-=======
         this.isAttacking = false;
->>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
@@ -421,6 +407,7 @@ class James extends Guardian {
     }
 
     // draw(context) {
+    //     super.draw(context)
     //     switch (this.currentState) {
     //         case CHAR_STATES.FORWARD:
     //             context.fillStyle = `rgb(
@@ -447,11 +434,11 @@ class James extends Guardian {
 }
 
 class Steph extends Guardian {
-    constructor(x, y, imageSrc, scale = 4, framesMax = 8, offset = { x: 215, y: 278 }) {
+    constructor(x, y, imageSrc, scale = 3.0, framesMax = 8, offset = { x: 195, y: 140 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
-        this.width = 70;
-        this.height = 150;
+        this.width = 50;
+        this.height = 140;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
         this.atk = 4;
@@ -478,17 +465,18 @@ class Steph extends Guardian {
     }
 
     // draw(context) {
+    //     super.draw(context);
     //     context.fillStyle = "LightSkyBlue";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
 }
 
 class Duncan extends Guardian {
-    constructor(x, y, imageSrc, scale = 3.8, framesMax = 10, offset = { x: 215, y: 355 }) {
+    constructor(x, y, imageSrc, scale = 3.0, framesMax = 10, offset = { x: 266, y: 205 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 90;
-        this.height = 170;
+        this.height = 180;
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
@@ -496,15 +484,12 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-<<<<<<< HEAD
         this.name = "duncan";
 
         this.knockBackStrength = 10
         this.knockBackResistance = 2
-=======
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
->>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -538,17 +523,18 @@ class Duncan extends Guardian {
     }
 
     // draw(context) {
+    //     super.draw(context)
     //     context.fillStyle = "purple";
     //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
+    //     // if (this.isAttacking) {
+    //     //     context.fillRect(
+    //     //         this.atkBox.position.x,
+    //     //         this.atkBox.position.y,
+    //     //         this.atkBox.width,
+    //     //         this.atkBox.height
+    //     //     );
+    //     // }
     // }
 }
 

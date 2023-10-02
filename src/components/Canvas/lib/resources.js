@@ -1,7 +1,4 @@
 let silkscreenFont = null;
-let middlegroundImage = null;
-let rootsImage = null;
-let groundImage = null;
 
 function getSilkscreenFont() {
     if (silkscreenFont === null) {

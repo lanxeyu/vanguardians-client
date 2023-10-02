@@ -7,6 +7,7 @@ const damageNumbers = [];
 const van = [];
 const background = [];
 const ui = [];
+const portraits = []
 const foreground = [];
 let popUpMsgs = [];
 
@@ -114,6 +115,7 @@ export {
     background,
     ui,
     foreground,
+    portraits,
     updateAllSprites,
     clearAllSprites,
     popUpMsgs,
@@ -126,9 +128,6 @@ export {
     drawAllHealthbars,
     drawVan,
     drawBackground,
-<<<<<<< HEAD
     drawForeground,
     drawUI
-=======
->>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
 };
