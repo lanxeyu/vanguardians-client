@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-import {
-    addToGroup,
-    removeFromGroup,
-    allSprites,
-    guardians,
-    enemies,
-    guardianProjectiles,
-} from "./groups";
-=======
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
->>>>>>> b332ca584e967023745206683112a826d055de21
 import { Sprite } from "./sprite";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
@@ -159,8 +148,8 @@ class Guardian extends Character {
     ) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
-        this.positionXLimit = 900
-        this.isKnockedOut = false
+        this.positionXLimit = 900;
+        this.isKnockedOut = false;
 
         this.currentState = CHAR_STATES.IDLE;
         this.currentMode = CHAR_MODES.MODE_1;
@@ -269,12 +258,12 @@ class Guardian extends Character {
     update() {
         if (!this.isKnockedOut) {
             if (this.currHealth <= 0) {
-                this.getKnockedOut()
+                this.getKnockedOut();
             }
-            this.updateTarget()
-            this.updatePosition()
-            this.updateAttacking()
-            this.updateAnimation()
+            this.updateTarget();
+            this.updatePosition();
+            this.updateAttacking();
+            this.updateAnimation();
         }
     }
 
@@ -289,23 +278,23 @@ class Guardian extends Character {
             default:
                 this.currentMode = CHAR_MODES.MODE_1;
         }
-        this.toggleAttributes()
+        this.toggleAttributes();
     }
 }
 
 class Lanxe extends Guardian {
     constructor(x, y, imageSrc, scale = 3.8, framesMax = 8, offset = { x: 215, y: 355 }) {
-        super(x, y, imageSrc, scale, framesMax, offset)
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 100
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 700
-        this.atkRange = 250
-        this.movSpd = 4
-        this.damageResistance = 2
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 700;
+        this.atkRange = 250;
+        this.movSpd = 4;
+        this.damageResistance = 2;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -341,7 +330,7 @@ class Lanxe extends Guardian {
                 this.damageResistance = 0;
         }
     }
-    
+
     // draw(context) {
     //     this.atkBox.position.x = this.position.x
     //     this.atkBox.position.y = this.position.y
