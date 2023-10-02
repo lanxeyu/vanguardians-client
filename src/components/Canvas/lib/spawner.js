@@ -30,7 +30,7 @@ function spawnEnemies() {
     switch (waveCounter) {
         case 1:
             for (let i = 0; i < 10; i++) {
-                spawnSkeleton();
+                // spawnSkeleton();
                 spawnMushroom();
             }
             break;

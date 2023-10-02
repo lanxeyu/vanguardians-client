@@ -616,4 +616,4 @@ class Spear extends Projectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion };
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion, Projectile };

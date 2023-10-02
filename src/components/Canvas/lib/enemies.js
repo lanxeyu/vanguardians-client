@@ -164,64 +164,54 @@ class Mushroom extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 150
-        this.maxHealth = 10000
+        this.maxHealth = 1000
         this.currHealth = this.maxHealth
         this.atk = 5
         this.atkSpd = 2000
-        this.atkRange = 400
-        this.movSpd = 4
+        this.atkRange = 200
+        this.movSpd = 2
         this.expGrant = 4
 
         this.knockBackStrength = -7
 
+        this.movSpdy = 5
+        this.gravity = 1
+        this.time = 0
+        this.isOnGround = true
+        this.originalY = y
+
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-    }
-
-    attack() {
-        this.isAttacking = true;
-        new MushroomProjectile(this.position.x, this.position.y)
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 5)
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            width: this.atkRange,
+            height: 50,
+        }
     }
 
     draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y + 50
         context.fillStyle = "hotpink"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
     }
 
-    // updateTarget() {
-    //     this.target = this.findRandomTarget(guardians, "enemy")
-    // }
-}
-
-class MushroomProjectile extends Projectile {
-    constructor(x,y) {
-        super()
-        addToGroup(this, enemyProjectiles)
-        this.position= {x, y}
-        this.atk = 0
-        this.movSpd = 30
-        this.width = 40
-        this.height = 40
-
-        this.movSpdy = 5
-        this.time = 0
-        this.gravity = 0.5
-    }
-
-    draw(context) {    
-        context.fillStyle = 'violet'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
-
-    updatePosition() {
-        this.position.x -= this.movSpd
-        this.position.y -= (this.movSpdy * this.time - 0.5 * this.gravity * this.time * this.time)
-        this.time += 1
+    updateTarget() {
+        this.target = this.findRandomTarget(guardians, "enemy")
     }
 }
 
-export { Skeleton, Demon, Mushroom, MushroomProjectile }
+export { Skeleton, Demon, Mushroom }

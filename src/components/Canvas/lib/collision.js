@@ -1,7 +1,7 @@
 import { DamageNumber } from "./utilclasses";
 import { Duncan, Robbie, Spear, Lightning, Explosion } from "./guardians";
-import { Skeleton, MushroomProjectile } from "./enemies";
-import { allSprites, enemyProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
+import { Skeleton } from "./enemies";
+import { allSprites, guardianProjectiles, removeFromGroup } from "./groups";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
@@ -70,10 +70,6 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
 
 
                 // ENEMIES
-                else if (spriteA instanceof MushroomProjectile){
-                    removeFromGroup(spriteA, enemyProjectiles)
-                    removeFromGroup(spriteA, allSprites)
-                }
             }
         }
     }
