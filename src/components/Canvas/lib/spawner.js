@@ -33,7 +33,7 @@ function spawnEnemies() {
     switch (waveCounter) {
         case 1:
             for (let i = 0; i < 10; i++) {
-                // spawnSkeleton();
+                spawnSkeleton();
                 spawnMushroom();
             }
             break;
@@ -117,7 +117,7 @@ function spawnMushroom() {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Mushroom(randomX, 533);
+    new Mushroom(randomX, 340);
 }
 
 

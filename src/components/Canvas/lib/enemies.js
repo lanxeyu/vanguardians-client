@@ -174,12 +174,6 @@ class Mushroom extends Enemy {
 
         this.knockBackStrength = -7
 
-        this.movSpdy = 5
-        this.gravity = 1
-        this.time = 0
-        this.isOnGround = true
-        this.originalY = y
-
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -191,6 +185,7 @@ class Mushroom extends Enemy {
             width: this.atkRange,
             height: 50,
         }
+
     }
 
     draw(context) {
@@ -212,6 +207,7 @@ class Mushroom extends Enemy {
     updateTarget() {
         this.target = this.findRandomTarget(guardians, "enemy")
     }
+
 }
 
 export { Skeleton, Demon, Mushroom }
