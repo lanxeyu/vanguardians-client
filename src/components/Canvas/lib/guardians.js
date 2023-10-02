@@ -10,8 +10,16 @@ import { Sprite } from "./sprite";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
-    constructor(x, y, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        healthBarPosition = { x: 0, y: 0 }
+    ) {
+        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         this.isAlive = true;
         this.target = null;
 
@@ -24,6 +32,8 @@ class Character extends Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+
+        this.healthBarPosition = { x, y };
     }
 
     getKnockedBack(distance) {
@@ -92,16 +102,16 @@ class Character extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x,
-            this.position.y - 25,
+            this.position.x + this.healthBarPosition.x,
+            this.position.y - this.healthBarPosition.y,
             this.healthBarWidth,
             this.healthBarHeight
         );
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x,
-            this.position.y - 25,
+            this.position.x + this.healthBarPosition.x,
+            this.position.y - this.healthBarPosition.y,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
         );
@@ -124,8 +134,16 @@ const CHAR_MODES = {
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Character {
-    constructor(x, y, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        healthBarPosition = { x: 0, y: 0 }
+    ) {
+        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
         this.positionXLimit = 900;
 
@@ -256,6 +274,7 @@ class Guardian extends Character {
 class Lanxe extends Guardian {
     constructor(x, y, imageSrc, scale = 3.8, framesMax = 8, offset = { x: 215, y: 355 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "Lanxe";
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -274,13 +293,14 @@ class Lanxe extends Guardian {
             width: this.atkRange,
             height: 50,
         };
+
+        this.healthBarPosition.x = 130;
+        this.healthBarPosition.y = 100;
     }
 
     // draw(context) {
     //     this.atkBox.position.x = this.position.x;
     //     this.atkBox.position.y = this.position.y;
-    //     context.fillStyle = "blue";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //     if (this.isAttacking) {
     //         context.fillRect(
@@ -309,6 +329,9 @@ class Robbie extends Guardian {
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
+
+        this.healthBarPosition.x = -35;
+        this.healthBarPosition.y = 85;
     }
 
     updateTarget() {
@@ -394,6 +417,9 @@ class Steph extends Guardian {
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
+
+        this.healthBarPosition.x = 50;
+        this.healthBarPosition.y = 70;
     }
 
     attack() {
@@ -438,6 +464,9 @@ class Duncan extends Guardian {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+
+        this.healthBarPosition.x = 130;
+        this.healthBarPosition.y = 110;
     }
 
     updatePosition() {

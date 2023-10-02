@@ -15,7 +15,7 @@ class Van extends Sprite {
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
         this.healthBarHeight = 8;
-        this.healthBarWidth = 70;
+        this.healthBarWidth = 200;
         this.maxExp = 10;
         this.currExp = 0;
         this.lvl = 1;
