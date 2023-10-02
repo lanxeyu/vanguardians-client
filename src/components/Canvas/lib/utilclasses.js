@@ -74,18 +74,8 @@ class LevelUp extends Sprite {
 
         this.alpha = 1
 
-<<<<<<< HEAD
-        // console.log(x, y)
-        // console.log(newPointX, newPointY)
-        // console.log(this.position)
-=======
->>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
         setTimeout(() => {
         }, this.lifeTime * 1000)
-<<<<<<< HEAD
-        // console.log(this.lifeTime - (this.endTime - new Date()))
-=======
->>>>>>> d2c4a11a0819dad924767d5bf35e6b212b77921a
     }
 
     update() {

@@ -29,26 +29,6 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
-function useRetreatGuardians() {
-  const [onCooldown, setOnCooldown] = useState(false);
-
-  useEffect(() => {
-
-    function handleKeyPress(event){
-      if(event.key === "r" && onCooldown === (false)){
-        for (const guardian of guardians) {
-            guardian.position.x = 30
-            setOnCooldown(true)
-            setTimeout(setOnCooldown(false), 10000)
-        }
-      }
-    }
-
-    document.addEvenetListener("keydown", handleKeyPress)
-
-  }, [])
-}
-
 function addKeyListener() {
   const keyFunctions = {};
 
@@ -61,15 +41,17 @@ function addKeyListener() {
     };
   }
 
-  // keyFunctions["r"] = function () {
-  //   if(retreatCooldown === false)
-  //   for (const guardian of guardians) {
-  //     guardian.position.x = 30
-  //     retreatCooldown = true;
-  //     setTimeout(retreatCooldown = false, 10000)
-  //   }
-  // }
+  keyFunctions["r"] = function () {
+    for (const guardian of guardians) {
+      guardian.isRetreating = true;
+    }
+  }
 
+  keyFunctions["a"] = function () {
+    for (const guardian of guardians) {
+      guardian.isRetreating = false;
+    }
+  }
 
   document.addEventListener("keydown", (event) => {
     const key = event.key;
