@@ -1,5 +1,5 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
-import { Skeleton, Goblin, Demon } from "./enemies";
+import { Skeleton, Goblin, Demon, Troll } from "./enemies";
 import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 
@@ -42,6 +42,9 @@ function spawnEnemies() {
         case 2:
             for (let i = 0; i < 20; i++) {
                 spawnSkeleton();
+            }
+            for (let i = 0; i < 1; i++) {
+                spawnTroll();
             }
             break;
         case 3:
@@ -120,6 +123,14 @@ function spawnDemon() {
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Demon(randomX, 300);
+}
+
+function spawnTroll() {
+    const minX = 1366;
+    const maxX = 2000;
+    const randomX = Math.random() * (maxX - minX) + minX;
+
+    new Troll(randomX, 290);
 }
 
 export {

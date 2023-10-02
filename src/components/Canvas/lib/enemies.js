@@ -84,13 +84,13 @@ class Skeleton extends Enemy {
                 y: this.position.y
             },
             width: this.atkRange,
-            height: 50,
+            height: 100,
         }
     }
 
     draw(context) {
         this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y + 50
+        this.atkBox.position.y = this.position.y
         context.fillStyle = "red"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
@@ -104,6 +104,7 @@ class Skeleton extends Enemy {
         }
     }
 }
+
 
 class Goblin extends Enemy {
     constructor(x, y) {
@@ -130,13 +131,13 @@ class Goblin extends Enemy {
                 y: this.position.y
             },
             width: this.atkRange,
-            height: 50,        
+            height: 100,        
         }
     }
 
     draw(context) {
         this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y + 50
+        this.atkBox.position.y = this.position.y
         context.fillStyle = "green"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
@@ -203,6 +204,53 @@ class Demon extends Enemy {
     updateTarget() {}
 }
 
+class Troll extends Enemy {
+    constructor(x, y) {
+        super()
+        this.position = {x, y}
+        this.width = 70
+        this.height = 200
+        this.maxHealth = 200
+        this.currHealth = this.maxHealth
+        this.atk = 20
+        this.atkSpd = 4000
+        this.atkRange = 100
+        this.movSpd = 2
+        this.expGrant = 50
+
+        this.knockBackStrength = -60
+        this.knockBackResistance = 5
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            width: this.atkRange,
+            height: 50,
+        }
+    }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "maroon"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+}
 
 
-export { Skeleton, Goblin, Demon }
+
+export { Skeleton, Goblin, Demon, Troll }
