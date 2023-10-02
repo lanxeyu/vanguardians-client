@@ -94,16 +94,7 @@ const Canvas = () => {
     }, [gameStarted]);
 
     useEffect(() => {
-        addKeyListener(key => {
-            switch (key) {
-                case "1":
-                    break;
-                case "2":
-                    break;
-                default:
-                    break;
-            }
-        });
+        addKeyListener();
     }, []);
 
     return (

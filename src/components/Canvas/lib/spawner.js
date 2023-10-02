@@ -34,7 +34,7 @@ function spawnEnemies() {
             }
             break;
         case 2:
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 20; i++) {
                 spawnSkeleton();
             }
             break;
