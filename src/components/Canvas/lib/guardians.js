@@ -1,6 +1,6 @@
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
-import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
+import { CHAR_MODES, CHAR_STATES } from "./statemanagers";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -113,7 +113,7 @@ class Character extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.x + this.width / 2 - this.healthBarWidth / 2,
             this.position.y - 10,
             this.healthBarWidth,
             this.healthBarHeight
@@ -121,7 +121,7 @@ class Character extends Sprite {
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.x + this.width / 2 - this.healthBarWidth / 2,
             this.position.y - 10,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
@@ -169,29 +169,33 @@ class Guardian extends Character {
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
         // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX);
 
         // Knockback check
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
 
-        // Retreat block
-        } else if(this.isRetreating){
+            // Retreat block
+        } else if (this.isRetreating) {
             if (retreatDistance > this.movSpd) {
                 if (this.homePositionX > this.position.x) {
-                    this.position.x += this.movSpd
-                } 
-                else if (this.homePositionX < this.position.x) {
-                    this.position.x -= this.movSpd
+                    this.position.x += this.movSpd;
+                } else if (this.homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd;
                 }
+            } else {
+                this.position.x = this.homePositionX;
+                this.currentState = CHAR_STATES.IDLE;
             }
-            else {
-                this.position.x = this.homePositionX
-                this.currentState = CHAR_STATES.IDLE
-            }
-        
-        // Normal movement block
-        } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && !this.checkTargetInRange()) {
+
+            // Normal movement block
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < this.positionXLimit &&
+            !this.checkTargetInRange()
+        ) {
             this.position.x += this.movSpd;
         }
     }
@@ -270,8 +274,6 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
 
-
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -309,7 +311,7 @@ class Lanxe extends Guardian {
     }
 
     draw(context) {
-        super.draw(context)
+        super.draw(context);
         // this.atkBox.position.x = this.position.x
         // this.atkBox.position.y = this.position.y
         // context.fillStyle = "blue"
@@ -364,7 +366,7 @@ class Robbie extends Guardian {
     }
 
     draw(context) {
-        super.draw(context)
+        super.draw(context);
         // context.fillStyle = "green";
         // context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
@@ -460,7 +462,7 @@ class Steph extends Guardian {
     // draw(context) {
     //     super.draw(context);
     //     context.fillStyle = "LightSkyBlue";
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
 }
 

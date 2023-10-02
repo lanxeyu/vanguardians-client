@@ -142,4 +142,5 @@ export {
     spawnSteph,
     spawnJames,
     spawnAlex,
+    waveCounter,
 };
