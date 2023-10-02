@@ -173,25 +173,22 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
-        let homePositionX = 50
+        let homePositionX = 50;
         // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - homePositionX) 
-
+        const retreatDistance = Math.abs(this.position.x - homePositionX);
 
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
-        } else if(this.isRetreating){
+        } else if (this.isRetreating) {
             if (retreatDistance > this.movSpd) {
                 if (homePositionX > this.position.x) {
-                    this.position.x += this.movSpd
-                } 
-                else if (homePositionX < this.position.x) {
-                    this.position.x -= this.movSpd
+                    this.position.x += this.movSpd;
+                } else if (homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd;
                 }
-            }
-            else {
-                this.position.x = homePositionX
-                this.currentState = CHAR_STATES.IDLE
+            } else {
+                this.position.x = homePositionX;
+                this.currentState = CHAR_STATES.IDLE;
             }
         } else if (
             !this.isKnockedBack &&
@@ -293,7 +290,16 @@ class Lanxe extends Guardian {
         scale = 3.8,
         framesMax = 8,
         offset = { x: 215, y: 355 },
-        animations
+        animations = {
+            Idle: {
+                imageSrc: "src/components/canvas/img/Lanxe/Idle.png",
+                framesMax: 8,
+            },
+            Run: {
+                imageSrc: "src/components/canvas/img/Lanxe/Run.png",
+                framesMax: 8,
+            },
+        }
     ) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
@@ -319,6 +325,8 @@ class Lanxe extends Guardian {
 
         this.healthBarPosition.x = 130;
         this.healthBarPosition.y = 100;
+
+        this.isMoving = false;
     }
 
     toggleAttributes() {
@@ -521,22 +529,20 @@ class Duncan extends Guardian {
     }
 
     updatePosition() {
-        let homePositionX = 50
-        const retreatDistance = Math.abs(this.position.x - homePositionX) 
+        let homePositionX = 50;
+        const retreatDistance = Math.abs(this.position.x - homePositionX);
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance / this.knockBackResistance;
-        } else if(this.isRetreating){
+        } else if (this.isRetreating) {
             if (retreatDistance > this.movSpd) {
                 if (homePositionX > this.position.x) {
-                    this.position.x += this.movSpd
-                } 
-                else if (homePositionX < this.position.x) {
-                    this.position.x -= this.movSpd
+                    this.position.x += this.movSpd;
+                } else if (homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd;
                 }
-            }
-            else {
-                this.position.x = homePositionX
-                this.currentState = CHAR_STATES.IDLE
+            } else {
+                this.position.x = homePositionX;
+                this.currentState = CHAR_STATES.IDLE;
             }
         } else if (
             !this.isKnockedBack &&

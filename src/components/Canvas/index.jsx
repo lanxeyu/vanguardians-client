@@ -82,8 +82,6 @@ const Canvas = () => {
                     drawDamageNumbers(context);
                     drawPopUpMsgs(context);
 
-                    
-
                     requestAnimationFrame(gameLoop);
                 }
             };
