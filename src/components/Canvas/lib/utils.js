@@ -28,5 +28,53 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
+function useRetreatGuardians() {
+  const [onCooldown, setOnCooldown] = useState(false);
 
-export { useGameStart, restoreAllHealth }
+  useEffect(() => {
+
+    function handleKeyPress(event){
+      if(event.key === "r" && onCooldown === (false)){
+        for (const guardian of guardians) {
+            guardian.position.x = 30
+            setOnCooldown(true)
+            setTimeout(setOnCooldown(false), 10000)
+        }
+      }
+    }
+
+    document.addEvenetListener("keydown", handleKeyPress)
+
+  }, [])
+}
+
+function addKeyListener() {
+  const keyFunctions = {};
+
+  for (let i = 1; i <= 6; i++) {
+    keyFunctions[i.toString()] = function () {
+      if (guardians[i]) {
+        guardians[i].toggleModes();
+      }
+    };
+  }
+
+  // keyFunctions["r"] = function () {
+  //   if(retreatCooldown === false)
+  //   for (const guardian of guardians) {
+  //     guardian.position.x = 30
+  //     retreatCooldown = true;
+  //     setTimeout(retreatCooldown = false, 10000)
+  //   }
+  // }
+
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (key in keyFunctions) {
+      keyFunctions[key]();
+    }
+  });
+}
+
+export { useGameStart, restoreAllHealth, addKeyListener }

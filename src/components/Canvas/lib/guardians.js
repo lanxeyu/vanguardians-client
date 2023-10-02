@@ -211,6 +211,7 @@ class Guardian extends Character {
     }
 
     toggleModes() {
+        console.log('Toggled mode for ', this)
         switch(this.currentMode) {
             case CHAR_MODES.MODE_1:
                 this.currentMode = CHAR_MODES.MODE_2
