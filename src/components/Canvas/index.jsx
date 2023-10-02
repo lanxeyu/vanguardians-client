@@ -3,10 +3,19 @@ import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Background } from "./lib/sprite";
 import { Van } from "./lib/van";
-import { spawnDuncan, spawnEnemies, spawnJames, spawnLanxe, spawnRobbie, spawnSteph } from "./lib/spawner";
+import {
+    spawnDuncan,
+    spawnEnemies,
+    spawnJames,
+    spawnLanxe,
+    spawnRobbie,
+    spawnSteph,
+} from "./lib/spawner";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
-import { 
-    guardians, enemies, guardianProjectiles,
+import {
+    guardians,
+    enemies,
+    guardianProjectiles,
     drawAllHealthbars,
     drawDamageNumbers,
     drawEnemies,
@@ -23,7 +32,6 @@ import { useGameStart } from "./lib/utils";
 import { addKeyListener } from "./lib/utils";
 import "../../pages/Home/index.css";
 
-
 const Canvas = () => {
     const [showGameOver, setShowGameOver] = useState(false);
     const gameStarted = useGameStart();
@@ -31,14 +39,14 @@ const Canvas = () => {
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-     
+
         if (canvas) {
-            initCanvas(canvas)
-            
-            if (gameStarted){
+            initCanvas(canvas);
+
+            if (gameStarted) {
                 new Background(0, 0, "src/components/canvas/img/test-background.png");
-                new Van(50, 533, "src/components/canvas/img/van.png");
-    
+                new Van(50, 420, "src/components/canvas/img/van.png");
+
                 // --- Enable spawn to test Guardian ---
                 // Default start has Duncan and Lanxe at lvl 1
                 spawnDuncan();
@@ -55,9 +63,7 @@ const Canvas = () => {
                     if (!van[0].isAlive) {
                         clearAllSprites();
                         setShowGameOver(true);
-                    }
-
-                    else if (enemies.length == 0) {
+                    } else if (enemies.length == 0) {
                         spawnEnemies();
                     }
 
@@ -79,14 +85,14 @@ const Canvas = () => {
                     requestAnimationFrame(gameLoop);
                 }
             };
-            if (gameStarted){
+            if (gameStarted) {
                 gameLoop();
             }
         }
     }, [gameStarted]);
 
     useEffect(() => {
-        addKeyListener((key) => {
+        addKeyListener(key => {
             switch (key) {
                 case "1":
                     break;

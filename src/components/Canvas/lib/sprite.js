@@ -2,7 +2,7 @@ import { addToGroup, allSprites, background } from "./groups";
 
 // --------------------  MAIN SPRITE CLASS  --------------------
 class Sprite {
-    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
+    constructor(x, y, imageSrc, scale = 1, framesMax = 1, offset = { x: 0, y: 0 }) {
         addToGroup(this, allSprites);
         this.position = { x, y };
         this.width = 50;
@@ -14,6 +14,7 @@ class Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+        this.offset = offset;
     }
 
     draw(context) {
@@ -23,8 +24,8 @@ class Sprite {
             0,
             this.image.width / this.framesMax,
             this.image.height,
-            this.position.x,
-            this.position.y,
+            this.position.x - this.offset.x,
+            this.position.y - this.offset.y,
             (this.image.width / this.framesMax) * this.scale,
             this.image.height * this.scale
         );
@@ -44,9 +45,9 @@ class Sprite {
 }
 
 class Background extends Sprite {
-    constructor(x, y, imageSrc, scale = 1){
-        super(x, y, imageSrc, scale)
-        addToGroup(this, background)
+    constructor(x, y, imageSrc, scale = 1) {
+        super(x, y, imageSrc, scale);
+        addToGroup(this, background);
     }
 }
 
