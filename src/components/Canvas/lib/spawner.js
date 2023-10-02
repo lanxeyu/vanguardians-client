@@ -19,18 +19,17 @@ function spawnGuardians() {
         default:
             break;
     }
-
 }
 
-let waveCounter = 0
+let waveCounter = 0;
 
 function spawnEnemies() {
-    waveCounter += 1
-    console.log('Wave starting: ', waveCounter)
+    waveCounter += 1;
+    console.log("Wave starting: ", waveCounter);
 
     switch (waveCounter) {
         case 1:
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 10; i++) {
                 spawnSkeleton();
             }
             break;
@@ -55,6 +54,14 @@ function spawnEnemies() {
                 spawnDemon();
             }
             break;
+        case 5:
+            for (let i = 0; i < 14; i++) {
+                spawnSkeleton();
+            }
+            for (let i = 0; i < 3; i++) {
+                spawnDemon();
+            }
+            break;
         default:
             // Win Game logic
             break;
@@ -62,23 +69,23 @@ function spawnEnemies() {
 }
 
 function spawnDuncan() {
-    new Duncan(50, 513);
+    new Duncan(50, 513, "src/components/canvas/img/Duncan/Idle.png");
 }
 
 function spawnLanxe() {
-    new Lanxe(50, 533);
+    new Lanxe(50, 533, "src/components/canvas/img/Lanxe/Idle.png");
 }
 
 function spawnRobbie() {
-    new Robbie(50, 533);
+    new Robbie(50, 533, "src/components/canvas/img/Robbie/Idle.png");
 }
 
 function spawnSteph() {
-    new Steph(50, 533);
+    new Steph(50, 533, "src/components/canvas/img/Stephanie/Idle.png");
 }
 
 function spawnJames() {
-    new James(50, 613);
+    new James(50, 613, "src/components/canvas/img/James/Idle.png");
 }
 
 function spawnAlex() {
@@ -86,25 +93,28 @@ function spawnAlex() {
 }
 
 function spawnSkeleton() {
-    const minX = 1366
-    const maxX = 2000
+    const minX = 1366;
+    const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Skeleton(randomX, 533);
 }
 
 function spawnDemon() {
-    const minX = 1366
-    const maxX = 2000
+    const minX = 1366;
+    const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Demon(randomX, 480);
 }
 
-
-
-export { 
-    spawnGuardians, spawnEnemies,
-    spawnDuncan, spawnLanxe, spawnRobbie, spawnSteph, spawnJames, spawnAlex
-}
-
+export {
+    spawnGuardians,
+    spawnEnemies,
+    spawnDuncan,
+    spawnLanxe,
+    spawnRobbie,
+    spawnSteph,
+    spawnJames,
+    spawnAlex,
+};

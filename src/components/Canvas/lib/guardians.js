@@ -1,15 +1,24 @@
-import { addToGroup, removeFromGroup, allSprites, guardians, enemies, guardianProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
-    constructor(x, y, imageSrc, scale = 1, framesMax = 1) {
-        super(x, y, imageSrc, scale, framesMax);
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        healthBarPosition = { x: 0, y: 0 }
+    ) {
+        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         this.isAlive = true;
         this.target = null;
 
         this.isKnockedBack = false;
         this.isStunned = false;
+        this.damageResistance = 0;
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
@@ -17,6 +26,17 @@ class Character extends Sprite {
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
+
+        this.healthBarPosition = { x, y };
+    }
+
+    getDamaged(damage) {
+        if (this.damageResistance > 0) {
+            const reducedDamage = damage / this.damageResistance;
+            this.currHealth -= reducedDamage;
+        } else {
+            this.currHealth -= damage;
+        }
     }
 
     getKnockedBack(distance) {
@@ -85,16 +105,16 @@ class Character extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x,
-            this.position.y - 25,
+            this.position.x + this.healthBarPosition.x,
+            this.position.y - this.healthBarPosition.y,
             this.healthBarWidth,
             this.healthBarHeight
         );
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x,
-            this.position.y - 25,
+            this.position.x + this.healthBarPosition.x,
+            this.position.y - this.healthBarPosition.y,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
         );
@@ -117,13 +137,33 @@ const CHAR_MODES = {
 
 // --------------------  GUARDIAN CLASSES  -------------------------
 class Guardian extends Character {
-    constructor() {
-        super();
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        healthBarPosition = { x: 0, y: 0 }
+    ) {
+        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
-        this.positionXLimit = 900
+        this.positionXLimit = 900;
+        this.isKnockedOut = false;
 
-        this.currentState = CHAR_STATES.IDLE
-        this.currentMode = CHAR_MODES.MODE_1
+        this.currentState = CHAR_STATES.IDLE;
+        this.currentMode = CHAR_MODES.MODE_1;
+
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
+    }
+
+    getKnockedOut() {
+        this.isKnockedOut = true;
+        setTimeout(() => {
+            this.isKnockedOut = false;
+        }, 10000);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -134,9 +174,14 @@ class Guardian extends Character {
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
         if (this.isKnockedBack) {
-            this.position.x += this.knockBackDistance
-        }
-        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < this.positionXLimit) && !this.checkTargetInRange()) {
+            this.position.x += this.knockBackDistance;
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < this.positionXLimit &&
+            !this.checkTargetInRange()
+        ) {
             this.position.x += this.movSpd;
         }
 
@@ -182,7 +227,7 @@ class Guardian extends Character {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5); 
+        }, 5);
     }
 
     updateAttacking() {
@@ -190,53 +235,66 @@ class Guardian extends Character {
             this.attack();
             this.atkCooldown = this.atkSpd;
             this.atkTimer = setTimeout(() => {
-              this.isAttacking = false;
+                this.isAttacking = false;
             }, 50);
         }
         if (this.atkCooldown > 0) {
-        this.atkCooldown -= 16;
+            this.atkCooldown -= 16;
+        }
+    }
+
+    updateAnimation() {
+        this.framesElapsed++;
+
+        if (this.framesElapsed % this.framesHold === 0) {
+            if (this.framesCurrent < this.framesMax - 1) {
+                this.framesCurrent++;
+            } else {
+                this.framesCurrent = 0;
+            }
         }
     }
 
     update() {
-        if (this.currHealth <= 0) {
-            this.isAlive = false;
-            // Guardian knocked-out logic to be implemented
-            removeFromGroup(this, allSprites);
-            removeFromGroup(this, guardians);
+        if (!this.isKnockedOut) {
+            if (this.currHealth <= 0) {
+                this.getKnockedOut();
+            }
+            this.updateTarget();
+            this.updatePosition();
+            this.updateAttacking();
+            this.updateAnimation();
         }
-        this.updateTarget()
-        this.updatePosition()
-        this.updateAttacking()
     }
 
     toggleModes() {
-        console.log('Toggled mode for ', this)
-        switch(this.currentMode) {
+        switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.currentMode = CHAR_MODES.MODE_2
-            break
+                this.currentMode = CHAR_MODES.MODE_2;
+                break;
             case CHAR_MODES.MODE_2:
-                this.currentMode = CHAR_MODES.MODE_1
-            break
+                this.currentMode = CHAR_MODES.MODE_1;
+                break;
             default:
-                this.currentMode = CHAR_MODES.MODE_1
+                this.currentMode = CHAR_MODES.MODE_1;
         }
+        this.toggleAttributes();
     }
 }
 
 class Lanxe extends Guardian {
-    constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 100
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 1000
-        this.atkRange = 250
-        this.movSpd = 4
+    constructor(x, y, imageSrc, scale = 3.8, framesMax = 8, offset = { x: 215, y: 355 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 700;
+        this.atkRange = 250;
+        this.movSpd = 4;
+        this.damageResistance = 2;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -246,28 +304,53 @@ class Lanxe extends Guardian {
             width: this.atkRange,
             height: 50,
         };
+
+        this.healthBarPosition.x = 130;
+        this.healthBarPosition.y = 100;
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "blue"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atk = 5;
+                this.atkSpd = 700;
+                this.atkRange = 250;
+                this.damageResistance = 0;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.atk = 8;
+                this.atkSpd = 2000;
+                this.atkRange = 250;
+                this.damageResistance = 2;
+                break;
+            default:
+                this.atk = 5;
+                this.atkSpd = 700;
+                this.atkRange = 250;
+                this.damageResistance = 0;
         }
     }
+
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "blue"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 }
 
 class Robbie extends Guardian {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 2, framesMax = 6, offset = { x: 215, y: 175 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -281,6 +364,9 @@ class Robbie extends Guardian {
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
+
+        this.healthBarPosition.x = -35;
+        this.healthBarPosition.y = 85;
     }
 
     updateTarget() {
@@ -289,72 +375,71 @@ class Robbie extends Guardian {
 
     attack() {
         this.isAttacking = true;
-        new Lightning(this.target.position.x, this.target.position.y -650)
+        new Lightning(this.target.position.x, this.target.position.y - 650);
         setTimeout(() => {
             this.isAttacking = false;
-        }, 10); 
+        }, 10);
     }
 
-    draw(context) {
-        context.fillStyle = "green";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-    
+    // draw(context) {
+    //     context.fillStyle = "green";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class James extends Guardian {
-    constructor(x, y) {
-        super() 
-        this.position = {x, y}
-        this.width = 150
-        this.height = 70
-        this.maxHealth = 120
-        this.currHealth = this.maxHealth
-        this.atk = 4
-        this.atkSpd = 800
-        this.atkRange = 900
-        this.movSpd = 4
+    constructor(x, y, imageSrc, scale = 3, framesMax = 9, offset = { x: 215, y: 250 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.position = { x, y };
+        this.width = 150;
+        this.height = 70;
+        this.maxHealth = 120;
+        this.currHealth = this.maxHealth;
+        this.atk = 4;
+        this.atkSpd = 800;
+        this.atkRange = 900;
+        this.movSpd = 4;
 
-        this.isAttacking = false
+        this.isAttacking = false;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50
-        }
+            height: 50,
+        };
 
-        this.currentState = CHAR_STATES.FLEEING
+        this.currentState = CHAR_STATES.FLEEING;
     }
 
-    draw(context) {
-        switch(this.currentState) {
-            case CHAR_STATES.FORWARD:
-                context.fillStyle = `rgb(
-                    200,
-                    20,
-                    200)`
-            break
-            case CHAR_STATES.FLEEING:
-                context.fillStyle = `rgb(
-                    200,
-                    200,
-                    0)`
-                
-            break
-            case CHAR_STATES.IDLE:
-                context.fillStyle = `rgb(
-                    200,
-                    200,
-                    200)`
-            break
-        }
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
+    // draw(context) {
+    //     switch (this.currentState) {
+    //         case CHAR_STATES.FORWARD:
+    //             context.fillStyle = `rgb(
+    //                 200,
+    //                 20,
+    //                 200)`;
+    //             break;
+    //         case CHAR_STATES.FLEEING:
+    //             context.fillStyle = `rgb(
+    //                 200,
+    //                 200,
+    //                 0)`;
+
+    //             break;
+    //         case CHAR_STATES.IDLE:
+    //             context.fillStyle = `rgb(
+    //                 200,
+    //                 200,
+    //                 200)`;
+    //             break;
+    //     }
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class Steph extends Guardian {
-    constructor(x, y) {
-        super();
-        this.position = {x, y};
+    constructor(x, y, imageSrc, scale = 4, framesMax = 8, offset = { x: 215, y: 278 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.position = { x, y };
         this.width = 70;
         this.height = 150;
         this.maxHealth = 80;
@@ -367,25 +452,28 @@ class Steph extends Guardian {
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
+
+        this.healthBarPosition.x = 50;
+        this.healthBarPosition.y = 70;
     }
 
     attack() {
         this.isAttacking = true;
-        new Spear(this.position.x, this.position.y)
+        new Spear(this.position.x, this.position.y);
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5); 
+        }, 5);
     }
 
-    draw(context) {
-        context.fillStyle = 'LightSkyBlue';
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "LightSkyBlue";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class Duncan extends Guardian {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 3.8, framesMax = 10, offset = { x: 215, y: 355 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 90;
         this.height = 170;
@@ -396,8 +484,8 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-        this.knockBackStrength = 10
-        this.knockBackResistance = 2
+        this.knockBackStrength = 10;
+        this.knockBackResistance = 2;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -406,31 +494,43 @@ class Duncan extends Guardian {
             position: this.position,
             width: this.atkRange,
             height: 50,
-        }
+        };
+
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
+
+        this.healthBarPosition.x = 130;
+        this.healthBarPosition.y = 110;
     }
 
     updatePosition() {
         if (this.isKnockedBack) {
-            this.position.x += (this.knockBackDistance / this.knockBackResistance)
-        }
-        else if (!this.isKnockedBack && !this.isStunned && this.target && (this.position.x < this.positionXLimit) && this.checkTargetInRange() == false) {
+            this.position.x += this.knockBackDistance / this.knockBackResistance;
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < this.positionXLimit &&
+            this.checkTargetInRange() == false
+        ) {
             this.position.x += this.movSpd;
         }
     }
 
-    draw(context) {
-        context.fillStyle = "purple";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     context.fillStyle = "purple";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 }
 
 class Alex extends Guardian {
@@ -439,85 +539,81 @@ class Alex extends Guardian {
     }
 }
 
-// --------------------  GUARDIAN PROJECTILE CLASSES  ------------------------- 
+// --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
 class Projectile extends Sprite {
-    constructor(){
+    constructor() {
         super();
-        addToGroup(this, guardianProjectiles)
+        addToGroup(this, guardianProjectiles);
     }
 
     updatePosition() {
-        this.position.x += this.movSpd
+        this.position.x += this.movSpd;
     }
 
     update() {
-        this.updatePosition()
+        this.updatePosition();
     }
 }
 
 class Lightning extends Projectile {
-    constructor(x, y){
-        super()
-        this.position= {x, y}
-        this.atk = "Stunned"
-        this.movSpd = 15
-        this.width = 60
-        this.height = 590
-        this.stunDuration = 3000
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.atk = "Stunned";
+        this.movSpd = 15;
+        this.width = 60;
+        this.height = 590;
+        this.stunDuration = 3000;
     }
 
     updatePosition() {
-        this.position.y += this.movSpd
+        this.position.y += this.movSpd;
     }
 
-    draw(context) {    
-        context.fillStyle = 'orange'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    draw(context) {
+        context.fillStyle = "orange";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
-    explodeOnImpact(){
+    explodeOnImpact() {
         if (this.position.y === this.target.position.y)
-        new Explosion(this.position.x, this.position.y + 100)
+            new Explosion(this.position.x, this.position.y + 100);
     }
 }
 
 class Explosion extends Projectile {
-    constructor(x,y) {
-        super()
-        this.position= {x, y}
-        this.atk = 5
-        this.movSpd = 0
-        this.width = 200
-        this.height = 150
-        this.stunDuration = 4000
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.atk = 5;
+        this.movSpd = 0;
+        this.width = 200;
+        this.height = 150;
+        this.stunDuration = 4000;
     }
 
-    draw(context) {    
-        context.fillStyle = 'pink'
-        context.fillRect(this.position.x -75, this.position.y, this.width, this.height)
+    draw(context) {
+        context.fillStyle = "pink";
+        context.fillRect(this.position.x - 75, this.position.y, this.width, this.height);
     }
 }
 
 class Spear extends Projectile {
-    constructor(x,y) {
-        super()
-        this.position= {x, y}
-        this.atk = 7
-        this.movSpd = 25
-        this.width = 100
-        this.height = 5
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.atk = 7;
+        this.movSpd = 25;
+        this.width = 100;
+        this.height = 5;
 
-        this.knockBackStrength = 50
+        this.knockBackStrength = 50;
     }
 
-    draw(context) {    
-        context.fillStyle = 'plum'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+    draw(context) {
+        context.fillStyle = "plum";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
-export { 
-    Character,
-    Lanxe, Robbie, Duncan, Steph, James, Alex,
-    Spear, Lightning, Explosion
-}
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion };
