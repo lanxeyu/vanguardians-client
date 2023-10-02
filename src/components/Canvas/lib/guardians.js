@@ -459,7 +459,7 @@ class Alex extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 10;
         this.atkSpd = 3400;
-        this.atkRange = 300;
+        this.atkRange = 350;
         this.movSpd = 3;
 
         this.isAttacking = false;

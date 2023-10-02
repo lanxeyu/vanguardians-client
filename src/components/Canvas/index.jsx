@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Background } from "./lib/sprite";
 import { Van } from "./lib/van";
-import { spawnDuncan, spawnEnemies, spawnJames, spawnLanxe, spawnRobbie, spawnSteph } from "./lib/spawner";
+import { spawnDuncan, spawnEnemies, spawnJames, spawnLanxe, spawnRobbie, spawnSteph, spawnAlex } from "./lib/spawner";
 import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
 import { 
     guardians, enemies, guardianProjectiles,
@@ -46,7 +46,7 @@ const Canvas = () => {
                 // spawnSteph();
                 // spawnRobbie();
                 // spawnJames();
-                // spawnAlex();
+                spawnAlex();
             }
 
             // Main game loop logic
