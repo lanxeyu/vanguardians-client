@@ -48,7 +48,8 @@ class DamageNumber extends Sprite {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "18px Arial";
+        context.font = "18px Silkscreen";
+        // context.textAlign = "center";
         context.fillText(this.text, this.position.x, this.position.y)
     }
 }
@@ -103,7 +104,9 @@ class LevelUp extends Sprite {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "50px Arial";
+        context.font = "50px Silkscreen";
+        if (this.text != "Level Up!") context.font = "15px Silkscreen";
+        context.textAlign = "center"
         context.fillText(this.text, this.position.x, this.position.y)
     }
 }
@@ -157,8 +160,9 @@ class SwitchMode extends Sprite {
 
     draw(context) {
         context.fillStyle = 'rgba(255, 255, 0, ' + this.alpha +')'
-        context.font = "20px Arial";
-        context.fillText(this.text, this.position.x, this.position.y)
+        context.font = "20px Silkscreen";
+        context.textAlign = "center";
+        context.fillText(this.text, this.position.x + (this.width / 2) + 12, this.position.y)
     }
 }
 

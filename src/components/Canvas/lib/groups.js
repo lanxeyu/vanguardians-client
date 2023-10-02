@@ -6,6 +6,9 @@ let enemyProjectiles = [];
 let damageNumbers = [];
 let van = [];
 let background = [];
+let ui = [];
+let portraits = []
+let foreground = [];
 let popUpMsgs = [];
 
 function addToGroup(sprite, group) {
@@ -86,6 +89,19 @@ function drawPopUpMsgs(context) {
     }
 }
 
+function drawForeground(context) {
+    for (const sprite of foreground) {
+        sprite.draw(context)
+    }
+}
+
+function drawUI(context) {
+    for (const sprite of ui) {
+        sprite.draw(context)
+    }
+}
+
+
 export {
     addToGroup,
     removeFromGroup,
@@ -97,6 +113,9 @@ export {
     damageNumbers,
     van,
     background,
+    ui,
+    foreground,
+    portraits,
     updateAllSprites,
     clearAllSprites,
     popUpMsgs,
@@ -109,4 +128,6 @@ export {
     drawAllHealthbars,
     drawVan,
     drawBackground,
+    drawForeground,
+    drawUI
 };

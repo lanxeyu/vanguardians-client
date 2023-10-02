@@ -5,19 +5,19 @@ export default function LeaderboardBox ({ leaderboardData }) {
 
     function displayLeaderboard() {
       return leaderboardData.map((el, i) => 
-        <tr className="leaderboard-row">
+        <tr key={'leaderboard-item-' + i} className="leaderboard-row">
               <td>{i+1}</td>
-              <td>{el['name']}</td>
-              <td>{el['score']}</td>
+              <td>{el['username']}</td>
+              <td>{el['value']}</td>
         </tr>)
     }
 
     return (
       <div id="leaderboard-box">
-        { leaderboardData && leaderboardData.length > 0 ? 
+        { leaderboardData && leaderboardData.length > 0 && leaderboardData[0] !== -1 ? 
         <table id="leaderboard-table">
           <tbody>
-          <tr className="leaderboard-header">
+          <tr key={'leaderboard-header-row'} className="leaderboard-header">
             <th>#</th>
             <th>Name</th>
             <th>Score</th>
@@ -26,6 +26,22 @@ export default function LeaderboardBox ({ leaderboardData }) {
           </tbody>
         </table> 
         : 
+
+        leaderboardData[0] === -1 && leaderboardData.length == 1 ? 
+        <table id="leaderboard-table">
+        <tbody>
+        <tr className="leaderboard-header">
+          <th>#</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+        <tr key={'leaderboard-header-row'} className="leaderboard-row">
+          <td style={{width:'0'}}></td>
+          <td className="cell-full-width">Loading...</td>
+          <td style={{width:'0'}}></td>
+        </tr>
+        </tbody>
+      </table> : 
         <table id="leaderboard-table">
           <tbody>
           <tr className="leaderboard-header">
@@ -33,9 +49,9 @@ export default function LeaderboardBox ({ leaderboardData }) {
             <th>Name</th>
             <th>Score</th>
           </tr>
-          <tr className="leaderboard-row">
+          <tr key={'leaderboard-header-row'} className="leaderboard-row">
             <td style={{width:'0'}}></td>
-            <td className="cell-full-width">No Entries</td>
+            <td className="cell-full-width">No Scores</td>
             <td style={{width:'0'}}></td>
           </tr>
           </tbody>
