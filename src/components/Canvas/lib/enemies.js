@@ -1,7 +1,6 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./guardians";
 
-
 // --------------------  ENEMY CLASSES  -------------------------
 class Enemy extends Character {
     constructor() {
@@ -17,9 +16,13 @@ class Enemy extends Character {
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
         if (this.isKnockedBack) {
-            this.position.x += this.knockBackDistance
-        }
-        else if (!this.isKnockedBack && !this.isStunned && this.target && !this.checkTargetInRange()) {
+            this.position.x += this.knockBackDistance;
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            !this.checkTargetInRange()
+        ) {
             this.position.x -= this.movSpd;
         }
     }
@@ -28,7 +31,7 @@ class Enemy extends Character {
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
-        }, 5); 
+        }, 5);
     }
 
     updateAttacking() {
@@ -36,44 +39,44 @@ class Enemy extends Character {
             this.attack();
             this.atkCooldown = this.atkSpd;
             this.atkTimer = setTimeout(() => {
-              this.isAttacking = false;
+                this.isAttacking = false;
             }, 50);
         }
         if (this.atkCooldown > 0) {
-        this.atkCooldown -= 16;
+            this.atkCooldown -= 16;
         }
     }
 
     update() {
         if (this.currHealth <= 0) {
-            van[0].currExp += this.expGrant
-            van[0].score += this.expGrant
-            van[0].enemiesKilled += 1
+            van[0].currExp += this.expGrant;
+            van[0].score += this.expGrant;
+            van[0].enemiesKilled += 1;
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
         }
-        this.updateTarget()
-        this.updatePosition()
-        this.updateAttacking()
+        this.updateTarget();
+        this.updatePosition();
+        this.updateAttacking();
     }
 }
 
 class Skeleton extends Enemy {
     constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 150
-        this.maxHealth = 50
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 2000
-        this.atkRange = 100
-        this.movSpd = 4
-        this.expGrant = 4
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 50;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 2000;
+        this.atkRange = 100;
+        this.movSpd = 4;
+        this.expGrant = 4;
 
-        this.knockBackStrength = -7
+        this.knockBackStrength = -7;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -81,17 +84,17 @@ class Skeleton extends Enemy {
         this.atkBox = {
             position: {
                 x: this.position.x,
-                y: this.position.y
+                y: this.position.y,
             },
             width: this.atkRange,
             height: 50,
-        }
+        };
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y + 50
-        context.fillStyle = "red"
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
+        this.atkBox.position.y = this.position.y + 50;
+        context.fillStyle = "red";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -107,19 +110,19 @@ class Skeleton extends Enemy {
 
 class Demon extends Enemy {
     constructor(x, y) {
-        super()
-        this.position = {x, y}
-        this.width = 70
-        this.height = 70
-        this.maxHealth = 50
-        this.currHealth = this.maxHealth
-        this.atk = 5
-        this.atkSpd = 2000
-        this.atkRange = 100
-        this.movSpd = 3
-        this.expGrant = 7
+        super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 70;
+        this.maxHealth = 50;
+        this.currHealth = this.maxHealth;
+        this.atk = 5;
+        this.atkSpd = 2000;
+        this.atkRange = 100;
+        this.movSpd = 3;
+        this.expGrant = 7;
 
-        this.knockBackStrength = -7
+        this.knockBackStrength = -7;
 
         this.isAttacking = false;
         this.atkTimer = null;
@@ -127,20 +130,20 @@ class Demon extends Enemy {
         this.atkBox = {
             position: {
                 x: this.position.x,
-                y: this.position.y
+                y: this.position.y,
             },
             width: this.atkRange,
             height: 120,
-        }
+        };
 
         // Constant target
         this.target = van[0];
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y + 50
-        context.fillStyle = "brown"
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
+        this.atkBox.position.y = this.position.y + 50;
+        context.fillStyle = "brown";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
         if (this.isAttacking) {
@@ -155,7 +158,6 @@ class Demon extends Enemy {
 
     // No need to update target as it is constantly the van
     updateTarget() {}
-    
 }
 
-export { Skeleton, Demon }
+export { Skeleton, Demon };

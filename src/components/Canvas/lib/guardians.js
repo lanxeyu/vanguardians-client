@@ -308,8 +308,6 @@ class Lanxe extends Guardian {
 
         this.healthBarPosition.x = 130;
         this.healthBarPosition.y = 100;
-
-        this.isMoving = false;
     }
 
     toggleAttributes() {
