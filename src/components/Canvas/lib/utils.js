@@ -28,5 +28,12 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
+function retreatGuardians(retreating) {
+  if (retreating === true)
+  for (const guardian of guardians) {
+    guardian.position.x = 50
+  }
+}
 
-export { useGameStart, restoreAllHealth }
+
+export { useGameStart, restoreAllHealth, retreatGuardians }
