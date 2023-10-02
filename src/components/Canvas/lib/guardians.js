@@ -1,6 +1,6 @@
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
-import { CHAR_MODES, CHAR_STATES } from "./statemanager"
+import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {

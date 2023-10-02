@@ -28,7 +28,10 @@ class Van extends Sprite {
     }
 
     // draw(context) {
+    //     super.draw(context)
     //     context.drawImage(this.image, this.position.x, this.position.y);
+    //     context.fillStyle = 'purple'
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
 
     drawHealthbars(context) {

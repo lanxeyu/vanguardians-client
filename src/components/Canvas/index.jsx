@@ -74,7 +74,7 @@ const Canvas = () => {
                 spawnLanxe();
                 // spawnSteph();
                 // spawnRobbie();
-                spawnJames();
+                // spawnJames();
                 // spawnAlex();
 
                 for (let i = 0; i < guardians.length; i++) {
@@ -127,17 +127,10 @@ const Canvas = () => {
                     drawDamageNumbers(context);
                     drawPopUpMsgs(context);
 
-<<<<<<< HEAD
                     drawForeground(context)
 
                     drawUI(context);
 
-
-=======
-                    
-
-                    requestAnimationFrame(gameLoop);
->>>>>>> be9a3010fecd3b28c971b0ee4e1cde51cae139e6
                 }
                 else {
                     context.fillStyle = 'rgb(255, 255, 255)'

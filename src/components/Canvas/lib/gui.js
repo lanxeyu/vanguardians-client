@@ -1,6 +1,6 @@
 import { Sprite } from "./sprite";
 import { addToGroup, ui, portraits } from "./groups";
-import { CHAR_MODES, CHAR_STATES } from "./statemanager";
+import { CHAR_MODES, CHAR_STATES } from "./statemanagers";
 
 class PortraitIcon extends Sprite {
     constructor(guardian, x, y, increment) {
