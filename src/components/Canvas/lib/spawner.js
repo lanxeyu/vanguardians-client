@@ -1,5 +1,5 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
-import { Skeleton, Demon } from "./enemies";
+import { Skeleton, Demon, Goblin } from "./enemies";
 import { van } from "./groups";
 
 function spawnGuardians() {
@@ -29,8 +29,11 @@ function spawnEnemies() {
 
     switch (waveCounter) {
         case 1:
-            for (let i = 0; i < 10; i++) {
-                spawnSkeleton();
+            // for (let i = 0; i < 2; i++) {
+            //     spawnSkeleton();
+            // }
+            for (let i = 0; i < 8; i++) {
+                spawnGoblin();
             }
             break;
         case 2:
@@ -98,6 +101,14 @@ function spawnSkeleton() {
     const randomX = Math.random() * (maxX - minX) + minX;
 
     new Skeleton(randomX, 533);
+}
+
+function spawnGoblin() {
+    const minX = 1366;
+    const maxX = 2000;
+    const randomX = Math.random() * (maxX - minX) + minX;
+
+    new Goblin(randomX, 533);
 }
 
 function spawnDemon() {

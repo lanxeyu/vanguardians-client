@@ -84,18 +84,17 @@ class Van extends Sprite {
             restoreAllHealth();
             spawnGuardians();
             new LevelUp(`Level Up!`, 527, 430);
-            if (this.lvl === 2) {
-                new LevelUp('New Guardian: Steph the Huntress', 230, 500)
+            const levelUpMessages = {
+                2: 'New Guardian: Steph the Huntress',
+                3: 'New Guardian: Robbie the Wizard',
+                4: 'New Guardian: James the Fire Worm',
+                5: 'New Guardian: Alex the Battlemage',
+            };
+            
+            if (this.lvl >= 2 && this.lvl <= 5) {
+                new LevelUp(levelUpMessages[this.lvl], 235, 500);
             }
-            else if(this.lvl === 3) {
-                new LevelUp('New Guardian: Robbie the Wizard', 235, 500)
-            }
-            else if(this.lvl === 4) {
-                new LevelUp('New Guardian: James the Fire Worm', 235, 500)
-            }
-            else if(this.lvl === 5) {
-                new LevelUp('New Guardian: Alex the Battlemage', 235, 500)
-            }
+            
         }
     }
 }
