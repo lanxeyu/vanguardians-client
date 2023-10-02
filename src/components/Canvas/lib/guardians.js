@@ -149,6 +149,7 @@ class Guardian extends Character {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
         this.positionXLimit = 900;
+        this.homePositionX = 50;
         this.isKnockedOut = false;
 
         this.currentState = CHAR_STATES.IDLE;
@@ -173,54 +174,32 @@ class Guardian extends Character {
 
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
+        // Distance between player and home
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
+
+        // Knockback check
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
-        } else if (
-            !this.isKnockedBack &&
-            !this.isStunned &&
-            this.target &&
-            this.position.x < this.positionXLimit &&
-            !this.checkTargetInRange()
-        ) {
-            this.position.x += this.movSpd;
-        }
 
-        /*
-        let homePositionX = 50
-        // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - homePositionX) 
-        switch(this.currentState) {
-            case CHAR_STATES.IDLE:
-
-            break
-            case CHAR_STATES.FORWARD:
-                // Move towards target
-                if (direction > this.atkRange) {
+        // Retreat block
+        } else if(this.isRetreating){
+            if (retreatDistance > this.movSpd) {
+                if (this.homePositionX > this.position.x) {
                     this.position.x += this.movSpd
                 } 
-            break
-            case CHAR_STATES.ATTACKING:
-
-            break
-            case CHAR_STATES.FLEEING:
-                if (retreatDistance > this.movSpd) {
-                    if (homePositionX > this.position.x) {
-                        this.position.x += this.movSpd
-                    } 
-                    else if (homePositionX < this.position.x) {
-                        this.position.x -= this.movSpd
-                    }
+                else if (this.homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd
                 }
-                else {
-                    this.position.x = homePositionX
-                    this.currentState = CHAR_STATES.IDLE
-                }
-                
-            break
-            default:
-
+            }
+            else {
+                this.position.x = this.homePositionX
+                this.currentState = CHAR_STATES.IDLE
+            }
+        
+        // Normal movement block
+        } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && !this.checkTargetInRange()) {
+            this.position.x += this.movSpd;
         }
-        */
     }
 
     attack() {
@@ -296,6 +275,7 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -361,6 +341,7 @@ class Robbie extends Guardian {
         this.atkRange = 1000;
         this.movSpd = 3;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -400,6 +381,7 @@ class James extends Guardian {
         this.atkRange = 900;
         this.movSpd = 4;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkBox = {
             position: this.position,
@@ -449,6 +431,7 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -488,6 +471,7 @@ class Duncan extends Guardian {
         this.knockBackResistance = 2;
         this.damageResistance = 0;
 
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
@@ -513,11 +497,50 @@ class Duncan extends Guardian {
                 break;
             case CHAR_MODES.MODE_2:
                 this.damageResistance = 3;
-                this.knockBackResistance = 5;
+                this.knockBackResistance = 10;
                 break;
             default:
                 this.damageResistance = 0;
                 this.knockBackResistance = 2;
+        }
+    }
+
+    updatePosition() {
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
+        
+        // Mode 1 Block
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            
+            // Knockback check
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+            
+            // Retreat block
+            } else if (this.isRetreating){
+                if (retreatDistance > this.movSpd) {
+                    if (this.homePositionX > this.position.x) {
+                        this.position.x += this.movSpd
+                    } 
+                    else if (this.homePositionX < this.position.x) {
+                        this.position.x -= this.movSpd
+                    }
+                }
+                else {
+                    this.position.x = this.homePositionX
+                    this.currentState = CHAR_STATES.IDLE
+                }
+                
+            // Normal movement block
+            } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && this.checkTargetInRange() == false) {
+                this.position.x += this.movSpd;
+            }
+        }
+
+        // Mode 2 Block
+        else {
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance / this.knockBackResistance;
+            }
         }
     }
 
@@ -527,25 +550,25 @@ class Duncan extends Guardian {
         }
     }
 
-    updatePosition() {
-        if (this.currentMode == CHAR_MODES.MODE_1){
-            if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
-            } else if (
-                !this.isKnockedBack &&
-                !this.isStunned &&
-                this.target &&
-                this.position.x < this.positionXLimit &&
-                this.checkTargetInRange() == false
-            ) {
-                this.position.x += this.movSpd;
-            }
-        } else {
-            if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
-            }
-        }
-    }
+    // updatePosition() {
+    //     if (this.currentMode == CHAR_MODES.MODE_1){
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         } else if (
+    //             !this.isKnockedBack &&
+    //             !this.isStunned &&
+    //             this.target &&
+    //             this.position.x < this.positionXLimit &&
+    //             this.checkTargetInRange() == false
+    //         ) {
+    //             this.position.x += this.movSpd;
+    //         }
+    //     } else {
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         }
+    //     }
+    // }
 
 
     // draw(context) {
