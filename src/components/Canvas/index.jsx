@@ -17,6 +17,7 @@ import {
     updateAllSprites,
     van,
     clearAllSprites,
+    drawLevelUpMsgs,
 } from "./lib/groups";
 import { useGameStart } from "./lib/utils";
 import "../../pages/Home/index.css";
@@ -72,6 +73,7 @@ const Canvas = () => {
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
                     drawDamageNumbers(context);
+                    drawLevelUpMsgs(context)
 
                     requestAnimationFrame(gameLoop);
                 }
