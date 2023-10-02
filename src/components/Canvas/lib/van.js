@@ -21,6 +21,7 @@ class Van extends Sprite {
         this.currExp = 0;
         this.lvl = 1;
         this.score = 0;
+        this.enemiesKilled = 0;
     }
 
     draw(context) {
