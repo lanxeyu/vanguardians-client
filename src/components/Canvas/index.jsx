@@ -39,11 +39,7 @@ const Canvas = () => {
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-<<<<<<< HEAD
 
-=======
-     
->>>>>>> b332ca584e967023745206683112a826d055de21
         if (canvas) {
             initCanvas(canvas);
 
@@ -96,7 +92,7 @@ const Canvas = () => {
     }, [gameStarted]);
 
     useEffect(() => {
-        addKeyListener((key) => {
+        addKeyListener(key => {
             switch (key) {
                 case "1":
                     break;
