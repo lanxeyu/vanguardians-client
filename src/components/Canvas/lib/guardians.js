@@ -585,7 +585,7 @@ class Lightning extends Projectile {
         this.atk = "Stunned";
         this.movSpd = 15;
         this.width = 60;
-        this.height = 590;
+        this.height = 595;
         this.stunDuration = 3000;
     }
 
