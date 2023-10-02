@@ -2,7 +2,7 @@ import { addToGroup, allSprites, guardians, van, removeFromGroup } from "./group
 import { Sprite } from "./sprite";
 import { spawnGuardians } from "./spawner";
 import { restoreAllHealth } from "./utils";
-import { DamageNumber, LevelUp } from "./utilclasses";
+import { LevelUp } from "./utilclasses";
 
 
 class Van extends Sprite {
@@ -78,7 +78,6 @@ class Van extends Sprite {
             restoreAllHealth();
             spawnGuardians();
             new LevelUp(`Level Up!`, 527, 500)
-            // 1366
         }
     }
 }

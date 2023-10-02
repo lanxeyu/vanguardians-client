@@ -19,7 +19,6 @@ function spawnGuardians() {
         default:
             break;
     }
-
 }
 
 let waveCounter = 0
@@ -49,6 +48,14 @@ function spawnEnemies() {
             break;
         case 4:
             for (let i = 0; i < 6; i++) {
+                spawnSkeleton();
+            }
+            for (let i = 0; i < 3; i++) {
+                spawnDemon();
+            }
+            break;
+        case 5:
+            for (let i = 0; i < 14; i++) {
                 spawnSkeleton();
             }
             for (let i = 0; i < 3; i++) {

@@ -121,9 +121,17 @@ class Guardian extends Character {
         super();
         addToGroup(this, guardians);
         this.positionXLimit = 900
+        this.isKnockedOut = false
 
         this.currentState = CHAR_STATES.IDLE
         this.currentMode = CHAR_MODES.MODE_1
+    }
+
+    getKnockedOut() {
+        this.isKnockedOut = true;
+        setTimeout(() => {
+            this.isKnockedOut = false;
+        }, 10000);
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -199,15 +207,14 @@ class Guardian extends Character {
     }
 
     update() {
-        if (this.currHealth <= 0) {
-            this.isAlive = false;
-            // Guardian knocked-out logic to be implemented
-            removeFromGroup(this, allSprites);
-            removeFromGroup(this, guardians);
+        if (!this.isKnockedOut) {
+            if (this.currHealth <= 0) {
+                this.getKnockedOut()
+            }
+            this.updateTarget()
+            this.updatePosition()
+            this.updateAttacking()
         }
-        this.updateTarget()
-        this.updatePosition()
-        this.updateAttacking()
     }
 
     toggleModes() {
