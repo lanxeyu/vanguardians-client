@@ -10,6 +10,7 @@ const GamePage = () => {
       <Canvas />
       <div id="canvas-right-border"></div>
     </div>
+    <div id="game-footer"></div>
     </>
     
   )

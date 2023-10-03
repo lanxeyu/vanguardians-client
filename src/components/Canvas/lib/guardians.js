@@ -203,15 +203,18 @@ class Guardian extends Character {
 
     getKnockedOut() {
         if (this.isKnockedOut === false) {
-            this.isKnockedOut = true;
-            new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
-            this.endTime.setSeconds(new Date().getSeconds() + this.knockedOutLifeTime / 1000)
+            let tempDate = new Date();
+            this.endTime = new Date(tempDate.getTime() + 10000);
             this.knockedOutElapsed = 0;
+            
+            new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
             setTimeout(() => {
                 this.isKnockedOut = false;
                 new KnockedOut("Recovered", this.position.x + (this.width / 2), this.position.y)
                 this.currHealth = this.maxHealth;
             }, this.knockedOutLifeTime);
+            
+            this.isKnockedOut = true;
         }
         
     }
@@ -300,6 +303,8 @@ class Guardian extends Character {
                 this.knockedOutElapsed = this.knockedOutLifeTime
             }
             else {
+                console.log("Time Diff: " + (this.endTime - new Date()));
+                console.log("KnockedOutLifeTime: " + this.knockedOutLifeTime);
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
@@ -326,6 +331,7 @@ class Guardian extends Character {
         if (this.isKnockedOut) {
             context.fillStyle = 'rgb(255, 255, 255)';
             let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
+            // console.log(this.knockedOutElapsed)
             context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
         }
     }
@@ -432,10 +438,6 @@ class Robbie extends Guardian {
     }
 
     attack() {
-        // if (this.image.src === "/src/components/canvas/img/Robbie/Attack1.png" && this.framesCurrent < 7) {
-        //     this.image.src = "/src/components/canvas/img/Robbie/idle.png"
-        // }
-
             if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
                 this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
                 this.framesMax = 8;
@@ -508,7 +510,7 @@ class James extends Guardian {
         this.position = { x, y };
         this.width = 150;
         this.height = 70;
-        this.maxHealth = 120;
+        this.maxHealth = 140;
         this.currHealth = this.maxHealth;
         this.atk = 4;
         this.atkSpd = 800;
@@ -589,6 +591,11 @@ class Steph extends Guardian {
     }
 
     attack() {
+        if (this.image.src !== "/src/components/canvas/img/Stephanie/Attack3.png"){
+            this.image.src = "/src/components/canvas/img/Stephanie/Attack3.png";
+            this.framesMax = 7;
+            this.framesCurrent = 0;
+        }
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
             new Spear2(this.position.x, (this.position.y + 50));
@@ -683,10 +690,31 @@ class Duncan extends Guardian {
         }
     }
 
+    // updatePosition() {
+    //     if (this.currentMode == CHAR_MODES.MODE_1){
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         } else if (
+    //             !this.isKnockedBack &&
+    //             !this.isStunned &&
+    //             this.target &&
+    //             this.position.x < this.positionXLimit &&
+    //             this.checkTargetInRange() == false
+    //         ) {
+    //             this.position.x += this.movSpd;
+    //         }
+    //     } else {
+    //         if (this.isKnockedBack) {
+    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
+    //         }
+    //     }
+    // }
+
+
     // draw(context) {
     //     super.draw(context)
     //     context.fillStyle = "purple";
-    //     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //     // context.fillRect(this.position.x, this.position.y, this.atkRange, 10)
 

@@ -18,7 +18,7 @@ const App = () => {
                     <Route path="/game" element={<Pages.GamePage />} />
                     <Route path="leaderboard" element={<Pages.Leaderboard />} />
                 </Route>
-
+                <Route path="leaderboard" element={<Pages.Leaderboard />} />
                 <Route path="*" element={<Pages.NotFound />} />
             </Route>
         </Routes>

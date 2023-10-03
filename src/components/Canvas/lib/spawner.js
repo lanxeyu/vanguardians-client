@@ -222,6 +222,9 @@ function spawnMushroom() {
     new Mushroom(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Mushroom/Idle.png");
 }
 
+function resetWaveCounter() {
+    waveCounter = 0;
+}
 
 export {
     spawnGuardians,
@@ -233,4 +236,5 @@ export {
     spawnJames,
     spawnAlex,
     waveCounter,
+    resetWaveCounter
 };

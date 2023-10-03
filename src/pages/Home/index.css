@@ -1,26 +1,53 @@
+body {
+    overflow: hidden;
+    font-size: 0.78125vw;
+}
+
+#homepage-container {
+    height: calc(100% - 4.9em);
+    width: 100%;
+    overflow-y: auto;
+}
+
 #homepage-title,
 #description-of-game,
 #how-to-play {
-    margin: 60px;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 100;
     caret-color: transparent;
 }
 
 #homepage-title {
-    font-size: 60px;
+    font-size: 3.75em;
+    font-weight: 600;
+    height: 20%;
+    /* padding: 4% 0; */
 }
 
 #description-of-game,
 #how-to-play {
     color: #001B22;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 2em;
+}
+
+#home-text-container {
+    display: flex;
+    height: 30%;
+    flex-direction: column;
+    justify-content: center;
+    /* padding: 2% 0; */
+}
+
+#home-text-container > h2 {
+    padding: 1% 0;
 }
 
 #popup-container {
-    background-color: rgba(196, 200, 186, 0.9);
+    background-color: rgb(14 15 18 / 40%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +56,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; 
+    z-index: 10; 
     caret-color: transparent;
 }
 
@@ -52,7 +79,7 @@
     justify-content: center;
     width: 90%;
     max-width: 90%;
-    font-size: 40px;
+    font-size: 2.5em;
     line-height: 1.5em;
 }
 
@@ -71,13 +98,22 @@
 #images-container {
     display: flex;
     align-items: end;
-    justify-content: space-around;
-    margin-top: 100px;
+    justify-content: center;
+    /* margin-top: 100px; */
+    height: 50%;
+    padding: 0 10%;
+    overflow: hidden;
+    z-index: 1;
+    position: absolute;
 }
 
 #images-container img {
-    padding: 20px;
-    margin: 20px;
+    /* padding: 20px; */
+    /* margin: 0 1em; */
+    height: auto;
+    width: 23%;
+    margin: 0 -5%;
+    margin-bottom: 10%;
 }
 
 #description-of-game:hover,
@@ -108,7 +144,16 @@
 }
 
 .game {
-    background-image: url("src/components/canvas/img/starsky-bg.png");
+    background-image: url("src/components/Canvas/img/starsky-bg.png");
     background-position: bottom;
-    background-position-y:1% ;
+    background-position-y: 1% ;
+}
+
+#home-footer {
+    background-color:#001B22;
+    height: 20%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 0;
 }
