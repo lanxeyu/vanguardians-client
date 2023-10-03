@@ -449,14 +449,8 @@ class Robbie extends Guardian {
             setTimeout(() => {
             this.isAttacking = false;
             }, 10);
-        } else if(this.currentMode === CHAR_MODES.MODE_2){
-            this.isAttacking = true;
-            new Heal(this.target.position.x, this.target.position.y -20)
-            setTimeout(() => {
-            this.isAttacking = false;
-            })
-        }
-        
+        } 
+                
         else if(this.currentMode === CHAR_MODES.MODE_2){
             this.isAttacking = true;
             new Heal(this.target.position.x, this.target.position.y -20)
