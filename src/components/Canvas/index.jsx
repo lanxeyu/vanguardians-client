@@ -84,7 +84,7 @@ const Canvas = () => {
                 spawnSteph();
                 // spawnDuncan();
                 // spawnLanxe();
-                // spawnRobbie();
+                spawnRobbie();
                 // spawnJames();
                 // spawnAlex();
 

@@ -432,10 +432,6 @@ class Robbie extends Guardian {
     }
 
     attack() {
-        // if (this.image.src === "/src/components/canvas/img/Robbie/Attack1.png" && this.framesCurrent < 7) {
-        //     this.image.src = "/src/components/canvas/img/Robbie/idle.png"
-        // }
-
             if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
                 this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
                 this.framesMax = 8;
@@ -589,6 +585,11 @@ class Steph extends Guardian {
     }
 
     attack() {
+        if (this.image.src !== "/src/components/canvas/img/Stephanie/Attack3.png"){
+            this.image.src = "/src/components/canvas/img/Stephanie/Attack3.png";
+            this.framesMax = 7;
+            this.framesCurrent = 0;
+        }
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
             new Spear2(this.position.x, (this.position.y + 50));
