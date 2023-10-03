@@ -13,7 +13,7 @@
 
 #description-of-game,
 #how-to-play {
-    color: #202020;
+    color: #001B22;
     cursor: pointer;
     font-size: 40px;
 }
@@ -32,7 +32,7 @@
 }
 
 #popup {
-    background-color: #5b5047;
+    background-color: #001B22;
     padding: 20px;
     position: relative;
     width: 60%;
@@ -56,7 +56,7 @@
 
 #close-button {
     background-color: transparent;
-    border: solid 1px #453c34;
+    border: solid 1px #002832;
     padding: 3px 8px;
     margin: 5px;
     position: absolute;
@@ -80,27 +80,29 @@
 
 #description-of-game:hover,
 #how-to-play:hover {
-    color: #5b5047;
+    color: #004657;
 }
 
 #close-button:hover {
     background-color: #c4c8ba;
-    color: #453c34;
+    background-color: #001B22;
 }
 
 /* popup scrollbar  */
 #popup::-webkit-scrollbar {
     width: 20px;
+    background-color: #004657;
 }
   
 #popup::-webkit-scrollbar-thumb {
-    background-color: #5b5047;
+    border: 3px solid #004657;
     border-radius: 2px;
-    border: solid 0.5px #453c34;
+    border: solid 0.5px #004657;
+    background-color: #003745;
 }
 
 #popup::-webkit-scrollbar-track {
-    background-color: #453c34;
+    background-color: #004657;
 }
 
 .game {
