@@ -5,6 +5,7 @@ import { Background, Foreground } from "./lib/sprite";
 import { PortraitIcon, TopBar, BottomBar } from "./lib/gui"
 import { Van } from "./lib/van";
 import {
+    spawnAlex,
     spawnDuncan,
     spawnEnemies,
     spawnJames,
@@ -33,6 +34,7 @@ import {
     ui,
     clearAllSprites,
     drawPopUpMsgs,
+    drawEnemyProjectiles,
 } from "./lib/groups";
 import { loadFonts } from './lib/resources'
 import { GAME_STATES } from "./lib/statemanagers";
@@ -79,9 +81,9 @@ const Canvas = () => {
                 new Van(50, 348, "src/components/canvas/img/van.png");
 
                 // --- Default start is Steph only ---
+                spawnSteph();
                 // spawnDuncan();
                 // spawnLanxe();
-                spawnSteph();
                 // spawnRobbie();
                 // spawnJames();
                 // spawnAlex();
