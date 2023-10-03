@@ -34,11 +34,8 @@ import {
     ui,
     clearAllSprites,
     drawPopUpMsgs,
-<<<<<<< HEAD
     resetAllGroups,
-=======
     drawEnemyProjectiles,
->>>>>>> 4a1644ad9ea2849b22b3b2f90f50f81b758569c1
 } from "./lib/groups";
 import { loadFonts } from './lib/resources'
 import { GAME_STATES, setCurrentGameState, getCurrentGameState } from "./lib/statemanagers";

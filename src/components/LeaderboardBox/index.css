@@ -9,7 +9,7 @@
 
 #leaderboard-box {
     height: 60%;
-    width: 40rem;
+    width: 44em;
     background-color: #001B22;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
 
 #leaderboard-table td, #leaderboard-table th {
     text-align: center;
-    font-size: 1.3rem;
+    font-size: 1.3em;
     font-family: 'Silkscreen', cursive;
 }
 

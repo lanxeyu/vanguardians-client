@@ -128,7 +128,7 @@ const Signup = () => {
     };
 
     return (
-        <>
+        <div id="signup-page-form">
             <section className="registerForm">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
                     {errMsg}
@@ -232,6 +232,7 @@ const Signup = () => {
                         Must match the first password input field.
                     </p>
                     <button
+                        id="reg-btn"
                         data-testid="reg-btn"
                         disabled={!validName || !validPwd || !validMatch ? true : false}>
                         Sign Up
@@ -244,7 +245,7 @@ const Signup = () => {
                     </Link>
                 </p>
             </section>
-        </>
+        </div>
     );
 };
 

@@ -24,23 +24,24 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div id="homepage-container">
       <h1 id='homepage-title'>
         HOME
       </h1>
 
-      <h2 id='description-of-game' 
-      onClick={toggleShowDescription}
-      >
-        DESCRIPTION OF GAME
-      </h2>
+      <div id="home-text-container">
+        <h2 id='description-of-game' 
+        onClick={toggleShowDescription}
+        >
+          DESCRIPTION OF GAME
+        </h2>
 
-      <h2 id='how-to-play' 
-      onClick={toggleShowHowToPlay}
-      >
-        HOW TO PLAY
-      </h2>
-
+        <h2 id='how-to-play' 
+        onClick={toggleShowHowToPlay}
+        >
+          HOW TO PLAY
+        </h2>
+      </div>
       {showDescription && (
         <div id = "popup-container">
           <div id = "popup">
@@ -82,7 +83,7 @@ const Home = () => {
         <img src="src\pages\Home\images\huntress.gif" alt="huntress" />
       </div>
       <div id="home-footer"></div>
-    </>
+    </div>
   )
 }
 

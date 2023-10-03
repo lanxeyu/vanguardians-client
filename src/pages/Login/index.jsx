@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
-// import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./index.css";
@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    // const { setAuth } = useAuth();
+    const { setAuth, auth } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -39,7 +39,9 @@ const Login = () => {
 
             console.log(response.data);
 
-            // setAuth({ username, password, token });
+            setAuth(response);
+            console.log(auth);
+
             setUsername("");
             setPassword("");
             navigate("/");
@@ -58,7 +60,7 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div id="login-page-container">
             <section className="loginForm">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
                     {errMsg}
@@ -94,7 +96,7 @@ const Login = () => {
                     </Link>
                 </p>
             </section>
-        </>
+        </div>
     );
 };
 
