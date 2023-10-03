@@ -103,7 +103,8 @@ const Signup = () => {
                 "http://127.0.0.1:5000/register",
                 JSON.stringify({ username, password }),
                 {
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: "true",
                 }
             );
 
