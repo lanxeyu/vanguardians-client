@@ -24,9 +24,15 @@ body {
 }
 
 nav > a {
+<<<<<<< HEAD
   border-left: solid 2px #453c34;
   padding: 0.5em 1em;
   font-size: 1.5em;
+=======
+  border-left: solid 2px #004657;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+>>>>>>> 982cef92c5ed3c9ceae4d656d64b5f492159ad95
 }
 
 #nav-title {

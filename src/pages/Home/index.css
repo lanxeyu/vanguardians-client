@@ -17,6 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     font-weight: 100;
+    caret-color: transparent;
 }
 
 #homepage-title {
@@ -56,6 +57,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1; 
+    caret-color: transparent;
 }
 
 #popup {

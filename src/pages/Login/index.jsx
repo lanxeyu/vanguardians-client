@@ -14,7 +14,11 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
+<<<<<<< HEAD
     const { setAuth, auth } = useAuth();
+=======
+    const { setUser } = useAuth();
+>>>>>>> 982cef92c5ed3c9ceae4d656d64b5f492159ad95
 
     useEffect(() => {
         userRef.current.focus();
@@ -37,7 +41,8 @@ const Login = () => {
             localStorage.setItem("token", response.data.token);
             const token = localStorage.getItem("token");
 
-            console.log(response.data);
+            setUser(token);
+            console.log(token);
 
             setAuth(response);
             console.log(auth);

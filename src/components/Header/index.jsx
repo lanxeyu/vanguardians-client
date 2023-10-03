@@ -1,23 +1,65 @@
-import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-const styles = ({ isActive }) => ({ textDecoration: isActive ? 'underline' : 'none'});
-import './index.css'
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 
-export default function Header () {
+const styles = ({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" });
+import "./index.css";
+import { useAuth } from "../../context/AuthProvider";
+
+export default function Header() {
+    // const initialLoggedInState = !!localStorage.getItem("token");
+
+    // const [loggedIn, setLoggedIn] = useState(initialLoggedInState);
+
+    // const token = localStorage.getItem("token");
+    // useEffect(() => {
+    //     if (token) {
+    //         setLoggedIn(true);
+    //     } else {
+    //         setLoggedIn(false);
+    //     }
+    //     console.log(loggedIn);
+    // }, [token]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setUser("");
+    };
+
+    const { user } = useAuth();
+
     return (
-      <>
-        <header>
-            <NavLink id='nav-title' to="/">VanGuardians</NavLink>
-          <nav>
-            <NavLink to="/" style={styles}>Home</NavLink>
-            <NavLink to="/leaderboard" style={styles}>Leaderboard</NavLink>
-            <NavLink to="/guardians" style={styles}>Guardians</NavLink>
-            <NavLink to="/game" style={styles}>Game</NavLink>
-            <NavLink to="/login" style={styles}>Login</NavLink>
-            <NavLink to="/signup" style={styles}>Sign Up</NavLink>
-          </nav>
-        </header>
-        <Outlet />
-      </>
-    )
+        <>
+            <header>
+                <NavLink id="nav-title" to="/">
+                    VanGuardians
+                </NavLink>
+                <nav>
+                    <NavLink to="/" style={styles}>
+                        Home
+                    </NavLink>
+                    <NavLink to="/leaderboard" style={styles}>
+                        Leaderboard
+                    </NavLink>
+                    <NavLink to="/guardians" style={styles}>
+                        Guardians
+                    </NavLink>
+                    <NavLink to="/game" style={styles}>
+                        Game
+                    </NavLink>
+
+                    {user ? (
+                        <NavLink to="/login" onClick={handleLogout} style={styles}>
+                            Logout
+                        </NavLink>
+                    ) : (
+                        <NavLink to="/login" style={styles}>
+                            Login
+                        </NavLink>
+                    )}
+                    {/* <NavLink to="/signup" style={styles}>Sign Up</NavLink> */}
+                </nav>
+            </header>
+            <Outlet />
+        </>
+    );
 }

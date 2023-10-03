@@ -24,9 +24,14 @@ const Guardians = () => {
 
     const errorOrGallery = error ? 'error' : <GuardianGallery guardians={guardians} />
   return (
+<<<<<<< HEAD
     <div id="guardians-page-container">
       <h1 id="guardians-title">GUARDIANS</h1>
       <div id="guardians-main-container">
+=======
+    <>
+      <h1 id='guardians-title' style={{"caret-color": "transparent"}}>GUARDIANS</h1>
+>>>>>>> 982cef92c5ed3c9ceae4d656d64b5f492159ad95
       {
         loading ? <p id="guardians-page-loading" >Loading...</p> : errorOrGallery
       }

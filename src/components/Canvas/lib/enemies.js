@@ -37,6 +37,9 @@ class Enemy extends Character {
     }
 
     attack() {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
+        this.atkBox.position.y = this.position.y
+
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
@@ -84,6 +87,10 @@ class Enemy extends Character {
 
         this.updateAnimation();
     }
+
+    // draw(context) {
+    //     super.draw(context)
+    // }
 }
 
 class Skeleton extends Enemy {
@@ -122,17 +129,17 @@ class Skeleton extends Enemy {
     // draw(context) {
     //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
     //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "red"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    //     // context.fillStyle = "red"
+    //     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    // //     if (this.isAttacking) {
-    // //         context.fillRect(
-    // //             this.atkBox.position.x,
-    // //             this.atkBox.position.y,
-    // //             this.atkBox.width,
-    // //             this.atkBox.height
-    // //         );
-    // //     }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
     // }
 }
 
@@ -160,7 +167,7 @@ class Goblin extends Enemy {
         this.atkCooldown = 0;
         this.atkBox = {
             position: {
-                x: this.position.x,
+                x: this.position.x + this.width - this.atkRange - 30,
                 y: this.position.y,
             },
             width: this.atkRange,
@@ -207,7 +214,7 @@ class Demon extends Enemy {
         this.atkCooldown = 0;
         this.atkBox = {
             position: {
-                x: this.position.x,
+                x: this.position.x + this.width - this.atkRange - 30,
                 y: this.position.y,
             },
             width: this.atkRange,
@@ -261,7 +268,7 @@ class Troll extends Enemy {
         this.atkCooldown = 0;
         this.atkBox = {
             position: {
-                x: this.position.x,
+                x: this.position.x + this.width - this.atkRange - 30,
                 y: this.position.y
             },
             width: 200,

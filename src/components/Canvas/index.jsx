@@ -5,6 +5,7 @@ import { Background, Foreground } from "./lib/sprite";
 import { PortraitIcon, TopBar, BottomBar } from "./lib/gui"
 import { Van } from "./lib/van";
 import {
+    spawnAlex,
     spawnDuncan,
     spawnEnemies,
     spawnJames,
@@ -101,6 +102,38 @@ const Canvas = () => {
             initCanvas(canvas);
             context.scale(1, 1)
 
+<<<<<<< HEAD
+=======
+            if (gameStarted){
+                const background = new Background(0, 0, 1366, 766, 0, 0, 'src/components/canvas/img/starsky-bg.png', 0);
+                const cloud1 = new Background(0, canvas.height, 1366, 329, 0, -(168 + 329), 'src/components/canvas/img/cloud1-bg.png', 1);
+                const cloud2 = new Background(0, canvas.height, 1366, 113, 0, -(168 + 113), 'src/components/canvas/img/cloud2-bg.png', 1);
+                
+
+                const middleground = new Background(0, 0, 3326, 840, 0, -98, 'src/components/canvas/img/middleground2.png', 3)
+                const ground = new Foreground(0, canvas.height, 2016, 288, 0, -278, 'src/components/canvas/img/ground.png', 5)
+                const grass = new Foreground(0, canvas.height, 1366, 168, 0, -293, 'src/components/canvas/img/grass.png', 5)
+
+                new Van(50, 348, "src/components/canvas/img/van.png");
+
+                // --- Default start is Steph only ---
+                spawnSteph();
+                // spawnDuncan();
+                // spawnLanxe();
+                // spawnRobbie();
+                // spawnJames();
+                // spawnAlex();
+
+                for (let i = 0; i < guardians.length; i++) {
+                    new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i)
+                }
+
+                new TopBar((canvas.width / 2) - 40, 0, 140, 70, scores);
+                new BottomBar(0, canvas.height, canvas.width, 168, null)
+
+            }
+
+>>>>>>> 982cef92c5ed3c9ceae4d656d64b5f492159ad95
             // Main game loop logic
             const gameLoop = () => {
                 context.clearRect(0, 0, canvas.width, canvas.height)

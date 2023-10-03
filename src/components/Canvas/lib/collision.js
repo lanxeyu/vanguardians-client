@@ -1,4 +1,4 @@
-import { DamageNumber } from "./utilclasses";
+import { DamageNumber, HealNumber } from "./utilclasses";
 import { Duncan, Robbie, Spear, Lightning, Explosion, Heal, Spear2 } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
@@ -43,11 +43,11 @@ function checkHealingProjectileCollisions(spriteGroup1, spriteGroup2) {
         for (const spriteB of spriteGroup2){
             if(areSpritesColliding(spriteA, spriteB)){
                 spriteB.getHealed(spriteA.heal)
-                new DamageNumber(spriteA.heal, spriteB.position.x, spriteB.position.y)
+                new HealNumber(spriteA.heal, spriteB.position.x, spriteB.position.y)
             }
         }
         removeFromGroup(spriteA, guardianHealingProjectiles)
-        // removeFromGroup(spriteA, allSprites)
+        removeFromGroup(spriteA, allSprites)
     }
 }
 
@@ -78,7 +78,6 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 else if (spriteA instanceof Lightning) {
-                    // spriteB.getStunned(spriteA.stunDuration)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
                     new Explosion(spriteB.position.x, spriteB.position.y)
