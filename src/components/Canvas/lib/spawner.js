@@ -122,6 +122,30 @@ function spawnEnemies() {
                 spawnTroll();
             }
             break;
+        case 11:
+            for (let i = 0; i < 20; i++) {
+                spawnGoblin();
+            }
+            for (let i = 0; i < 4; i++) {
+                spawnTroll();
+            }
+            break;
+        case 12:
+            for (let i = 0; i < 15; i++) {
+                spawnSkeleton();
+            }
+            for (let i = 0; i < 5; i++) {
+                spawnTroll();
+            }
+            break;
+        case 13:
+            for (let i = 0; i < 10; i++) {
+                spawnDemon();
+            }
+            for (let i = 0; i < 5; i++) {
+                spawnTroll();
+            }
+            break;
         default:
             // Win Game logic
             break;
