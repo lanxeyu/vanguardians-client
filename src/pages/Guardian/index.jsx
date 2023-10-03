@@ -24,11 +24,10 @@ const Guardian = () => {
   }
 
 
-  console.log(guardian)
   const errorOrGallery = error ? 'There was an error loading the Guardians' : <GuardianProfile guardian={guardian} />
 
     return (
-      loading ? <p>Loading...</p> : errorOrGallery
+      loading ? <p id="guardians-loading-text">Loading...</p> : errorOrGallery
   )
 }
 

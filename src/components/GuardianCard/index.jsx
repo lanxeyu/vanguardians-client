@@ -28,11 +28,14 @@ const GuardianCard = ({ guardian }) => {
   }, [])
 
   return (
-    <Link id="guardian-card-link" to={`${guardian.g_id}`}>
-      <div className = "guardian-card" id='guardian-card-container'>
-        <h4>{guardian.name}</h4>
-        <h5>Type: {guardian.g_class}</h5>
-        <img src={imgUrl} alt={guardian.name} />
+    <Link className="guardian-card-link" to={`${guardian.g_id}`}>
+      <div className="guardian-card">
+        <h4 className="guardian-card-name">{guardian.name}</h4>
+        <div className="guardian-card-image-wrapper">
+          <div className="guardian-card-image-bg"></div>
+          <img className="guardian-card-image" src={imgUrl} alt={guardian.name} />
+        </div>
+        <h5 className="guardian-card-type">Type: {guardian.g_class}</h5>
       </div>
     </Link>
   )

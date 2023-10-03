@@ -1,51 +1,57 @@
-.guardian-card> img{
-  height: 36vh;
-  margin-top: -5vh;
+.guardian-card-link {
+  margin: 0.5em 1%;
+  transition: transform .4s;
+  height: 24em;
+  width: 18em;
 }
+
+.guardian-card-link:hover {
+  transform: scale(1.1);
+}
+
+.guardian-card-link, .guardian-card-link > * {
+  text-decoration: none;
+}
+
+.guardian-card {
+  height: 100%;
+  width: 100%;
+  background-color:#001b23;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow:visible;
+}
+
+.guardian-card-name {
+  font-size: 2.0em;
+}
+
+.guardian-card-image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.guardian-card-image-bg {
+  position: absolute;
+}
+
+.guardian-card-image {
+  height: 80%;
+  width: auto;
+}
+
+.guardian-card-type {
+  font-size: 1.2em;
+}
+
+ 
 
 /* .guardian-card> img:hover{
   transform: scale(1.1);
 } */
 
-.guardian-card> h4, h5 {
-  color: white;
-  font-family: Silkscreen;
-  position: absolute;
-  font-size: 33px;
-  border-radius: 3vh;
-  padding: 1vh;
-}
-
-.guardian-card> h5 {
-  color: white;
-  margin-bottom: -40vh;
-  font-size: 24px;
-}
-
-.guardian-card> h4 {
-  margin-top: -55vh;
-}
-
-.guardian-card {
-  height: 55vh;
-  width: 23vw;
-  min-height: 250px;
-  min-width: 280px;
-  padding-top: 7vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 4vh 1vw;
-  /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
-  background-color: #001B22;
-  border-style: outset;
-  background-position: center;
-  background-size: cover;
-  border-radius: 3vh;
-  border: 3px solid #004657;
-  caret-color: transparent;
-}
-
-.guardian-card:hover {
-  transform: scale(0.96);
-}

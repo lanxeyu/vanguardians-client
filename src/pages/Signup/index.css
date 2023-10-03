@@ -1,3 +1,12 @@
+#signup-page-form {
+    height: calc(100% - 4.9em);
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .registerForm {
     width: 100%;
     max-width: 420px;
@@ -10,9 +19,7 @@
     border-style: outset;
     background-color: #001B22;
     border-radius: 10px;
-    margin-left: auto;
-    margin-top: 100px;
-    margin-right: auto;
+    margin-bottom: 5%;
     width: 40%;
 }
 
@@ -48,6 +55,10 @@
     > button {
         padding: 0.5rem;
     }
+}
+
+#reg-btn:disabled {
+    background-color: #434343;
 }
 
 .instructions {
