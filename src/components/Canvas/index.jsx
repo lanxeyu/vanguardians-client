@@ -33,6 +33,7 @@ import {
     ui,
     clearAllSprites,
     drawPopUpMsgs,
+    drawEnemyProjectiles,
 } from "./lib/groups";
 import { loadFonts } from './lib/resources'
 import { GAME_STATES } from "./lib/statemanagers";

@@ -1,5 +1,5 @@
 import { Lanxe, Robbie, Duncan, Steph, James, Alex } from "./guardians";
-import { Skeleton, Goblin, Demon, Troll } from "./enemies";
+import { Skeleton, Goblin, Demon, Troll, Mushroom } from "./enemies";
 import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 import { LevelUp } from "./utilclasses";
@@ -39,7 +39,6 @@ function spawnEnemies() {
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
             }
-            
             break;
         case 2:
             for (let i = 0; i < 2; i++) {
@@ -122,6 +121,30 @@ function spawnEnemies() {
                 spawnTroll();
             }
             break;
+        case 11:
+            for (let i = 0; i < 20; i++) {
+                spawnGoblin();
+            }
+            for (let i = 0; i < 4; i++) {
+                spawnTroll();
+            }
+            break;
+        case 12:
+            for (let i = 0; i < 15; i++) {
+                spawnSkeleton();
+            }
+            for (let i = 0; i < 5; i++) {
+                spawnTroll();
+            }
+            break;
+        case 13:
+            for (let i = 0; i < 10; i++) {
+                spawnDemon();
+            }
+            for (let i = 0; i < 5; i++) {
+                spawnTroll();
+            }
+            break;
         default:
             // Win Game logic
             break;
@@ -164,7 +187,7 @@ function spawnSkeleton() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, 340);
+    new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png");
 }
 
 function spawnGoblin() {
@@ -172,7 +195,7 @@ function spawnGoblin() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Goblin(randomX, 390);
+    new Goblin(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Goblin/Idle.png");
 }
 
 function spawnDemon() {
@@ -180,7 +203,7 @@ function spawnDemon() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Demon(randomX, 330);
+    new Demon(randomX, canvas.height - 168 - 270, "src/components/canvas/img/Demon/Flight.png");
 }
 
 function spawnTroll() {
@@ -188,8 +211,17 @@ function spawnTroll() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Troll(randomX, 290);
+    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png");
 }
+
+function spawnMushroom() {
+    const minX = 1366
+    const maxX = 2000
+    const randomX = Math.random() * (maxX - minX) + minX;
+
+    new Mushroom(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Mushroom/Idle.png");
+}
+
 
 export {
     spawnGuardians,

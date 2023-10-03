@@ -531,7 +531,7 @@ class Steph extends Guardian {
         this.height = 140;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
-        this.atkSpd = 2000;
+        this.atkSpd = 700;
         this.atkRange = 700;
         this.movSpd = 4;
 
@@ -547,25 +547,25 @@ class Steph extends Guardian {
     toggleAttributes() {
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.atkSpd = 2000;
-                break;
-            case CHAR_MODES.MODE_2:
                 this.atkSpd = 700;
                 break;
-            default:
+            case CHAR_MODES.MODE_2:
                 this.atkSpd = 2000;
+                break;
+            default:
+                this.atkSpd = 700;
         }
     }
 
     attack() {
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
-            new Spear(this.position.x, (this.position.y + 50));
+            new Spear2(this.position.x, (this.position.y + 50));
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
         } else {
-            new Spear2(this.position.x, (this.position.y + 50));
+            new Spear(this.position.x, (this.position.y + 50));
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
