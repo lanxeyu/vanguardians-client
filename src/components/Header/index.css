@@ -20,7 +20,7 @@ html, body {
 }
   
 body {
-  background-color: #c4c8ba;
+  background-image: url("/src/components/Canvas/img/starsky-bg.png");
 }
 
 nav > a {

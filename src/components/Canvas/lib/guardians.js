@@ -438,13 +438,30 @@ class Robbie extends Guardian {
     }
 
     attack() {
+        // if (this.image.src === "/src/components/canvas/img/Robbie/Attack1.png" && this.framesCurrent < 7) {
+        //     this.image.src = "/src/components/canvas/img/Robbie/idle.png"
+        // }
+
+            if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
+                this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
+                this.framesMax = 8;
+                this.framesCurrent = 0;
+            }
+        this.currentState = CHAR_STATES.ATTACKING;
+
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.isAttacking = true;
-            new Lightning(this.target.position.x, this.target.position.y - 650)
+            new Lightning(this.target.position.x, this.target.position.y - 650);
             setTimeout(() => {
-                this.isAttacking = false;
-            }, 5)
-        } 
+            this.isAttacking = false;
+            }, 10);
+        } else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.isAttacking = true;
+            new Heal(this.target.position.x, this.target.position.y -20)
+            setTimeout(() => {
+            this.isAttacking = false;
+            })
+        }
         
         else if(this.currentMode === CHAR_MODES.MODE_2){
             this.isAttacking = true;
@@ -465,6 +482,21 @@ class Robbie extends Guardian {
                 break;
             default:
                 this.atkSpd = 5000;
+        }
+    }
+
+    toggleState() {
+        switch (this.currentState) {
+            case CHAR_STATES.ATTACKING:
+                if (this.image.src === "/src/components/canvas/img/Robbie/Attack1.png" && this.framesCurrent < 8 - 1) return
+
+                if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
+                    this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
+                    this.framesMax = 8;
+                    this.framesCurrent = 0;
+                }
+            break;
+            default:
         }
     }
 
@@ -697,72 +729,65 @@ class Duncan extends Guardian {
 }
 
 class Alex extends Guardian {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 2.9, framesMax = 10, offset = { x: 200, y: 140 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "alex"
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
         this.atkSpd = 2900;
-        this.atkRange = 450;
-        this.movSpd = 3;
-
+        this.atkRange = 350;
+        this.movSpd = 2.9;
+        
+        this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-    }
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 60,
+        };
 
-    toggleAttributes() {
-        switch (this.currentMode) {
-            case CHAR_MODES.MODE_1:
-                this.atkSpd = 2900;
-                break;
-            case CHAR_MODES.MODE_2:
-                this.atkSpd = 800;
-                break;
-            default:
-                this.atkSpd = 2900;
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
         }
-    }
+        // if (this.isAttacking) {
+        //     context.fillRect(
+        //         this.atkBox.position.x,
+        //         this.atkBox.position.y,
+        //         this.atkBox.width,
+        //         this.atkBox.height
+        //     );
+        // }
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "blue"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    updateTarget() {
-        if (this.currentMode == CHAR_MODES.MODE_1){
-            super.updateTarget()
-        }
+        
     }
-
-    attack() {
-        this.isAttacking = true;
-        if (this.currentMode == CHAR_MODES.MODE_1){
-            new Slash(this.position.x, this.position.y);
-            setTimeout(() => {
-                this.isAttacking = false;
-            }, 5);
-
-        } else if(this.currentMode == CHAR_MODES.MODE_2){
-            for (const guardian of guardians) {
-                if(guardian.name !== "van") {
-                    new Heal2(guardian.position.x, guardian.position.y -20)
-                }
-            }
-            setTimeout(() => {
-                this.isAttacking = false;
-            }, 5)
-        }  
-    }
-
-    draw(context) {
-        context.fillStyle = "blue"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-}
+    
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
 class Projectile extends Sprite {
-    constructor() {
-        super();
+    constructor( 
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         addToGroup(this, guardianProjectiles);
+
+        this.framesCurrent = 0;
+        this.framesElapsed = 0;
+        this.framesHold = 5;
     }
 
     updatePosition() {
@@ -775,14 +800,20 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 1.5, framesMax = 20, offset = { x: 200, y: 200 },) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+
         this.position = { x, y };
         this.atk = "Stunned";
         this.movSpd = 15;
         this.width = 60;
         this.height = 595;
-        this.stunDuration = 2000;
+        this.stunDuration = 3000;
+        this.image.src = "/src/components/canvas/img/Stephanie/Idle.png" 
+
+        this.framesCurrent = 20;
+        this.framesElapsed = 20;
+        this.framesHold = 5;
     }
 
     updatePosition() {
