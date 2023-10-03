@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
 import { SwitchMode } from "./utilclasses";
+import { GAME_STATES } from "./statemanagers";
 
 function useGameStart() {
+  
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
@@ -21,6 +23,13 @@ function useGameStart() {
 
   return gameStarted;
 }
+
+function useGameState() {
+  const [currentGameState, setCurrentGameState] = useState(GAME_STATES.MAIN_MENU);
+
+  return currentGameState;
+}
+
 
 function restoreAllHealth() {
   for (const guardian of guardians) {

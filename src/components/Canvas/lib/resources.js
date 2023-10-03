@@ -1,5 +1,5 @@
 let silkscreenFont = null;
-
+    
 function getSilkscreenFont() {
     if (silkscreenFont === null) {
         silkscreenFont = new FontFace("Silkscreen",

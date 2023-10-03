@@ -155,7 +155,6 @@ class SwitchMode extends Sprite {
     }
 }
 
-<<<<<<< HEAD
 
 class KnockedOut extends Sprite {
     constructor(text, x, y) {
@@ -213,6 +212,3 @@ class KnockedOut extends Sprite {
 }
 
 export { DamageNumber, LevelUp, SwitchMode, KnockedOut }
-=======
-export { DamageNumber, LevelUp, SwitchMode };
->>>>>>> 3c5aaae9ed22452b10a9dce413a1dc4f0fbc2863

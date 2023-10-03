@@ -10,7 +10,7 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
             spriteA.isAttacking == true) {
 
             for (const spriteB of spriteGroup2) {
-                if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
+                if (isAtkBoxColliding(spriteA.atkBox, spriteB) && (!spriteA.isKnockedOut || !spriteB.isKnockedOut)) {
                     spriteB.getDamaged(spriteA.atk)
                     new DamageNumber((spriteA.atk/spriteB.damageResistance), spriteB.position.x + (spriteB.width / 2), spriteB.position.y)
 
@@ -31,6 +31,7 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                     else if (spriteA instanceof Troll){
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
+
                 }
             }
         }
