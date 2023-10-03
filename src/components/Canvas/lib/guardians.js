@@ -164,7 +164,7 @@ class Guardian extends Character {
     ) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
-        this.positionXLimit = 2000;
+        this.positionXLimit = 1000;
         this.homePositionX = 50;
         this.isKnockedOut = false;
 
@@ -224,7 +224,7 @@ class Guardian extends Character {
                 this.currentState = CHAR_STATES.IDLE
             }
         
-            // Normal movement block
+        // Normal movement block
         } else if (!this.isKnockedBack && 
             !this.isStunned && this.target && 
             this.position.x < this.positionXLimit && 
@@ -326,7 +326,6 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
         
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -347,7 +346,7 @@ class Lanxe extends Guardian {
                 this.atk = 5;
                 this.atkSpd = 700;
                 this.atkRange = 250;
-                this.damageResistance = 0;
+                this.damageResistance = 1;
                 break;
             case CHAR_MODES.MODE_2:
                 this.atk = 8;
@@ -359,7 +358,7 @@ class Lanxe extends Guardian {
                 this.atk = 5;
                 this.atkSpd = 700;
                 this.atkRange = 250;
-                this.damageResistance = 0;
+                this.damageResistance = 1;
         }
     }
 
@@ -562,7 +561,7 @@ class Duncan extends Guardian {
                 this.knockBackResistance = 2;
                 break;
             case CHAR_MODES.MODE_2:
-                this.damageResistance = 2;
+                this.damageResistance = 3;
                 this.knockBackResistance = 5;
                 break;
             default:
@@ -572,35 +571,9 @@ class Duncan extends Guardian {
     }
 
     updatePosition() {
-        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
-        
         // Mode 1 Block
         if (this.currentMode == CHAR_MODES.MODE_1){
             super.updatePosition()
-
-            // Knockback check
-            if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
-            
-            // Retreat block
-            } else if (this.isRetreating){
-                if (retreatDistance > this.movSpd) {
-                    if (this.homePositionX > this.position.x) {
-                        this.position.x += this.movSpd
-                    } 
-                    else if (this.homePositionX < this.position.x) {
-                        this.position.x -= this.movSpd
-                    }
-                }
-                else {
-                    this.position.x = this.homePositionX
-                    this.currentState = CHAR_STATES.IDLE
-                }
-                
-            // Normal movement block
-            } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && this.checkTargetInRange() == false) {
-                this.position.x += this.movSpd;
-            }
         }
 
         // Mode 2 Block
@@ -616,27 +589,6 @@ class Duncan extends Guardian {
             super.updateAttacking();
         }
     }
-
-    // updatePosition() {
-    //     if (this.currentMode == CHAR_MODES.MODE_1){
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         } else if (
-    //             !this.isKnockedBack &&
-    //             !this.isStunned &&
-    //             this.target &&
-    //             this.position.x < this.positionXLimit &&
-    //             this.checkTargetInRange() == false
-    //         ) {
-    //             this.position.x += this.movSpd;
-    //         }
-    //     } else {
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         }
-    //     }
-    // }
-
 
     // draw(context) {
     //     super.draw(context)
