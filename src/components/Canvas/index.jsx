@@ -201,7 +201,7 @@ const Canvas = () => {
                         <p>GameOver...</p>
                         <p>Score: {van[0].score}</p>
                         <p>High Score: {van[0].score}</p>
-                        {/* <p>Total Kills: {totalKills}</p> */}
+                        <p>Total Kills: {van[0].enemiesKilled}</p>
                         <Link to={"/"}>Return Home</Link>
                     </div>
                 </div>
