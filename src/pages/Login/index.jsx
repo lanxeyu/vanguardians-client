@@ -14,11 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-<<<<<<< HEAD
     const { setAuth, auth } = useAuth();
-=======
-    const { setUser } = useAuth();
->>>>>>> 982cef92c5ed3c9ceae4d656d64b5f492159ad95
 
     useEffect(() => {
         userRef.current.focus();
