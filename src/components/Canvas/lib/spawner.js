@@ -8,7 +8,7 @@ import { LevelUp, WaveMessage } from "./utilclasses";
 function spawnGuardians() {
     switch (van[0].lvl) {
         case 2:
-            spawnDuncan();
+            // spawnDuncan();
             break;
         case 3:
             spawnRobbie();
@@ -178,22 +178,62 @@ function spawnLanxe() {
     new LevelUp('New Guardian: Lanxe the Samurai', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
-
 function spawnDuncan() {
-    new Duncan(50, canvas.height - 168 - 280, "src/components/canvas/img/Duncan/Idle.png");
+    new Duncan(50, canvas.height - 168 - 280, "src/components/canvas/img/Duncan/Idle.png", 3.0, 10, { x: 266, y: 205 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Duncan/Idle.png",
+            framesMax: 10
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Duncan/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Duncan/Attack.png",
+            framesMax: 5
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Duncan/Hit.png",
+            framesMax: 3
+        },
+        defend: {
+            imageSrc: "src/components/canvas/img/Duncan/Defend.png",
+            framesMax: 1
+        }
+    });
     new LevelUp('New Guardian: Duncan the Tank', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
+function spawnSteph() {
+    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Stephanie/Idle.png", 3.0, 8, { x: 195, y: 140 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Steph/Idle.png",
+            framesMax: 8
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Steph/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Steph/Attack.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Steph/Hit.png",
+            framesMax: 3
+        }
+    });
+    new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
+}
 
 function spawnRobbie() {
     new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png");
     new LevelUp('New Guardian: Robbie the Wizard', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
-function spawnSteph() {
-    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Stephanie/Idle.png");
-    new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
-}
+
 
 function spawnJames() {
     new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Worm/Idle.png");

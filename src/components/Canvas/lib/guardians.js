@@ -220,14 +220,12 @@ class Character extends Sprite {
                 if (this.image !== this.sprites.idle.image) {
                     this.image = this.sprites.idle.image
                     this.framesMax = this.sprites.idle.framesMax
-                    // this.framesCurrent = 0
                 }
                 break;
             case 'run':
                 if (this.image !== this.sprites.run.image){
                     this.image = this.sprites.run.image
                     this.framesMax = this.sprites.run.framesMax
-                    // this.framesCurrent = 0
                 }
                 break;
             case 'attack':
@@ -242,6 +240,12 @@ class Character extends Sprite {
                     this.image = this.sprites.hit.image
                     this.framesMax = this.sprites.hit.framesMax
                     this.framesCurrent = 0
+                }
+                break;
+            case 'defend':
+                if (this.image !== this.sprites.defend.image){
+                    this.image = this.sprites.defend.image
+                    this.framesMax = this.sprites.defend.framesMax
                 }
                 break;
         }
@@ -394,7 +398,7 @@ class Lanxe extends Guardian {
         this.atkSpd = 700;
         this.atkRange = 250;
         this.movSpd = 6;
-        this.damageResistance = 2;
+        this.damageResistance = 1;
         
         this.isRetreating = false;
         this.isAttacking = false;
@@ -476,13 +480,6 @@ class Robbie extends Guardian {
     }
 
     attack() {
-            if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
-                this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
-                this.framesMax = 8;
-                this.framesCurrent = 0;
-            }
-        this.currentState = CHAR_STATES.ATTACKING;
-
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.isAttacking = true;
             new Lightning(this.target.position.x, this.target.position.y - 650);
@@ -512,27 +509,6 @@ class Robbie extends Guardian {
                 this.atkSpd = 5000;
         }
     }
-
-    toggleState() {
-        switch (this.currentState) {
-            case CHAR_STATES.ATTACKING:
-                if (this.image.src === "/src/components/canvas/img/Robbie/Attack1.png" && this.framesCurrent < 8 - 1) return
-
-                if (this.image.src !== "/src/components/canvas/img/Robbie/Attack1.png"){
-                    this.image.src = "/src/components/canvas/img/Robbie/Attack1.png";
-                    this.framesMax = 8;
-                    this.framesCurrent = 0;
-                }
-            break;
-            default:
-        }
-    }
-
-    // draw(context) {
-    //     super.draw(context)
-        // context.fillStyle = "green";
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class James extends Guardian {
@@ -588,8 +564,8 @@ class James extends Guardian {
 }
 
 class Steph extends Guardian {
-    constructor(x, y, imageSrc, scale = 3.0, framesMax = 8, offset = { x: 195, y: 140 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "steph";
         this.position = { x, y };
         this.width = 50;
@@ -620,18 +596,15 @@ class Steph extends Guardian {
     }
 
     attack() {
-        if (this.image.src !== "/src/components/canvas/img/Stephanie/Attack3.png"){
-            this.image.src = "/src/components/canvas/img/Stephanie/Attack3.png";
-            this.framesMax = 7;
-            this.framesCurrent = 0;
-        }
+        this.switchSprite('attack')
         this.isAttacking = true;
+
         if (this.currentMode == CHAR_MODES.MODE_1){
             new Spear2(this.position.x, (this.position.y + 50));
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
-            
+        
         } else {
             new Spear(this.position.x, (this.position.y + 50));
             setTimeout(() => {
@@ -639,17 +612,11 @@ class Steph extends Guardian {
             }, 5);
         }
     }
-
-    // draw(context) {
-    //     super.draw(context);
-    //     context.fillStyle = "LightSkyBlue";
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Duncan extends Guardian {
-    constructor(x, y, imageSrc, scale = 3.0, framesMax = 10, offset = { x: 266, y: 205 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "duncan";
         this.position = { x, y };
         this.width = 90;
@@ -674,10 +641,6 @@ class Duncan extends Guardian {
             width: this.atkRange,
             height: this.height,
         };
-
-        this.framesCurrent = 0;
-        this.framesElapsed = 0;
-        this.framesHold = 5;
     }
 
     toggleAttributes() {
@@ -704,6 +667,7 @@ class Duncan extends Guardian {
 
         // Mode 2 Block
         else {
+            this.switchSprite('defend')
             if (this.isKnockedBack) {
                 this.position.x += this.knockBackDistance;
             }
@@ -716,43 +680,6 @@ class Duncan extends Guardian {
         }
     }
 
-    // updatePosition() {
-    //     if (this.currentMode == CHAR_MODES.MODE_1){
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         } else if (
-    //             !this.isKnockedBack &&
-    //             !this.isStunned &&
-    //             this.target &&
-    //             this.position.x < this.positionXLimit &&
-    //             this.checkTargetInRange() == false
-    //         ) {
-    //             this.position.x += this.movSpd;
-    //         }
-    //     } else {
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         }
-    //     }
-    // }
-
-
-    // draw(context) {
-    //     super.draw(context)
-    //     context.fillStyle = "purple";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    //     // context.fillRect(this.position.x, this.position.y, this.atkRange, 10)
-
-    //     // if (this.isAttacking) {
-    //     //     context.fillRect(
-    //     //         this.atkBox.position.x,
-    //     //         this.atkBox.position.y,
-    //     //         this.atkBox.width,
-    //     //         this.atkBox.height
-    //     //     );
-    //     // }
-    // }
 }
 
 class Alex extends Guardian {
@@ -778,26 +705,8 @@ class Alex extends Guardian {
             height: 60,
         };
 
-        this.framesCurrent = 0;
-        this.framesElapsed = 0;
-        this.framesHold = 5;
-        }
-        // if (this.isAttacking) {
-        //     context.fillRect(
-        //         this.atkBox.position.x,
-        //         this.atkBox.position.y,
-        //         this.atkBox.width,
-        //         this.atkBox.height
-        //     );
-        // }
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x
-    //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "blue"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        
-    }
+    }  
+}
     
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
