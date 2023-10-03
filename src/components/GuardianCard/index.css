@@ -9,37 +9,38 @@
 
 .guardian-card> h4, h5 {
   color: white;
-  font-family: 'Lilita One', cursive;
+  font-family: Silkscreen;
   position: absolute;
-  font-size: 7vh;
+  font-size: 30px;
   border-radius: 3vh;
   padding: 1vh;
 }
 
 .guardian-card> h5 {
   color: white;
-  margin-bottom: -42vh;
-  font-size: 5vh;
+  margin-bottom: -40vh;
+  font-size: 22px;
 }
 
 .guardian-card> h4 {
-  margin-top: -60vh;
+  margin-top: -55vh;
 }
 
 .guardian-card {
-  height: 60vh;
-  width: 24vw;
+  height: 330px;
+  width: 310px;
   padding-top: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3vh;
+  margin: 5vh 3vw;
   /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
-  background-color: #5b5047;
+  background-color: #001B22;
+  border-style: outset;
   background-position: center;
   background-size: cover;
   border-radius: 3vh;
-  border: 3px solid #5b5047c6;
+  border: 3px solid #004657;
 }
 
 .guardian-card:hover {

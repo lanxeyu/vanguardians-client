@@ -6,9 +6,9 @@
     flex-direction: column;
     justify-content: space-evenly;
     padding: 1rem;
-    border: 5px #5b5047 solid;
+    border: 3px solid #004657;
     border-style: outset;
-    background-color: #5b5047;
+    background-color: #001B22;
     border-radius: 10px;
     margin-left: auto;
     margin-top: 100px;

@@ -51,7 +51,7 @@ const Canvas = () => {
 
     function initGame(canvas) {
         resetAllGroups();
-        resetWaveCounter();
+        resetWaveCounter(); 
         new Background(0, 0, 1366, 766, 0, 0, 'src/components/canvas/img/starsky-bg.png', 0);
         new Background(0, canvas.height, 1366, 329, 0, -(168 + 329), 'src/components/canvas/img/cloud1-bg.png', 1);
         new Background(0, canvas.height, 1366, 113, 0, -(168 + 113), 'src/components/canvas/img/cloud2-bg.png', 1);
@@ -188,96 +188,6 @@ const Canvas = () => {
                 requestAnimationFrame(gameLoop);
             }    
 
-            // if (gameStarted){
-            //     const background = new Background(0, 0, 1366, 766, 0, 0, 'src/components/canvas/img/starsky-bg.png', 0);
-            //     const cloud1 = new Background(0, canvas.height, 1366, 329, 0, -(168 + 329), 'src/components/canvas/img/cloud1-bg.png', 1);
-            //     const cloud2 = new Background(0, canvas.height, 1366, 113, 0, -(168 + 113), 'src/components/canvas/img/cloud2-bg.png', 1);
-                
-
-            //     const middleground = new Background(0, 0, 3326, 840, 0, -98, 'src/components/canvas/img/middleground2.png', 3)
-            //     const ground = new Foreground(0, canvas.height, 2016, 288, 0, -278, 'src/components/canvas/img/ground.png', 5)
-            //     const grass = new Foreground(0, canvas.height, 1366, 168, 0, -293, 'src/components/canvas/img/grass.png', 5)
-
-            //     new Van(50, 348, "src/components/canvas/img/van.png");
-
-            //     spawnDuncan();
-            //     spawnLanxe();
-            //     // spawnSteph();
-            //     // spawnRobbie();
-            //     // spawnJames();
-            //     // spawnAlex();
-
-            //     for (let i = 0; i < guardians.length; i++) {
-            //         new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i)
-            //     }
-
-            //     new TopBar((canvas.width / 2) - 40, 0, 140, 70, scores);
-            //     new BottomBar(0, canvas.height, canvas.width, 168, null)
-
-            // }
-
-            // // Main game loop logic
-            // const gameLoop = () => {
-            //     context.clearRect(0, 0, canvas.width, canvas.height)
-            //     context.fillStyle = "black";
-            //     context.fillRect(0, 0, canvas.width, canvas.height);
-            //     if (gameStarted) {
-            //         if (!van[0].isAlive) {
-            //             clearAllSprites();
-            //             setShowGameOver(true);
-            //         } else if (enemies.length == 0) {
-
-            //             spawnEnemies();
-            //         }
-
-            //         // Parallax attempt
-            //         let firstPosX = originX;
-            //         for (let i = 0; i < guardians.length; i++) {
-            //             let currPointX = guardians[i].position.x + (guardians[i].width / 2);
-            //             if (currPointX > firstPosX) firstPosX = currPointX;
-            //         }
-
-            //         // console.log(firstPosX)
-
-            //         // context.transform(1, 0, 0, 1, -firstPosX , 0)
-
-            //         updateAllSprites(context);
-
-            //         checkAtkBoxCollisions(guardians, enemies);
-            //         checkAtkBoxCollisions(enemies, guardians);
-            //         checkProjectileCollisions(guardianProjectiles, enemies);
-
-                    
-            //         drawBackground(context);
-            //         drawVan(context);
-            //         drawGuardians(context);
-            //         drawEnemies(context);
-            //         drawAllHealthbars(context);
-            //         drawGuardianProjectiles(context);
-            //         drawDamageNumbers(context);
-            //         drawPopUpMsgs(context);
-
-            //         drawForeground(context)
-
-            //         drawUI(context);
-
-            //     }
-            //     else {
-            //         context.fillStyle = 'rgb(255, 255, 255)'
-            //         context.textAlign = "center";
-
-            //         context.font = "36px Silkscreen";
-            //         context.fillText("VANGUARDIANS", canvas.width / 2, canvas.height / 2 - 100)
-
-            //         context.font = "18px Silkscreen";
-            //         context.fillText("Press Enter to Play", canvas.width / 2, canvas.height / 2)
-            //     }
-            //     requestAnimationFrame(gameLoop);
-            // };
-            // gameLoop();
-            // if (gameStarted){
-            //     // gameLoop();
-            // }
             gameLoop();
 
             // Click Event to target elements in the canvas

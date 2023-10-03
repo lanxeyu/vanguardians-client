@@ -51,8 +51,8 @@ class PortraitIcon extends Sprite {
             this.portraitImage.src = "src/components/canvas/img/alex-portrait.png"
         }
         else if (this.guardian.name === "van") {
-            console.log("van found")
-            this.portraitImage.src = "src/components/canvas/img/van.png"
+            // console.log("van found")
+            this.portraitImage.src = "src/components/canvas/img/van-portrait.png"
         }
 
         this.mode1Image = new Image();
@@ -175,7 +175,7 @@ class BottomBar extends Sprite {
             this.currentHPBar = this.target.currHealth;
             this.currentEXPBar = this.target.currExp;
             if (this.target.name === "van") {
-                this.targetImage.src = 'src/components/canvas/img/van.png';
+                this.targetImage.src = 'src/components/canvas/img/van-portrait.png';
             }    
         }
         else {
@@ -273,7 +273,7 @@ class BottomBar extends Sprite {
             this.targetImage.src = "src/components/canvas/img/alex-portrait.png"
         }
         else if (this.target.name === "van") {
-            this.targetImage.src = "src/components/canvas/img/van.png"
+            this.targetImage.src = "src/components/canvas/img/van-portrait.png"
         }
 
     }
