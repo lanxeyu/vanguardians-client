@@ -7,7 +7,7 @@
 }
 
 .guardian-profile-card> img{
-  height: 240px;
+  height: 34vh;
   margin-top: -7vh;
 }
 
@@ -38,13 +38,13 @@
 .guardian-profile-card> h4, h5 {
   font-family: Silkscreen;
   position: absolute;
-  font-size: 35px;
+  font-size: 4.5vh;
   padding: 1vh;
 }
 
 .guardian-profile-card> h5 {
   margin-bottom: -47vh;
-  font-size: 25px;
+  font-size: 3.5vh;
 }
 
 .guardian-profile-card> h4 {
@@ -53,8 +53,10 @@
 }
 
 .guardian-profile-card {
-  height: 400px;
-  width: 350px;
+  height: 57vh;
+  width: 25vw;
+  min-height: 250px;
+  min-width: 300px;
   padding-top: 7vh;
   display: flex;
   justify-content: center;
