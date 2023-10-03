@@ -110,3 +110,12 @@
     background-position: bottom;
     background-position-y:1% ;
 }
+
+#home-footer {
+    background-color:#001B22;
+    height: 170px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}

@@ -16,3 +16,9 @@
     width: calc((100% - 1366px) / 2);
     height: 768px;
 }
+
+#game-footer {
+  background-color: #001b23;
+  height: calc(100% - 768px);
+  width: 100%;
+}

@@ -81,6 +81,7 @@ const Home = () => {
         <img src="src\pages\Home\images\wizard.gif" alt="wizard" />
         <img src="src\pages\Home\images\huntress.gif" alt="huntress" />
       </div>
+      <div id="home-footer"></div>
     </>
   )
 }

@@ -63,9 +63,9 @@ const Canvas = () => {
 
         new Van(50, 348, "src/components/canvas/img/van.png");
 
-        spawnDuncan();
-        spawnLanxe();
-        // spawnSteph();
+        // spawnDuncan();
+        // spawnLanxe();
+        spawnSteph();
         // spawnRobbie();
         // spawnJames();
         // spawnAlex();
@@ -231,7 +231,7 @@ const Canvas = () => {
     }, []);
 
     return (
-        <div>
+        <>
             <canvas id="canvas"></canvas>
             {/* {showGameOver && (
                 <div id="popup-container">
@@ -244,7 +244,7 @@ const Canvas = () => {
                     </div>
                 </div>
             )} */}
-        </div>
+        </>
     );
 };
 
