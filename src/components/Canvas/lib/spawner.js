@@ -38,6 +38,7 @@ function spawnEnemies() {
         case 1:
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
+                // spawnMushroom()
             }
             break;
         case 2:
