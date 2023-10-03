@@ -85,7 +85,7 @@ class Enemy extends Character {
 }
 
 class Skeleton extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 170 }, healthBarPosition = { x: 0, y: 0 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }, healthBarPosition = { x: 0, y: 0 }) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         this.position = { x, y };
         this.width = 70;
@@ -116,26 +116,26 @@ class Skeleton extends Enemy {
         this.healthBarPosition.y = 200;
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "red"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "red"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
-    }
+    // //     if (this.isAttacking) {
+    // //         context.fillRect(
+    // //             this.atkBox.position.x,
+    // //             this.atkBox.position.y,
+    // //             this.atkBox.width,
+    // //             this.atkBox.height
+    // //         );
+    // //     }
+    // }
 }
 
 
 class Goblin extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 170 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 143 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -181,7 +181,7 @@ class Goblin extends Enemy {
 }
 
 class Demon extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 210 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 160 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -233,7 +233,7 @@ class Demon extends Enemy {
 }
 
 class Troll extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 255 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }) {
         super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
@@ -280,7 +280,7 @@ class Troll extends Enemy {
 }
 
 class Mushroom extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 158, y: 170 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 158, y: 143 }) {
         super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
