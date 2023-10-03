@@ -561,7 +561,7 @@ class Duncan extends Guardian {
                 this.knockBackResistance = 2;
                 break;
             case CHAR_MODES.MODE_2:
-                this.damageResistance = 3;
+                this.damageResistance = 4;
                 this.knockBackResistance = 5;
                 break;
             default:
