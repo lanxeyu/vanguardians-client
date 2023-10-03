@@ -1,19 +1,20 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
+// import { useAuth } from "../../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./index.css";
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
 
     const navigate = useNavigate();
 
-    const [user, setUser] = useState("");
-    const [pwd, setPwd] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
-    const [success, setSuccess] = useState(false);
+
+    // const { setAuth } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -21,15 +22,39 @@ const Login = () => {
 
     useEffect(() => {
         setErrMsg("");
-    }, [user, pwd]);
+    }, [username, password]);
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        console.log(user, pwd);
-        setUser("");
-        setPwd("");
-        navigate("/");
+        const data = {
+            username: e.target.username.value,
+            password: e.target.password.value,
+        };
+
+        try {
+            const response = await axios.post("http://127.0.0.1:5000/login", data);
+            localStorage.setItem("token", response.data.token);
+            const token = localStorage.getItem("token");
+
+            console.log(response.data);
+
+            // setAuth({ username, password, token });
+            setUsername("");
+            setPassword("");
+            navigate("/");
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("No server response");
+            } else if (errMsg.response?.status === 400) {
+                setErrMsg("Missing username or password");
+            } else if (errMsg.response?.status === 401) {
+                setErrMsg("Unauthorised");
+            } else {
+                setErrMsg("Login failed");
+            }
+            errRef.current.focus();
+        }
     };
 
     return (
@@ -46,8 +71,8 @@ const Login = () => {
                         id="username"
                         ref={userRef}
                         autoComplete="off"
-                        onChange={e => setUser(e.target.value)}
-                        value={user}
+                        onChange={e => setUsername(e.target.value)}
+                        value={username}
                         required
                     />
 
@@ -55,8 +80,8 @@ const Login = () => {
                     <input
                         type="password"
                         id="password"
-                        onChange={e => setPwd(e.target.value)}
-                        value={pwd}
+                        onChange={e => setPassword(e.target.value)}
+                        value={password}
                         required
                     />
                     <button data-testid="login-btn">Sign In</button>
