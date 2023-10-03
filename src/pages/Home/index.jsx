@@ -43,7 +43,7 @@ const Home = () => {
 
       {showDescription && (
         <div id = "popup-container">
-          <div id = "popup">
+          <div id = "popup" data-testid="description-popup">
             <button 
             id ="close-button" 
             onClick={toggleShowDescription} 
@@ -59,7 +59,7 @@ const Home = () => {
 
       {showHowToPlay && (
         <div id = "popup-container">
-          <div id = "popup">
+          <div id = "popup" data-testid="howtoplay-popup">
             <button 
             id ="close-button" 
             onClick={toggleShowHowToPlay} 
