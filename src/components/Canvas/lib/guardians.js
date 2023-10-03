@@ -322,7 +322,7 @@ class Lanxe extends Guardian {
         this.atk = 5;
         this.atkSpd = 700;
         this.atkRange = 250;
-        this.movSpd = 4;
+        this.movSpd = 6;
         this.damageResistance = 2;
         
         this.isRetreating = false;
@@ -523,7 +523,7 @@ class Duncan extends Guardian {
         this.atk = 2;
         this.atkSpd = 2300;
         this.atkRange = 150;
-        this.movSpd = 4.5;
+        this.movSpd = 4;
 
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;

@@ -213,7 +213,7 @@ class Troll extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 200
-        this.maxHealth = 200
+        this.maxHealth = 300
         this.currHealth = this.maxHealth
         this.atk = 20
         this.atkSpd = 4000
@@ -232,13 +232,13 @@ class Troll extends Enemy {
                 x: this.position.x,
                 y: this.position.y
             },
-            width: this.atkRange,
-            height: 50,
+            width: 200,
+            height: 100,
         }
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+        this.atkBox.position.x = this.position.x + this.width - 200 - 3
         this.atkBox.position.y = this.position.y
         context.fillStyle = "maroon"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
