@@ -303,7 +303,6 @@ class Guardian extends Character {
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
-
         
         this.updateAnimation();
     }
@@ -589,7 +588,7 @@ class Duncan extends Guardian {
         this.maxHealth = 175;
         this.currHealth = this.maxHealth;
         this.atk = 2;
-        this.atkSpd = 2300;
+        this.atkSpd = 1800;
         this.atkRange = 150;
         this.movSpd = 4;
 

@@ -44,13 +44,6 @@ class Sprite {
     }
 }
 
-// class Background extends Sprite {
-//     constructor(x, y, imageSrc, scale = 1){
-//         super(x, y, imageSrc, scale)
-//         addToGroup(this, background)
-//     }
-// }
-
 class Background extends Sprite {
     constructor(x, y, width, height, offsetX, offsetY, imageSrc, movSpd) {
         super()
