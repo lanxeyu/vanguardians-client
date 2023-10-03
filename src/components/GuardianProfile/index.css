@@ -2,16 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 5vh;
 }
 
 .guardian-profile-card> img{
-  height: 41vh;
+  height: 240px;
   margin-top: -7vh;
 }
 
 #card-2 {
   flex-direction: column;
-  background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png);
+  background-color: #001B22;
   background-position-y: 28%;
 }
 
@@ -24,48 +25,46 @@
 }
 
 .prof-section> h3 {
-  color:#26241f;
   font-size: 3.7vh;
-  font-family: 'Croissant One', cursive;
+  font-family: Silkscreen;
 }
 
 .prof-section> p {
-  color: #26241f;
   font-size: 3vh;
-  font-family: 'Croissant One', cursive;
+  font-family: Silkscreen;
 }
 
 .guardian-profile-card> h4, h5 {
-  font-family: 'Croissant One', cursive;
+  font-family: Silkscreen;
   position: absolute;
-  font-size: 7vh;
+  font-size: 35px;
   padding: 1vh;
 }
 
 .guardian-profile-card> h5 {
-  margin-bottom: -48vh;
-  font-size: 5vh;
+  margin-bottom: -47vh;
+  font-size: 25px;
 }
 
 .guardian-profile-card> h4 {
-  font-family: 'Lilita One', cursive;
-  margin-top: -70vh;
+  font-family: Silkscreen;
+  margin-top: -64vh;
 }
 
 .guardian-profile-card {
-  height: 70vh;
-  width: 26vw;
+  height: 400px;
+  width: 350px;
   padding-top: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 3vh;
   /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
-  background-color: #5b5047;
+  background-color: #001B22;
   background-position: center;
   background-size: cover;
   border-radius: 3vh;
-  border: 3px solid #5b5047c6;
+  border: 3px solid #004657;
 }
 
 

@@ -85,7 +85,7 @@ class Enemy extends Character {
 }
 
 class Skeleton extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 166 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 170 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -111,6 +111,9 @@ class Skeleton extends Enemy {
             width: this.atkRange,
             height: 100,
         }
+
+        this.healthBarPosition.x = 130;
+        this.healthBarPosition.y = 200;
     }
 
     // draw(context) {

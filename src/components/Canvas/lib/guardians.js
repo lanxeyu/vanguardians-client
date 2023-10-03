@@ -1,4 +1,4 @@
-import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
 import { KnockedOut } from "./utilclasses";
@@ -57,6 +57,14 @@ class Character extends Sprite {
         }
     }
 
+    getHealed(heal) {
+        if(this.currHealth + heal < this.maxHealth){
+            this.currHealth += heal
+        } else {
+            this.currHealth = this.maxHealth
+        }
+    }
+
     getKnockedBack(distance) {
         if (this.isKnockedBack === false) {
             this.isKnockedBack = true;
@@ -75,6 +83,20 @@ class Character extends Sprite {
         setTimeout(() => {
             this.isStunned = false;
         }, duration);
+    }
+
+    findLowestHpGuardian(guardians){
+        let lowestHp = 10;
+        let lowestHpG;
+
+        for (const guardian of guardians) {
+                const guardianHp = guardian.currHealth / guardian.maxHealth
+                if(guardianHp < lowestHp && guardian.name !== "van"){
+                lowestHp = guardianHp
+                lowestHpG = guardian
+                }
+            }
+        return lowestHpG
     }
 
     findNearestTarget(group, type) {
@@ -403,15 +425,42 @@ class Robbie extends Guardian {
     }
 
     updateTarget() {
-        this.target = this.findRandomTarget(enemies, "guardian");
+        if(this.currentMode === CHAR_MODES.MODE_1){
+            this.target = this.findRandomTarget(enemies, "guardian");
+        } else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.target = this.findLowestHpGuardian(guardians)
+        }
     }
 
     attack() {
-        this.isAttacking = true;
+        if(this.currentMode === CHAR_MODES.MODE_1){
+            this.isAttacking = true;
         new Lightning(this.target.position.x, this.target.position.y - 650);
         setTimeout(() => {
             this.isAttacking = false;
         }, 10);
+        } else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.isAttacking = true;
+        new Heal(this.target.position.x, this.target.position.y -20)
+        setTimeout(() => {
+            this.isAttacking = false;
+        })
+        }
+        
+    }
+
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atk = 5
+                break;
+            case CHAR_MODES.MODE_2:
+                this.heal = 50;
+                this.atkSpd = 4000;
+                break;
+            default:
+                this.atk = 5;
+        }
     }
 
     // draw(context) {
@@ -623,6 +672,27 @@ class Projectile extends Sprite {
     }
 }
 
+class Heal extends Projectile {
+    constructor(x, y) {
+        super();
+        addToGroup(this, guardianHealingProjectiles)
+        this.position = { x, y };
+        this.heal = 3;
+        this.movSpd = 10;
+        this.width = 40;
+        this.height = 40;
+    }
+
+    updatePosition() {
+        this.position.y += this.movSpd;
+    }
+
+    draw(context) {
+        context.fillStyle = "green"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
 class Lightning extends Projectile {
     constructor(x, y) {
         super();
@@ -684,4 +754,4 @@ class Spear extends Projectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion, Projectile };
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion, Heal };

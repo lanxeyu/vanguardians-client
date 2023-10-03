@@ -12,15 +12,17 @@ import {
     spawnRobbie,
     spawnSteph,
 } from "./lib/spawner";
-import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
+import { checkAtkBoxCollisions, checkHealingProjectileCollisions, checkProjectileCollisions } from "./lib/collision";
 import {
     guardians,
     enemies,
     guardianProjectiles,
+    guardianHealingProjectiles,
     drawAllHealthbars,
     drawDamageNumbers,
     drawEnemies,
     drawGuardianProjectiles,
+    drawGuardianHealingProjectiles,
     drawGuardians,
     drawVan,
     drawForeground,
@@ -56,7 +58,7 @@ const Canvas = () => {
 
         loadFonts();
 
-        let scores = 0;
+        let scores = 0
         let totalKills = 0;
 
         let currentGameState = GAME_STATES.MAIN_MENU
@@ -123,6 +125,7 @@ const Canvas = () => {
                     checkAtkBoxCollisions(guardians, enemies);
                     checkAtkBoxCollisions(enemies, guardians);
                     checkProjectileCollisions(guardianProjectiles, enemies);
+                    checkHealingProjectileCollisions(guardianHealingProjectiles, guardians)
 
                     
                     drawBackground(context);
@@ -131,7 +134,7 @@ const Canvas = () => {
                     drawEnemies(context);
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
-                    drawEnemyProjectiles(context)
+                    drawGuardianHealingProjectiles(context);
                     drawDamageNumbers(context);
                     drawPopUpMsgs(context);
 
@@ -193,17 +196,16 @@ const Canvas = () => {
     return (
         <div>
             <canvas id="canvas"></canvas>
-            {/* {showGameOver && (
+            {showGameOver && (
                 <div id="popup-container">
                     <div id="popup">
                         <p>GameOver...</p>
-                        <p>Score: 1000</p>
-                        <p>High Score: {scores}</p>
-                        <p>Total Kills: {totalKills}</p>
+                        <p>Score: {van[0].score}</p>
+                        <p>Total Kills: {van[0].enemiesKilled}</p>
                         <Link to={"/"}>Return Home</Link>
                     </div>
                 </div>
-            )} */}
+            )}
         </div>
     );
 };
