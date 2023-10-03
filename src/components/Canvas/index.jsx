@@ -195,17 +195,17 @@ const Canvas = () => {
     return (
         <div>
             <canvas id="canvas"></canvas>
-            {/* {showGameOver && (
+            {showGameOver && (
                 <div id="popup-container">
                     <div id="popup">
                         <p>GameOver...</p>
-                        <p>Score: 1000</p>
-                        <p>High Score: {scores}</p>
-                        <p>Total Kills: {totalKills}</p>
+                        <p>Score: {van[0].score}</p>
+                        <p>High Score: {van[0].score}</p>
+                        {/* <p>Total Kills: {totalKills}</p> */}
                         <Link to={"/"}>Return Home</Link>
                     </div>
                 </div>
-            )} */}
+            )}
         </div>
     );
 };
