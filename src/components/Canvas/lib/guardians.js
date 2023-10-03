@@ -344,7 +344,7 @@ class Lanxe extends Guardian {
         this.atk = 5;
         this.atkSpd = 700;
         this.atkRange = 250;
-        this.movSpd = 4;
+        this.movSpd = 6;
         this.damageResistance = 2;
         
         this.isRetreating = false;
@@ -531,10 +531,9 @@ class Steph extends Guardian {
         this.height = 140;
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
-        this.atk = 4;
         this.atkSpd = 2000;
         this.atkRange = 700;
-        this.movSpd = 2;
+        this.movSpd = 4;
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -545,12 +544,32 @@ class Steph extends Guardian {
         this.healthBarPosition.y = 70;
     }
 
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atkSpd = 2000;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.atkSpd = 700;
+                break;
+            default:
+                this.atkSpd = 2000;
+        }
+    }
+
     attack() {
         this.isAttacking = true;
-        new Spear(this.position.x, this.position.y);
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 5);
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            new Spear(this.position.x, (this.position.y + 50));
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5);
+        } else {
+            new Spear2(this.position.x, (this.position.y + 50));
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5);
+        }
     }
 
     // draw(context) {
@@ -572,7 +591,7 @@ class Duncan extends Guardian {
         this.atk = 2;
         this.atkSpd = 2300;
         this.atkRange = 150;
-        this.movSpd = 4.5;
+        this.movSpd = 4;
 
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
@@ -651,9 +670,44 @@ class Duncan extends Guardian {
 }
 
 class Alex extends Guardian {
-    constructor() {
+    constructor(x, y) {
         super();
+        this.position = { x, y };
+        this.width = 70;
+        this.height = 150;
+        this.maxHealth = 100;
+        this.currHealth = this.maxHealth;
+        this.atk = 30;
+        this.atkSpd = 2900;
+        this.atkRange = 350;
+        this.movSpd = 3;
+
+        this.isAttacking = false;
+        this.atkTimer = null;
+        this.atkCooldown = 0;
+        this.atkBox = {
+            position: this.position,
+            width: this.atkRange,
+            height: 60,
+        };
     }
+
+    draw(context) {
+        this.atkBox.position.x = this.position.x
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "blue"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+        if (this.isAttacking) {
+            context.fillRect(
+                this.atkBox.position.x,
+                this.atkBox.position.y,
+                this.atkBox.width,
+                this.atkBox.height
+            );
+        }
+    }
+    
 }
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
@@ -754,4 +808,22 @@ class Spear extends Projectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion, Heal };
+class Spear2 extends Projectile {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.atk = 5;
+        this.movSpd = 25;
+        this.width = 100;
+        this.height = 5;
+
+        this.knockBackStrength = 0;
+    }
+
+    draw(context) {
+        context.fillStyle = "plum";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal };

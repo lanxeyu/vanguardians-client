@@ -95,7 +95,7 @@ class Skeleton extends Enemy {
         this.atk = 5;
         this.atkSpd = 2000;
         this.atkRange = 100;
-        this.movSpd = 4;
+        this.movSpd = 2;
         this.expGrant = 4;
 
         this.knockBackStrength = -7;
@@ -116,11 +116,11 @@ class Skeleton extends Enemy {
         this.healthBarPosition.y = 200;
     }
 
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-    //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "red"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    draw(context) {
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
+        this.atkBox.position.y = this.position.y
+        context.fillStyle = "red"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //     if (this.isAttacking) {
     //         context.fillRect(
@@ -130,7 +130,7 @@ class Skeleton extends Enemy {
     //             this.atkBox.height
     //         );
     //     }
-    // }
+    }
 }
 
 
@@ -139,13 +139,13 @@ class Goblin extends Enemy {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
-        this.height = 80;
+        this.height = 100;
         this.maxHealth = 10;
         this.currHealth = this.maxHealth;
         this.atk = 2;
         this.atkSpd = 1000;
         this.atkRange = 100;
-        this.movSpd = 6;
+        this.movSpd = 4;
         this.expGrant = 1;
 
         this.knockBackStrength = 0;
@@ -164,19 +164,19 @@ class Goblin extends Enemy {
     }
 
     // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
     //     this.atkBox.position.y = this.position.y
     //     context.fillStyle = "green"
     //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
+    // //     if (this.isAttacking) {
+    // //         context.fillRect(
+    // //             this.atkBox.position.x,
+    // //             this.atkBox.position.y,
+    // //             this.atkBox.width,
+    // //             this.atkBox.height
+    // //         );
+    //     // }
     // }
 }
 
@@ -191,7 +191,7 @@ class Demon extends Enemy {
         this.atk = 5;
         this.atkSpd = 2000;
         this.atkRange = 100;
-        this.movSpd = 3;
+        this.movSpd = 1.5;
         this.expGrant = 7;
 
         this.knockBackStrength = 0;
@@ -238,12 +238,12 @@ class Troll extends Enemy {
         this.position = {x, y}
         this.width = 70
         this.height = 200
-        this.maxHealth = 200
+        this.maxHealth = 300
         this.currHealth = this.maxHealth
         this.atk = 20
         this.atkSpd = 4000
         this.atkRange = 100
-        this.movSpd = 2
+        this.movSpd = 1
         this.expGrant = 50
 
         this.knockBackStrength = -60
@@ -257,25 +257,25 @@ class Troll extends Enemy {
                 x: this.position.x,
                 y: this.position.y
             },
-            width: this.atkRange,
-            height: 50,
+            width: 200,
+            height: 100,
         }
     }
 
     // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.x = this.position.x + this.width - 200 - 3
     //     this.atkBox.position.y = this.position.y
     //     context.fillStyle = "maroon"
     //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
+    // //     if (this.isAttacking) {
+    // //         context.fillRect(
+    // //             this.atkBox.position.x,
+    // //             this.atkBox.position.y,
+    // //             this.atkBox.width,
+    // //             this.atkBox.height
+    // //         );
+    // //     }
     // }
 }
 

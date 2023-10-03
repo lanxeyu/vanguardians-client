@@ -1,5 +1,5 @@
 import { DamageNumber } from "./utilclasses";
-import { Duncan, Robbie, Spear, Lightning, Explosion, Heal } from "./guardians";
+import { Duncan, Robbie, Spear, Lightning, Explosion, Heal, Spear2 } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 
@@ -68,6 +68,11 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 // GUARDIANS             
                 if (spriteA instanceof Spear) {
                     spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                }
+                
+                if (spriteA instanceof Spear2) {
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
                 }
