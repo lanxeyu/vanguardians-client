@@ -434,31 +434,31 @@ class Robbie extends Guardian {
     attack() {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.isAttacking = true;
-        new Lightning(this.target.position.x, this.target.position.y - 650);
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 10);
-        } else if(this.currentMode === CHAR_MODES.MODE_2){
-            this.isAttacking = true;
-        new Heal(this.target.position.x, this.target.position.y -20)
-        setTimeout(() => {
-            this.isAttacking = false;
-        })
-        }
+            new Lightning(this.target.position.x, this.target.position.y - 650)
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5)
+        } 
         
+        else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.isAttacking = true;
+            new Heal(this.target.position.x, this.target.position.y -20)
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5)
+        }
     }
 
     toggleAttributes() {
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.atk = 5
+                this.atkSpd = 5000;
                 break;
             case CHAR_MODES.MODE_2:
-                this.heal = 50;
-                this.atkSpd = 4000;
+                this.atkSpd = 3000;
                 break;
             default:
-                this.atk = 5;
+                this.atkSpd = 5000;
         }
     }
 
@@ -563,6 +563,7 @@ class Steph extends Guardian {
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
+            
         } else {
             new Spear(this.position.x, (this.position.y + 50));
             setTimeout(() => {
@@ -676,37 +677,58 @@ class Alex extends Guardian {
         this.height = 150;
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
-        this.atk = 30;
         this.atkSpd = 2900;
-        this.atkRange = 350;
+        this.atkRange = 450;
         this.movSpd = 3;
 
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-        this.atkBox = {
-            position: this.position,
-            width: this.atkRange,
-            height: 60,
-        };
+    }
+
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atkSpd = 2900;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.atkSpd = 800;
+                break;
+            default:
+                this.atkSpd = 2900;
+        }
+    }
+
+    updateTarget() {
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            super.updateTarget()
+        }
+    }
+
+    attack() {
+        this.isAttacking = true;
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            new Slash(this.position.x, this.position.y);
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5);
+
+        } else if(this.currentMode == CHAR_MODES.MODE_2){
+            for (const guardian of guardians) {
+                if(guardian.name !== "van") {
+                    new Heal2(guardian.position.x, guardian.position.y -20)
+                }
+            }
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5)
+        }  
     }
 
     draw(context) {
-        this.atkBox.position.x = this.position.x
-        this.atkBox.position.y = this.position.y
         context.fillStyle = "blue"
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
     }
-    
 }
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
@@ -725,27 +747,6 @@ class Projectile extends Sprite {
     }
 }
 
-class Heal extends Projectile {
-    constructor(x, y) {
-        super();
-        addToGroup(this, guardianHealingProjectiles)
-        this.position = { x, y };
-        this.heal = 3;
-        this.movSpd = 10;
-        this.width = 40;
-        this.height = 40;
-    }
-
-    updatePosition() {
-        this.position.y += this.movSpd;
-    }
-
-    draw(context) {
-        context.fillStyle = "green"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-}
-
 class Lightning extends Projectile {
     constructor(x, y) {
         super();
@@ -754,7 +755,7 @@ class Lightning extends Projectile {
         this.movSpd = 15;
         this.width = 60;
         this.height = 595;
-        this.stunDuration = 3000;
+        this.stunDuration = 2000;
     }
 
     updatePosition() {
@@ -825,4 +826,63 @@ class Spear2 extends Projectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal };
+class Slash extends Projectile {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.atk = 2;
+        this.movSpd = 25;
+        this.width = 40;
+        this.height = 150;
+
+        this.knockBackStrength = 0;
+    }
+
+    draw(context) {
+        context.fillStyle = "plum";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+// --------------------  GUARDIAN HEALING PROJECTILE CLASSES  -------------------------
+
+class HealingProjectile extends Sprite {
+    constructor() {
+        super();
+        addToGroup(this, guardianHealingProjectiles);
+    }
+
+    updatePosition() {
+        this.position.y += this.movSpd;
+    }
+
+    draw(context) {
+        context.fillStyle = "green"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+}
+
+
+class Heal extends HealingProjectile {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.heal = 10;
+        this.movSpd = 10;
+        this.width = 40;
+        this.height = 40;
+    }
+}
+
+class Heal2 extends HealingProjectile {
+    constructor(x, y) {
+        super();
+        this.position = { x, y };
+        this.heal = 1;
+        this.movSpd = 10;
+        this.width = 40;
+        this.height = 40;
+    }
+}
+
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal, Heal2 };
