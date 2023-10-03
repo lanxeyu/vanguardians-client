@@ -13,10 +13,10 @@ const App = () => {
                 <Route path="guardians/:id" element={<Pages.Guardian />} />
                 <Route path="login" element={<Pages.Login />} />
                 <Route path="signup" element={<Pages.Signup />} />
-
-                <Route element={<RequireAuth />}>
                     <Route path="/game" element={<Pages.GamePage />} />
                     <Route path="leaderboard" element={<Pages.Leaderboard />} />
+
+                <Route element={<RequireAuth />}>
                 </Route>
 
                 <Route path="*" element={<Pages.NotFound />} />
