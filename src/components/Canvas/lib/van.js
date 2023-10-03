@@ -70,6 +70,9 @@ class Van extends Sprite {
         );
     }
 
+
+    getHealed(){}
+    
     getDamaged(damage) {
         this.currHealth -= damage;
     }

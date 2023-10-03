@@ -1,4 +1,4 @@
-const allSprites = [];
+let allSprites = [];
 const guardians = [];
 const guardianProjectiles = [];
 const enemies = [];
@@ -9,6 +9,7 @@ const background = [];
 const ui = [];
 const portraits = []
 const foreground = [];
+const guardianHealingProjectiles = [];
 let popUpMsgs = [];
 
 function addToGroup(sprite, group) {
@@ -46,6 +47,12 @@ function drawEnemies(context) {
 
 function drawGuardianProjectiles(context) {
     for (const sprite of guardianProjectiles) {
+        sprite.draw(context);
+    }
+}
+
+function drawGuardianHealingProjectiles(context) {
+    for (const sprite of guardianHealingProjectiles) {
         sprite.draw(context);
     }
 }
@@ -108,6 +115,7 @@ export {
     allSprites,
     guardians,
     guardianProjectiles,
+    guardianHealingProjectiles,
     enemies,
     enemyProjectiles,
     damageNumbers,
@@ -122,6 +130,7 @@ export {
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,
+    drawGuardianHealingProjectiles,
     drawEnemyProjectiles,
     drawDamageNumbers,
     drawPopUpMsgs,

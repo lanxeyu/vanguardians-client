@@ -12,15 +12,17 @@ import {
     spawnRobbie,
     spawnSteph,
 } from "./lib/spawner";
-import { checkAtkBoxCollisions, checkProjectileCollisions } from "./lib/collision";
+import { checkAtkBoxCollisions, checkHealingProjectileCollisions, checkProjectileCollisions } from "./lib/collision";
 import {
     guardians,
     enemies,
     guardianProjectiles,
+    guardianHealingProjectiles,
     drawAllHealthbars,
     drawDamageNumbers,
     drawEnemies,
     drawGuardianProjectiles,
+    drawGuardianHealingProjectiles,
     drawGuardians,
     drawVan,
     drawForeground,
@@ -116,6 +118,7 @@ const Canvas = () => {
                     checkAtkBoxCollisions(guardians, enemies);
                     checkAtkBoxCollisions(enemies, guardians);
                     checkProjectileCollisions(guardianProjectiles, enemies);
+                    checkHealingProjectileCollisions(guardianHealingProjectiles, guardians)
 
                     
                     drawBackground(context);
@@ -124,6 +127,7 @@ const Canvas = () => {
                     drawEnemies(context);
                     drawAllHealthbars(context);
                     drawGuardianProjectiles(context);
+                    drawGuardianHealingProjectiles(context);
                     drawDamageNumbers(context);
                     drawPopUpMsgs(context);
 
