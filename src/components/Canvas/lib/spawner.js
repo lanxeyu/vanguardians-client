@@ -151,16 +151,39 @@ function spawnEnemies() {
     }
 }
 
+
+
+// Constructor arguements
+// (x, y, imageSrc, scale, framesMax, offset, sprites)
+function spawnLanxe() {
+    new Lanxe(50, canvas.height - 168 - 260, "src/components/canvas/img/Lanxe/Idle.png", 2.6, 8, { x: 225, y: 166 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Lanxe/Idle.png",
+            framesMax: 8
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Lanxe/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Lanxe/Attack.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Lanxe/Hit.png",
+            framesMax: 4
+        }
+    });
+    new LevelUp('New Guardian: Lanxe the Samurai', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
+}
+
+
 function spawnDuncan() {
     new Duncan(50, canvas.height - 168 - 280, "src/components/canvas/img/Duncan/Idle.png");
     new LevelUp('New Guardian: Duncan the Tank', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
-function spawnLanxe() {
-    new Lanxe(50, canvas.height - 168 - 260, "src/components/canvas/img/Lanxe/Idle.png");
-    new LevelUp('New Guardian: Lanxe the Samurai', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
-
-}
 
 function spawnRobbie() {
     new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png");
@@ -182,12 +205,31 @@ function spawnAlex() {
     new LevelUp('New Guardian: Alex the Battlemage', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
+// x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }
 function spawnSkeleton() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png");
+    new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png", 2.6, 4, { x: 140, y: 113 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Skeleton/Idle.png",
+            framesMax: 4
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Skeleton/Walk.png",
+            framesMax: 4
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Skeleton/Attack.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Skeleton/Hit.png",
+            framesMax: 4
+        }
+    });
 }
 
 function spawnGoblin() {

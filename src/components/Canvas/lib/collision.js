@@ -1,5 +1,5 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, Robbie, Spear, Lightning, Explosion, Heal, Spear2 } from "./guardians";
+import { Duncan, Robbie, Spear, Lightning, Explosion, Spear2 } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 
