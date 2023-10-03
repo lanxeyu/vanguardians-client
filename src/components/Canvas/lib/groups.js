@@ -1,16 +1,4 @@
 let allSprites = [];
-<<<<<<< HEAD
-let guardians = [];
-let guardianProjectiles = [];
-let enemies = [];
-let enemyProjectiles = [];
-let damageNumbers = [];
-let van = [];
-let background = [];
-let ui = [];
-let portraits = []
-let foreground = [];
-=======
 const guardians = [];
 const guardianProjectiles = [];
 const enemies = [];
@@ -22,7 +10,6 @@ const ui = [];
 const portraits = []
 const foreground = [];
 const guardianHealingProjectiles = [];
->>>>>>> dev-robbie
 let popUpMsgs = [];
 
 function addToGroup(sprite, group) {
