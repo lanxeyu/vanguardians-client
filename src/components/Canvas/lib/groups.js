@@ -30,6 +30,7 @@ function updateAllSprites() {
 
 function clearAllSprites() {
     allSprites = [];
+    console.log(guardians);
 }
 
 function drawGuardians(context) {

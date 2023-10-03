@@ -638,10 +638,10 @@ class Duncan extends Guardian {
     // }
 
 
-    // draw(context) {
-    //     super.draw(context)
-    //     context.fillStyle = "purple";
-    //     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    draw(context) {
+        super.draw(context)
+        context.fillStyle = "purple";
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     //     // context.fillRect(this.position.x, this.position.y, this.atkRange, 10)
 
@@ -653,7 +653,7 @@ class Duncan extends Guardian {
     //     //         this.atkBox.height
     //     //     );
     //     // }
-    // }
+    }
 }
 
 class Alex extends Guardian {
