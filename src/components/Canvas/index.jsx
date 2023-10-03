@@ -66,8 +66,8 @@ const Canvas = () => {
         new Van(50, 348, "src/components/canvas/img/van.png");
 
         // spawnDuncan();
-        // spawnLanxe();
-        spawnSteph();
+        spawnLanxe();
+        // spawnSteph();
         // spawnRobbie();
         // spawnJames();
         // spawnAlex();
