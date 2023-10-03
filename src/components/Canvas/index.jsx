@@ -100,6 +100,7 @@ const Canvas = () => {
             initCanvas(canvas);
             context.scale(1, 1)
 
+            // Main game loop logic
             const gameLoop = () => {
                 context.clearRect(0, 0, canvas.width, canvas.height)
                 context.fillStyle = "black";

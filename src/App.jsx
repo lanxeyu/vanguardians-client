@@ -13,11 +13,18 @@ const App = () => {
                 <Route path="guardians/:id" element={<Pages.Guardian />} />
                 <Route path="login" element={<Pages.Login />} />
                 <Route path="signup" element={<Pages.Signup />} />
+<<<<<<< HEAD
                 <Route path="/game" element={<Pages.GamePage />} />
                 <Route path="leaderboard" element={<Pages.Leaderboard />} />
                 <Route element={<RequireAuth />}>
                     
                     
+=======
+                    <Route path="/game" element={<Pages.GamePage />} />
+                    <Route path="leaderboard" element={<Pages.Leaderboard />} />
+
+                <Route element={<RequireAuth />}>
+>>>>>>> e6d726b5b3a7bed7795315399c8fc290d58ae5c4
                 </Route>
 
                 <Route path="*" element={<Pages.NotFound />} />
