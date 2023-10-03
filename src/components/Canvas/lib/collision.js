@@ -1,6 +1,6 @@
 import { DamageNumber } from "./utilclasses";
 import { Duncan, Robbie, Spear, Lightning, Explosion } from "./guardians";
-import { Skeleton } from "./enemies";
+import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianProjectiles, removeFromGroup } from "./groups";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
@@ -12,7 +12,7 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB)) {
                     spriteB.getDamaged(spriteA.atk)
-                    new DamageNumber((spriteA.atk-spriteB.damageResistance), spriteB.position.x + (spriteB.width / 2), spriteB.position.y)
+                    new DamageNumber((spriteA.atk/spriteB.damageResistance), spriteB.position.x + (spriteB.width / 2), spriteB.position.y)
 
                     // --------- SPECIAL HIT INTERACTIONS ---------
 
@@ -26,6 +26,9 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
 
                     // ENEMIES
                     else if (spriteA instanceof Skeleton){
+                        spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    }
+                    else if (spriteA instanceof Troll){
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
                 }

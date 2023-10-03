@@ -1,7 +1,11 @@
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
+<<<<<<< HEAD
 import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
 import { KnockedOut } from "./utilclasses";
+=======
+import { CHAR_MODES, CHAR_STATES } from "./statemanagers";
+>>>>>>> 3c5aaae9ed22452b10a9dce413a1dc4f0fbc2863
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -20,7 +24,10 @@ class Character extends Sprite {
 
         this.isKnockedBack = false;
         this.isStunned = false;
-        this.damageResistance = 0;
+
+        this.knockBackStrength = 0;
+        this.knockBackResistance = 1;
+        this.damageResistance = 1;
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
@@ -55,6 +62,7 @@ class Character extends Sprite {
         }
     }
 
+<<<<<<< HEAD
     getKnockedBack(distance) {
         if (this.isKnockedBack === false) {
             this.isKnockedBack = true;
@@ -66,6 +74,21 @@ class Character extends Sprite {
                 }   
             }, 150);
         }
+=======
+    getKnockedBack(knockBackStrength) {
+        this.isKnockedBack = true;
+        if (this.knockBackResistance > 0) {
+            this.knockBackDistance = (knockBackStrength / this.knockBackResistance);
+        } else {
+            this.knockBackDistance = knockBackStrength
+        }
+        setTimeout(() => {
+            this.isKnockedBack = false;
+            if (!this.isStunned) {
+                this.getStunned(200);
+            }
+        }, 150);
+>>>>>>> 3c5aaae9ed22452b10a9dce413a1dc4f0fbc2863
     }
 
     getStunned(duration) {
@@ -123,7 +146,7 @@ class Character extends Sprite {
     drawHealthbars(context) {
         context.fillStyle = "grey";
         context.fillRect(
-            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.x + this.width / 2 - this.healthBarWidth / 2,
             this.position.y - 10,
             this.healthBarWidth,
             this.healthBarHeight
@@ -131,7 +154,7 @@ class Character extends Sprite {
 
         context.fillStyle = "red";
         context.fillRect(
-            this.position.x + (this.width / 2) - (this.healthBarWidth / 2),
+            this.position.x + this.width / 2 - this.healthBarWidth / 2,
             this.position.y - 10,
             (this.currHealth / this.maxHealth) * this.healthBarWidth,
             this.healthBarHeight
@@ -200,29 +223,33 @@ class Guardian extends Character {
     // Default movement for Guardians if not overriden in the subclass
     updatePosition() {
         // Distance between player and home
-        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
+        const retreatDistance = Math.abs(this.position.x - this.homePositionX);
 
         // Knockback check
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
 
-        // Retreat block
-        } else if(this.isRetreating){
+            // Retreat block
+        } else if (this.isRetreating) {
             if (retreatDistance > this.movSpd) {
                 if (this.homePositionX > this.position.x) {
-                    this.position.x += this.movSpd
-                } 
-                else if (this.homePositionX < this.position.x) {
-                    this.position.x -= this.movSpd
+                    this.position.x += this.movSpd;
+                } else if (this.homePositionX < this.position.x) {
+                    this.position.x -= this.movSpd;
                 }
+            } else {
+                this.position.x = this.homePositionX;
+                this.currentState = CHAR_STATES.IDLE;
             }
-            else {
-                this.position.x = this.homePositionX
-                this.currentState = CHAR_STATES.IDLE
-            }
-        
-        // Normal movement block
-        } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && !this.checkTargetInRange()) {
+
+            // Normal movement block
+        } else if (
+            !this.isKnockedBack &&
+            !this.isStunned &&
+            this.target &&
+            this.position.x < this.positionXLimit &&
+            !this.checkTargetInRange()
+        ) {
             this.position.x += this.movSpd;
         }
     }
@@ -308,6 +335,7 @@ class Guardian extends Character {
 class Lanxe extends Guardian {
     constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 225, y: 166 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "lanxe"
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -319,8 +347,6 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
 
-        this.name = "lanxe"
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -328,7 +354,7 @@ class Lanxe extends Guardian {
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.healthBarPosition.x = 130;
@@ -357,8 +383,13 @@ class Lanxe extends Guardian {
         }
     }
 
+<<<<<<< HEAD
     // draw(context) {
     //     super.draw(context)
+=======
+    draw(context) {
+        super.draw(context);
+>>>>>>> 3c5aaae9ed22452b10a9dce413a1dc4f0fbc2863
         // this.atkBox.position.x = this.position.x
         // this.atkBox.position.y = this.position.y
         // context.fillStyle = "blue"
@@ -378,6 +409,7 @@ class Lanxe extends Guardian {
 class Robbie extends Guardian {
     constructor(x, y, imageSrc, scale = 1.5, framesMax = 6, offset = { x: 120, y: 70 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "robbie";
         this.position = { x, y };
         this.width = 70;
         this.height = 140;
@@ -388,7 +420,7 @@ class Robbie extends Guardian {
         this.atkRange = 1000;
         this.movSpd = 3;
 
-        this.name = "robbie";
+
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -411,8 +443,13 @@ class Robbie extends Guardian {
         }, 10);
     }
 
+<<<<<<< HEAD
     // draw(context) {
     //     super.draw(context)
+=======
+    draw(context) {
+        super.draw(context);
+>>>>>>> 3c5aaae9ed22452b10a9dce413a1dc4f0fbc2863
         // context.fillStyle = "green";
         // context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
@@ -421,6 +458,7 @@ class Robbie extends Guardian {
 class James extends Guardian {
     constructor(x, y, imageSrc, scale = 2.8, framesMax = 9, offset = { x: 40, y: 90 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "james";
         this.position = { x, y };
         this.width = 150;
         this.height = 70;
@@ -431,14 +469,14 @@ class James extends Guardian {
         this.atkRange = 900;
         this.movSpd = 4;
 
-        this.name = "james";
+
 
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.currentState = CHAR_STATES.FLEEING;
@@ -474,6 +512,7 @@ class James extends Guardian {
 class Steph extends Guardian {
     constructor(x, y, imageSrc, scale = 3.0, framesMax = 8, offset = { x: 195, y: 140 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "steph";
         this.position = { x, y };
         this.width = 50;
         this.height = 140;
@@ -484,7 +523,7 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
-        this.name = "steph";
+
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -506,13 +545,14 @@ class Steph extends Guardian {
     // draw(context) {
     //     super.draw(context);
     //     context.fillStyle = "LightSkyBlue";
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // context.fillRect(this.position.x, this.position.y, this.width, this.height);
     // }
 }
 
 class Duncan extends Guardian {
     constructor(x, y, imageSrc, scale = 3.0, framesMax = 10, offset = { x: 266, y: 205 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "duncan";
         this.position = { x, y };
         this.width = 90;
         this.height = 180;
@@ -523,13 +563,9 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-        this.name = "duncan";
-
-        this.knockBackStrength = 10
-        this.knockBackResistance = 2
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
-        this.damageResistance = 0;
+        this.damageResistance = 1;
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -538,7 +574,7 @@ class Duncan extends Guardian {
         this.atkBox = {
             position: this.position,
             width: this.atkRange,
-            height: 50,
+            height: this.height,
         };
 
         this.framesCurrent = 0;
@@ -552,54 +588,29 @@ class Duncan extends Guardian {
     toggleAttributes() {
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.damageResistance = 0;
+                this.damageResistance = 1;
                 this.knockBackResistance = 2;
                 break;
             case CHAR_MODES.MODE_2:
-                this.damageResistance = 3;
-                this.knockBackResistance = 10;
+                this.damageResistance = 2;
+                this.knockBackResistance = 5;
                 break;
             default:
-                this.damageResistance = 0;
+                this.damageResistance = 1;
                 this.knockBackResistance = 2;
         }
     }
 
-    updatePosition() {
-        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
-        
+    updatePosition() {   
         // Mode 1 Block
         if (this.currentMode == CHAR_MODES.MODE_1){
-            
-            // Knockback check
-            if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
-            
-            // Retreat block
-            } else if (this.isRetreating){
-                if (retreatDistance > this.movSpd) {
-                    if (this.homePositionX > this.position.x) {
-                        this.position.x += this.movSpd
-                    } 
-                    else if (this.homePositionX < this.position.x) {
-                        this.position.x -= this.movSpd
-                    }
-                }
-                else {
-                    this.position.x = this.homePositionX
-                    this.currentState = CHAR_STATES.IDLE
-                }
-                
-            // Normal movement block
-            } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && this.checkTargetInRange() == false) {
-                this.position.x += this.movSpd;
-            }
+            super.updatePosition()            
         }
 
         // Mode 2 Block
         else {
             if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
+                this.position.x += this.knockBackDistance
             }
         }
     }
@@ -609,27 +620,6 @@ class Duncan extends Guardian {
             super.updateAttacking();
         }
     }
-
-    // updatePosition() {
-    //     if (this.currentMode == CHAR_MODES.MODE_1){
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         } else if (
-    //             !this.isKnockedBack &&
-    //             !this.isStunned &&
-    //             this.target &&
-    //             this.position.x < this.positionXLimit &&
-    //             this.checkTargetInRange() == false
-    //         ) {
-    //             this.position.x += this.movSpd;
-    //         }
-    //     } else {
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         }
-    //     }
-    // }
-
 
     // draw(context) {
     //     super.draw(context)
@@ -689,11 +679,6 @@ class Lightning extends Projectile {
     draw(context) {
         context.fillStyle = "orange";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-
-    explodeOnImpact() {
-        if (this.position.y === this.target.position.y)
-            new Explosion(this.position.x, this.position.y + 100);
     }
 }
 
