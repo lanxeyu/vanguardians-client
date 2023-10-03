@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
-// import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./index.css";
@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    // const { setAuth } = useAuth();
+    const { setUser } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -37,11 +37,22 @@ const Login = () => {
             localStorage.setItem("token", response.data.token);
             const token = localStorage.getItem("token");
 
-            console.log(response.data);
+            setUser(token);
+            console.log(token);
 
-            // setAuth({ username, password, token });
-            setUsername("");
-            setPassword("");
+            // console.log(token);
+            // const options = {
+            //     headers: {
+            //         token: token,
+            //     },
+            // };
+            // const response2 = await axios.post("http://127.0.0.1:5000/auth", options);
+
+            // setAuth(response2.data);
+            // console.log(response2.data);
+            // setUsername("");
+            // setPassword("");
+            // setUser(data.username);
             navigate("/");
         } catch (error) {
             if (!error?.response) {
