@@ -745,7 +745,7 @@ class Lightning extends Projectile {
         this.width = 60;
         this.height = 595;
         this.stunDuration = 3000;
-        this.image.src = "/src/components/canvas/img/Stephanie/Idle.png" 
+        this.image.src = "/src/components/canvas/img/Steph/Idle.png" 
 
         this.framesCurrent = 20;
         this.framesElapsed = 20;

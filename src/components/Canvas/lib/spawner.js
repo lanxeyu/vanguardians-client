@@ -206,7 +206,7 @@ function spawnDuncan() {
 }
 
 function spawnSteph() {
-    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Stephanie/Idle.png", 3.0, 8, { x: 195, y: 140 },
+    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Steph/Idle.png", 3.0, 8, { x: 195, y: 140 },
     {
         idle: {
             imageSrc: "src/components/canvas/img/Steph/Idle.png",
