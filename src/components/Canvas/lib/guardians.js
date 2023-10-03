@@ -1,6 +1,7 @@
 import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
+import { KnockedOut } from "./utilclasses";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -24,6 +25,7 @@ class Character extends Sprite {
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
 
+
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
@@ -32,23 +34,38 @@ class Character extends Sprite {
     }
 
     getDamaged(damage) {
-        if (this.damageResistance > 0) {
-            const reducedDamage = damage / this.damageResistance;
-            this.currHealth -= reducedDamage;
-        } else {
-            this.currHealth -= damage;
+        if (!this.isKnockedOut) {
+            if (this.damageResistance > 0) {
+                const reducedDamage = damage / this.damageResistance;
+                if (reducedDamage > this.currHealth) {
+                    this.currHealth = 0;
+                }
+                else {
+                    this.currHealth -= reducedDamage;
+                }
+                
+            } else {
+                if (damage > this.currHealth) {
+                    this.currHealth = 0;
+                }
+                else {
+                    this.currHealth -= damage;
+                }
+            }
         }
     }
 
     getKnockedBack(distance) {
-        this.isKnockedBack = true;
-        this.knockBackDistance = distance;
-        setTimeout(() => {
-            this.isKnockedBack = false;
-            if (!this.isStunned) {
-                this.getStunned(200);
-            }
-        }, 150);
+        if (this.isKnockedBack === false) {
+            this.isKnockedBack = true;
+            this.knockBackDistance = distance;
+            setTimeout(() => {
+                this.isKnockedBack = false;
+                if (!this.isStunned) {
+                    this.getStunned(200);
+                }   
+            }, 150);
+        }
     }
 
     getStunned(duration) {
@@ -65,15 +82,15 @@ class Character extends Sprite {
         for (const sprite of group) {
             const distance = Math.abs(sprite.position.x - this.position.x);
 
-            if (
-                (type === "guardian" && sprite.position.x > this.position.x) ||
-                (type === "enemy" && sprite.position.x < this.position.x)
+            if ((type === "guardian" && sprite.position.x > this.position.x) ||
+                (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
             ) {
                 if (distance < nearestDistance) {
                     nearestTarget = sprite;
                     nearestDistance = distance;
                 }
             }
+
         }
         return nearestTarget;
     }
@@ -84,7 +101,7 @@ class Character extends Sprite {
         for (const sprite of group) {
             if (
                 (type === "guardian" && sprite.position.x > this.position.x) ||
-                (type === "enemy" && sprite.position.x < this.position.x)
+                (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
             ) {
                 validTargets.push(sprite);
             }
@@ -120,6 +137,15 @@ class Character extends Sprite {
             this.healthBarHeight
         );
     }
+    
+    drawKnockedOutBars(context) {
+        if (this.isKnockedOut) {
+            context.fillStyle = 'rgb(255, 255, 255)';
+            let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
+            context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
+        }
+    }
+
 }
 
 // --------------------  GUARDIAN CLASSES  -------------------------
@@ -135,9 +161,13 @@ class Guardian extends Character {
     ) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
-        this.positionXLimit = 900;
+        this.positionXLimit = 2000;
         this.homePositionX = 50;
         this.isKnockedOut = false;
+
+        this.endTime = new Date()
+        this.knockedOutLifeTime = 10000
+        this.knockedOutElapsed = 0;
 
         this.currentState = CHAR_STATES.IDLE;
         this.currentMode = CHAR_MODES.MODE_1;
@@ -148,10 +178,18 @@ class Guardian extends Character {
     }
 
     getKnockedOut() {
-        this.isKnockedOut = true;
-        setTimeout(() => {
-            this.isKnockedOut = false;
-        }, 10000);
+        if (this.isKnockedOut === false) {
+            this.isKnockedOut = true;
+            new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
+            this.endTime.setSeconds(new Date().getSeconds() + this.knockedOutLifeTime / 1000)
+            this.knockedOutElapsed = 0;
+            setTimeout(() => {
+                this.isKnockedOut = false;
+                new KnockedOut("Recovered", this.position.x + (this.width / 2), this.position.y)
+                this.currHealth = this.maxHealth;
+            }, this.knockedOutLifeTime);
+        }
+        
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -227,10 +265,20 @@ class Guardian extends Character {
                 this.getKnockedOut();
             }
             this.updateTarget();
-            this.updatePosition();
             this.updateAttacking();
-            this.updateAnimation();
+            this.updatePosition();
         }
+        else {
+            if (this.knockedOutElapsed >= this.knockedOutLifeTime) {
+                this.knockedOutElapsed = this.knockedOutLifeTime
+            }
+            else {
+                this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
+            }
+        }
+
+        
+        this.updateAnimation();
     }
 
     toggleModes() {
@@ -245,6 +293,15 @@ class Guardian extends Character {
                 this.currentMode = CHAR_MODES.MODE_1;
         }
         this.toggleAttributes();
+    }
+
+    draw(context) {
+        super.draw(context)
+        if (this.isKnockedOut) {
+            context.fillStyle = 'rgb(255, 255, 255)';
+            let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
+            context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
+        }
     }
 }
 
@@ -300,8 +357,8 @@ class Lanxe extends Guardian {
         }
     }
 
-    draw(context) {
-        super.draw(context)
+    // draw(context) {
+    //     super.draw(context)
         // this.atkBox.position.x = this.position.x
         // this.atkBox.position.y = this.position.y
         // context.fillStyle = "blue"
@@ -315,7 +372,7 @@ class Lanxe extends Guardian {
         //         this.atkBox.height
         //     );
         // }
-    }
+    // }
 }
 
 class Robbie extends Guardian {
@@ -354,11 +411,11 @@ class Robbie extends Guardian {
         }, 10);
     }
 
-    draw(context) {
-        super.draw(context)
+    // draw(context) {
+    //     super.draw(context)
         // context.fillStyle = "green";
         // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // }
 }
 
 class James extends Guardian {
@@ -459,7 +516,7 @@ class Duncan extends Guardian {
         this.position = { x, y };
         this.width = 90;
         this.height = 180;
-        this.maxHealth = 175;
+        this.maxHealth = 40;
         this.currHealth = this.maxHealth;
         this.atk = 2;
         this.atkSpd = 2300;
@@ -577,7 +634,9 @@ class Duncan extends Guardian {
     // draw(context) {
     //     super.draw(context)
     //     context.fillStyle = "purple";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    //     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
+
+    //     // context.fillRect(this.position.x, this.position.y, this.atkRange, 10)
 
     //     // if (this.isAttacking) {
     //     //     context.fillRect(

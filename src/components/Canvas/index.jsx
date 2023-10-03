@@ -33,6 +33,7 @@ import {
     drawPopUpMsgs,
 } from "./lib/groups";
 import { loadFonts } from './lib/resources'
+import { GAME_STATES } from "./lib/statemanagers";
 import { useGameStart } from "./lib/utils";
 import { addKeyListener } from "./lib/utils";
 import "../../pages/Home/index.css";
@@ -40,8 +41,8 @@ import "../../pages/Home/index.css";
 const Canvas = () => {
     const [showGameOver, setShowGameOver] = useState(false);
     const gameStarted = useGameStart();
-    const [scores, setScores] = useState(0);
-    const [totalKills, setTotalKills] = useState(0);
+    // const [scores, setScores] = useState(0);
+    // const [totalKills, setTotalKills] = useState(0);
 
     useEffect(() => {
         const canvas = document.querySelector("canvas");
@@ -53,6 +54,11 @@ const Canvas = () => {
         const originX = canvas.width / 2, originY = canvas.height / 2;
 
         loadFonts();
+
+        let scores = 0;
+        let totalKills = 0;
+
+        let currentGameState = GAME_STATES.MAIN_MENU;
 
         if (canvas) {
             initCanvas(canvas);
@@ -156,7 +162,7 @@ const Canvas = () => {
 
                 // Loop from last drawn
                 for (let i = guardians.length-1; i >= 0; i--) {
-                    console.log(guardians[i].name)
+                    // console.log(guardians[i].name)
                     if (y > guardians[i].position.y && y < guardians[i].position.y + guardians[i].height 
                         && x > guardians[i].position.x && x < guardians[i].position.x + guardians[i].width) {
                             
@@ -185,7 +191,7 @@ const Canvas = () => {
     return (
         <div>
             <canvas id="canvas"></canvas>
-            {showGameOver && (
+            {/* {showGameOver && (
                 <div id="popup-container">
                     <div id="popup">
                         <p>GameOver...</p>
@@ -195,7 +201,7 @@ const Canvas = () => {
                         <Link to={"/"}>Return Home</Link>
                     </div>
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
