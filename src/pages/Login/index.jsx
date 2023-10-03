@@ -76,25 +76,29 @@ const Login = () => {
                 </p>
                 <h1 className="signin">Sign In</h1>
                 <form id="login-form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={e => setUsername(e.target.value)}
-                        value={username}
-                        required
-                    />
-
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={e => setPassword(e.target.value)}
-                        value={password}
-                        required
-                    />
+                    <div className="form-input-wrapper">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={e => setUsername(e.target.value)}
+                            value={username}
+                            required
+                        />
+                    </div>
+                    <div className="form-input-wrapper">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={e => setPassword(e.target.value)}
+                            value={password}
+                            required
+                        />
+                    </div>
+                    
                     <button data-testid="login-btn">Sign In</button>
                 </form>
                 <p>
