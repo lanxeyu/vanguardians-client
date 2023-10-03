@@ -29,29 +29,29 @@ const GuardianProfile = ({ guardian }) => {
         break;
     }
   }, [])
-  console.log(imgUrl)
-  return (
-    <>
-    <div className="guardian-profile" id="guardian-profile-container">
-      <div className="guardian-profile-card">
-        <h4>{g.name}</h4>
-        <h5>Type: {g.g_class}</h5>
-        <img src={imgUrl} alt={g.name} />
-      </div>
 
-      <div className="guardian-profile-card" id='card-2'>
-        <div className="prof-section" id='about'>
-          <h3>About:</h3>
-          <p>{g.about}</p>
-        </div>
-        <div className="prof-section" id='attack-type'>
-          <h3>Attack type:</h3>
-          <p>{g.attack_type}</p>
-        </div>
-        
+  return (
+    <div id="guardian-profile-page-container">
+      <div className="guardian-profile-wrapper">
+          <div className="guardian-profile-card">
+            <h4 className="guardian-profile-card-name">{g.name}</h4>
+            <h5 className="guardian-profile-card-type">Type: {g.g_class}</h5>
+            <img className="guardian-profile-card-image" src={imgUrl} alt={g.name} />
+          </div>
+
+          <div className="guardian-profile-bio">
+            <div className="guardian-profile-bio-section">
+              <h3 className="guardian-profile-bio-header">About:</h3>
+              <p className="guardian-profile-bio-text">{g.about}</p>
+            </div>
+            <div className="guardian-profile-bio-section">
+              <h3 className="guardian-profile-bio-header">Attack type:</h3>
+              <p className="guardian-profile-bio-text">{g.attack_type}</p>
+            </div>
+            
+          </div>
       </div>
     </div>
-    </>
         
   )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
 import { SwitchMode } from "./utilclasses";
-import { GAME_STATES } from "./statemanagers";
+import { GAME_STATES, getCurrentGameState, setCurrentGameState } from "./statemanagers";
 
 function useGameStart() {
   
@@ -9,8 +9,11 @@ function useGameStart() {
 
   useEffect(() => {
     function handleKeyPress(event) {
-      if (event.key === "Enter" && !gameStarted) {
-        setGameStarted(true);
+
+      if (event.key === "Enter" && (getCurrentGameState() === GAME_STATES.MAIN_MENU || 
+      getCurrentGameState() === GAME_STATES.END_SCREEN)) {
+        // setGameStarted(true);
+        setCurrentGameState(GAME_STATES.PLAYING)
       }
     }
 
@@ -22,12 +25,6 @@ function useGameStart() {
   }, [gameStarted]);
 
   return gameStarted;
-}
-
-function useGameState() {
-  const [currentGameState, setCurrentGameState] = useState(GAME_STATES.MAIN_MENU);
-
-  return currentGameState;
 }
 
 

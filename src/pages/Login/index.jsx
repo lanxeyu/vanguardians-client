@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    const { setUser } = useAuth();
+    const { setAuth, auth } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -40,19 +40,11 @@ const Login = () => {
             setUser(token);
             console.log(token);
 
-            // console.log(token);
-            // const options = {
-            //     headers: {
-            //         token: token,
-            //     },
-            // };
-            // const response2 = await axios.post("http://127.0.0.1:5000/auth", options);
+            setAuth(response);
+            console.log(auth);
 
-            // setAuth(response2.data);
-            // console.log(response2.data);
-            // setUsername("");
-            // setPassword("");
-            // setUser(data.username);
+            setUsername("");
+            setPassword("");
             navigate("/");
         } catch (error) {
             if (!error?.response) {
@@ -69,7 +61,7 @@ const Login = () => {
     };
 
     return (
-        <>
+        <div id="login-page-container">
             <section className="loginForm">
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
                     {errMsg}
@@ -105,7 +97,7 @@ const Login = () => {
                     </Link>
                 </p>
             </section>
-        </>
+        </div>
     );
 };
 

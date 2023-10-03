@@ -1,74 +1,82 @@
-.guardian-profile {
+#guardian-profile-page-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 5vh;
-  caret-color: transparent;
+  height: calc(100% - 4.9em);
+  width: 100%;  
 }
 
-.guardian-profile-card> img{
-  height: 34vh;
-  margin-top: -7vh;
-}
+.guardian-profile-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-#card-2 {
-  flex-direction: column;
-  background-color: #001B22;
-  background-position-y: 28%;
-}
-
-.prof-section {
-  text-align: center;
-  margin: 2vh;
-  border-radius: 1vh;
-  padding: 1vh;
-  max-width: 18vw;
-}
-
-.prof-section> h3 {
-  font-size: 3.7vh;
-  font-family: Silkscreen;
-}
-
-.prof-section> p {
-  font-size: 3vh;
-  font-family: Silkscreen;
-}
-
-.guardian-profile-card> h4, h5 {
-  font-family: Silkscreen;
-  position: absolute;
-  font-size: 4.5vh;
-  padding: 1vh;
-}
-
-.guardian-profile-card> h5 {
-  margin-bottom: -47vh;
-  font-size: 3.5vh;
-}
-
-.guardian-profile-card> h4 {
-  font-family: Silkscreen;
-  margin-top: -64vh;
+  width: 60%;
+  height: 45%;  
+  /* background-color:chocolate; */
 }
 
 .guardian-profile-card {
-  height: 57vh;
-  width: 25vw;
-  min-height: 250px;
-  min-width: 300px;
-  padding-top: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 50%;
+  overflow: hidden;
+  background-color: #064457
+}
+
+.guardian-profile-card-name {
+  font-size: 2.5em;
+}
+
+.guardian-profile-card-type {
+  font-size: 1.1em;
+}
+
+.guardian-profile-card-image {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3vh;
-  /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
-  background-color: #001B22;
-  background-position: center;
-  background-size: cover;
-  border-radius: 3vh;
-  border: 3px solid #004657;
+  height: 80%;
+  width: auto;
+  margin-top: -10%
 }
+
+.guardian-profile-bio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100%;
+  width: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #001b23;
+}
+
+.guardian-profile-bio-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: 100%;
+  width: 90%;
+  padding: 5%;
+}
+
+.guardian-profile-bio-header {
+  font-size: 1.5em;
+}
+
+.guardian-profile-bio-text {
+  font-size: 1.2em;
+}
+
 
 
 

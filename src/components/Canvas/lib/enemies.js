@@ -1,5 +1,6 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./guardians";
+import { incrementTotalKills } from "./stattracker";
 
 // --------------------  ENEMY CLASSES  -------------------------
 class Enemy extends Character {
@@ -78,6 +79,7 @@ class Enemy extends Character {
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
+            incrementTotalKills();
         }
         this.updateTarget();
         this.updatePosition();
@@ -94,6 +96,7 @@ class Enemy extends Character {
 class Skeleton extends Enemy {
     constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }, healthBarPosition = { x: 0, y: 0 }) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
+        this.name = "skeleton";
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -142,8 +145,10 @@ class Skeleton extends Enemy {
 
 
 class Goblin extends Enemy {
+        
     constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 143 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "goblin"
         this.position = { x, y };
         this.width = 70;
         this.height = 100;
@@ -190,6 +195,7 @@ class Goblin extends Enemy {
 class Demon extends Enemy {
     constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 160 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
+        this.name = "demon"
         this.position = { x, y };
         this.width = 70;
         this.height = 70;
@@ -242,6 +248,7 @@ class Demon extends Enemy {
 class Troll extends Enemy {
     constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }) {
         super(x, y, imageSrc, scale, framesMax, offset)
+        this.name = "troll"
         this.position = {x, y}
         this.width = 70
         this.height = 200

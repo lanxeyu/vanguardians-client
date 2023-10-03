@@ -18,4 +18,12 @@ const GAME_STATES = {
     END_SCREEN: 2,
 };
 
-export { CHAR_STATES, CHAR_MODES, GAME_STATES }
+let currentGameState = GAME_STATES.MAIN_MENU;
+
+function setCurrentGameState(gameState) {
+    currentGameState = gameState;
+}
+
+function getCurrentGameState() { return currentGameState }
+
+export { CHAR_STATES, CHAR_MODES, GAME_STATES, setCurrentGameState, getCurrentGameState }

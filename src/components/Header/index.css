@@ -9,6 +9,8 @@
 
 html,
 body {
+    margin: 0;
+    padding: 0;
     height: 100%;
     width: 100%;
 }
@@ -16,29 +18,27 @@ body {
 #root {
     height: 100%;
     width: 100%;
-}
-
-body {
-    background-image: url("src/components/canvas/img/starsky-bg.png");
+    background-image: url("/src/components/Canvas/img/starsky-bg.png");
+    background-size: auto 100%;
 }
 
 nav > a {
-    border-left: solid 2px #004657;
-    padding: 0.5rem 1rem;
-    font-size: 1.5rem;
+    border-left: solid 2px #453c34;
+    padding: 0.5em 1em;
+    font-size: 1.5em;
 }
 
 #nav-title {
-    font-size: 2.5rem;
+    font-size: 2.5em;
     text-decoration: none;
 }
 
 header {
-    color: #fffad1;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem;
-    background-color: #232e41;
-    height: 3.9rem;
+    background-color: #001b23;
+    height: 3.9em;
 }
