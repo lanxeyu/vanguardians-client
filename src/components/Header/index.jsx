@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+
 const styles = ({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" });
 import "./index.css";
+import { useAuth } from "../../context/AuthProvider";
 
 export default function Header() {
-    const isLoggedIn = JSON.stringify(localStorage.getItem("token"));
+    // const initialLoggedInState = !!localStorage.getItem("token");
+
+    // const [loggedIn, setLoggedIn] = useState(initialLoggedInState);
+
+    // const token = localStorage.getItem("token");
+    // useEffect(() => {
+    //     if (token) {
+    //         setLoggedIn(true);
+    //     } else {
+    //         setLoggedIn(false);
+    //     }
+    //     console.log(loggedIn);
+    // }, [token]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setUser("");
+    };
+
+    const { user } = useAuth();
+
     return (
         <>
             <header>
@@ -24,12 +46,16 @@ export default function Header() {
                     <NavLink to="/game" style={styles}>
                         Game
                     </NavLink>
-                    {!isLoggedIn ? null : (
+
+                    {user ? (
+                        <NavLink to="/login" onClick={handleLogout} style={styles}>
+                            Logout
+                        </NavLink>
+                    ) : (
                         <NavLink to="/login" style={styles}>
                             Login
                         </NavLink>
                     )}
-
                     {/* <NavLink to="/signup" style={styles}>Sign Up</NavLink> */}
                 </nav>
             </header>

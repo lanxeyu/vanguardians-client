@@ -37,11 +37,21 @@ const Login = () => {
             localStorage.setItem("token", response.data.token);
             const token = localStorage.getItem("token");
 
+            setUser(token);
             console.log(token);
 
-            // setAuth({ username, password, token });
-            setUsername("");
-            setPassword("");
+            // console.log(token);
+            // const options = {
+            //     headers: {
+            //         token: token,
+            //     },
+            // };
+            // const response2 = await axios.post("http://127.0.0.1:5000/auth", options);
+
+            // setAuth(response2.data);
+            // console.log(response2.data);
+            // setUsername("");
+            // setPassword("");
             // setUser(data.username);
             navigate("/");
         } catch (error) {
