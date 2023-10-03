@@ -222,7 +222,7 @@ class Troll extends Enemy {
         this.expGrant = 50
 
         this.knockBackStrength = -60
-        this.knockBackResistance = 5
+        this.knockBackResistance = 10
 
         this.isAttacking = false;
         this.atkTimer = null;

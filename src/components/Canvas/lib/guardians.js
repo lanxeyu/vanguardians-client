@@ -28,7 +28,6 @@ class Character extends Sprite {
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
 
-
         this.framesCurrent = 0;
         this.framesElapsed = 0;
         this.framesHold = 5;
@@ -61,7 +60,7 @@ class Character extends Sprite {
     getKnockedBack(distance) {
         if (this.isKnockedBack === false) {
             this.isKnockedBack = true;
-            this.knockBackDistance = distance;
+            this.knockBackDistance = (distance / this.knockBackResistance);
             setTimeout(() => {
                 this.isKnockedBack = false;
                 if (!this.isStunned) {
@@ -436,8 +435,6 @@ class James extends Guardian {
         this.atkRange = 900;
         this.movSpd = 4;
 
-        
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkBox = {
@@ -490,8 +487,6 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
-        
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -530,8 +525,6 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-        this.knockBackStrength = 10
-        this.knockBackResistance = 2
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
         this.damageResistance = 1;
