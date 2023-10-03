@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    const { setAuth, auth } = useAuth();
+    const { setUser } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -40,11 +40,19 @@ const Login = () => {
             setUser(token);
             console.log(token);
 
-            setAuth(response);
-            console.log(auth);
+            // console.log(token);
+            // const options = {
+            //     headers: {
+            //         token: token,
+            //     },
+            // };
+            // const response2 = await axios.post("http://127.0.0.1:5000/auth", options);
 
-            setUsername("");
-            setPassword("");
+            // setAuth(response2.data);
+            // console.log(response2.data);
+            // setUsername("");
+            // setPassword("");
+            // setUser(data.username);
             navigate("/");
         } catch (error) {
             if (!error?.response) {
