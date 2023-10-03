@@ -41,6 +41,7 @@
   background-size: cover;
   border-radius: 3vh;
   border: 3px solid #004657;
+  caret-color: transparent;
 }
 
 .guardian-card:hover {
