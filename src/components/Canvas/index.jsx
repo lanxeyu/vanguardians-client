@@ -57,7 +57,7 @@ const Canvas = () => {
 
         loadFonts();
 
-        let scores = 0;
+        let scores = 0
         let totalKills = 0;
 
         let currentGameState = GAME_STATES.MAIN_MENU
@@ -201,7 +201,6 @@ const Canvas = () => {
                     <div id="popup">
                         <p>GameOver...</p>
                         <p>Score: {van[0].score}</p>
-                        <p>High Score: {van[0].score}</p>
                         <p>Total Kills: {van[0].enemiesKilled}</p>
                         <Link to={"/"}>Return Home</Link>
                     </div>
