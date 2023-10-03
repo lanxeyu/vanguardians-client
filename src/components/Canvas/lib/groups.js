@@ -11,6 +11,7 @@ const portraits = []
 const foreground = [];
 const guardianHealingProjectiles = [];
 let popUpMsgs = [];
+let timers = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -31,7 +32,23 @@ function updateAllSprites() {
 
 function clearAllSprites() {
     allSprites = [];
-    console.log(guardians);
+}
+
+function resetAllGroups() {
+    allSprites = [];
+    guardians.length = 0;
+    guardianProjectiles.length = 0;
+    enemies.length = 0;
+    enemyProjectiles.length = 0;
+    damageNumbers.length = 0;
+    van.length = 0;
+    background.length = 0;
+    ui.length = 0;
+    portraits.length = 0;
+    foreground.length = 0;
+    guardianHealingProjectiles.length = 0;
+    popUpMsgs = [];
+    timers = [];
 }
 
 function drawGuardians(context) {
@@ -127,7 +144,9 @@ export {
     portraits,
     updateAllSprites,
     clearAllSprites,
+    resetAllGroups,
     popUpMsgs,
+    timers,
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,

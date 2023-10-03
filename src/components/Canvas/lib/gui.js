@@ -93,6 +93,7 @@ class PortraitIcon extends Sprite {
 
         context.fillStyle = 'rgb(255, 255, 255)'
         context.font = "24px Silkscreen";
+        context.textAlign = "center"
         context.fillText(this.hotkey, this.position.x + (this.width / 2), this.position.y + this.height + 30)
     }
 

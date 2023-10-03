@@ -133,6 +133,10 @@ function spawnTroll() {
     new Troll(randomX, 290);
 }
 
+function resetWaveCounter() {
+    waveCounter = 0;
+}
+
 export {
     spawnGuardians,
     spawnEnemies,
@@ -143,4 +147,5 @@ export {
     spawnJames,
     spawnAlex,
     waveCounter,
+    resetWaveCounter
 };

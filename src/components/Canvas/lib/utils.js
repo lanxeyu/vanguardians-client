@@ -10,9 +10,9 @@ function useGameStart() {
   useEffect(() => {
     function handleKeyPress(event) {
 
-      if (event.key === "Enter" && getCurrentGameState() === GAME_STATES.MAIN_MENU) {
+      if (event.key === "Enter" && (getCurrentGameState() === GAME_STATES.MAIN_MENU || 
+      getCurrentGameState() === GAME_STATES.END_SCREEN)) {
         // setGameStarted(true);
-        console.log(getCurrentGameState())
         setCurrentGameState(GAME_STATES.PLAYING)
       }
     }

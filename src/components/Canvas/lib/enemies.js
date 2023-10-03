@@ -1,5 +1,6 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./guardians";
+import { incrementTotalKills } from "./stattracker";
 
 // --------------------  ENEMY CLASSES  -------------------------
 class Enemy extends Character {
@@ -55,6 +56,7 @@ class Enemy extends Character {
             this.isAlive = false;
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
+            incrementTotalKills();
         }
         this.updateTarget();
         this.updatePosition();
@@ -65,6 +67,7 @@ class Enemy extends Character {
 class Skeleton extends Enemy {
     constructor(x, y) {
         super();
+        this.name = "skeleton";
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -112,6 +115,7 @@ class Skeleton extends Enemy {
 class Goblin extends Enemy {
     constructor(x, y) {
         super();
+        this.name = "goblin"
         this.position = { x, y };
         this.width = 70;
         this.height = 80;
@@ -158,6 +162,7 @@ class Goblin extends Enemy {
 class Demon extends Enemy {
     constructor(x, y) {
         super();
+        this.name = "demon"
         this.position = { x, y };
         this.width = 70;
         this.height = 70;
@@ -210,6 +215,7 @@ class Demon extends Enemy {
 class Troll extends Enemy {
     constructor(x, y) {
         super()
+        this.name = "troll"
         this.position = {x, y}
         this.width = 70
         this.height = 200

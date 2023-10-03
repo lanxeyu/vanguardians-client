@@ -1,4 +1,4 @@
-import { addToGroup, damageNumbers, removeFromGroup, popUpMsgs } from "./groups";
+import { addToGroup, damageNumbers, removeFromGroup, popUpMsgs, timers } from "./groups";
 import { Sprite } from "./sprite";
 
 
@@ -72,7 +72,8 @@ class LevelUp extends Sprite {
 
         this.alpha = 1;
 
-        setTimeout(() => {}, this.lifeTime * 1000);
+        // this.timer = setTimeout(() => {}, this.lifeTime * 1000);
+        // addToGroup(this.timer, timers);
     }
 
     update() {
@@ -83,6 +84,7 @@ class LevelUp extends Sprite {
 
         if (this.elapsedTime >= this.lifeTime) {
             removeFromGroup(this, popUpMsgs);
+            // removeFromGroup(this.timer, popUpMsgs);
             this.elapsedTime = this.lifeTime;
         } else {
             this.elapsedTime = this.lifeTime - (this.endTime - new Date());
@@ -124,7 +126,8 @@ class SwitchMode extends Sprite {
 
         this.alpha = 1;
 
-        setTimeout(() => {}, this.lifeTime * 1000);
+        // this.timer = setTimeout(() => {}, this.lifeTime * 1000);
+        // addToGroup(this.timer, timers);
     }
 
     update() {
@@ -135,6 +138,7 @@ class SwitchMode extends Sprite {
 
         if (this.elapsedTime >= this.lifeTime) {
             removeFromGroup(this, popUpMsgs);
+            // removeFromGroup(this.timer, popUpMsgs);
             this.elapsedTime = this.lifeTime;
         } else {
             this.elapsedTime = this.lifeTime - (this.endTime - new Date());
@@ -159,7 +163,7 @@ class SwitchMode extends Sprite {
 class KnockedOut extends Sprite {
     constructor(text, x, y) {
         super()
-        addToGroup(this, popUpMsgs)
+        // addToGroup(this, popUpMsgs);
         this.offsetY = 20
         this.offsetX = 0
         let newPointY = y - this.offsetY
@@ -176,8 +180,9 @@ class KnockedOut extends Sprite {
 
         this.alpha = 1
 
-        setTimeout(() => {
-        }, this.lifeTime * 1000)
+        //  this.timer = setTimeout(() => {
+        // }, this.lifeTime * 1000)
+        // addToGroup(this.timer, timers);
     }
 
     update() {
@@ -187,7 +192,8 @@ class KnockedOut extends Sprite {
         this.position = { x: newPointX, y:  newPointY }
 
         if (this.elapsedTime >= this.lifeTime) {
-            removeFromGroup(this, popUpMsgs)
+            // removeFromGroup(this, popUpMsgs);
+            // removeFromGroup(this.timer, timers);
             this.elapsedTime = this.lifeTime
         }
         else {
