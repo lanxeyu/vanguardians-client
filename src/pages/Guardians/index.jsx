@@ -25,7 +25,7 @@ const Guardians = () => {
     const errorOrGallery = error ? 'error' : <GuardianGallery guardians={guardians} />
   return (
     <>
-      <h1 id='guardians-title'>GUARDIANS</h1>
+      <h1 id='guardians-title' style={{"caret-color": "transparent"}}>GUARDIANS</h1>
       {
         loading ? <p style={{"fontSize": "8vh", "textAlign": "center"}}>Loading...</p> : errorOrGallery
       }
