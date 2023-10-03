@@ -3,8 +3,16 @@ import { Character } from "./guardians";
 
 // --------------------  ENEMY CLASSES  -------------------------
 class Enemy extends Character {
-    constructor() {
-        super();
+    constructor(
+        x,
+        y,
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0 },
+        healthBarPosition = { x: 0, y: 0 }
+    ) {
+        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, enemies);
     }
 
@@ -47,6 +55,18 @@ class Enemy extends Character {
         }
     }
 
+    updateAnimation() {
+        this.framesElapsed++;
+
+        if (this.framesElapsed % this.framesHold === 0) {
+            if (this.framesCurrent < this.framesMax - 1) {
+                this.framesCurrent++;
+            } else {
+                this.framesCurrent = 0;
+            }
+        }
+    }
+
     update() {
         if (this.currHealth <= 0) {
             van[0].currExp += this.expGrant;
@@ -59,12 +79,14 @@ class Enemy extends Character {
         this.updateTarget();
         this.updatePosition();
         this.updateAttacking();
+
+        this.updateAnimation();
     }
 }
 
 class Skeleton extends Enemy {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 166 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
         this.height = 150;
@@ -91,27 +113,27 @@ class Skeleton extends Enemy {
         }
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "red"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "red"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 }
 
 
 class Goblin extends Enemy {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 166 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
         this.height = 80;
@@ -138,26 +160,26 @@ class Goblin extends Enemy {
         }
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "green"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "green"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 }
 
 class Demon extends Enemy {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 210 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
         this.height = 70;
@@ -187,29 +209,29 @@ class Demon extends Enemy {
         this.target = van[0];
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
-        this.atkBox.position.y = this.position.y + 50;
-        context.fillStyle = "brown";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
+    //     this.atkBox.position.y = this.position.y + 50;
+    //     context.fillStyle = "brown";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 
     // No need to update target as it is constantly the van
     updateTarget() {}
 }
 
 class Troll extends Enemy {
-    constructor(x, y) {
-        super()
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 255 }) {
+        super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
         this.height = 200
@@ -237,26 +259,26 @@ class Troll extends Enemy {
         }
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "maroon"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "maroon"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 }
 
 class Mushroom extends Enemy {
-    constructor(x, y) {
-        super()
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 158, y: 166 }) {
+        super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
         this.height = 150
@@ -290,21 +312,21 @@ class Mushroom extends Enemy {
 
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
-        this.atkBox.position.y = this.position.y + 50
-        context.fillStyle = "hotpink"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3
+    //     this.atkBox.position.y = this.position.y + 50
+    //     context.fillStyle = "hotpink"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-        if (this.isAttacking) {
-            context.fillRect(
-                this.atkBox.position.x,
-                this.atkBox.position.y,
-                this.atkBox.width,
-                this.atkBox.height
-            );
-        }
-    }
+    //     if (this.isAttacking) {
+    //         context.fillRect(
+    //             this.atkBox.position.x,
+    //             this.atkBox.position.y,
+    //             this.atkBox.width,
+    //             this.atkBox.height
+    //         );
+    //     }
+    // }
 
     updateTarget() {
         this.target = this.findRandomTarget(guardians, "enemy")
