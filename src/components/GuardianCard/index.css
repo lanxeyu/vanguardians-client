@@ -11,7 +11,7 @@
   color: white;
   font-family: Silkscreen;
   position: absolute;
-  font-size: 30px;
+  font-size: 33px;
   border-radius: 3vh;
   padding: 1vh;
 }
@@ -19,7 +19,7 @@
 .guardian-card> h5 {
   color: white;
   margin-bottom: -40vh;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .guardian-card> h4 {
@@ -27,13 +27,15 @@
 }
 
 .guardian-card {
-  height: 330px;
-  width: 310px;
+  height: 55vh;
+  width: 23vw;
+  min-height: 250px;
+  min-width: 280px;
   padding-top: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5vh 3vw;
+  margin: 4vh 1vw;
   /* background-image: url(https://i.pinimg.com/originals/26/e4/9d/26e49d0fd1e5f3960849176a6a40a917.png); */
   background-color: #001B22;
   border-style: outset;
@@ -41,6 +43,7 @@
   background-size: cover;
   border-radius: 3vh;
   border: 3px solid #004657;
+  caret-color: transparent;
 }
 
 .guardian-card:hover {
