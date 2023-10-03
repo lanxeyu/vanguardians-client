@@ -85,7 +85,7 @@ class Enemy extends Character {
 }
 
 class Skeleton extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 170 }, healthBarPosition = { x: 0, y: 0 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }, healthBarPosition = { x: 0, y: 0 }) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         this.position = { x, y };
         this.width = 70;
@@ -116,26 +116,26 @@ class Skeleton extends Enemy {
         this.healthBarPosition.y = 200;
     }
 
-    draw(context) {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
-        this.atkBox.position.y = this.position.y
-        context.fillStyle = "red"
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // draw(context) {
+    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
+    //     this.atkBox.position.y = this.position.y
+    //     context.fillStyle = "red"
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
 
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
-    }
+    // //     if (this.isAttacking) {
+    // //         context.fillRect(
+    // //             this.atkBox.position.x,
+    // //             this.atkBox.position.y,
+    // //             this.atkBox.width,
+    // //             this.atkBox.height
+    // //         );
+    // //     }
+    // }
 }
 
 
 class Goblin extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 170 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 143 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -181,7 +181,7 @@ class Goblin extends Enemy {
 }
 
 class Demon extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 210 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 160 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.width = 70;
@@ -233,7 +233,7 @@ class Demon extends Enemy {
 }
 
 class Troll extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 255 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }) {
         super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
@@ -280,7 +280,7 @@ class Troll extends Enemy {
 }
 
 class Mushroom extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 158, y: 170 }) {
+    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 158, y: 143 }) {
         super(x, y, imageSrc, scale, framesMax, offset)
         this.position = {x, y}
         this.width = 70
@@ -306,6 +306,12 @@ class Mushroom extends Enemy {
             width: this.atkRange,
             height: 50,
         }
+
+        this.isJumping = false
+        this.jumpHeight = 100
+        this.jumpSpeed = 5
+        this.gravity = 0.2
+        this.initialY = y;
     }
 
     // draw(context) {
@@ -323,6 +329,55 @@ class Mushroom extends Enemy {
     //         );
     //     }
     // }
+
+    updatePosition() {
+        if (this.isKnockedBack) {
+            this.position.x += this.knockBackDistance / this.knockBackResistance;
+        } else if (!this.isKnockedBack && !this.isStunned && this.target && !this.checkTargetInRange()) {
+            // If the target is out of range and the Mushroom is not jumping, start jumping towards the target
+            if (!this.isJumping) {
+                this.startJump()
+            }
+        }
+    
+        if (this.isJumping) {
+            // Update the X position to move towards the target
+            if (this.target) {
+                const targetX = this.target.position.x
+                const direction = Math.sign(targetX - this.position.x)
+                this.position.x += direction * this.movSpd
+            }
+    
+            // Update the Y position for jumping
+            this.position.y -= this.jumpSpeed
+            this.jumpSpeed -= this.gravity
+    
+            // Check if the Mushroom has reached the ground
+            if (this.position.y >= this.initialY) {
+                this.position.y = this.initialY
+                this.isJumping = false
+            }
+        }
+    }
+    
+    attack() {
+        if (!this.isAttacking && !this.isJumping) {
+            this.startJump()
+        }
+    
+        this.isAttacking = true
+    
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 5)
+    }
+    
+    startJump() {
+        if (!this.isJumping) {
+            this.isJumping = true
+            this.jumpSpeed = this.jumpHeight * 0.1
+        }
+    }
 }
 
 export { Skeleton, Goblin, Demon, Troll, Mushroom }

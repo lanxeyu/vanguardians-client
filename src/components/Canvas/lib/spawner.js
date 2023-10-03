@@ -38,8 +38,8 @@ function spawnEnemies() {
         case 1:
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
+                // spawnMushroom()
             }
-            
             break;
         case 2:
             for (let i = 0; i < 2; i++) {
@@ -188,7 +188,7 @@ function spawnSkeleton() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Skeleton(randomX, canvas.height - 168 - 200, "src/components/canvas/img/Skeleton/Idle.png");
+    new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png");
 }
 
 function spawnGoblin() {
@@ -196,7 +196,7 @@ function spawnGoblin() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Goblin(randomX, canvas.height - 168 - 200, "src/components/canvas/img/Goblin/Idle.png");
+    new Goblin(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Goblin/Idle.png");
 }
 
 function spawnDemon() {
@@ -204,7 +204,7 @@ function spawnDemon() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Demon(randomX, canvas.height - 168 - 200, "src/components/canvas/img/Demon/Flight.png");
+    new Demon(randomX, canvas.height - 168 - 270, "src/components/canvas/img/Demon/Flight.png");
 }
 
 function spawnTroll() {
@@ -212,7 +212,7 @@ function spawnTroll() {
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Troll(randomX, canvas.height - 168 - 200, "src/components/canvas/img/Troll/Idle.png");
+    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png");
 }
 
 function spawnMushroom() {
@@ -220,7 +220,7 @@ function spawnMushroom() {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Mushroom(randomX, canvas.height - 168 - 200, "src/components/canvas/img/Mushroom/Idle.png");
+    new Mushroom(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Mushroom/Idle.png");
 }
 
 
