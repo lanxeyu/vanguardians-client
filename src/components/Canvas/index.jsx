@@ -11,6 +11,7 @@ import {
     spawnLanxe,
     spawnRobbie,
     spawnSteph,
+    spawnAlex,
 } from "./lib/spawner";
 import { checkAtkBoxCollisions, checkHealingProjectileCollisions, checkProjectileCollisions } from "./lib/collision";
 import {
@@ -83,9 +84,9 @@ const Canvas = () => {
                 // spawnDuncan();
                 // spawnLanxe();
                 spawnSteph();
-                // spawnRobbie();
+                spawnRobbie();
                 // spawnJames();
-                // spawnAlex();
+                spawnAlex();
 
                 for (let i = 0; i < guardians.length; i++) {
                     new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i)

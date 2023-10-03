@@ -33,8 +33,6 @@ let waveCounter = 0;
 function spawnEnemies() {
     waveCounter += 1;
     new WaveMessage(`Wave starting: ${waveCounter}`, canvas.width / 2, (canvas.height / 2) - 200)
-    console.log(canvas.height / 2)
-    console.log(canvas.width / 2)
     switch (waveCounter) {
         case 1:
             for (let i = 0; i < 1; i++) {
