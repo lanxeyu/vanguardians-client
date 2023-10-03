@@ -1,4 +1,4 @@
-import { addToGroup, guardians, enemies, guardianProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
 import { KnockedOut } from "./utilclasses";
@@ -27,7 +27,6 @@ class Character extends Sprite {
 
         this.healthBarHeight = 8;
         this.healthBarWidth = 70;
-
 
         this.framesCurrent = 0;
         this.framesElapsed = 0;
@@ -58,10 +57,18 @@ class Character extends Sprite {
         }
     }
 
+    getHealed(heal) {
+        if(this.currHealth + heal < this.maxHealth){
+            this.currHealth += heal
+        } else {
+            this.currHealth = this.maxHealth
+        }
+    }
+
     getKnockedBack(distance) {
         if (this.isKnockedBack === false) {
             this.isKnockedBack = true;
-            this.knockBackDistance = distance;
+            this.knockBackDistance = (distance / this.knockBackResistance);
             setTimeout(() => {
                 this.isKnockedBack = false;
                 if (!this.isStunned) {
@@ -76,6 +83,20 @@ class Character extends Sprite {
         setTimeout(() => {
             this.isStunned = false;
         }, duration);
+    }
+
+    findLowestHpGuardian(guardians){
+        let lowestHp = 10;
+        let lowestHpG;
+
+        for (const guardian of guardians) {
+                const guardianHp = guardian.currHealth / guardian.maxHealth
+                if(guardianHp < lowestHp && guardian.name !== "van"){
+                lowestHp = guardianHp
+                lowestHpG = guardian
+                }
+            }
+        return lowestHpG
     }
 
     findNearestTarget(group, type) {
@@ -164,7 +185,7 @@ class Guardian extends Character {
     ) {
         super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
         addToGroup(this, guardians);
-        this.positionXLimit = 2000;
+        this.positionXLimit = 1000;
         this.homePositionX = 50;
         this.isKnockedOut = false;
 
@@ -224,7 +245,7 @@ class Guardian extends Character {
                 this.currentState = CHAR_STATES.IDLE
             }
         
-            // Normal movement block
+        // Normal movement block
         } else if (!this.isKnockedBack && 
             !this.isStunned && this.target && 
             this.position.x < this.positionXLimit && 
@@ -326,7 +347,6 @@ class Lanxe extends Guardian {
         this.movSpd = 4;
         this.damageResistance = 2;
         
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -347,7 +367,7 @@ class Lanxe extends Guardian {
                 this.atk = 5;
                 this.atkSpd = 700;
                 this.atkRange = 250;
-                this.damageResistance = 0;
+                this.damageResistance = 1;
                 break;
             case CHAR_MODES.MODE_2:
                 this.atk = 8;
@@ -359,7 +379,7 @@ class Lanxe extends Guardian {
                 this.atk = 5;
                 this.atkSpd = 700;
                 this.atkRange = 250;
-                this.damageResistance = 0;
+                this.damageResistance = 1;
         }
     }
 
@@ -405,15 +425,42 @@ class Robbie extends Guardian {
     }
 
     updateTarget() {
-        this.target = this.findRandomTarget(enemies, "guardian");
+        if(this.currentMode === CHAR_MODES.MODE_1){
+            this.target = this.findRandomTarget(enemies, "guardian");
+        } else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.target = this.findLowestHpGuardian(guardians)
+        }
     }
 
     attack() {
-        this.isAttacking = true;
+        if(this.currentMode === CHAR_MODES.MODE_1){
+            this.isAttacking = true;
         new Lightning(this.target.position.x, this.target.position.y - 650);
         setTimeout(() => {
             this.isAttacking = false;
         }, 10);
+        } else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.isAttacking = true;
+        new Heal(this.target.position.x, this.target.position.y -20)
+        setTimeout(() => {
+            this.isAttacking = false;
+        })
+        }
+        
+    }
+
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atk = 5
+                break;
+            case CHAR_MODES.MODE_2:
+                this.heal = 50;
+                this.atkSpd = 4000;
+                break;
+            default:
+                this.atk = 5;
+        }
     }
 
     // draw(context) {
@@ -436,8 +483,6 @@ class James extends Guardian {
         this.atkSpd = 800;
         this.atkRange = 900;
         this.movSpd = 4;
-
-        
 
         this.isRetreating = false;
         this.isAttacking = false;
@@ -491,8 +536,6 @@ class Steph extends Guardian {
         this.atkRange = 700;
         this.movSpd = 2;
 
-        
-
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
@@ -531,8 +574,6 @@ class Duncan extends Guardian {
         this.atkRange = 150;
         this.movSpd = 4.5;
 
-        this.knockBackStrength = 10
-        this.knockBackResistance = 2
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
         this.damageResistance = 1;
@@ -562,7 +603,7 @@ class Duncan extends Guardian {
                 this.knockBackResistance = 2;
                 break;
             case CHAR_MODES.MODE_2:
-                this.damageResistance = 2;
+                this.damageResistance = 4;
                 this.knockBackResistance = 5;
                 break;
             default:
@@ -572,35 +613,9 @@ class Duncan extends Guardian {
     }
 
     updatePosition() {
-        const retreatDistance = Math.abs(this.position.x - this.homePositionX) 
-        
         // Mode 1 Block
         if (this.currentMode == CHAR_MODES.MODE_1){
             super.updatePosition()
-
-            // Knockback check
-            if (this.isKnockedBack) {
-                this.position.x += this.knockBackDistance / this.knockBackResistance;
-            
-            // Retreat block
-            } else if (this.isRetreating){
-                if (retreatDistance > this.movSpd) {
-                    if (this.homePositionX > this.position.x) {
-                        this.position.x += this.movSpd
-                    } 
-                    else if (this.homePositionX < this.position.x) {
-                        this.position.x -= this.movSpd
-                    }
-                }
-                else {
-                    this.position.x = this.homePositionX
-                    this.currentState = CHAR_STATES.IDLE
-                }
-                
-            // Normal movement block
-            } else if (!this.isKnockedBack && !this.isStunned && this.target && this.position.x < this.positionXLimit && this.checkTargetInRange() == false) {
-                this.position.x += this.movSpd;
-            }
         }
 
         // Mode 2 Block
@@ -616,27 +631,6 @@ class Duncan extends Guardian {
             super.updateAttacking();
         }
     }
-
-    // updatePosition() {
-    //     if (this.currentMode == CHAR_MODES.MODE_1){
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         } else if (
-    //             !this.isKnockedBack &&
-    //             !this.isStunned &&
-    //             this.target &&
-    //             this.position.x < this.positionXLimit &&
-    //             this.checkTargetInRange() == false
-    //         ) {
-    //             this.position.x += this.movSpd;
-    //         }
-    //     } else {
-    //         if (this.isKnockedBack) {
-    //             this.position.x += this.knockBackDistance / this.knockBackResistance;
-    //         }
-    //     }
-    // }
-
 
     // draw(context) {
     //     super.draw(context)
@@ -675,6 +669,27 @@ class Projectile extends Sprite {
 
     update() {
         this.updatePosition();
+    }
+}
+
+class Heal extends Projectile {
+    constructor(x, y) {
+        super();
+        addToGroup(this, guardianHealingProjectiles)
+        this.position = { x, y };
+        this.heal = 3;
+        this.movSpd = 10;
+        this.width = 40;
+        this.height = 40;
+    }
+
+    updatePosition() {
+        this.position.y += this.movSpd;
+    }
+
+    draw(context) {
+        context.fillStyle = "green"
+        context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
@@ -739,4 +754,4 @@ class Spear extends Projectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion };
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Lightning, Explosion, Heal };
