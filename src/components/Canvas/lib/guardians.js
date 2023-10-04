@@ -520,7 +520,7 @@ class James extends Guardian {
         this.maxHealth = 140;
         this.currHealth = this.maxHealth;
         this.atk = 4;
-        this.atkSpd = 800;
+        this.atkSpd = 1500;
         this.atkRange = 1100;
         this.movSpd = 4;
 
@@ -528,6 +528,23 @@ class James extends Guardian {
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
+    }
+
+    attack() {
+        this.switchSprite('attack')
+        this.isAttacking = true;
+
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            // new Spear2(this.position.x, (this.position.y), "src/components/canvas/img/James/Move.png");
+            // console.log(this.target)
+            new Fireball(this.position.x + this.width - 23, this.position.y - 23, "src/components/canvas/img/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5);
+        
+        } else {
+            
+        }
     }
 }
 
@@ -594,7 +611,7 @@ class Duncan extends Guardian {
         this.atk = 2;
         this.atkSpd = 1800;
         this.atkRange = 150;
-        this.movSpd = 4;
+        this.movSpd = 3;
 
         this.knockBackStrength = 10;
         this.knockBackResistance = 2;
@@ -838,6 +855,61 @@ class Slash extends Projectile {
     }
 }
 
+class Fireball extends Projectile {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 6, offset = { x: 46, y: 46 }, target) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        this.position = { x, y };
+        this.atk = 10;
+        this.movSpd = 4;
+        this.width = 46;
+        this.height = 46;
+
+        this.target = target;
+        console.log(this.target)
+        this.knockBackStrength = 0;
+    }
+
+    updatePosition() {
+        if (this.target) {
+            if (this.target.isAlive) {
+                let targetPosX = this.target.position.x + (this.target.width / 2)
+                let targetPosY = this.target.position.y + (this.target.height / 4)
+                if (this.position.x < targetPosX) {
+                    this.position.x += this.movSpd;
+                    if (this.position.y < targetPosY) {
+                        this.position.y += this.movSpd / 10;
+                    }
+                    else if (this.position.y > targetPosY) {
+                        this.position.y -= this.movSpd / 10;
+                    }
+                }
+                else {
+                    this.position.x -= this.movSpd;
+                    if (this.position.y < targetPosY) {
+                        this.position.y += this.movSpd / 10;
+                    }
+                    else if (this.position.y > targetPosY) {
+                        this.position.y -= this.movSpd / 10;
+                    }
+                }
+            }
+            else {
+                console.log('No Target');
+                this.position.x += this.movSpd;
+            }
+            
+        }
+
+    }
+
+    // draw(context) {
+    //     super.draw(context);
+    //     context.fillStyle = "rgb(255, 200, 200)";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
+}
+
+
 // --------------------  GUARDIAN HEALING PROJECTILE CLASSES  -------------------------
 
 class HealingProjectile extends Sprite {
@@ -879,4 +951,4 @@ class Heal2 extends HealingProjectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal, Heal2, Slash };
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Fireball, Heal, Heal2, Slash };

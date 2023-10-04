@@ -1,5 +1,5 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, Spear, Lightning, Explosion, Spear2, Slash } from "./guardians";
+import { Duncan, Spear, Lightning, Explosion, Spear2, Slash, Fireball } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 
@@ -90,7 +90,12 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 200);
                     setTimeout(() => removeFromGroup(spriteA, allSprites), 200);
                 }
-                
+
+                else if(spriteA instanceof Fireball) {
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                }
+
                 // ENEMIES
             }
         }
