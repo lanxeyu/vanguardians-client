@@ -68,8 +68,8 @@ const Canvas = () => {
         // spawnDuncan();
         // spawnLanxe();
         // spawnSteph();
-        // spawnRobbie();
-        spawnJames();
+        spawnRobbie();
+        // spawnJames();
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
