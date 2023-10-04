@@ -7,15 +7,15 @@ import { MemoryRouter } from 'react-router-dom';
 import * as matchers from '@testing-library/jest-dom/matchers'
 expect.extend(matchers)
 
-import Header from '.'
+import Header2 from '.'
 import { AuthProvider } from '../../context/AuthProvider';
-  
-describe('Header', () => {
+
+describe('Header2', () => {
     beforeEach(() => {
         render(
             <MemoryRouter>
                 <AuthProvider>
-                    <Header />
+                    <Header2 />
                 </AuthProvider>
             </MemoryRouter>
         );
@@ -35,14 +35,14 @@ describe('Header', () => {
         expect(nav).toBeInTheDocument();
     });
     
-    it('has seven nav links', () => {
+    it('has six nav links', () => {
         const links = screen.getAllByRole('link');
-        expect(links.length).toBe(7);
+        expect(links.length).toBe(6);
     });
 
-    it('navbar display "VanGuardians", "Home", "About" "Leaderboard", "Guardians", "Game", "Login" ' , () => {
+    it('navbar display "Home", "About", "Leaderboard", "Guardians", "Game", "Login" ' , () => {
         const links = screen.getAllByRole('link');
-        const texts = ["VanGuardians", "Home", "About", "Leaderboard", "Guardians", "Game", "Login"];
+        const texts = ["Home", "About", "Leaderboard", "Guardians", "Game", "Login"];
         links.forEach((link, i) => {
             expect(link.textContent).toBe(texts[i]);
         });
@@ -107,5 +107,3 @@ describe('Header', () => {
         expect(link.getAttribute('href')).toBe('/login');
     });
 });
-
-
