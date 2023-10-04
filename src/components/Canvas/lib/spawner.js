@@ -4,7 +4,6 @@ import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 import { LevelUp, WaveMessage } from "./utilclasses";
 
-
 function spawnGuardians() {
     switch (van[0].lvl) {
         case 2:
