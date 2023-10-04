@@ -17,8 +17,8 @@
     padding: 1rem;
     border: 3px solid #004657;
     border-style: outset;
-    background-color: #001B22;
-    border-radius: 10px;    
+    background-color: #001b22;
+    border-radius: 10px;
     margin-bottom: 5%;
     /* width: 40%; */
 }
@@ -36,7 +36,6 @@
     flex-grow: 1;
     padding: 1em 0;
 
-    
     > button {
         color: #237a20;
         font-size: 1.375em;
@@ -61,24 +60,19 @@
         padding: 0.25em;
         border-radius: 0.5em;
         width: 19.3125em;
-        font-family: 'Rubik', sans-serif;
+        font-family: "Rubik", sans-serif;
         font-weight: bold;
     }
 
     > .form-input-wrapper > p {
-        font-size: 1.0em;
+        font-size: 1em;
         padding: 0.25em;
         border-radius: 0.5em;
-        width: 27.0em;
-    }
-
-    > label,
-    > button {
-        /* margin-top: 1rem; */
+        width: 27em;
     }
 
     > button {
-        margin: 1.0rem 0 1.0rem 0;
+        margin: 1rem 0 1rem 0;
         padding: 0.5em;
         width: 20em;
     }
