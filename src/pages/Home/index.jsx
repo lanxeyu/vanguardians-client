@@ -10,7 +10,7 @@ const Home = () => {
       setShowHowToPlay(false)
     } else {
       setShowHowToPlay(true)
-      setShowDescription(false)
+      // setShowDescription(false)
     }
   }
 
@@ -21,9 +21,9 @@ const Home = () => {
       </h1>
 
       <div id="home-text-container">
-        <h2 id='description-of-game'>
+        {/* <h2 id='description-of-game'>
           DESCRIPTION OF GAME
-        </h2>
+        </h2> */}
 
         <h2 id='how-to-play' 
         onClick={toggleShowHowToPlay}
