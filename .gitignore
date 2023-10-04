@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 coverage
+
+# Local Netlify folder
+.netlify

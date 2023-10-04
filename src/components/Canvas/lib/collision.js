@@ -77,7 +77,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 else if (spriteA instanceof Lightning) {
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 20)
                     removeFromGroup(spriteA, allSprites)
-                    new Explosion(spriteB.position.x, spriteB.position.y, "src/components/canvas/img/Robbie/Explosion.png")
+                    new Explosion(spriteB.position.x, spriteB.position.y, "images/Robbie/Explosion.png")
                 }
 
                 else if(spriteA instanceof Explosion) {
