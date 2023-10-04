@@ -43,10 +43,10 @@ describe('Homepage', () => {
 
     it('display popup when "DESCRIPTION OF GAME" is clicked and popup has a button to close popup when clicked', () => {
         const description = screen.getByText('DESCRIPTION OF GAME');
-        const descriptionPopup = screen.queryByText('Description of the game...');
+        const descriptionPopup = screen.queryByTestId('description-popup');
         expect(descriptionPopup).not.toBeInTheDocument();
         fireEvent.click(description); 
-        const updatedDescriptionPopup = screen.getByText('Description of the game...');
+        const updatedDescriptionPopup = screen.getByTestId('description-popup');
         const button = screen.getByRole('button');
         expect(updatedDescriptionPopup).toBeInTheDocument();
         expect(button).toBeTruthy();
@@ -56,10 +56,10 @@ describe('Homepage', () => {
 
     it('display popup when "HOW TO PLAY" is clicked and popup has a button to close popup when clicked', () => {
         const howToPlay = screen.getByText('HOW TO PLAY');
-        const howToPlayPopup = screen.queryByText('How to play...');
+        const howToPlayPopup = screen.queryByTestId('howtoplay-popup');
         expect(howToPlayPopup).not.toBeInTheDocument();
         fireEvent.click(howToPlay);
-        const updatedHowToPlayPopup = screen.getByText('How to play...');
+        const updatedHowToPlayPopup = screen.queryByTestId('howtoplay-popup');
         const button = screen.getByRole('button');
         expect(updatedHowToPlayPopup).toBeInTheDocument();
         expect(button).toBeTruthy();
