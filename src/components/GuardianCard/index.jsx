@@ -7,22 +7,22 @@ const GuardianCard = ({ guardian }) => {
     useEffect(() => {
         switch (guardian.name) {
             case "Duncan":
-                setImgUrl("images/heavyarmor.gif");
+                setImgUrl("/images/heavyarmor.gif");
                 break;
             case "James":
-                setImgUrl("images/fireworm.gif");
+                setImgUrl("/images/fireworm.gif");
                 break;
             case "Stephanie":
-                setImgUrl("images/huntress.gif");
+                setImgUrl("/images/huntress.gif");
                 break;
             case "Alex":
-                setImgUrl("images/fantasywarrior.gif");
+                setImgUrl("/images/fantasywarrior.gif");
                 break;
             case "Robbie":
-                setImgUrl("images/wizard.gif");
+                setImgUrl("/images/wizard.gif");
                 break;
             case "Lanxe":
-                setImgUrl("images/martialhero.gif");
+                setImgUrl("/images/martialhero.gif");
                 break;
         }
     }, []);
