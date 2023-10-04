@@ -784,7 +784,7 @@ class Explosion extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
         
         this.position = { x, y };
-        this.atk = 0;
+        this.atk = 5;
         this.movSpd = 0;
         this.width = 200;
         this.height = 150;
