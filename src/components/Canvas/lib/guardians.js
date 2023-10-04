@@ -125,23 +125,23 @@ class Character extends Sprite {
     }
 
     findRandomTarget(group, type) {
-        const validTargets = [];
-
-        for (const sprite of group) {
-            if (
-                (type === "guardian" && sprite.position.x > this.position.x) ||
-                (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
-            ) {
-                validTargets.push(sprite);
+            const validTargets = [];
+    
+            for (const sprite of group) {
+                if (
+                    (type === "guardian" && sprite.position.x > this.position.x) ||
+                    (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
+                ) {
+                    validTargets.push(sprite);
+                }
             }
-        }
-
-        if (validTargets.length === 0) {
-            return null;
-        }
-
-        const randomIndex = Math.floor(Math.random() * validTargets.length);
-        return validTargets[randomIndex];
+    
+            if (validTargets.length === 0) {
+                return null;
+            }
+    
+            const randomIndex = Math.floor(Math.random() * validTargets.length);
+            return validTargets[randomIndex];
     }
 
     checkTargetInRange() {
@@ -470,6 +470,7 @@ class Robbie extends Guardian {
     updateTarget() {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.target = this.findRandomTarget(enemies, "guardian");
+            
         } else if(this.currentMode === CHAR_MODES.MODE_2){
             this.target = this.findLowestHpGuardian(guardians)
         }
@@ -520,7 +521,7 @@ class James extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 4;
         this.atkSpd = 800;
-        this.atkRange = 900;
+        this.atkRange = 1100;
         this.movSpd = 4;
 
         this.isRetreating = false;
@@ -540,7 +541,7 @@ class Steph extends Guardian {
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
         this.atkSpd = 700;
-        this.atkRange = 700;
+        this.atkRange = 900;
         this.movSpd = 4;
 
         this.isRetreating = false;
@@ -813,7 +814,7 @@ class Spear2 extends Projectile {
     constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
-        this.atk = 5;
+        this.atk = 10;
         this.movSpd = 25;
         this.width = 100;
         this.height = 5;

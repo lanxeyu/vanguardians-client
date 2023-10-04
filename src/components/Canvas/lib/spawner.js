@@ -304,8 +304,6 @@ function spawnJames() {
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
-// Constructor arguements
-// (x, y, imageSrc, scale, framesMax, offset, sprites)
 function spawnSkeleton() {
     const minX = 1366;
     const maxX = 2000;
@@ -381,7 +379,6 @@ function spawnDemon() {
     });
 }
 
-// x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }
 function spawnTroll() {
     const minX = 1366;
     const maxX = 2000;
