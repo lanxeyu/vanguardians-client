@@ -480,7 +480,7 @@ class Robbie extends Guardian {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.switchSprite('attack')
             this.isAttacking = true;
-            new Lightning(this.target.position.x, this.target.position.y - 650, "src/components/canvas/img/Robbie/Lightning.png");
+            new Lightning(this.target.position.x, this.target.position.y - 650, "images/Robbie/Lightning.png");
             setTimeout(() => {
             this.isAttacking = false;
             }, 10);
@@ -568,13 +568,13 @@ class Steph extends Guardian {
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1){
-            new Spear2(this.position.x, (this.position.y + 50), "src/components/canvas/img/Steph/Spear move.png");
+            new Spear2(this.position.x, (this.position.y + 50), "images/Steph/Spear move.png");
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
         
         } else {
-            new Spear(this.position.x, (this.position.y + 50), "src/components/canvas/img/Steph/Spear move.png");
+            new Spear(this.position.x, (this.position.y + 50), "images/Steph/Spear move.png");
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
@@ -772,7 +772,7 @@ class Lightning extends Projectile {
 
     // explodeOnImpact() {
     //     if (this.position.y === this.target.position.y)
-    //         new Explosion(this.position.x, this.position.y + 100, "src/components/canvas/img/Robbie/Explosion.png");
+    //         new Explosion(this.position.x, this.position.y + 100, "images/Robbie/Explosion.png");
     // }
 }
 

@@ -58,7 +58,7 @@ const Canvas = () => {
     function initGame(canvas) {
         resetAllGroups();
         resetWaveCounter();
-        new Background(0, 0, 1366, 766, 0, 0, "src/components/canvas/img/starsky-bg.png", 0);
+        new Background(0, 0, 1366, 766, 0, 0, "images/starsky-bg.png", 0);
         new Background(
             0,
             canvas.height,
@@ -66,7 +66,7 @@ const Canvas = () => {
             329,
             0,
             -(168 + 329),
-            "src/components/canvas/img/cloud1-bg.png",
+            "images/cloud1-bg.png",
             1
         );
         new Background(
@@ -76,11 +76,11 @@ const Canvas = () => {
             113,
             0,
             -(168 + 113),
-            "src/components/canvas/img/cloud2-bg.png",
+            "images/cloud2-bg.png",
             1
         );
 
-        new Background(0, 0, 3326, 840, 0, -98, "src/components/canvas/img/middleground2.png", 3);
+        new Background(0, 0, 3326, 840, 0, -98, "images/middleground2.png", 3);
         new Foreground(
             0,
             canvas.height,
@@ -88,7 +88,7 @@ const Canvas = () => {
             288,
             0,
             -278,
-            "src/components/canvas/img/ground.png",
+            "images/ground.png",
             5
         );
         new Foreground(
@@ -98,11 +98,11 @@ const Canvas = () => {
             168,
             0,
             -293,
-            "src/components/canvas/img/grass.png",
+            "images/grass.png",
             5
         );
 
-        new Van(50, 348, "src/components/canvas/img/van2.png");
+        new Van(50, 348, "images/van2.png");
 
         // spawnDuncan();
         // spawnLanxe();

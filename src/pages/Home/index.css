@@ -171,7 +171,7 @@ body {
 }
 
 .game {
-    background-image: url("src/components/Canvas/img/starsky-bg.png");
+    background-image: url("images/starsky-bg.png");
     background-position: bottom;
     background-position-y: 1%;
 }

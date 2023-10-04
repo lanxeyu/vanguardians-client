@@ -18,7 +18,7 @@ body {
 #root {
     height: 100%;
     width: 100%;
-    background-image: url("/src/components/Canvas/img/bg-design.png");
+    background-image: url("images/bg-design.png");
     background-size: auto 100%;
 }
 
