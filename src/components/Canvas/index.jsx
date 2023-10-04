@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Background, Foreground } from "./lib/sprite";
-import { PortraitIcon, TopBar, BottomBar } from "./lib/gui"
+import { PortraitIcon, TopBar, BottomBar } from "./lib/gui";
 import { Van } from "./lib/van";
 import {
     spawnAlex,
@@ -12,9 +12,13 @@ import {
     spawnLanxe,
     spawnRobbie,
     spawnSteph,
-    resetWaveCounter
+    resetWaveCounter,
 } from "./lib/spawner";
-import { checkAtkBoxCollisions, checkHealingProjectileCollisions, checkProjectileCollisions } from "./lib/collision";
+import {
+    checkAtkBoxCollisions,
+    checkHealingProjectileCollisions,
+    checkProjectileCollisions,
+} from "./lib/collision";
 import {
     guardians,
     enemies,
@@ -38,7 +42,7 @@ import {
     resetAllGroups,
     drawEnemyProjectiles,
 } from "./lib/groups";
-import { loadFonts } from './lib/resources'
+import { loadFonts } from "./lib/resources";
 import { GAME_STATES, setCurrentGameState, getCurrentGameState } from "./lib/statemanagers";
 import { useGameStart } from "./lib/utils";
 import { addKeyListener } from "./lib/utils";
@@ -54,16 +58,51 @@ const Canvas = () => {
     function initGame(canvas) {
         resetAllGroups();
         resetWaveCounter();
-        new Background(0, 0, 1366, 766, 0, 0, 'src/components/canvas/img/starsky-bg.png', 0);
-        new Background(0, canvas.height, 1366, 329, 0, -(168 + 329), 'src/components/canvas/img/cloud1-bg.png', 1);
-        new Background(0, canvas.height, 1366, 113, 0, -(168 + 113), 'src/components/canvas/img/cloud2-bg.png', 1);
-                    
+        new Background(0, 0, 1366, 766, 0, 0, "src/components/canvas/img/starsky-bg.png", 0);
+        new Background(
+            0,
+            canvas.height,
+            1366,
+            329,
+            0,
+            -(168 + 329),
+            "src/components/canvas/img/cloud1-bg.png",
+            1
+        );
+        new Background(
+            0,
+            canvas.height,
+            1366,
+            113,
+            0,
+            -(168 + 113),
+            "src/components/canvas/img/cloud2-bg.png",
+            1
+        );
 
-        new Background(0, 0, 3326, 840, 0, -98, 'src/components/canvas/img/middleground2.png', 3)
-        new Foreground(0, canvas.height, 2016, 288, 0, -278, 'src/components/canvas/img/ground.png', 5)
-        new Foreground(0, canvas.height, 1366, 168, 0, -293, 'src/components/canvas/img/grass.png', 5)
+        new Background(0, 0, 3326, 840, 0, -98, "src/components/canvas/img/middleground2.png", 3);
+        new Foreground(
+            0,
+            canvas.height,
+            2016,
+            288,
+            0,
+            -278,
+            "src/components/canvas/img/ground.png",
+            5
+        );
+        new Foreground(
+            0,
+            canvas.height,
+            1366,
+            168,
+            0,
+            -293,
+            "src/components/canvas/img/grass.png",
+            5
+        );
 
-        new Van(50, 348, "src/components/canvas/img/van.png");
+        new Van(50, 348, "src/components/canvas/img/van2.png");
 
         // spawnDuncan();
         // spawnLanxe();
@@ -73,11 +112,11 @@ const Canvas = () => {
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
-            new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i)
+            new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
         }
 
-        new TopBar((canvas.width / 2) - 40, 0, 140, 70, getScores());
-        new BottomBar(0, canvas.height, canvas.width, 168, null)
+        new TopBar(canvas.width / 2 - 40, 0, 140, 70, getScores());
+        new BottomBar(0, canvas.height, canvas.width, 168, null);
 
         setTotalKills(0);
         setScores(0);
@@ -90,72 +129,76 @@ const Canvas = () => {
         const canvasLeft = canvas.offsetLeft;
         const canvasTop = canvas.offsetTop;
 
-        const originX = canvas.width / 2, originY = canvas.height / 2;
+        const originX = canvas.width / 2,
+            originY = canvas.height / 2;
 
         loadFonts();
 
         let scores = 0;
         let totalKills = 0;
         let init = false;
-        setCurrentGameState(GAME_STATES.MAIN_MENU)
-        
+        setCurrentGameState(GAME_STATES.MAIN_MENU);
+
         if (canvas) {
             initCanvas(canvas);
-            context.scale(1, 1)
+            context.scale(1, 1);
 
             // Main game loop logic
             const gameLoop = () => {
-                context.clearRect(0, 0, canvas.width, canvas.height)
+                context.clearRect(0, 0, canvas.width, canvas.height);
                 context.fillStyle = "black";
                 context.fillRect(0, 0, canvas.width, canvas.height);
 
-                switch(getCurrentGameState()) {
+                switch (getCurrentGameState()) {
                     case GAME_STATES.MAIN_MENU:
                         if (init) {
                             init = false;
                         }
 
-                        context.fillStyle = 'rgb(255, 255, 255)'
+                        context.fillStyle = "rgb(255, 255, 255)";
                         context.textAlign = "center";
 
                         context.font = "36px Silkscreen";
-                        context.fillText("VANGUARDIANS", canvas.width / 2, canvas.height / 2 - 100)
-            
+                        context.fillText("VANGUARDIANS", canvas.width / 2, canvas.height / 2 - 100);
+
                         context.font = "18px Silkscreen";
-                        context.fillText("Press Enter to Play", canvas.width / 2, canvas.height / 2)
-                    break;
+                        context.fillText(
+                            "Press Enter to Play",
+                            canvas.width / 2,
+                            canvas.height / 2
+                        );
+                        break;
                     case GAME_STATES.PLAYING:
                         if (!init) {
                             init = true;
                             initGame(canvas, scores, totalKills);
                         }
-                        
+
                         if (!van[0].isAlive) {
                             clearAllSprites();
-                            setCurrentGameState(GAME_STATES.END_SCREEN)
+                            setCurrentGameState(GAME_STATES.END_SCREEN);
                         } else if (enemies.length == 0) {
-    
                             spawnEnemies();
                         }
-    
+
                         // Parallax attempt
                         let firstPosX = originX;
                         for (let i = 0; i < guardians.length; i++) {
-                            let currPointX = guardians[i].position.x + (guardians[i].width / 2);
+                            let currPointX = guardians[i].position.x + guardians[i].width / 2;
                             if (currPointX > firstPosX) firstPosX = currPointX;
                         }
-    
+
                         // console.log(firstPosX)
-    
+
                         // context.transform(1, 0, 0, 1, -firstPosX , 0)
-    
+
                         updateAllSprites(context);
-    
+
                         checkAtkBoxCollisions(guardians, enemies);
                         checkAtkBoxCollisions(enemies, guardians);
                         checkProjectileCollisions(guardianProjectiles, enemies);
-                        checkHealingProjectileCollisions(guardianHealingProjectiles, guardians)
-    
+                        checkHealingProjectileCollisions(guardianHealingProjectiles, guardians);
+
                         drawBackground(context);
                         drawVan(context);
                         drawGuardians(context);
@@ -165,67 +208,84 @@ const Canvas = () => {
                         drawGuardianHealingProjectiles(context);
                         drawDamageNumbers(context);
                         drawPopUpMsgs(context);
-    
-                        drawForeground(context)
-    
+
+                        drawForeground(context);
+
                         drawUI(context);
-    
-                    break;
+
+                        break;
                     case GAME_STATES.END_SCREEN:
                         if (init) {
                             init = false;
                         }
 
-                        context.fillStyle = 'rgb(255, 255, 255)'
+                        context.fillStyle = "rgb(255, 255, 255)";
                         context.textAlign = "center";
-            
+
                         context.font = "36px Silkscreen";
-                        context.fillText("GAMEOVER", canvas.width / 2, canvas.height / 2 - 100)
-            
+                        context.fillText("GAMEOVER", canvas.width / 2, canvas.height / 2 - 100);
+
                         context.font = "18px Silkscreen";
-                        context.fillText("Score: " + getScores(), canvas.width / 2, canvas.height / 2 - 50)
-                        context.fillText("Total Kills: " + getTotalKills(), canvas.width / 2, canvas.height / 2 - 20)
-                        context.fillText("Press Enter to Restart", canvas.width / 2, canvas.height / 2 + 30)
-                    break;
+                        context.fillText(
+                            "Score: " + getScores(),
+                            canvas.width / 2,
+                            canvas.height / 2 - 50
+                        );
+                        context.fillText(
+                            "Total Kills: " + getTotalKills(),
+                            canvas.width / 2,
+                            canvas.height / 2 - 20
+                        );
+                        context.fillText(
+                            "Press Enter to Restart",
+                            canvas.width / 2,
+                            canvas.height / 2 + 30
+                        );
+                        break;
                 }
-                
+
                 requestAnimationFrame(gameLoop);
-            }    
+            };
 
             gameLoop();
 
             // Click Event to target elements in the canvas
-            canvas.addEventListener('click', function(event) {
-                var rect = canvas.getBoundingClientRect();
-                let posX = event.clientX - rect.left,
-                    posY = event.clientY - rect.top;
+            canvas.addEventListener(
+                "click",
+                function (event) {
+                    var rect = canvas.getBoundingClientRect();
+                    let posX = event.clientX - rect.left,
+                        posY = event.clientY - rect.top;
 
-                switch(getCurrentGameState()) {
-                    case GAME_STATES.MAIN_MENU:
-        
-                    break;
-                    case GAME_STATES.PLAYING:
-                        // Loop from last drawn
-                        
-                    for (let i = guardians.length-1; i >= 0; i--) {
-                        // console.log(guardians[i].name)
-                        if (posY > guardians[i].position.y && posY < guardians[i].position.y + guardians[i].height 
-                            && posX > guardians[i].position.x && posX < guardians[i].position.x + guardians[i].width) {
-                            for (let j = 0; j < ui.length; j++) {
-                                if (ui[j].name === "bottombar") ui[j].setTarget(guardians[i])
+                    switch (getCurrentGameState()) {
+                        case GAME_STATES.MAIN_MENU:
+                            break;
+                        case GAME_STATES.PLAYING:
+                            // Loop from last drawn
+
+                            for (let i = guardians.length - 1; i >= 0; i--) {
+                                // console.log(guardians[i].name)
+                                if (
+                                    posY > guardians[i].position.y &&
+                                    posY < guardians[i].position.y + guardians[i].height &&
+                                    posX > guardians[i].position.x &&
+                                    posX < guardians[i].position.x + guardians[i].width
+                                ) {
+                                    for (let j = 0; j < ui.length; j++) {
+                                        if (ui[j].name === "bottombar")
+                                            ui[j].setTarget(guardians[i]);
+                                    }
+                                    console.log(`${guardians[i].name} has been Clicked!`);
+                                    break; // Break out of loop if element found
+                                }
                             }
-                            console.log(`${guardians[i].name} has been Clicked!`)
-                            break; // Break out of loop if element found
-                        }
+                            break;
+                        case GAME_STATES.END_SCREEN:
+                            break;
                     }
-                    break;
-                    case GAME_STATES.END_SCREEN:
-                    
-                    break;
-                }
-                
-                
-            }, false);
+                },
+                false
+            );
         }
     }, []);
 

@@ -16,7 +16,9 @@ const Home = () => {
 
     return (
         <div id="homepage-container">
-            <h1 id="homepage-title">Vanguardians</h1>
+            <div id="title-container">
+                <h1 id="homepage-title">Vanguardians</h1>
+            </div>
 
             <div id="home-text-container">
                 {/* <h2 id='description-of-game'>
@@ -26,6 +28,11 @@ const Home = () => {
                 <h2 id="how-to-play" onClick={toggleShowHowToPlay}>
                     HOW TO PLAY
                 </h2>
+                <div id="play-button-container">
+                    <Link id="link-to-game" to="/game">
+                        <button id="play-button">Play Now!</button>
+                    </Link>
+                </div>
             </div>
 
             {showHowToPlay && (
@@ -54,7 +61,7 @@ const Home = () => {
                 <img src="src\pages\Home\images\wizard.gif" alt="wizard" />
                 <img src="src\pages\Home\images\huntress.gif" alt="huntress" />
             </div>
-            <div id="home-footer"></div>
+            {/* <div id="home-footer"></div> */}
         </div>
     );
 };
