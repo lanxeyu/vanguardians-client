@@ -72,6 +72,8 @@ body {
     padding: 0.166665em;
     font-size: 3.75em;
     cursor: pointer;
+    border: 3px solid grey;
+    border-style: outset;
 }
 
 #popup-container {

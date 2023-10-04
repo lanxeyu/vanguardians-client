@@ -20,6 +20,9 @@ export default function Header2() {
                     <NavLink to="/" style={styles}>
                         Home
                     </NavLink>
+                    <NavLink to="/about" style={styles}>
+                        About
+                    </NavLink>
                     <NavLink to="/leaderboard" style={styles}>
                         Leaderboard
                     </NavLink>
