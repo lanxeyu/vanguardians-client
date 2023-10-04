@@ -42,9 +42,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  height: 65%;
   width: auto;
-  margin-top: -10%
+  /* margin-top: -10% */
 }
 
 .guardian-profile-bio {
