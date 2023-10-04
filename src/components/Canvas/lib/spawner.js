@@ -4,7 +4,6 @@ import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 import { LevelUp, WaveMessage } from "./utilclasses";
 
-
 function spawnGuardians() {
     switch (van[0].lvl) {
         case 2:
@@ -155,22 +154,22 @@ function spawnEnemies() {
 // Constructor arguements
 // (x, y, imageSrc, scale, framesMax, offset, sprites)
 function spawnLanxe() {
-    new Lanxe(50, canvas.height - 168 - 260, "src/components/canvas/img/Lanxe/Idle.png", 2.6, 8, { x: 225, y: 166 },
+    new Lanxe(50, canvas.height - 168 - 260, "images/Lanxe/Idle.png", 2.6, 8, { x: 225, y: 166 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Lanxe/Idle.png",
+            imageSrc: "images/Lanxe/Idle.png",
             framesMax: 8
         },
         run: {
-            imageSrc: "src/components/canvas/img/Lanxe/Run.png",
+            imageSrc: "images/Lanxe/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Lanxe/Attack.png",
+            imageSrc: "images/Lanxe/Attack.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Lanxe/Hit.png",
+            imageSrc: "images/Lanxe/Hit.png",
             framesMax: 4
         },
         death: {
@@ -182,26 +181,26 @@ function spawnLanxe() {
 }
 
 function spawnDuncan() {
-    new Duncan(50, canvas.height - 168 - 280, "src/components/canvas/img/Duncan/Idle.png", 3.0, 10, { x: 266, y: 205 },
+    new Duncan(50, canvas.height - 168 - 280, "images/Duncan/Idle.png", 3.0, 10, { x: 266, y: 205 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Duncan/Idle.png",
+            imageSrc: "images/Duncan/Idle.png",
             framesMax: 10
         },
         run: {
-            imageSrc: "src/components/canvas/img/Duncan/Run.png",
+            imageSrc: "images/Duncan/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Duncan/Attack.png",
+            imageSrc: "images/Duncan/Attack.png",
             framesMax: 5
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Duncan/Hit.png",
+            imageSrc: "images/Duncan/Hit.png",
             framesMax: 3
         },
         defend: {
-            imageSrc: "src/components/canvas/img/Duncan/Defend.png",
+            imageSrc: "images/Duncan/Defend.png",
             framesMax: 1
         },
         death: {
@@ -213,22 +212,22 @@ function spawnDuncan() {
 }
 
 function spawnSteph() {
-    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Steph/Idle.png", 3.0, 8, { x: 195, y: 140 },
+    new Steph(50, canvas.height - 168 - 260, "images/Steph/Idle.png", 3.0, 8, { x: 195, y: 140 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Steph/Idle.png",
+            imageSrc: "images/Steph/Idle.png",
             framesMax: 8
         },
         run: {
-            imageSrc: "src/components/canvas/img/Steph/Run.png",
+            imageSrc: "images/Steph/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Steph/Attack.png",
+            imageSrc: "images/Steph/Attack.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Steph/Hit.png",
+            imageSrc: "images/Steph/Hit.png",
             framesMax: 3
         },
         death: {
@@ -240,26 +239,26 @@ function spawnSteph() {
 }
 
 function spawnRobbie() {
-    new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png", 1.5, 6, { x: 120, y: 70 },
+    new Robbie(50, canvas.height - 168 - 250, "images/Robbie/Idle.png", 1.5, 6, { x: 120, y: 70 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Robbie/Idle.png",
+            imageSrc: "images/Robbie/Idle.png",
             framesMax: 6
         },
         run: {
-            imageSrc: "src/components/canvas/img/Robbie/Run.png",
+            imageSrc: "images/Robbie/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Robbie/Attack.png",
+            imageSrc: "images/Robbie/Attack.png",
             framesMax: 6
         },
         attack2: {
-            imageSrc: "src/components/canvas/img/Robbie/Attack2.png",
+            imageSrc: "images/Robbie/Attack2.png",
             framesMax: 6
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Robbie/Hit.png",
+            imageSrc: "images/Robbie/Hit.png",
             framesMax: 4
         },
         death: {
@@ -271,26 +270,26 @@ function spawnRobbie() {
 }
 
 function spawnAlex() {
-    new Alex(50, canvas.height - 168 - 260, "src/components/canvas/img/Alex/Idle.png", 2.9, 10, { x: 200, y: 140 },
+    new Alex(50, canvas.height - 168 - 260, "images/Alex/Idle.png", 2.9, 10, { x: 200, y: 140 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Alex/Idle.png",
+            imageSrc: "images/Alex/Idle.png",
             framesMax: 10
         },
         run: {
-            imageSrc: "src/components/canvas/img/Alex/Run.png",
+            imageSrc: "images/Alex/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Alex/Attack.png",
+            imageSrc: "images/Alex/Attack.png",
             framesMax: 4
         },
         attack2: {
-            imageSrc: "src/components/canvas/img/Alex/Attack2.png",
+            imageSrc: "images/Alex/Attack2.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Alex/Hit.png",
+            imageSrc: "images/Alex/Hit.png",
             framesMax: 3
         },
         death: {
@@ -302,22 +301,22 @@ function spawnAlex() {
 }
 
 function spawnJames() {
-    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Idle.png", 2.8, 9, { x: 40, y: 90 },
+    new James(50, canvas.height - 168 - 180, "images/James/Idle.png", 2.8, 9, { x: 40, y: 90 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/James/Idle.png",
+            imageSrc: "images/James/Idle.png",
             framesMax: 9
         },
         run: {
-            imageSrc: "src/components/canvas/img/James/Run.png",
+            imageSrc: "images/James/Run.png",
             framesMax: 9
         },
         attack: {
-            imageSrc: "src/components/canvas/img/James/Attack.png",
+            imageSrc: "images/James/Attack.png",
             framesMax: 6
         },
         hit: {
-            imageSrc: "src/components/canvas/img/James/Hit.png",
+            imageSrc: "images/James/Hit.png",
             framesMax: 3
         },
         death: {
@@ -332,22 +331,22 @@ function spawnSkeleton() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-    new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png", 2.6, 4, { x: 140, y: 113 },
+    new Skeleton(randomX, canvas.height - 168 - 260, "images/Skeleton/Idle.png", 2.6, 4, { x: 140, y: 113 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Skeleton/Idle.png",
+            imageSrc: "images/Skeleton/Idle.png",
             framesMax: 4
         },
         run: {
-            imageSrc: "src/components/canvas/img/Skeleton/Run.png",
+            imageSrc: "images/Skeleton/Run.png",
             framesMax: 4
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Skeleton/Attack.png",
+            imageSrc: "images/Skeleton/Attack.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Skeleton/Hit.png",
+            imageSrc: "images/Skeleton/Hit.png",
             framesMax: 4
         }
     });
@@ -357,22 +356,22 @@ function spawnGoblin() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-    new Goblin(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Goblin/Idle.png", 2.6, 4, { x: 150, y: 143 },
+    new Goblin(randomX, canvas.height - 168 - 230, "images/Goblin/Idle.png", 2.6, 4, { x: 150, y: 143 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Goblin/Idle.png",
+            imageSrc: "images/Goblin/Idle.png",
             framesMax: 4
         },
         run: {
-            imageSrc: "src/components/canvas/img/Goblin/Run.png",
+            imageSrc: "images/Goblin/Run.png",
             framesMax: 6
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Goblin/Attack.png",
+            imageSrc: "images/Goblin/Attack.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Goblin/Hit.png",
+            imageSrc: "images/Goblin/Hit.png",
             framesMax: 4
         }
     });
@@ -382,22 +381,22 @@ function spawnDemon() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-    new Demon(randomX, canvas.height - 168 - 270, "src/components/canvas/img/Demon/Flight.png", 2.6, 8, { x: 150, y: 160 },
+    new Demon(randomX, canvas.height - 168 - 270, "images/Demon/Flight.png", 2.6, 8, { x: 150, y: 160 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Demon/Flight.png",
+            imageSrc: "images/Demon/Flight.png",
             framesMax: 8
         },
         run: {
-            imageSrc: "src/components/canvas/img/Demon/Flight.png",
+            imageSrc: "images/Demon/Flight.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Demon/Attack.png",
+            imageSrc: "images/Demon/Attack.png",
             framesMax: 4
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Demon/Hit.png",
+            imageSrc: "images/Demon/Hit.png",
             framesMax: 4
         }
     });
@@ -407,22 +406,22 @@ function spawnTroll() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png", 2.6, 10, { x: 220, y: 195 },
+    new Troll(randomX, canvas.height - 168 - 260, "images/Troll/Idle.png", 2.6, 10, { x: 220, y: 195 },
     {
         idle: {
-            imageSrc: "src/components/canvas/img/Troll/Idle.png",
+            imageSrc: "images/Troll/Idle.png",
             framesMax: 10
         },
         run: {
-            imageSrc: "src/components/canvas/img/Troll/Run.png",
+            imageSrc: "images/Troll/Run.png",
             framesMax: 8
         },
         attack: {
-            imageSrc: "src/components/canvas/img/Troll/Attack.png",
+            imageSrc: "images/Troll/Attack.png",
             framesMax: 5
         },
         hit: {
-            imageSrc: "src/components/canvas/img/Troll/Hit.png",
+            imageSrc: "images/Troll/Hit.png",
             framesMax: 3
         }
     });
@@ -433,7 +432,7 @@ function spawnMushroom() {
     const maxX = 2000
     const randomX = Math.random() * (maxX - minX) + minX;
 
-    new Mushroom(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Mushroom/Idle.png");
+    new Mushroom(randomX, canvas.height - 168 - 230, "images/Mushroom/Idle.png");
 }
 
 function resetWaveCounter() {
