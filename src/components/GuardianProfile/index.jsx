@@ -48,6 +48,13 @@ const GuardianProfile = ({ guardian }) => {
               <h3 className="guardian-profile-bio-header">Attack type:</h3>
               <p className="guardian-profile-bio-text">{g.attack_type}</p>
             </div>
+            <div className="guardian-profile-bio-section">
+              <h3 className="guardian-profile-bio-header">Mode 1:</h3>
+              <p className="guardian-profile-bio-text">{g.mode_1}</p>
+            </div><div className="guardian-profile-bio-section">
+              <h3 className="guardian-profile-bio-header">Mode 2:</h3>
+              <p className="guardian-profile-bio-text">{g.mode_2}</p>
+            </div>
             
           </div>
       </div>
