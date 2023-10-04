@@ -1,5 +1,5 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, Robbie, Spear, Lightning, Explosion, Spear2, Slash } from "./guardians";
+import { Duncan, Spear, Lightning, Explosion, Spear2, Slash } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 
@@ -75,14 +75,14 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 else if (spriteA instanceof Lightning) {
-                    removeFromGroup(spriteA, guardianProjectiles)
+                    setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 20)
                     removeFromGroup(spriteA, allSprites)
-                    new Explosion(spriteB.position.x, spriteB.position.y)
+                    new Explosion(spriteB.position.x, spriteB.position.y, "src/components/canvas/img/Robbie/Explosion.png")
                 }
 
                 else if(spriteA instanceof Explosion) {
                     spriteB.getStunned(spriteA.stunDuration)
-                    setTimeout(removeFromGroup(spriteA, guardianProjectiles), 5)
+                    removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
                 }
 

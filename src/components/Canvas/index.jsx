@@ -67,8 +67,13 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
+<<<<<<< HEAD
         spawnSteph();
         // spawnRobbie();
+=======
+        // spawnSteph();
+        spawnRobbie();
+>>>>>>> e9571a30d94097f5f49331f5bd92efdc4a269d25
         // spawnJames();
         // spawnAlex();
 

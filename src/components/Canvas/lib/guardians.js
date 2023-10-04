@@ -480,7 +480,7 @@ class Robbie extends Guardian {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.switchSprite('attack')
             this.isAttacking = true;
-            new Lightning(this.target.position.x, this.target.position.y - 650);
+            new Lightning(this.target.position.x, this.target.position.y - 650, "src/components/canvas/img/Robbie/Lightning.png");
             setTimeout(() => {
             this.isAttacking = false;
             }, 10);
@@ -751,7 +751,7 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 1.5, framesMax = 20, offset = { x: 200, y: 200 },) {
+    constructor(x, y, imageSrc, scale = 2, framesMax = 5, offset = { x: 100, y:-270 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
@@ -769,20 +769,21 @@ class Lightning extends Projectile {
         this.position.y += this.movSpd;
     }
 
-    draw(context) {
-        context.fillStyle = "orange";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "orange";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 
-    explodeOnImpact() {
-        if (this.position.y === this.target.position.y)
-            new Explosion(this.position.x, this.position.y + 100);
-    }
+    // explodeOnImpact() {
+    //     if (this.position.y === this.target.position.y)
+    //         new Explosion(this.position.x, this.position.y + 100, "src/components/canvas/img/Robbie/Explosion.png");
+    // }
 }
 
 class Explosion extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 10, framesMax = 10, offset = { x: 0, y: 0 },) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        
         this.position = { x, y };
         this.atk = 5;
         this.movSpd = 0;
