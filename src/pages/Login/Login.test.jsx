@@ -7,12 +7,15 @@ expect.extend(matchers);
 
 import Login from ".";
 import { clean } from "gh-pages";
+import { AuthProvider } from '../../context/AuthProvider';
 
 describe("Login Page", () => {
     beforeEach(() => {
         render(
             <MemoryRouter>
-                <Login />
+                <AuthProvider>
+                    <Login />
+                </AuthProvider>
             </MemoryRouter>
         );
     });
