@@ -1,8 +1,3 @@
-@font-face {
-    font-family: myFont;
-    src: url("../../logo-font/Custom-font.ttf");
-}
-
 body {
     overflow: hidden;
     font-size: 0.78125vw;
@@ -173,7 +168,7 @@ body {
 }
 
 .game {
-    background-image: url("src/components/Canvas/images/starsky-bg.png");
+    background-image: url("../../components/Canvas/images/starsky-bg.png");
     background-position: bottom;
     background-position-y: 1%;
 }
