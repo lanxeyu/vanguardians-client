@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
 import { SwitchMode } from "./utilclasses";
 import { GAME_STATES, getCurrentGameState, setCurrentGameState } from "./statemanagers";
+import { audioManager } from "./audio";
 
 function useGameStart() {
   
@@ -14,6 +15,7 @@ function useGameStart() {
       getCurrentGameState() === GAME_STATES.END_SCREEN)) {
         // setGameStarted(true);
         setCurrentGameState(GAME_STATES.PLAYING)
+        audioManager.playBackgroundMusic();
       }
     }
 
