@@ -759,10 +759,6 @@ class Lightning extends Projectile {
         this.movSpd = 15;
         this.width = 60;
         this.height = 595;
-
-        this.framesCurrent = 20;
-        this.framesElapsed = 20;
-        this.framesHold = 5;
     }
 
     updatePosition() {
