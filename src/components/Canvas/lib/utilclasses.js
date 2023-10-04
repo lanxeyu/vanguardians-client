@@ -262,7 +262,7 @@ class SwitchMode extends Sprite {
 class KnockedOut extends Sprite {
     constructor(text, x, y) {
         super()
-        // addToGroup(this, popUpMsgs);
+        addToGroup(this, popUpMsgs);
         this.offsetY = 20
         this.offsetX = 0
         let newPointY = y - this.offsetY

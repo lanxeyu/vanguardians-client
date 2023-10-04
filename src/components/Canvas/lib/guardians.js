@@ -208,6 +208,7 @@ class Character extends Sprite {
     }
 
     switchSprite(sprite) {
+        // console.log(sprite)
         if (this.image === this.sprites.attack.image && 
             this.framesCurrent < this.sprites.attack.framesMax - 1) {
             return;
@@ -223,12 +224,18 @@ class Character extends Sprite {
         }
         else if (this.image === this.sprites.death.image &&
             this.framesCurrent === this.sprites.death.framesMax -1) {
-            return this.framesHold = this.sprites.death.framesDeathHold
+                // console.log('Dead')
+            if (this.isKnockedOut) return this.framesHold = this.knockedOutLifeTime;
+            // console.log('Dead Hold') 
+            if (sprite != 'idle') {
+                return this.framesHold = this.sprites.death.framesDeathHold
+            }           
+            
         }
         else if(this.isKnockedOut === false) {
             this.framesHold = 5
         }
-            
+        // console.log('switching');
         switch (sprite) {
             case 'idle':
                 if (this.image !== this.sprites.idle.image) {
@@ -307,12 +314,15 @@ class Guardian extends Character {
 
     getKnockedOut() {
         if (this.isKnockedOut === false) {
+            // console.log("knockedout");
             let tempDate = new Date();
-            this.endTime = new Date(tempDate.getTime() + 10000);
+            this.endTime = new Date(tempDate.getTime() + this.knockedOutLifeTime);
             this.knockedOutElapsed = 0;
             new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
             setTimeout(() => {
+                // console.log('recovered');
                 this.isKnockedOut = false;
+                this.switchSprite('idle')
                 new KnockedOut("Recovered", this.position.x + (this.width / 2), this.position.y)
                 this.currHealth = this.maxHealth;
             }, this.knockedOutLifeTime);
@@ -376,8 +386,8 @@ class Guardian extends Character {
                 this.knockedOutElapsed = this.knockedOutLifeTime
             }
             else {
-                console.log("Time Diff: " + (this.endTime - new Date()));
-                console.log("KnockedOutLifeTime: " + this.knockedOutLifeTime);
+                // console.log("Time Diff: " + (this.endTime - new Date()));
+                // console.log("KnockedOutLifeTime: " + this.knockedOutLifeTime);
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
@@ -529,7 +539,7 @@ class James extends Guardian {
         this.position = { x, y };
         this.width = 150;
         this.height = 70;
-        this.maxHealth = 140;
+        this.maxHealth = 1;
         this.currHealth = this.maxHealth;
         this.atk = 4;
         this.atkSpd = 1500;
@@ -546,10 +556,8 @@ class James extends Guardian {
         this.switchSprite('attack')
         this.isAttacking = true;
 
-        if (this.currentMode == CHAR_MODES.MODE_1){
-            // new Spear2(this.position.x, (this.position.y), "src/components/canvas/img/James/Move.png");
-            // console.log(this.target)
-            new Fireball(this.position.x + this.width - 23, this.position.y - 23, "src/components/canvas/img/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
+        if (this.currentMode == CHAR_MODES.MODE_1) {
+            new Fireball(this.position.x + this.width - 23, this.position.y - 23, "images/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
@@ -877,7 +885,7 @@ class Fireball extends Projectile {
         this.height = 46;
 
         this.target = target;
-        console.log(this.target)
+        
         this.knockBackStrength = 0;
     }
 
@@ -906,7 +914,7 @@ class Fireball extends Projectile {
                 }
             }
             else {
-                console.log('No Target');
+                // console.log('No Target');
                 this.position.x += this.movSpd;
             }
             

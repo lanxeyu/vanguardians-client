@@ -1,6 +1,7 @@
 import { Sprite } from "./sprite";
 import { addToGroup, ui, portraits } from "./groups";
 import { CHAR_MODES, CHAR_STATES } from "./statemanagers";
+import { getScores } from "./stattracker";
 
 class PortraitIcon extends Sprite {
     constructor(guardian, x, y, increment) {
@@ -104,7 +105,7 @@ class PortraitIcon extends Sprite {
 }
 
 class TopBar extends Sprite {
-    constructor(x, y, width, height, scores) {
+    constructor(x, y, width, height) {
         super(x, y);
         addToGroup(this, ui);
 
@@ -113,12 +114,12 @@ class TopBar extends Sprite {
         this.width = width;
         this.height = height;
 
-        if (scores) {
-            this.score = scores;
-        }
-        else {
-            this.scores = 0;
-        }
+        // if (scores) {
+        //     this.score = scores;
+        // }
+        // else {
+        //     this.scores = 0;
+        // }
     }
 
     draw(context) {
@@ -133,7 +134,7 @@ class TopBar extends Sprite {
         context.font = "24px Silkscreen";
         context.textAlign = "center"
         context.fillText("SCORE", this.position.x + (this.width / 2), this.position.y + 35)
-        context.fillText(this.scores, this.position.x + (this.width / 2), this.position.y + 65)
+        context.fillText(getScores(), this.position.x + (this.width / 2), this.position.y + 65)
 
     }
 

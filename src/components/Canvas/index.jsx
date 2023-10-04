@@ -115,7 +115,7 @@ const Canvas = () => {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
         }
 
-        new TopBar(canvas.width / 2 - 40, 0, 140, 70, getScores());
+        new TopBar(canvas.width / 2 - 40, 0, 140, 70);
         new BottomBar(0, canvas.height, canvas.width, 168, null);
 
         setTotalKills(0);

@@ -1,6 +1,6 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./guardians";
-import { incrementTotalKills } from "./stattracker";
+import { incrementTotalKills, incrementScoreByValue } from "./stattracker";
 
 // --------------------  ENEMY CLASSES  -------------------------
 // (x, y, imageSrc, scale, framesMax, offset, sprites)
@@ -110,6 +110,25 @@ class Enemy extends Character {
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
             incrementTotalKills();
+            console.log(this.name);
+            switch(this.name) {
+                case "skeleton":
+                    console.log('incrementing skeleton');
+                    incrementScoreByValue(100);
+                break;
+                case "goblin":
+                    incrementScoreByValue(50);
+                break;
+                case "demon":
+                    incrementScoreByValue(250);
+                break;
+                case "troll":
+                    incrementScoreByValue(500);
+                break;
+                default:
+
+
+            }
         }
         this.updateTarget();
         this.updatePosition();
