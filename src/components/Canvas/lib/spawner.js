@@ -283,13 +283,29 @@ function spawnAlex() {
 }
 
 function spawnJames() {
-    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Worm/Idle.png");
+    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Idle.png", 2.8, 9, { x: 40, y: 90 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/James/Idle.png",
+            framesMax: 9
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/James/Run.png",
+            framesMax: 9
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/James/Attack.png",
+            framesMax: 6
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/James/Hit.png",
+            framesMax: 3
+        }
+    });
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
 
-
-// x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }
 function spawnSkeleton() {
     const minX = 1366;
     const maxX = 2000;

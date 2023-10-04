@@ -392,7 +392,6 @@ class Guardian extends Character {
         if (this.isKnockedOut) {
             context.fillStyle = 'rgb(255, 255, 255)';
             let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
-            // console.log(this.knockedOutElapsed)
             context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
         }
     }
@@ -510,8 +509,8 @@ class Robbie extends Guardian {
 }
 
 class James extends Guardian {
-    constructor(x, y, imageSrc, scale = 2.8, framesMax = 9, offset = { x: 40, y: 90 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "james";
         this.position = { x, y };
         this.width = 150;
@@ -525,11 +524,8 @@ class James extends Guardian {
 
         this.isRetreating = false;
         this.isAttacking = false;
-        this.atkBox = {
-            position: this.position,
-            width: this.atkRange,
-            height: this.height,
-        };
+        this.atkTimer = null;
+        this.atkCooldown = 0;
     }
 }
 
@@ -811,11 +807,6 @@ class Spear extends Projectile {
 
         this.knockBackStrength = 50;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "plum";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Spear2 extends Projectile {
@@ -829,11 +820,6 @@ class Spear2 extends Projectile {
 
         this.knockBackStrength = 0;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "plum";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Slash extends Projectile {
@@ -849,7 +835,7 @@ class Slash extends Projectile {
     }
 
     draw(context) {
-        context.fillStyle = "plum";
+        context.fillStyle = "aqua";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
