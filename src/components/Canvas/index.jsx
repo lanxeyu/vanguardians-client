@@ -125,12 +125,7 @@ const Canvas = () => {
     useEffect(() => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
-
-        const canvasLeft = canvas.offsetLeft;
-        const canvasTop = canvas.offsetTop;
-
-        const originX = canvas.width / 2,
-            originY = canvas.height / 2;
+        const timerIdHolder = {timerId: null};
 
         loadFonts();
 
@@ -180,17 +175,6 @@ const Canvas = () => {
                         } else if (enemies.length == 0) {
                             spawnEnemies();
                         }
-
-                        // Parallax attempt
-                        let firstPosX = originX;
-                        for (let i = 0; i < guardians.length; i++) {
-                            let currPointX = guardians[i].position.x + guardians[i].width / 2;
-                            if (currPointX > firstPosX) firstPosX = currPointX;
-                        }
-
-                        // console.log(firstPosX)
-
-                        // context.transform(1, 0, 0, 1, -firstPosX , 0)
 
                         updateAllSprites(context);
 
@@ -244,7 +228,7 @@ const Canvas = () => {
                         break;
                 }
 
-                requestAnimationFrame(gameLoop);
+                timerIdHolder.timerId = window.requestAnimationFrame(gameLoop);
             };
 
             gameLoop();
@@ -286,6 +270,8 @@ const Canvas = () => {
                 },
                 false
             );
+
+            return () => cancelAnimationFrame(timerIdHolder.timerId);
         }
     }, []);
 
