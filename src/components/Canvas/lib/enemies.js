@@ -24,6 +24,63 @@ class Enemy extends Character {
         this.target = this.findNearestTarget(guardians, "enemy");
     }
 
+    switchSprite(sprite) {
+        if (this.image === this.sprites.attack.image && 
+            this.framesCurrent < this.sprites.attack.framesMax - 1) {
+            return;
+        } 
+        else if (this.image === this.sprites.attack2?.image && 
+                   this.sprites.attack2 &&
+                   this.framesCurrent < this.sprites.attack2.framesMax - 1) {
+            return;
+        }
+        else if (this.image === this.sprites.hit.image && 
+            this.framesCurrent < this.sprites.hit.framesMax -1) {
+            return;
+        }
+
+        switch (sprite) {
+            case 'idle':
+                if (this.image !== this.sprites.idle.image) {
+                    this.image = this.sprites.idle.image
+                    this.framesMax = this.sprites.idle.framesMax
+                }
+                break;
+            case 'run':
+                if (this.image !== this.sprites.run.image){
+                    this.image = this.sprites.run.image
+                    this.framesMax = this.sprites.run.framesMax
+                }
+                break;
+            case 'attack':
+                if (this.image !== this.sprites.attack.image){
+                    this.image = this.sprites.attack.image
+                    this.framesMax = this.sprites.attack.framesMax
+                    this.framesCurrent = 0
+                }
+                break;
+            case 'attack2':
+                if (this.image !== this.sprites.attack2.image){
+                    this.image = this.sprites.attack2.image
+                    this.framesMax = this.sprites.attack2.framesMax
+                    this.framesCurrent = 0
+                }
+                break;
+            case 'hit':
+                if (this.image !== this.sprites.hit.image){
+                    this.image = this.sprites.hit.image
+                    this.framesMax = this.sprites.hit.framesMax
+                    this.framesCurrent = 0
+                }
+                break;
+            case 'defend':
+                if (this.image !== this.sprites.defend.image){
+                    this.image = this.sprites.defend.image
+                    this.framesMax = this.sprites.defend.framesMax
+                }
+                break;
+        }
+    }
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
         this.switchSprite('idle')

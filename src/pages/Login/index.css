@@ -73,5 +73,6 @@
         margin: 1em 0 1em 0;
         padding: 0.5em;
         width: 20em;
+        cursor: pointer;
     }
 }
