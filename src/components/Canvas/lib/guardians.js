@@ -808,7 +808,7 @@ class Explosion extends Projectile {
 }
 
 class Spear extends Projectile {
-    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 10, y: 40 }) {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 7;
@@ -826,7 +826,7 @@ class Spear extends Projectile {
 }
 
 class Spear2 extends Projectile {
-    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 10, y: 40 }) {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 5;
