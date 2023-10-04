@@ -62,8 +62,6 @@ class Enemy extends Character {
     }
 }
 
-
-
 class Skeleton extends Enemy {
     constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
         super(x, y, imageSrc, scale, framesMax, offset, sprites);
@@ -95,11 +93,10 @@ class Skeleton extends Enemy {
     }
 }
 
-
 class Goblin extends Enemy {
         
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 150, y: 143 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "goblin"
         this.position = { x, y };
         this.width = 70;
@@ -129,8 +126,8 @@ class Goblin extends Enemy {
 }
 
 class Demon extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 8, offset = { x: 150, y: 160 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "demon"
         this.position = { x, y };
         this.width = 70;
@@ -157,25 +154,8 @@ class Demon extends Enemy {
             height: 120,
         };
 
-        // Constant target
         this.target = van[0];
     }
-
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 3;
-    //     this.atkBox.position.y = this.position.y + 50;
-    //     context.fillStyle = "brown";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
-    // }
 
     // No need to update target as it is constantly the van
     updateTarget() {}

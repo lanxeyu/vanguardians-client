@@ -211,7 +211,8 @@ class Character extends Sprite {
         if (this.image === this.sprites.attack.image && 
             this.framesCurrent < this.sprites.attack.framesMax - 1) {
             return;
-        } else if (this.image === this.sprites.attack2?.image && 
+        } 
+        else if (this.image === this.sprites.attack2?.image && 
                    this.sprites.attack2 &&
                    this.framesCurrent < this.sprites.attack2.framesMax - 1) {
             return;
