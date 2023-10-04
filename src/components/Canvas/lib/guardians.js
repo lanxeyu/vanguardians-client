@@ -125,23 +125,23 @@ class Character extends Sprite {
     }
 
     findRandomTarget(group, type) {
-        const validTargets = [];
-
-        for (const sprite of group) {
-            if (
-                (type === "guardian" && sprite.position.x > this.position.x) ||
-                (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
-            ) {
-                validTargets.push(sprite);
+            const validTargets = [];
+    
+            for (const sprite of group) {
+                if (
+                    (type === "guardian" && sprite.position.x > this.position.x) ||
+                    (type === "enemy" && sprite.position.x < this.position.x && !sprite.isKnockedOut)
+                ) {
+                    validTargets.push(sprite);
+                }
             }
-        }
-
-        if (validTargets.length === 0) {
-            return null;
-        }
-
-        const randomIndex = Math.floor(Math.random() * validTargets.length);
-        return validTargets[randomIndex];
+    
+            if (validTargets.length === 0) {
+                return null;
+            }
+    
+            const randomIndex = Math.floor(Math.random() * validTargets.length);
+            return validTargets[randomIndex];
     }
 
     checkTargetInRange() {
@@ -211,7 +211,8 @@ class Character extends Sprite {
         if (this.image === this.sprites.attack.image && 
             this.framesCurrent < this.sprites.attack.framesMax - 1) {
             return;
-        } else if (this.image === this.sprites.attack2?.image && 
+        } 
+        else if (this.image === this.sprites.attack2?.image && 
                    this.sprites.attack2 &&
                    this.framesCurrent < this.sprites.attack2.framesMax - 1) {
             return;
@@ -392,7 +393,6 @@ class Guardian extends Character {
         if (this.isKnockedOut) {
             context.fillStyle = 'rgb(255, 255, 255)';
             let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
-            // console.log(this.knockedOutElapsed)
             context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
         }
     }
@@ -470,6 +470,7 @@ class Robbie extends Guardian {
     updateTarget() {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.target = this.findRandomTarget(enemies, "guardian");
+            
         } else if(this.currentMode === CHAR_MODES.MODE_2){
             this.target = this.findLowestHpGuardian(guardians)
         }
@@ -479,7 +480,7 @@ class Robbie extends Guardian {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.switchSprite('attack')
             this.isAttacking = true;
-            new Lightning(this.target.position.x, this.target.position.y - 650);
+            new Lightning(this.target.position.x, this.target.position.y - 650, "src/components/canvas/img/Robbie/Lightning.png");
             setTimeout(() => {
             this.isAttacking = false;
             }, 10);
@@ -510,8 +511,8 @@ class Robbie extends Guardian {
 }
 
 class James extends Guardian {
-    constructor(x, y, imageSrc, scale = 2.8, framesMax = 9, offset = { x: 40, y: 90 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "james";
         this.position = { x, y };
         this.width = 150;
@@ -520,16 +521,13 @@ class James extends Guardian {
         this.currHealth = this.maxHealth;
         this.atk = 4;
         this.atkSpd = 800;
-        this.atkRange = 900;
+        this.atkRange = 1100;
         this.movSpd = 4;
 
         this.isRetreating = false;
         this.isAttacking = false;
-        this.atkBox = {
-            position: this.position,
-            width: this.atkRange,
-            height: this.height,
-        };
+        this.atkTimer = null;
+        this.atkCooldown = 0;
     }
 }
 
@@ -543,7 +541,7 @@ class Steph extends Guardian {
         this.maxHealth = 80;
         this.currHealth = this.maxHealth;
         this.atkSpd = 700;
-        this.atkRange = 700;
+        this.atkRange = 900;
         this.movSpd = 4;
 
         this.isRetreating = false;
@@ -753,7 +751,7 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 1.5, framesMax = 20, offset = { x: 200, y: 200 },) {
+    constructor(x, y, imageSrc, scale = 2, framesMax = 5, offset = { x: 100, y:-270 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
@@ -761,7 +759,6 @@ class Lightning extends Projectile {
         this.movSpd = 15;
         this.width = 60;
         this.height = 595;
-        this.stunDuration = 3000;
 
         this.framesCurrent = 20;
         this.framesElapsed = 20;
@@ -772,26 +769,27 @@ class Lightning extends Projectile {
         this.position.y += this.movSpd;
     }
 
-    draw(context) {
-        context.fillStyle = "orange";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "orange";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 
-    explodeOnImpact() {
-        if (this.position.y === this.target.position.y)
-            new Explosion(this.position.x, this.position.y + 100);
-    }
+    // explodeOnImpact() {
+    //     if (this.position.y === this.target.position.y)
+    //         new Explosion(this.position.x, this.position.y + 100, "src/components/canvas/img/Robbie/Explosion.png");
+    // }
 }
 
 class Explosion extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 10, framesMax = 10, offset = { x: 0, y: 0 },) {
+        super(x, y, imageSrc, scale, framesMax, offset);
+        
         this.position = { x, y };
         this.atk = 5;
         this.movSpd = 0;
         this.width = 200;
         this.height = 150;
-        this.stunDuration = 4000;
+        this.stunDuration = 2000;
     }
 
     draw(context) {
@@ -811,29 +809,19 @@ class Spear extends Projectile {
 
         this.knockBackStrength = 50;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "plum";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Spear2 extends Projectile {
     constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
-        this.atk = 5;
+        this.atk = 10;
         this.movSpd = 25;
         this.width = 100;
         this.height = 5;
 
         this.knockBackStrength = 0;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "plum";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Slash extends Projectile {
@@ -849,7 +837,7 @@ class Slash extends Projectile {
     }
 
     draw(context) {
-        context.fillStyle = "plum";
+        context.fillStyle = "aqua";
         context.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
