@@ -171,6 +171,11 @@ function spawnLanxe() {
         hit: {
             imageSrc: "images/Lanxe/Hit.png",
             framesMax: 4
+        },
+        death: {
+            imageSrc: "images/Lanxe/Death.png",
+            framesMax: 6,
+            framesDeathHold: 1600
         }
     });
     new LevelUp('New Guardian: Lanxe the Samurai', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
@@ -198,6 +203,11 @@ function spawnDuncan() {
         defend: {
             imageSrc: "images/Duncan/Defend.png",
             framesMax: 1
+        },
+        death: {
+            imageSrc: "images/Duncan/Death.png",
+            framesMax: 10,
+            framesDeathHold: 1800
         }
     });
     new LevelUp('New Guardian: Duncan the Tank', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
@@ -221,6 +231,11 @@ function spawnSteph() {
         hit: {
             imageSrc: "images/Steph/Hit.png",
             framesMax: 3
+        },
+        death: {
+            imageSrc: "images/Steph/Death.png",
+            framesMax: 8,
+            framesDeathHold: 1300
         }
     });
     new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
@@ -248,7 +263,12 @@ function spawnRobbie() {
         hit: {
             imageSrc: "images/Robbie/Hit.png",
             framesMax: 4
-        } 
+        },
+        death: {
+            imageSrc: "images/Robbie/Death.png",
+            framesMax: 7,
+            framesDeathHold: 2409
+        }
     });
     new LevelUp('New Guardian: Robbie the Wizard', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
@@ -275,6 +295,11 @@ function spawnAlex() {
         hit: {
             imageSrc: "images/Alex/Hit.png",
             framesMax: 3
+        },
+        death: {
+            imageSrc: "images/Alex/Death.png",
+            framesMax: 7,
+            framesDeathHold: 1800
         }
     });
     new LevelUp('New Guardian: Alex the Battlemage', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
@@ -298,6 +323,11 @@ function spawnJames() {
         hit: {
             imageSrc: "images/James/Hit.png",
             framesMax: 3
+        },
+        death: {
+            imageSrc: "images/James/Death.png",
+            framesMax: 8,
+            framesDeathHold: 2000
         }
     });
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
