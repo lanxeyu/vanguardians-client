@@ -75,15 +75,15 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 else if (spriteA instanceof Lightning) {
-                    setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 20)
-                    removeFromGroup(spriteA, allSprites)
+                    setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 5)
+                    setTimeout(() => removeFromGroup(spriteA, allSprites), 5)
                     new Explosion(spriteB.position.x, spriteB.position.y, "images/Robbie/Explosion.png")
                 }
 
                 else if(spriteA instanceof Explosion) {
                     spriteB.getStunned(spriteA.stunDuration)
-                    removeFromGroup(spriteA, guardianProjectiles)
-                    removeFromGroup(spriteA, allSprites)
+                    setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 20)
+                    setTimeout(() => removeFromGroup(spriteA, allSprites), 20)
                 }
 
                 else if(spriteA instanceof Slash) {
