@@ -209,11 +209,17 @@ class Character extends Sprite {
 
     switchSprite(sprite) {
         if (this.image === this.sprites.attack.image && 
-            this.framesCurrent < this.sprites.attack.framesMax -1) 
-            return
+            this.framesCurrent < this.sprites.attack.framesMax - 1) {
+            return;
+        } else if (this.image === this.sprites.attack2?.image && 
+                   this.sprites.attack2 &&
+                   this.framesCurrent < this.sprites.attack2.framesMax - 1) {
+            return;
+        }
         else if (this.image === this.sprites.hit.image && 
-            this.framesCurrent < this.sprites.hit.framesMax -1) 
-            return
+            this.framesCurrent < this.sprites.hit.framesMax -1) {
+            return;
+        }
             
         switch (sprite) {
             case 'idle':
@@ -232,6 +238,13 @@ class Character extends Sprite {
                 if (this.image !== this.sprites.attack.image){
                     this.image = this.sprites.attack.image
                     this.framesMax = this.sprites.attack.framesMax
+                    this.framesCurrent = 0
+                }
+                break;
+            case 'attack2':
+                if (this.image !== this.sprites.attack2.image){
+                    this.image = this.sprites.attack2.image
+                    this.framesMax = this.sprites.attack2.framesMax
                     this.framesCurrent = 0
                 }
                 break;
@@ -452,8 +465,8 @@ class Lanxe extends Guardian {
 }
 
 class Robbie extends Guardian {
-    constructor(x, y, imageSrc, scale = 1.5, framesMax = 6, offset = { x: 120, y: 70 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "robbie";
         this.position = { x, y };
         this.width = 70;
@@ -481,6 +494,7 @@ class Robbie extends Guardian {
 
     attack() {
         if(this.currentMode === CHAR_MODES.MODE_1){
+            this.switchSprite('attack')
             this.isAttacking = true;
             new Lightning(this.target.position.x, this.target.position.y - 650);
             setTimeout(() => {
@@ -489,6 +503,7 @@ class Robbie extends Guardian {
         } 
                 
         else if(this.currentMode === CHAR_MODES.MODE_2){
+            this.switchSprite('attack2')
             this.isAttacking = true;
             new Heal(this.target.position.x, this.target.position.y -20)
             setTimeout(() => {
@@ -532,35 +547,7 @@ class James extends Guardian {
             width: this.atkRange,
             height: this.height,
         };
-
-        this.currentState = CHAR_STATES.FLEEING;
     }
-
-    // draw(context) {
-    //     super.draw(context)
-    //     switch (this.currentState) {
-    //         case CHAR_STATES.FORWARD:
-    //             context.fillStyle = `rgb(
-    //                 200,
-    //                 20,
-    //                 200)`;
-    //             break;
-    //         case CHAR_STATES.FLEEING:
-    //             context.fillStyle = `rgb(
-    //                 200,
-    //                 200,
-    //                 0)`;
-
-    //             break;
-    //         case CHAR_STATES.IDLE:
-    //             context.fillStyle = `rgb(
-    //                 200,
-    //                 200,
-    //                 200)`;
-    //             break;
-    //     }
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Steph extends Guardian {
@@ -692,7 +679,7 @@ class Alex extends Guardian {
         this.maxHealth = 100;
         this.currHealth = this.maxHealth;
         this.atkSpd = 2900;
-        this.atkRange = 350;
+        this.atkRange = 450;
         this.movSpd = 2.9;
         
         this.isRetreating = false;
@@ -704,10 +691,47 @@ class Alex extends Guardian {
             width: this.atkRange,
             height: 60,
         };
+    }
 
-    }  
+    toggleAttributes() {
+        switch (this.currentMode) {
+            case CHAR_MODES.MODE_1:
+                this.atkSpd = 2900;
+                break;
+            case CHAR_MODES.MODE_2:
+                this.atkSpd = 800;
+                break;
+            default:
+                this.atkSpd = 2900;
+        }
+    }
+
+    updateTarget() {
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            super.updateTarget()
+        }
+    }
+
+    attack() {
+        this.isAttacking = true;
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            new Slash(this.position.x, this.position.y);
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5);
+
+        } else if(this.currentMode == CHAR_MODES.MODE_2){
+            for (const guardian of guardians) {
+                if(guardian.name !== "van") {
+                    new Heal2(guardian.position.x, guardian.position.y -20)
+                }
+            }
+            setTimeout(() => {
+                this.isAttacking = false;
+            }, 5)
+        }  
+    }
 }
-    
 
 // --------------------  GUARDIAN PROJECTILE CLASSES  -------------------------
 class Projectile extends Sprite {
@@ -745,7 +769,6 @@ class Lightning extends Projectile {
         this.width = 60;
         this.height = 595;
         this.stunDuration = 3000;
-        this.image.src = "/src/components/canvas/img/Steph/Idle.png" 
 
         this.framesCurrent = 20;
         this.framesElapsed = 20;
@@ -785,7 +808,7 @@ class Explosion extends Projectile {
 }
 
 class Spear extends Projectile {
-    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 0, y: 40 }) {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 10, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 7;
@@ -803,7 +826,7 @@ class Spear extends Projectile {
 }
 
 class Spear2 extends Projectile {
-    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 0, y: 40 }) {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 10, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 5;
