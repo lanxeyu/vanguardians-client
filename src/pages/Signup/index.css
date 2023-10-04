@@ -8,9 +8,9 @@
 }
 
 .registerForm {
-    width: 100%;
+    /* width: 100%;
     max-width: 420px;
-    min-height: 400px;
+    min-height: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -18,9 +18,9 @@
     border: 3px solid #004657;
     border-style: outset;
     background-color: #001B22;
-    border-radius: 10px;
+    border-radius: 10px;    
     margin-bottom: 5%;
-    width: 40%;
+    /* width: 40%; */
 }
 
 .register {
@@ -34,26 +34,53 @@
     flex-direction: column;
     justify-content: space-evenly;
     flex-grow: 1;
-    padding-bottom: 1rem;
+    padding: 1em 0;
 
-    > input[type="text"],
-    > input[type="password"],
-    > button,
-    > textarea {
-        /* font-family: "Nunito", sans-serif; */
+    
+    > button {
         color: #237a20;
-        font-size: 22px;
-        padding: 0.25rem;
-        border-radius: 0.5rem;
+        font-size: 1.375em;
+        padding: 0.25em;
+        border-radius: 0.5em;
+    }
+
+    > .form-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 0.5em 0;
+    }
+
+    > .form-input-wrapper > label {
+        margin: 1em 0;
+    }
+
+    > .form-input-wrapper > input[type="text"],
+    > .form-input-wrapper > input[type="password"] {
+        color: #237a20;
+        font-size: 1.375em;
+        padding: 0.25em;
+        border-radius: 0.5em;
+        width: 19.3125em;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
+    }
+
+    > .form-input-wrapper > p {
+        font-size: 1.0em;
+        padding: 0.25em;
+        border-radius: 0.5em;
+        width: 27.0em;
     }
 
     > label,
     > button {
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
     }
 
     > button {
-        padding: 0.5rem;
+        margin: 1.0rem 0 1.0rem 0;
+        padding: 0.5em;
+        width: 20em;
     }
 }
 
@@ -66,13 +93,13 @@
     border-radius: 0.5rem;
     background: #000;
     color: #fff;
-    padding: 0.25rem;
+    padding: 0.25em;
     position: relative;
     bottom: -10px;
 }
 
 .instructions > svg {
-    margin-right: 0.25rem;
+    margin-right: 0.25em;
 }
 
 .offscreen {
@@ -86,18 +113,18 @@
 
 .valid {
     fill: limegreen;
-    margin-left: 0.25rem;
+    margin-left: 0.25em;
 }
 
 .invalid {
     fill: red;
-    margin-left: 0.25rem;
+    margin-left: 0.25em;
 }
 
 .errmsg {
     background-color: lightpink;
     color: firebrick;
     font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
 }

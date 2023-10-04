@@ -53,7 +53,7 @@ const Canvas = () => {
 
     function initGame(canvas) {
         resetAllGroups();
-        resetWaveCounter(); 
+        resetWaveCounter();
         new Background(0, 0, 1366, 766, 0, 0, 'src/components/canvas/img/starsky-bg.png', 0);
         new Background(0, canvas.height, 1366, 329, 0, -(168 + 329), 'src/components/canvas/img/cloud1-bg.png', 1);
         new Background(0, canvas.height, 1366, 113, 0, -(168 + 113), 'src/components/canvas/img/cloud2-bg.png', 1);
@@ -97,7 +97,8 @@ const Canvas = () => {
         let scores = 0;
         let totalKills = 0;
         let init = false;
-
+        setCurrentGameState(GAME_STATES.MAIN_MENU)
+        
         if (canvas) {
             initCanvas(canvas);
             context.scale(1, 1)
@@ -226,7 +227,7 @@ const Canvas = () => {
                 
             }, false);
         }
-    }, [gameStarted]);
+    }, []);
 
     useEffect(() => {
         addKeyListener();

@@ -8,9 +8,8 @@
 }
 
 .loginForm {
-    width: 100%;
-    max-width: 420px;
-    min-height: 400px;
+    /* max-width: 420px;
+    min-height: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -19,7 +18,8 @@
     border-style: outset;
     background-color: #001B22;
     border-radius: 10px;
-    width: 40%;
+    /* height: 40%;
+    width: 40%; */
     margin-bottom: 5%;
 }
 
@@ -34,24 +34,45 @@
     flex-direction: column;
     justify-content: space-evenly;
     flex-grow: 1;
-    padding-bottom: 1rem;
+    padding: 1em 0;
 
-    > input[type="text"],
-    > input[type="password"],
-    > button,
-    > textarea {
+    
+    > button {
         color: #237a20;
-        font-size: 22px;
-        padding: 0.25rem;
-        border-radius: 0.5rem;
+        font-size: 1.375em;
+        padding: 0.25em;
+        border-radius: 0.5em;
+    }
+
+    > .form-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 0.5em 0;
+    }
+
+    > .form-input-wrapper > label {
+        margin: 1em 0;
+    }
+
+    > .form-input-wrapper > input[type="text"],
+    > .form-input-wrapper > input[type="password"] {
+        color: #237a20;
+        font-size: 1.375em;
+        padding: 0.25em;
+        border-radius: 0.5em;
+        width: 19.3125em;
+        font-family: 'Rubik', sans-serif;
+        font-weight: bold;
     }
 
     > label,
     > button {
-        margin-top: 1rem;
+        /* margin-top: 1rem; */
     }
 
     > button {
-        padding: 0.5rem;
+        margin: 1.0em 0 1.0em 0;
+        padding: 0.5em;
+        width: 20em;
     }
 }

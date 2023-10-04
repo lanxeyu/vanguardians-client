@@ -3,6 +3,8 @@ import { Character } from "./guardians";
 import { incrementTotalKills } from "./stattracker";
 
 // --------------------  ENEMY CLASSES  -------------------------
+// (x, y, imageSrc, scale, framesMax, offset, sprites)
+
 class Enemy extends Character {
     constructor(
         x,
@@ -11,9 +13,9 @@ class Enemy extends Character {
         scale = 1,
         framesMax = 1,
         offset = { x: 0, y: 0 },
-        healthBarPosition = { x: 0, y: 0 }
+        sprites
     ) {
-        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         addToGroup(this, enemies);
     }
 
@@ -24,6 +26,11 @@ class Enemy extends Character {
 
     // Default movement for Enemies if not overriden in the subclass
     updatePosition() {
+        this.switchSprite('idle')
+
+        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
+        this.atkBox.position.y = this.position.y
+
         if (this.isKnockedBack) {
             this.position.x += this.knockBackDistance;
         } else if (
@@ -32,42 +39,8 @@ class Enemy extends Character {
             this.target &&
             !this.checkTargetInRange()
         ) {
+            this.switchSprite('run')
             this.position.x -= this.movSpd;
-        }
-    }
-
-    attack() {
-        this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
-        this.atkBox.position.y = this.position.y
-
-        this.isAttacking = true;
-        setTimeout(() => {
-            this.isAttacking = false;
-        }, 5);
-    }
-
-    updateAttacking() {
-        if (!this.isStunned && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
-            this.attack();
-            this.atkCooldown = this.atkSpd;
-            this.atkTimer = setTimeout(() => {
-                this.isAttacking = false;
-            }, 50);
-        }
-        if (this.atkCooldown > 0) {
-            this.atkCooldown -= 16;
-        }
-    }
-
-    updateAnimation() {
-        this.framesElapsed++;
-
-        if (this.framesElapsed % this.framesHold === 0) {
-            if (this.framesCurrent < this.framesMax - 1) {
-                this.framesCurrent++;
-            } else {
-                this.framesCurrent = 0;
-            }
         }
     }
 
@@ -87,15 +60,13 @@ class Enemy extends Character {
 
         this.updateAnimation();
     }
-
-    // draw(context) {
-    //     super.draw(context)
-    // }
 }
 
+
+
 class Skeleton extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }, healthBarPosition = { x: 0, y: 0 }) {
-        super(x, y, imageSrc, scale, framesMax, offset, healthBarPosition);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "skeleton";
         this.position = { x, y };
         this.width = 70;
@@ -121,26 +92,7 @@ class Skeleton extends Enemy {
             width: this.atkRange,
             height: 100,
         }
-
-        this.healthBarPosition.x = 130;
-        this.healthBarPosition.y = 200;
     }
-
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
-    //     this.atkBox.position.y = this.position.y
-    //     // context.fillStyle = "red"
-    //     // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    //     if (this.isAttacking) {
-    //         context.fillRect(
-    //             this.atkBox.position.x,
-    //             this.atkBox.position.y,
-    //             this.atkBox.width,
-    //             this.atkBox.height
-    //         );
-    //     }
-    // }
 }
 
 
@@ -174,22 +126,6 @@ class Goblin extends Enemy {
             height: 100,        
         }
     }
-
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - this.atkRange - 30
-    //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "green"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // //     if (this.isAttacking) {
-    // //         context.fillRect(
-    // //             this.atkBox.position.x,
-    // //             this.atkBox.position.y,
-    // //             this.atkBox.width,
-    // //             this.atkBox.height
-    // //         );
-    //     // }
-    // }
 }
 
 class Demon extends Enemy {

@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    const { setAuth, auth } = useAuth();
+    const { setUser } = useAuth();
 
     useEffect(() => {
         userRef.current.focus();
@@ -40,11 +40,19 @@ const Login = () => {
             setUser(token);
             console.log(token);
 
-            setAuth(response);
-            console.log(auth);
+            // console.log(token);
+            // const options = {
+            //     headers: {
+            //         token: token,
+            //     },
+            // };
+            // const response2 = await axios.post("http://127.0.0.1:5000/auth", options);
 
-            setUsername("");
-            setPassword("");
+            // setAuth(response2.data);
+            // console.log(response2.data);
+            // setUsername("");
+            // setPassword("");
+            // setUser(data.username);
             navigate("/");
         } catch (error) {
             if (!error?.response) {
@@ -68,25 +76,29 @@ const Login = () => {
                 </p>
                 <h1 className="signin">Sign In</h1>
                 <form id="login-form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={e => setUsername(e.target.value)}
-                        value={username}
-                        required
-                    />
-
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={e => setPassword(e.target.value)}
-                        value={password}
-                        required
-                    />
+                    <div className="form-input-wrapper">
+                        <label htmlFor="username">Username:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={e => setUsername(e.target.value)}
+                            value={username}
+                            required
+                        />
+                    </div>
+                    <div className="form-input-wrapper">
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={e => setPassword(e.target.value)}
+                            value={password}
+                            required
+                        />
+                    </div>
+                    
                     <button data-testid="login-btn">Sign In</button>
                 </form>
                 <p>
