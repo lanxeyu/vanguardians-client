@@ -221,6 +221,13 @@ class Character extends Sprite {
             this.framesCurrent < this.sprites.hit.framesMax -1) {
             return;
         }
+        else if (this.image === this.sprites.death.image &&
+            this.framesCurrent === this.sprites.death.framesMax -1) {
+            return this.framesHold = 1800
+        }
+        else if(this.isKnockedOut === false) {
+            this.framesHold = 5
+        }
             
         switch (sprite) {
             case 'idle':
@@ -262,6 +269,13 @@ class Character extends Sprite {
                     this.framesMax = this.sprites.defend.framesMax
                 }
                 break;
+            case 'death':
+                if (this.image !== this.sprites.death.image){
+                    this.image = this.sprites.death.image
+                    this.framesMax = this.sprites.death.framesMax
+                    this.framesCurrent = 0
+                }
+                break;
         }
     }
 }
@@ -296,17 +310,14 @@ class Guardian extends Character {
             let tempDate = new Date();
             this.endTime = new Date(tempDate.getTime() + 10000);
             this.knockedOutElapsed = 0;
-            
             new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
             setTimeout(() => {
                 this.isKnockedOut = false;
                 new KnockedOut("Recovered", this.position.x + (this.width / 2), this.position.y)
                 this.currHealth = this.maxHealth;
             }, this.knockedOutLifeTime);
-            
             this.isKnockedOut = true;
         }
-        
     }
 
     // Default target for Guardians if not overriden in the subclass
@@ -392,6 +403,7 @@ class Guardian extends Character {
         super.draw(context)
         if (this.isKnockedOut) {
             context.fillStyle = 'rgb(255, 255, 255)';
+            this.switchSprite('death')
             let knockedBarWidth = this.healthBarWidth * (this.knockedOutElapsed / this.knockedOutLifeTime)
             context.fillRect(this.position.x + (this.width / 2) - (this.healthBarWidth / 2), this.position.y, knockedBarWidth, 5);
         }
@@ -788,10 +800,10 @@ class Explosion extends Projectile {
         this.stunDuration = 2000;
     }
 
-    draw(context) {
-        context.fillStyle = "pink";
-        context.fillRect(this.position.x - 75, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "pink";
+    //     context.fillRect(this.position.x - 75, this.position.y, this.width, this.height);
+    // }
 }
 
 class Spear extends Projectile {
