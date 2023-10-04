@@ -223,7 +223,7 @@ class Character extends Sprite {
         }
         else if (this.image === this.sprites.death.image &&
             this.framesCurrent === this.sprites.death.framesMax -1) {
-            return this.framesHold = 1800
+            return this.framesHold = this.sprites.death.framesDeathHold
         }
         else if(this.isKnockedOut === false) {
             this.framesHold = 5

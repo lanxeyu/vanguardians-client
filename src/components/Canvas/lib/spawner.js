@@ -173,8 +173,9 @@ function spawnLanxe() {
             framesMax: 4
         },
         death: {
-            imageSrc: "src/components/canvas/img/Lanxe/Death.png",
-            framesMax: 6
+            imageSrc: "images/Lanxe/Death.png",
+            framesMax: 6,
+            framesDeathHold: 1600
         }
     });
     new LevelUp('New Guardian: Lanxe the Samurai', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
@@ -204,8 +205,9 @@ function spawnDuncan() {
             framesMax: 1
         },
         death: {
-            imageSrc: "src/components/canvas/img/Duncan/Death.png",
-            framesMax: 10
+            imageSrc: "images/Duncan/Death.png",
+            framesMax: 10,
+            framesDeathHold: 1800
         }
     });
     new LevelUp('New Guardian: Duncan the Tank', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
@@ -231,8 +233,9 @@ function spawnSteph() {
             framesMax: 3
         },
         death: {
-            imageSrc: "src/components/canvas/img/Steph/Death.png",
-            framesMax: 8
+            imageSrc: "images/Steph/Death.png",
+            framesMax: 8,
+            framesDeathHold: 1300
         }
     });
     new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
@@ -262,8 +265,9 @@ function spawnRobbie() {
             framesMax: 4
         },
         death: {
-            imageSrc: "src/components/canvas/img/Robbie/Death.png",
-            framesMax: 7
+            imageSrc: "images/Robbie/Death.png",
+            framesMax: 7,
+            framesDeathHold: 2409
         }
     });
     new LevelUp('New Guardian: Robbie the Wizard', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
@@ -293,8 +297,9 @@ function spawnAlex() {
             framesMax: 3
         },
         death: {
-            imageSrc: "src/components/canvas/img/Alex/Death.png",
-            framesMax: 7
+            imageSrc: "images/Alex/Death.png",
+            framesMax: 7,
+            framesDeathHold: 1800
         }
     });
     new LevelUp('New Guardian: Alex the Battlemage', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
@@ -320,8 +325,9 @@ function spawnJames() {
             framesMax: 3
         },
         death: {
-            imageSrc: "src/components/canvas/img/James/Death.png",
-            framesMax: 8
+            imageSrc: "images/James/Death.png",
+            framesMax: 8,
+            framesDeathHold: 2000
         }
     });
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
