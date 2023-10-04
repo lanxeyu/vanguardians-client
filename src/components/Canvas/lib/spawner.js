@@ -8,7 +8,7 @@ import { LevelUp, WaveMessage } from "./utilclasses";
 function spawnGuardians() {
     switch (van[0].lvl) {
         case 2:
-            // spawnDuncan();
+            spawnDuncan();
             break;
         case 3:
             spawnRobbie();
@@ -37,7 +37,6 @@ function spawnEnemies() {
         case 1:
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
-                // spawnMushroom()
             }
             break;
         case 2:
@@ -283,18 +282,32 @@ function spawnAlex() {
 }
 
 function spawnJames() {
-    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Worm/Idle.png");
+    new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Idle.png", 2.8, 9, { x: 40, y: 90 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/James/Idle.png",
+            framesMax: 9
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/James/Run.png",
+            framesMax: 9
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/James/Attack.png",
+            framesMax: 6
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/James/Hit.png",
+            framesMax: 3
+        }
+    });
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
-
-
-// x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }
 function spawnSkeleton() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-
     new Skeleton(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Skeleton/Idle.png", 2.6, 4, { x: 140, y: 113 },
     {
         idle: {
@@ -302,7 +315,7 @@ function spawnSkeleton() {
             framesMax: 4
         },
         run: {
-            imageSrc: "src/components/canvas/img/Skeleton/Walk.png",
+            imageSrc: "src/components/canvas/img/Skeleton/Run.png",
             framesMax: 4
         },
         attack: {
@@ -320,24 +333,75 @@ function spawnGoblin() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-
-    new Goblin(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Goblin/Idle.png");
+    new Goblin(randomX, canvas.height - 168 - 230, "src/components/canvas/img/Goblin/Idle.png", 2.6, 4, { x: 150, y: 143 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Goblin/Idle.png",
+            framesMax: 4
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Goblin/Run.png",
+            framesMax: 6
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Goblin/Attack.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Goblin/Hit.png",
+            framesMax: 4
+        }
+    });
 }
 
 function spawnDemon() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-
-    new Demon(randomX, canvas.height - 168 - 270, "src/components/canvas/img/Demon/Flight.png");
+    new Demon(randomX, canvas.height - 168 - 270, "src/components/canvas/img/Demon/Flight.png", 2.6, 8, { x: 150, y: 160 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Demon/Flight.png",
+            framesMax: 8
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Demon/Flight.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Demon/Attack.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Demon/Hit.png",
+            framesMax: 4
+        }
+    });
 }
 
 function spawnTroll() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-
-    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png");
+    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png", 2.6, 10, { x: 220, y: 195 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Troll/Idle.png",
+            framesMax: 10
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Troll/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Troll/Attack.png",
+            framesMax: 5
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Troll/Hit.png",
+            framesMax: 3
+        }
+    });
 }
 
 function spawnMushroom() {

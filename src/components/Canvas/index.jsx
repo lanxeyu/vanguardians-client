@@ -67,10 +67,10 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
         // spawnJames();
-        spawnAlex();
+        // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i)
