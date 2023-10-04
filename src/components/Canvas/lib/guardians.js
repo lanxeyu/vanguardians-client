@@ -445,23 +445,6 @@ class Lanxe extends Guardian {
                 this.damageResistance = 1;
         }
     }
-
-    // draw(context) {
-    //     super.draw(context)
-        // this.atkBox.position.x = this.position.x
-        // this.atkBox.position.y = this.position.y
-        // context.fillStyle = "blue"
-        // context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-        // if (this.isAttacking) {
-        //     context.fillRect(
-        //         this.atkBox.position.x,
-        //         this.atkBox.position.y,
-        //         this.atkBox.width,
-        //         this.atkBox.height
-        //     );
-        // }
-    // }
 }
 
 class Robbie extends Guardian {
@@ -670,8 +653,8 @@ class Duncan extends Guardian {
 }
 
 class Alex extends Guardian {
-    constructor(x, y, imageSrc, scale = 2.9, framesMax = 10, offset = { x: 200, y: 140 }) {
-        super(x, y, imageSrc, scale, framesMax, offset);
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites);
         this.name = "alex"
         this.position = { x, y };
         this.width = 70;
@@ -680,17 +663,12 @@ class Alex extends Guardian {
         this.currHealth = this.maxHealth;
         this.atkSpd = 2900;
         this.atkRange = 450;
-        this.movSpd = 2.9;
+        this.movSpd = 4;
         
         this.isRetreating = false;
         this.isAttacking = false;
         this.atkTimer = null;
         this.atkCooldown = 0;
-        this.atkBox = {
-            position: this.position,
-            width: this.atkRange,
-            height: 60,
-        };
     }
 
     toggleAttributes() {
@@ -715,21 +693,36 @@ class Alex extends Guardian {
     attack() {
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
+            this.switchSprite('attack')
             new Slash(this.position.x, this.position.y);
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
 
         } else if(this.currentMode == CHAR_MODES.MODE_2){
+            this.switchSprite('attack2')
             for (const guardian of guardians) {
-                if(guardian.name !== "van") {
-                    new Heal2(guardian.position.x, guardian.position.y -20)
-                }
+                new Heal2(guardian.position.x, guardian.position.y -20)
             }
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5)
         }  
+    }
+
+    updatePosition() {
+        // Mode 1 Block
+        if (this.currentMode == CHAR_MODES.MODE_1){
+            super.updatePosition()
+        }
+
+        // Mode 2 Block
+        else {
+            this.switchSprite('idle')
+            if (this.isKnockedBack) {
+                this.position.x += this.knockBackDistance;
+            }
+        }
     }
 }
 
@@ -902,4 +895,4 @@ class Heal2 extends HealingProjectile {
     }
 }
 
-export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal, Heal2 };
+export { Character, Lanxe, Robbie, Duncan, Steph, James, Alex, Spear, Spear2, Lightning, Explosion, Heal, Heal2, Slash };

@@ -59,6 +59,7 @@ class Enemy extends Character {
         this.updateAttacking();
 
         this.updateAnimation();
+        console.log(this.currHealth)
     }
 }
 
