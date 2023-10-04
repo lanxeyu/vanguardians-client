@@ -1,4 +1,3 @@
-// audio.js
 import backgroundMusic from '/audio/bgmusic2.mp3';
 
 class AudioManager {
