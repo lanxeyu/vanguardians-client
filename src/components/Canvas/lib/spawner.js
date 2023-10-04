@@ -206,7 +206,7 @@ function spawnDuncan() {
 }
 
 function spawnSteph() {
-    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Stephanie/Idle.png", 3.0, 8, { x: 195, y: 140 },
+    new Steph(50, canvas.height - 168 - 260, "src/components/canvas/img/Steph/Idle.png", 3.0, 8, { x: 195, y: 140 },
     {
         idle: {
             imageSrc: "src/components/canvas/img/Steph/Idle.png",
@@ -228,8 +228,31 @@ function spawnSteph() {
     new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
+// x, y, imageSrc, scale = 1.5, framesMax = 6, offset = { x: 120, y: 70 }
 function spawnRobbie() {
-    new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png");
+    new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png", 1.5, 6, { x: 120, y: 70 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Robbie/Idle.png",
+            framesMax: 6
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Robbie/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Robbie/Attack.png",
+            framesMax: 6
+        },
+        attack2: {
+            imageSrc: "src/components/canvas/img/Robbie/Attack2.png",
+            framesMax: 6
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Robbie/Hit.png",
+            framesMax: 4
+        } 
+    });
     new LevelUp('New Guardian: Robbie the Wizard', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
