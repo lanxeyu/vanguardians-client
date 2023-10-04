@@ -1,82 +1,78 @@
 #guardian-profile-page-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: calc(100% - 4.9em);
-  width: 100%;  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 4.9em);
+    width: 100%;
 }
 
 .guardian-profile-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
-  width: 55%;
-  height: 68%;  
-  /* background-color:chocolate; */
+    width: 55%;
+    height: 68%;
+    /* background-color:chocolate; */
 }
 
 .guardian-profile-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  height: 100%;
-  width: 50%;
-  overflow: hidden;
-  background-color: #064457
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    background-color: #064457;
 }
 
 .guardian-profile-card-name {
-  font-size: 2.5em;
+    font-size: 2.5em;
 }
 
 .guardian-profile-card-type {
-  font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 .guardian-profile-card-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 65%;
-  width: auto;
-  /* margin-top: -10% */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    width: auto;
+    /* margin-top: -10% */
 }
 
 .guardian-profile-bio {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-  height: 100%;
-  width: 50%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #001b23;
+    height: 100%;
+    width: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #001b23;
 }
 
 .guardian-profile-bio-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-  height: 100%;
-  width: 90%;
-  padding: 5%;
+    height: 100%;
+    width: 90%;
+    padding: 5%;
 }
 
 .guardian-profile-bio-header {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .guardian-profile-bio-text {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
-
-
-
-
