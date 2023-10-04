@@ -28,6 +28,11 @@ const Home = () => {
                 <h2 id="how-to-play" onClick={toggleShowHowToPlay}>
                     HOW TO PLAY
                 </h2>
+                <div id="play-button-container">
+                    <Link id="link-to-game" to="/game">
+                        <button id="play-button">Play Now!</button>
+                    </Link>
+                </div>
             </div>
 
             {showHowToPlay && (
@@ -40,12 +45,6 @@ const Home = () => {
                     </div>
                 </div>
             )}
-
-            <div id="play-button-container">
-                <Link id="link-to-game" to="/game">
-                    <button id="play-button">Play Now!</button>
-                </Link>
-            </div>
 
             <div id="images-container">
                 <img src="src\pages\Home\images\fantasywarrior.gif" alt="fantasy warrior" />
