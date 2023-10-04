@@ -1,5 +1,5 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, Robbie, Spear, Lightning, Explosion, Spear2 } from "./guardians";
+import { Duncan, Robbie, Spear, Lightning, Explosion, Spear2, Slash } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 
@@ -41,7 +41,7 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
 function checkHealingProjectileCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) { 
         for (const spriteB of spriteGroup2){
-            if(areSpritesColliding(spriteA, spriteB)){
+            if(areSpritesColliding(spriteA, spriteB) && (spriteB.name !== "van")){
                 spriteB.getHealed(spriteA.heal)
                 new HealNumber(spriteA.heal, spriteB.position.x, spriteB.position.y)
             }
@@ -89,6 +89,11 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     removeFromGroup(spriteA, allSprites)
                 }
 
+                else if(spriteA instanceof Slash) {
+                    setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 200);
+                    setTimeout(() => removeFromGroup(spriteA, allSprites), 200);
+                }
+                
                 // ENEMIES
             }
         }

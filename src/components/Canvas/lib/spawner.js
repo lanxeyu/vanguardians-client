@@ -228,7 +228,6 @@ function spawnSteph() {
     new LevelUp('New Guardian: Steph the Huntress', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
-// x, y, imageSrc, scale = 1.5, framesMax = 6, offset = { x: 120, y: 70 }
 function spawnRobbie() {
     new Robbie(50, canvas.height - 168 - 250, "src/components/canvas/img/Robbie/Idle.png", 1.5, 6, { x: 120, y: 70 },
     {
@@ -256,17 +255,39 @@ function spawnRobbie() {
     new LevelUp('New Guardian: Robbie the Wizard', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
 }
 
-
+function spawnAlex() {
+    new Alex(50, canvas.height - 168 - 260, "src/components/canvas/img/Alex/Idle.png", 2.9, 10, { x: 200, y: 140 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Alex/Idle.png",
+            framesMax: 10
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Alex/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Alex/Attack.png",
+            framesMax: 4
+        },
+        attack2: {
+            imageSrc: "src/components/canvas/img/Alex/Attack2.png",
+            framesMax: 4
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Alex/Hit.png",
+            framesMax: 3
+        }
+    });
+    new LevelUp('New Guardian: Alex the Battlemage', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
+}
 
 function spawnJames() {
     new James(50, canvas.height - 168 - 180, "src/components/canvas/img/James/Worm/Idle.png");
     new LevelUp('New Guardian: James the Fire Worm', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)  
 }
 
-function spawnAlex() {
-    new Alex(50, canvas.height - 168 - 260, "src/components/canvas/img/Alex/Idle.png");
-    new LevelUp('New Guardian: Alex the Battlemage', van[0].position.x + (van[0].width / 2) + 60, van[0].position.y - 0)
-}
+
 
 // x, y, imageSrc, scale = 2.6, framesMax = 4, offset = { x: 140, y: 113 }
 function spawnSkeleton() {
