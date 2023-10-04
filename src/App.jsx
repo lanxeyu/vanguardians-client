@@ -15,7 +15,6 @@ const App = () => {
                 <Route path="guardians/:id" element={<Pages.Guardian />} />
                 <Route path="login" element={<Pages.Login />} />
                 <Route path="signup" element={<Pages.Signup />} />
-                <Route path="/game" element={<Pages.GamePage />} />
                 <Route path="/about" element={<Pages.AboutPage />} />
 
                 <Route element={<RequireAuth />}>
