@@ -116,7 +116,6 @@ body {
     margin-bottom: 10%;
 }
 
-#description-of-game:hover,
 #how-to-play:hover {
     color: #004657;
 }
@@ -156,4 +155,17 @@ body {
     position: absolute;
     bottom: 0;
     z-index: 0;
+}
+
+#play-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#play-button {
+    color: #001B22;
+    padding: 10px;
+    font-size: 60px;
+    cursor: pointer;
 }
