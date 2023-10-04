@@ -24,15 +24,8 @@ class Van extends Sprite {
         this.score = 0;
         this.enemiesKilled = 0;
 
-        this.name = "van"
+        this.name = "van";        
     }
-
-    // draw(context) {
-    //     super.draw(context)
-    //     context.drawImage(this.image, this.position.x, this.position.y);
-    //     context.fillStyle = 'purple'
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 
     drawHealthbars(context) {
         // Healthbar

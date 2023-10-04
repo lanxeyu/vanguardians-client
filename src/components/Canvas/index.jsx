@@ -48,6 +48,7 @@ import { useGameStart } from "./lib/utils";
 import { addKeyListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
+import { audioManager } from "./lib/audio";
 
 const Canvas = () => {
     const [showGameOver, setShowGameOver] = useState(false);
@@ -108,8 +109,13 @@ const Canvas = () => {
         // spawnLanxe();
         // spawnSteph();
         // spawnRobbie();
+<<<<<<< HEAD
         spawnJames();
         // spawnAlex();
+=======
+        // spawnJames();
+        spawnAlex();
+>>>>>>> 098d1183eb00f9581dc217fff0f94ebefe21a0cf
 
         for (let i = 0; i < guardians.length; i++) {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
@@ -172,6 +178,7 @@ const Canvas = () => {
                         if (!van[0].isAlive) {
                             clearAllSprites();
                             setCurrentGameState(GAME_STATES.END_SCREEN);
+                            audioManager.stopBackgroundMusic()
                         } else if (enemies.length == 0) {
                             spawnEnemies();
                         }

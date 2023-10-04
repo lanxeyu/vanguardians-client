@@ -729,7 +729,7 @@ class Alex extends Guardian {
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
             this.switchSprite('attack')
-            new Slash(this.position.x, this.position.y);
+            new Slash(this.position.x, this.position.y, "images/Alex/Projectile.png");
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
@@ -788,13 +788,13 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 2, framesMax = 5, offset = { x: 100, y:-270 },) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 250, y:-200 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
         this.atk = "Stunned";
-        this.movSpd = 15;
-        this.width = 60;
+        this.movSpd = 10;
+        this.width = 70;
         this.height = 595;
     }
 
@@ -814,7 +814,7 @@ class Lightning extends Projectile {
 }
 
 class Explosion extends Projectile {
-    constructor(x, y, imageSrc, scale = 10, framesMax = 10, offset = { x: 0, y: 0 },) {
+    constructor(x, y, imageSrc, scale = 3, framesMax = 10, offset = { x: 0, y: 0 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
         
         this.position = { x, y };
@@ -858,8 +858,8 @@ class Spear2 extends Projectile {
 }
 
 class Slash extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 8, framesMax = 10, offset = { x: 0, y: 40 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 2;
         this.movSpd = 25;
@@ -869,10 +869,10 @@ class Slash extends Projectile {
         this.knockBackStrength = 0;
     }
 
-    draw(context) {
-        context.fillStyle = "aqua";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "aqua";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class Fireball extends Projectile {
