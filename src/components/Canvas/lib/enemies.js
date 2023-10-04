@@ -162,8 +162,8 @@ class Demon extends Enemy {
 }
 
 class Troll extends Enemy {
-    constructor(x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }) {
-        super(x, y, imageSrc, scale, framesMax, offset)
+    constructor(x, y, imageSrc, scale, framesMax, offset, sprites) {
+        super(x, y, imageSrc, scale, framesMax, offset, sprites)
         this.name = "troll"
         this.position = {x, y}
         this.width = 70
@@ -191,22 +191,6 @@ class Troll extends Enemy {
             height: 100,
         }
     }
-
-    // draw(context) {
-    //     this.atkBox.position.x = this.position.x + this.width - 200 - 3
-    //     this.atkBox.position.y = this.position.y
-    //     context.fillStyle = "maroon"
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // //     if (this.isAttacking) {
-    // //         context.fillRect(
-    // //             this.atkBox.position.x,
-    // //             this.atkBox.position.y,
-    // //             this.atkBox.width,
-    // //             this.atkBox.height
-    // //         );
-    // //     }
-    // }
 }
 
 class Mushroom extends Enemy {

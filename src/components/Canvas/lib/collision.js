@@ -20,9 +20,6 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                     if (spriteA instanceof Duncan) {
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
-                    else if (spriteA instanceof Robbie) {
-                        spriteB.getStunned(spriteA.stunDuration)
-                    }
 
                     // ENEMIES
                     else if (spriteA instanceof Skeleton){

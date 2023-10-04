@@ -758,7 +758,6 @@ class Lightning extends Projectile {
         this.movSpd = 15;
         this.width = 60;
         this.height = 595;
-        this.stunDuration = 3000;
 
         this.framesCurrent = 20;
         this.framesElapsed = 20;
@@ -788,7 +787,7 @@ class Explosion extends Projectile {
         this.movSpd = 0;
         this.width = 200;
         this.height = 150;
-        this.stunDuration = 4000;
+        this.stunDuration = 2000;
     }
 
     draw(context) {

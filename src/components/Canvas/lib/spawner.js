@@ -37,7 +37,6 @@ function spawnEnemies() {
         case 1:
             for (let i = 0; i < 1; i++) {
                 spawnSkeleton();
-                // spawnMushroom()
             }
             break;
         case 2:
@@ -382,12 +381,30 @@ function spawnDemon() {
     });
 }
 
+// x, y, imageSrc, scale = 2.6, framesMax = 10, offset = { x: 220, y: 195 }
 function spawnTroll() {
     const minX = 1366;
     const maxX = 2000;
     const randomX = Math.random() * (maxX - minX) + minX;
-
-    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png");
+    new Troll(randomX, canvas.height - 168 - 260, "src/components/canvas/img/Troll/Idle.png", 2.6, 10, { x: 220, y: 195 },
+    {
+        idle: {
+            imageSrc: "src/components/canvas/img/Troll/Idle.png",
+            framesMax: 10
+        },
+        run: {
+            imageSrc: "src/components/canvas/img/Troll/Run.png",
+            framesMax: 8
+        },
+        attack: {
+            imageSrc: "src/components/canvas/img/Troll/Attack.png",
+            framesMax: 5
+        },
+        hit: {
+            imageSrc: "src/components/canvas/img/Troll/Hit.png",
+            framesMax: 3
+        }
+    });
 }
 
 function spawnMushroom() {
