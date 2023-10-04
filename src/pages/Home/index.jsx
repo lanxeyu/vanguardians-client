@@ -49,6 +49,7 @@ const Home = () => {
                 <img src="src\pages\Home\images\fantasywarrior.gif" alt="fantasy warrior" />
                 <img src="src\pages\Home\images\heavyarmor.gif" alt="heavy armor" />
                 <img src="src\pages\Home\images\fireworm.gif" alt="fireworm" />
+                <img src="/src/components/Canvas/img/van2.png" alt="van" />
                 <img src="src\pages\Home\images\martialhero.gif" alt="martial hero" />
                 <img src="src\pages\Home\images\wizard.gif" alt="wizard" />
                 <img src="src\pages\Home\images\huntress.gif" alt="huntress" />
