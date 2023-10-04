@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import './index.css'
 
 const Home = () => {
-  const [showDescription, setShowDescription] = useState(false)
   const [showHowToPlay, setShowHowToPlay] = useState(false)
-
-  const toggleShowDescription = () => {
-    if (showDescription) {
-      setShowDescription(false)
-    } else {
-      setShowDescription(true)
-      setShowHowToPlay(false)
-    }
-  }
 
   const toggleShowHowToPlay = () => {
     if (showHowToPlay) {
@@ -30,9 +21,7 @@ const Home = () => {
       </h1>
 
       <div id="home-text-container">
-        <h2 id='description-of-game' 
-        onClick={toggleShowDescription}
-        >
+        <h2 id='description-of-game'>
           DESCRIPTION OF GAME
         </h2>
 
@@ -42,21 +31,6 @@ const Home = () => {
           HOW TO PLAY
         </h2>
       </div>
-      {showDescription && (
-        <div id = "popup-container">
-          <div id = "popup" data-testid="description-popup">
-            <button 
-            id ="close-button" 
-            onClick={toggleShowDescription} 
-            >
-              X
-            </button>
-            <p>
-              Description of the game...
-            </p>
-          </div>
-        </div>
-      )}
 
       {showHowToPlay && (
         <div id = "popup-container">
@@ -73,6 +47,12 @@ const Home = () => {
           </div>
         </div>
       )}
+
+      <div id='play-button-container'>
+        <Link id="link-to-game" to="/game"> 
+          <button id="play-button">Play Now!</button>
+        </Link>
+      </div>
 
       <div id='images-container'>
         <img src="src\pages\Home\images\fantasywarrior.gif" alt="fantasy warrior" />
