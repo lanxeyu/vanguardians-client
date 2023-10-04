@@ -179,7 +179,9 @@ const Signup = () => {
                             <span id="pwdCheck" className={validPwd ? "valid" : "hide"}>
                                 <FontAwesomeIcon icon={faCheck} />
                             </span>
-                            <span id="pwdCross" className={validPwd || !password ? "hide" : "invalid"}>
+                            <span
+                                id="pwdCross"
+                                className={validPwd || !password ? "hide" : "invalid"}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </span>
                         </label>
@@ -205,43 +207,45 @@ const Signup = () => {
                             Allowed special characters: <span aria-label="exclamation mark">
                                 !
                             </span>{" "}
-                            <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span>{" "}
-                            <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            <span aria-label="at symbol">@</span>{" "}
+                            <span aria-label="hashtag">#</span>{" "}
+                            <span aria-label="dollar sign">$</span>{" "}
+                            <span aria-label="percent">%</span>
                         </p>
                     </div>
-                    
+
                     <div className="form-input-wrapper">
-                    <label htmlFor="confirm_pwd">
-                        Confirm Password:
-                        <span id="matchCheck" className={validMatch && matchPwd ? "valid" : "hide"}>
-                            <FontAwesomeIcon icon={faCheck} />
-                        </span>
-                        <span
-                            id="matchCross"
-                            className={validMatch || !matchPwd ? "hide" : "invalid"}>
-                            <FontAwesomeIcon icon={faTimes} />
-                        </span>
-                    
-                    </label>
-                    <input
-                        type="password"
-                        id="confirm_pwd"
-                        onChange={e => setMatchPwd(e.target.value)}
-                        required
-                        aria-invalid={validMatch ? "false" : "true"}
-                        aria-describedby="confirmnote"
-                        onFocus={() => setMatchFocus(true)}
-                        onBlur={() => setMatchFocus(false)}
-                    />
-                    <p
-                        id="confirmnote"
-                        className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                        Must match the first password input field.
-                    </p>
+                        <label htmlFor="confirm_pwd">
+                            Confirm Password:
+                            <span
+                                id="matchCheck"
+                                className={validMatch && matchPwd ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon={faCheck} />
+                            </span>
+                            <span
+                                id="matchCross"
+                                className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </span>
+                        </label>
+                        <input
+                            type="password"
+                            id="confirm_pwd"
+                            onChange={e => setMatchPwd(e.target.value)}
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p
+                            id="confirmnote"
+                            className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Must match the first password input field.
+                        </p>
                     </div>
-                    
-                    
+
                     <button
                         id="reg-btn"
                         data-testid="reg-btn"
@@ -251,7 +255,7 @@ const Signup = () => {
                 </form>
                 <p>
                     Already registered? <br />
-                    <Link to="/login" style={{ textDecoration: "underline", color: "#237a20" }}>
+                    <Link to="/login" style={{ textDecoration: "underline", color: "white" }}>
                         Login
                     </Link>
                 </p>

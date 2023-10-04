@@ -98,13 +98,13 @@ const Login = () => {
                             required
                         />
                     </div>
-                    
+
                     <button data-testid="login-btn">Sign In</button>
                 </form>
                 <p>
                     Need an Account?
                     <br />
-                    <Link to="/signup" style={{ textDecoration: "underline", color: "#237a20" }}>
+                    <Link to="/signup" style={{ textDecoration: "underline", color: "white" }}>
                         Sign Up
                     </Link>
                 </p>

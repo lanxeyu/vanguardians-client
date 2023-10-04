@@ -16,7 +16,7 @@
     padding: 1rem;
     border: 3px solid #004657;
     border-style: outset;
-    background-color: #001B22;
+    background-color: #001b22;
     border-radius: 10px;
     /* height: 40%;
     width: 40%; */
@@ -36,7 +36,6 @@
     flex-grow: 1;
     padding: 1em 0;
 
-    
     > button {
         color: #237a20;
         font-size: 1.375em;
@@ -61,7 +60,7 @@
         padding: 0.25em;
         border-radius: 0.5em;
         width: 19.3125em;
-        font-family: 'Rubik', sans-serif;
+        font-family: "Rubik", sans-serif;
         font-weight: bold;
     }
 
@@ -71,7 +70,7 @@
     }
 
     > button {
-        margin: 1.0em 0 1.0em 0;
+        margin: 1em 0 1em 0;
         padding: 0.5em;
         width: 20em;
     }

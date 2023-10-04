@@ -5,7 +5,7 @@ const styles = ({ isActive }) => ({ textDecoration: isActive ? "underline" : "no
 import "./index.css";
 import { useAuth } from "../../context/AuthProvider";
 
-export default function Header() {
+export default function Header2() {
     const handleLogout = () => {
         localStorage.removeItem("token");
         setUser("");
@@ -15,10 +15,7 @@ export default function Header() {
 
     return (
         <>
-            <header>
-                <NavLink id="nav-title" to="/">
-                    VanGuardians
-                </NavLink>
+            <header id="header2">
                 <nav>
                     <NavLink to="/" style={styles}>
                         Home
