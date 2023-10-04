@@ -600,13 +600,13 @@ class Steph extends Guardian {
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1){
-            new Spear2(this.position.x, (this.position.y + 50));
+            new Spear2(this.position.x, (this.position.y + 50), "src/components/canvas/img/Steph/Spear move.png");
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
         
         } else {
-            new Spear(this.position.x, (this.position.y + 50));
+            new Spear(this.position.x, (this.position.y + 50), "src/components/canvas/img/Steph/Spear move.png");
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
@@ -785,8 +785,8 @@ class Explosion extends Projectile {
 }
 
 class Spear extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 0, y: 40 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 7;
         this.movSpd = 25;
@@ -796,15 +796,15 @@ class Spear extends Projectile {
         this.knockBackStrength = 50;
     }
 
-    draw(context) {
-        context.fillStyle = "plum";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "plum";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class Spear2 extends Projectile {
-    constructor(x, y) {
-        super();
+    constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 0, y: 40 }) {
+        super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 5;
         this.movSpd = 25;
@@ -814,10 +814,10 @@ class Spear2 extends Projectile {
         this.knockBackStrength = 0;
     }
 
-    draw(context) {
-        context.fillStyle = "plum";
-        context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
+    // draw(context) {
+    //     context.fillStyle = "plum";
+    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
+    // }
 }
 
 class Slash extends Projectile {
