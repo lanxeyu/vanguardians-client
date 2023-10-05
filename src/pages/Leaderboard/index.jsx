@@ -10,7 +10,7 @@ const Leaderboard = () => {
   const fetchLeaderboardData = async () => {
     try {
       const response = await axios.get(`http://127.0.0.1:5000/scores`);
-      console.log('Middle')
+      // console.log('Middle')
       if (response.status === 200) {
           const data = response.data;
           

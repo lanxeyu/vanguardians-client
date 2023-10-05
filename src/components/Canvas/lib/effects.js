@@ -70,13 +70,13 @@ class FireballEffect extends Effects {
 }
 
 class LivingBombEffect extends Effects {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 7, offset = { x: 0, y: 0 }) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 0, y: 0 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         addToGroup(this, fx);
 
         this.framesCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold = 2000;
+        this.framesHold = 100;
 
         this.framesMax = framesMax;
         

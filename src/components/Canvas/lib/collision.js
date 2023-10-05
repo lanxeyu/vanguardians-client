@@ -129,8 +129,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 else if (spriteA instanceof LivingBomb) {
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
-                    new LivingBombEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/Explosion.png");
-
+                    new LivingBombEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-2.png");
                 }
 
                 // ENEMIES
