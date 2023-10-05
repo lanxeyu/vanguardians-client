@@ -606,9 +606,6 @@ class James extends Guardian {
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
-        
-        } else {
-            
         }
     }
 
