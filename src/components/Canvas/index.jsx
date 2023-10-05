@@ -69,8 +69,11 @@ const Canvas = () => {
         };
 
         try {
-            const response = await axios.post("http://127.0.0.1:5000/scores", data);
+            const response = await axios.post("https://vanguardians-server.onrender.com/scores", data);
 
+            if (response.status == 201) {
+                console.log("Score Saved Successfully");
+            }
         } catch (error) {
             if (!error?.response) {
                 setErrMsg("No server response");
