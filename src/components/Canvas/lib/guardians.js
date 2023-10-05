@@ -1009,7 +1009,7 @@ class Spear2 extends Projectile {
     constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
-        this.atk = 10;
+        this.atk = 5;
         this.movSpd = 25;
         this.width = 100;
         this.height = 5;

@@ -109,9 +109,9 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
-        spawnJames();
+        // spawnJames();
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
