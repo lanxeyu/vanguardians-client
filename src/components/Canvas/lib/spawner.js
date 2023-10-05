@@ -39,7 +39,7 @@ function spawnEnemies() {
             }
             break;
         case 2:
-            for (let i = 0; i < 2; i++) {
+            for (let i = 0; i < 3; i++) {
                 spawnSkeleton();
             }
             for (let i = 0; i < 1; i++) {
@@ -47,7 +47,7 @@ function spawnEnemies() {
             }
             break;
         case 3:
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 4; i++) {
                 spawnSkeleton();
             }
             for (let i = 0; i < 3; i++) {
@@ -143,6 +143,54 @@ function spawnEnemies() {
                 spawnTroll();
             }
             break;
+        case 14:
+            for (let i = 0; i < 40; i++) {
+                spawnGoblin()
+            }
+            break;
+        case 15:
+            for (let i = 0; i < 100; i++) {
+                spawnGoblin()
+            }
+            break;
+        case 16:
+            for (let i = 0; i < 80; i++) {
+                spawnSkeleton()
+            }
+            break;
+        case 17:
+            for (let i = 0; i < 40; i++) {
+                spawnDemon()
+            }
+            break;
+        case 18:
+            for (let i = 0; i < 40; i++) {
+                spawnDemon()
+            }
+            for (let i = 0; i < 30; i++) {
+                spawnSkeleton()
+            }
+            break;
+        case 19:
+            for (let i = 0; i < 20; i++) {
+                spawnTroll()
+            }
+            break;
+        case 20:
+            for (let i = 0; i < 20; i++) {
+                spawnTroll()
+            }
+            for (let i = 0; i < 30; i++) {
+                spawnSkeleton()
+            } 
+            for (let i = 0; i < 50; i++) {
+                spawnGoblin()
+            } 
+            for (let i = 0; i < 20; i++) {
+                spawnDemon()
+            }
+            break;
+            
         default:
             // Win Game logic
             break;
