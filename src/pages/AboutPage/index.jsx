@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-const About = () => {
+const AboutPage = () => {
     return (
         <div id="about-container">
             <h1 id="about-title">The story begins...</h1>
@@ -39,4 +39,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default AboutPage;
