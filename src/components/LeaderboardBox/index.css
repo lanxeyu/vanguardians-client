@@ -1,26 +1,28 @@
 #leaderboard-table {
     width: 80%;
     margin: 3rem auto;
-    table-layout:fixed;
+    table-layout: fixed;
     display: table;
     white-space: nowrap;
-    
 }
 
 #leaderboard-box {
     height: 60%;
     width: 44em;
-    background-color: #001B22;
+    background-color: #001b22;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     caret-color: transparent;
+    border: 3px solid #004657;
+    border-style: outset;
 }
 
-#leaderboard-table td, #leaderboard-table th {
+#leaderboard-table td,
+#leaderboard-table th {
     text-align: center;
     font-size: 1.3em;
-    font-family: 'Silkscreen', cursive;
+    font-family: "Silkscreen", cursive;
 }
 
 #leaderboard-table td {
@@ -33,7 +35,6 @@
     display: table-cell;
     /* min-height: 1.0rem; */
     padding-bottom: 2rem;
-
 }
 
 .leaderboard-header {

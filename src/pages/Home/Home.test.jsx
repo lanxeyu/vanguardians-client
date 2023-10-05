@@ -21,37 +21,20 @@ describe('Homepage', () => {
       cleanup();
     });
     
-    it('has three headings', () => {
+    it('has two headings', () => {
         const element = screen.getAllByRole('heading');
-        expect(element.length).toBe(3);
+        expect(element.length).toBe(2);
     });
 
-    it('has a "HOME" title', () => {
-        const title = screen.getByText('HOME');
+    it('has a title', () => {
+        const title = document.getElementById('homepage-title');
         expect(title).toBeInTheDocument();
-    });
-
-    it('has a "DESCRIPTION OF GAME" subtitle', () => {
-        const subtitle = screen.getByText('DESCRIPTION OF GAME');
-        expect(subtitle).toBeInTheDocument();
+        expect(title.textContent).toBe('Vanguardians')
     });
 
     it('has a "HOW TO PLAY" subtitle', () => {
         const subtitle = screen.getByText('HOW TO PLAY');
         expect(subtitle).toBeInTheDocument();
-    });
-
-    it('display popup when "DESCRIPTION OF GAME" is clicked and popup has a button to close popup when clicked', () => {
-        const description = screen.getByText('DESCRIPTION OF GAME');
-        const descriptionPopup = screen.queryByTestId('description-popup');
-        expect(descriptionPopup).not.toBeInTheDocument();
-        fireEvent.click(description); 
-        const updatedDescriptionPopup = screen.getByTestId('description-popup');
-        const button = screen.getByRole('button');
-        expect(updatedDescriptionPopup).toBeInTheDocument();
-        expect(button).toBeTruthy();
-        fireEvent.click(button)
-        expect(updatedDescriptionPopup).not.toBeInTheDocument();
     });
 
     it('display popup when "HOW TO PLAY" is clicked and popup has a button to close popup when clicked', () => {
@@ -60,15 +43,23 @@ describe('Homepage', () => {
         expect(howToPlayPopup).not.toBeInTheDocument();
         fireEvent.click(howToPlay);
         const updatedHowToPlayPopup = screen.queryByTestId('howtoplay-popup');
-        const button = screen.getByRole('button');
+        const button = document.getElementById('close-button');
         expect(updatedHowToPlayPopup).toBeInTheDocument();
         expect(button).toBeTruthy();
         fireEvent.click(button)
         expect(updatedHowToPlayPopup).not.toBeInTheDocument();
     });
 
-    it('display six images', () => {
+    it('has a play now button that link to gamepage', () => {
+        const button = document.getElementById('play-button');
+        const link = screen.getByRole('link', { name: /play now!/i });
+        expect(button).toBeTruthy();
+        expect(link).toBeTruthy();
+        expect(link.getAttribute('href')).toBe('/game');
+    });
+
+    it('display seven images', () => {
         const images = screen.getAllByRole('img');
-        expect(images.length).toBe(6);
+        expect(images.length).toBe(7);
     });
 });

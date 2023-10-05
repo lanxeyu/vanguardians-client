@@ -1,28 +1,28 @@
 #guardians-page-container {
-  height: calc(100% - 4.9em);
-  width: 100%;
-  overflow-y: auto;
+    height: calc(100% - 5.1em);
+    width: 100%;
+    overflow-y: auto;
 }
 
 #guardians-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.75em;
-  height: 20%;
-  /* margin-top: 5vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
+    height: 20%;
+    /* margin-top: 5vh; */
 }
 
 #guardians-main-container {
-  height: 80%;
-  width: 100%;
-  /* overflow-y: auto; */
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+    height: 80%;
+    width: 100%;
+    /* overflow-y: auto; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #guardians-page-loading {
-  font-size: 2.5em;
-  margin: 0 auto;
+    font-size: 2.5em;
+    margin: 0 auto;
 }

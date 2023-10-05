@@ -1,5 +1,5 @@
 #login-page-container {
-    height: calc(100% - 4.9em);
+    height: calc(100% - 5.1em);
     width: 100%;
 
     display: flex;
@@ -62,11 +62,6 @@
         width: 19.3125em;
         font-family: "Rubik", sans-serif;
         font-weight: bold;
-    }
-
-    > label,
-    > button {
-        /* margin-top: 1rem; */
     }
 
     > button {

@@ -40,7 +40,17 @@ const Home = () => {
                         <button id="close-button" onClick={toggleShowHowToPlay}>
                             X
                         </button>
-                        <p>How to play...</p>
+                        <p>
+                            VanGuardians offers a dynamic party-management experience where your
+                            heroic Guardians engage in combat through distinct battle modes. You
+                            have the power to command your party by switching each Guardian between
+                            aggressive and defensive playstyles. Take control and unleash their full
+                            potential!
+                        </p>
+                        <br></br>
+                        <p>Switch Guardian Mode by pressing keys '1' through '6'</p>
+                        <p>Command Guardians to retreat by pressing 'R'</p>
+                        <p>Command Guardians to advance by pressing 'A'</p>
                     </div>
                 </div>
             )}

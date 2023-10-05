@@ -17,7 +17,7 @@ class AudioManager {
 
   stopBackgroundMusic() {
     this.backgroundMusic.pause();
-    this.backgroundMusic.currentTime = 0;
+    this.backgroundMusic.currentTime = 0.7
   }
 
   setVolume(volume) {

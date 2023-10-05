@@ -493,13 +493,15 @@ class Robbie extends Guardian {
     }
 
     updateTarget() {
-        if(this.currentMode === CHAR_MODES.MODE_1){
-            this.target = this.findRandomTarget(enemies, "guardian");
-            
-        } else if(this.currentMode === CHAR_MODES.MODE_2){
-            this.target = this.findLowestHpGuardian(guardians)
+        if (this.currentMode === CHAR_MODES.MODE_1) {
+            if (!enemies.includes(this.target)) {
+                this.target = this.findRandomTarget(enemies, "guardian");
+            }
+        } else if (this.currentMode === CHAR_MODES.MODE_2) {
+            this.target = this.findLowestHpGuardian(guardians);
         }
     }
+    
 
     attack() {
         if(this.currentMode === CHAR_MODES.MODE_1){
@@ -604,8 +606,6 @@ class James extends Guardian {
                 this.isAttacking = false;
             }, 5);
         
-        } else {
-            
         }
     }
 
@@ -947,7 +947,7 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 250, y:-200 },) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 5, offset = { x: 250, y:-200 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
@@ -960,16 +960,6 @@ class Lightning extends Projectile {
     updatePosition() {
         this.position.y += this.movSpd;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "orange";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
-
-    // explodeOnImpact() {
-    //     if (this.position.y === this.target.position.y)
-    //         new Explosion(this.position.x, this.position.y + 100, "images/Robbie/Explosion.png");
-    // }
 }
 
 class Explosion extends Projectile {
@@ -983,11 +973,6 @@ class Explosion extends Projectile {
         this.height = 150;
         this.stunDuration = 2000;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "pink";
-    //     context.fillRect(this.position.x - 75, this.position.y, this.width, this.height);
-    // }
 }
 
 class Spear extends Projectile {
@@ -1009,7 +994,7 @@ class Spear2 extends Projectile {
     constructor(x, y, imageSrc, scale = 3, framesMax = 4, offset = { x: 15, y: 40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
-        this.atk = 10;
+        this.atk = 5;
         this.movSpd = 25;
         this.width = 100;
         this.height = 5;
@@ -1031,11 +1016,6 @@ class Slash extends Projectile {
 
         this.knockBackStrength = 0;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "aqua";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class Fireball extends Projectile {
@@ -1086,12 +1066,6 @@ class Fireball extends Projectile {
         }
         this.updateAnimation();
     }
-
-    // draw(context) {
-    //     super.draw(context);
-    //     context.fillStyle = "rgb(255, 200, 200)";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class FireballExplosion extends Projectile {
