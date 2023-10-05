@@ -51,12 +51,38 @@ import { addKeyListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
+import { useAuth } from "../../context/AuthProvider";
 
 const Canvas = () => {
+    const { user, setUser } = useAuth();
     const [showGameOver, setShowGameOver] = useState(false);
     const gameStarted = useGameStart();
     // const [scores, setScores] = useState(0);
     // const [totalKills, setTotalKills] = useState(0);
+
+    async function saveScoresToServer () {
+        e.preventDefault();
+
+        const data = {
+            value: getScores(),
+            user_id: user.user_id,
+        };
+
+        try {
+            const response = await axios.post("https://vanguardians-server.onrender.com/scores", data);
+
+            if (response.status == 201) {
+                console.log("Score Saved Successfully");
+            }
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("No server response");
+            } else if (errMsg.response?.status === 400) {
+                setErrMsg("Missing username or password");
+            }
+            errRef.current.focus();
+        }
+    };
 
     function initGame(canvas) {
         resetAllGroups();
@@ -208,6 +234,7 @@ const Canvas = () => {
                         if (init) {
                             init = false;
                             audioManager.stopBackgroundMusic();
+                            saveScoresToServer();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";

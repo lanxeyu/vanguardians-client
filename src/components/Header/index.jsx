@@ -4,13 +4,9 @@ import { NavLink, Outlet } from "react-router-dom";
 const styles = ({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" });
 import "./index.css";
 import { useAuth } from "../../context/AuthProvider";
+import AccountHeader from "../AccountHeader";
 
 export default function Header() {
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser("");
-    };
-
     const { user } = useAuth();
 
     return (
@@ -26,20 +22,18 @@ export default function Header() {
                     <NavLink to="/about" style={styles}>
                         About
                     </NavLink>
-                    <NavLink to="/leaderboard" style={styles}>
-                        Leaderboard
-                    </NavLink>
                     <NavLink to="/guardians" style={styles}>
                         Guardians
+                    </NavLink>
+                    <NavLink to="/leaderboard" style={styles}>
+                        Leaderboard
                     </NavLink>
                     <NavLink to="/game" style={styles}>
                         Game
                     </NavLink>
 
                     {user ? (
-                        <NavLink to="/login" onClick={handleLogout} style={styles}>
-                            Logout
-                        </NavLink>
+                        <AccountHeader />
                     ) : (
                         <>
                             <NavLink to="/login" style={styles}>
