@@ -29,6 +29,7 @@
     overflow: hidden;
     background-color: #064457;
     border: 3px solid #001b23;
+    border-right: 3px solid #064457;
     border-style: outset;
 }
 
@@ -52,7 +53,7 @@
 .guardian-profile-bio {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center;  */
 
     height: 100%;
     width: 50%;
@@ -61,6 +62,16 @@
     background-color: #001b23;
     border: 3px solid #004657;
     border-style: outset;
+    border-left: 3px solid #001b23;
+    border-left-style: none;
+    position: relative;
+}
+
+.guardian-profile-card-close-button {
+    display: block;
+    width: max-content;
+    height: max-content;
+    float: right;
 }
 
 .guardian-profile-bio-section {
@@ -68,10 +79,11 @@
     flex-direction: column;
     justify-content: center;
 
-    height: 100%;
+    height: max-content;
     width: 90%;
     padding: 5%;
 }
+
 
 .guardian-profile-bio-header {
     font-size: 1.5em;

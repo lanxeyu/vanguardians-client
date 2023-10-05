@@ -40,19 +40,22 @@ const GuardianProfile = ({ guardian }) => {
                 </div>
 
                 <div className="guardian-profile-bio">
-                    {
-                        <Link
-                            to="/guardians"
-                            style={{
-                                textDecoration: "none",
-                                color: "white",
-                                fontSize: "30px",
-                                textAlign: "right",
-                                paddingRight: "7px",
-                            }}>
-                            X
-                        </Link>
-                    }
+                    <div className="guardian-profile-card-button-wrapper">
+                        {
+                            <Link className="guardian-profile-card-close-button"
+                                to="/guardians"
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                    fontSize: "30px",
+                                    textAlign: "right",
+                                    paddingRight: "7px",
+                                }}>
+                                X
+                            </Link>
+                        }
+                    </div>
+                    
                     <div className="guardian-profile-bio-section">
                         <h3 className="guardian-profile-bio-header">About:</h3>
                         <p className="guardian-profile-bio-text">{g.about}</p>
