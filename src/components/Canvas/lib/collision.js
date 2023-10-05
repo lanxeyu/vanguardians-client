@@ -133,7 +133,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 // ENEMIES
-            }
+            }   
         }
     }
 }

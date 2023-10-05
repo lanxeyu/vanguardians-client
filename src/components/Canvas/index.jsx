@@ -54,7 +54,12 @@ import { audioManager } from "./lib/audio";
 import { useAuth } from "../../context/AuthProvider";
 
 const Canvas = () => {
-    const { user } = useAuth()
+    const { user, setUser } = useAuth();
+    const [showGameOver, setShowGameOver] = useState(false);
+    const gameStarted = useGameStart();
+    // const [scores, setScores] = useState(0);
+    // const [totalKills, setTotalKills] = useState(0);
+
     async function saveScoresToServer () {
         e.preventDefault();
 
@@ -75,7 +80,6 @@ const Canvas = () => {
             errRef.current.focus();
         }
     };
-
 
     function initGame(canvas) {
         resetAllGroups();
