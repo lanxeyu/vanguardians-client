@@ -947,7 +947,7 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 250, y:-200 },) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 5, offset = { x: 250, y:-200 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
