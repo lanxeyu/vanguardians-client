@@ -33,7 +33,10 @@ const Login = () => {
         };
 
         try {
-            const response = await axios.post("http://127.0.0.1:5000/login", data);
+            const response = await axios.post(
+                "https://vanguardians-server.onrender.com/login",
+                data
+            );
             localStorage.setItem("token", response.data.token);
             const token = localStorage.getItem("token");
 
