@@ -17,6 +17,7 @@ const Leaderboard = () => {
           const data = response.data;
           
           console.log(data)
+          
           setLeaderboardData(data);      
       }
       else {

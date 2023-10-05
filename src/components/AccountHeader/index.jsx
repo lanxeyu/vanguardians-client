@@ -9,6 +9,8 @@ const AccountHeader = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("user_id");
         setUser("");
     };
 
@@ -35,7 +37,7 @@ const AccountHeader = () => {
 
     return (
         <div id="account-header-wrapper">
-            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{user.username}</button>
+            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{localStorage.getItem("username") }</button>
             <div id="account-header-dropdown-list">
                     <NavLink className="account-header-dropdown-item" to="/stats">
                         Stats

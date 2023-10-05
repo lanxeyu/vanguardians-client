@@ -32,7 +32,7 @@ export default function Header() {
                         Game
                     </NavLink>
 
-                    {user ? (
+                    {localStorage.getItem("username") ? (
                         <AccountHeader />
                     ) : (
                         <>

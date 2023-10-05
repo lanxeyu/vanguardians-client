@@ -38,17 +38,19 @@ const Login = () => {
                 data
             );
             
-            console.log(response.data);
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", response.data.user.username);
 
-            const token = localStorage.getItem("token");
-            console.log(response.data.user.user_id,);
+            localStorage.setItem("user_id", response.data.user.user_id);
+
+            // const token = localStorage.getItem("token");
+            // const userInfo = localStorage.getItem("user");
+
             setUser({
                 user_id: response.data.user.user_id,
                 username: response.data.user.username
             });
 
-            console.log(user);
 
             // console.log(token);
 

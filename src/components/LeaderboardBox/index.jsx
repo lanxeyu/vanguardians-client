@@ -4,7 +4,7 @@ import './index.css'
 export default function LeaderboardBox ({ leaderboardData }) {
 
     function displayLeaderboard() {
-      return leaderboardData.map((el, i) => 
+      return leaderboardData.slice(0, 10).map((el, i) => 
         <tr key={'leaderboard-item-' + i} className="leaderboard-row">
               <td>{i+1}</td>
               <td>{el['username']}</td>
