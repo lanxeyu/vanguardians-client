@@ -51,25 +51,20 @@ import { addKeyListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
+import { useAuth } from "../../context/AuthProvider";
 
 const Canvas = () => {
-    const [showGameOver, setShowGameOver] = useState(false);
-    const gameStarted = useGameStart();
-    // const [scores, setScores] = useState(0);
-    // const [totalKills, setTotalKills] = useState(0);
-
+    const { user } = useAuth()
     async function saveScoresToServer () {
         e.preventDefault();
 
         const data = {
             value: getScores(),
-            user_id: 1,
+            user_id: user.user_id,
         };
 
         try {
             const response = await axios.post("http://127.0.0.1:5000/scores", data);
-
-
 
         } catch (error) {
             if (!error?.response) {

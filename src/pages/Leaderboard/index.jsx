@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import LeaderboardBox from '../../components/LeaderboardBox'
 import axios from 'axios'
+import { useAuth } from "../../context/AuthProvider";
 
 import './index.css'
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([-1])
+  const { setUser, user } = useAuth();
 
   const fetchLeaderboardData = async () => {
     try {
@@ -38,7 +40,6 @@ const Leaderboard = () => {
   
   useEffect(() => {
     fetchLeaderboardData()
-
   }, []);
 
   return (

@@ -8,14 +8,22 @@
     position: relative;
 }
 
+#account-header-icon {
+    padding-right: 0.4em;
+    height: 24px;
+    width: 24px;
+}
+
 #account-header-button {
     /* height: 3.9em; */
-    
     padding: 0.5em 1em;
     background-color: #001b23;
     font-size: 1.5em;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #account-header-button:hover {

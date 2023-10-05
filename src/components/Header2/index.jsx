@@ -3,14 +3,10 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const styles = ({ isActive }) => ({ textDecoration: isActive ? "underline" : "none" });
 import "./index.css";
-import { useAuth, setUser } from "../../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import AccountHeader from "../AccountHeader";
 
 export default function Header2() {
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser("");
-    };
 
     const { user } = useAuth();
 

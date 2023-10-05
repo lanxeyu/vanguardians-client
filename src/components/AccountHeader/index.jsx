@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
-import { useAuth, setUser } from "../../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 
 const AccountHeader = () => {
-    const [name, setName] = useState('Duncan');
+    // const [name, setName] = useState('Duncan');
+    const { setUser, user } = useAuth()
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -34,7 +35,7 @@ const AccountHeader = () => {
 
     return (
         <div id="account-header-wrapper">
-            <button id="account-header-button" onClick={toggleDropdown}><img src="/im"></img>{name}</button>
+            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{user.username}</button>
             <div id="account-header-dropdown-list">
                     <NavLink className="account-header-dropdown-item" to="/stats">
                         Stats
