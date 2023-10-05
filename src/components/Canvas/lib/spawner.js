@@ -115,7 +115,7 @@ function spawnEnemies() {
             for (let i = 0; i < 6; i++) {
                 spawnDemon();
             }
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 1; i++) {
                 spawnTroll();
             }
             break;
@@ -123,7 +123,7 @@ function spawnEnemies() {
             for (let i = 0; i < 20; i++) {
                 spawnGoblin();
             }
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < 2; i++) {
                 spawnTroll();
             }
             break;
@@ -131,7 +131,7 @@ function spawnEnemies() {
             for (let i = 0; i < 15; i++) {
                 spawnSkeleton();
             }
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 3; i++) {
                 spawnTroll();
             }
             break;
@@ -139,7 +139,7 @@ function spawnEnemies() {
             for (let i = 0; i < 10; i++) {
                 spawnDemon();
             }
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) {
                 spawnTroll();
             }
             break;
