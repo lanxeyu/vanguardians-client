@@ -46,8 +46,7 @@ import {
 } from "./lib/groups";
 import { loadFonts } from "./lib/resources";
 import { GAME_STATES, setCurrentGameState, getCurrentGameState } from "./lib/statemanagers";
-import { useGameStart } from "./lib/utils";
-import { addKeyListener } from "./lib/utils";
+import { useGameStart, addKeyListener, clearKeyListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
@@ -156,6 +155,7 @@ const Canvas = () => {
         const context = canvas.getContext("2d");
         const timerIdHolder = {timerId: null};
 
+        addKeyListener();
         loadFonts();
 
         let scores = 0;
@@ -309,12 +309,9 @@ const Canvas = () => {
             {
                 cancelAnimationFrame(timerIdHolder.timerId);
                 audioManager.stopBackgroundMusic();
+                clearKeyListener();
             }
         }
-    }, []);
-
-    useEffect(() => {
-        addKeyListener();
     }, []);
 
     return (

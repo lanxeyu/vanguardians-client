@@ -4,9 +4,12 @@ import { SwitchMode } from "./utilclasses";
 import { GAME_STATES, getCurrentGameState, setCurrentGameState } from "./statemanagers";
 import { audioManager } from "./audio";
 
+let keyDownListener = null;
+
 function useGameStart() {
   
   const [gameStarted, setGameStarted] = useState(false);
+  
 
   useEffect(() => {
     function handleKeyPress(event) {
@@ -38,30 +41,39 @@ function restoreAllHealth() {
 }
 
 function addKeyListener() {
-  const keyFunctions = {};
-
+  const keyFunctions = {};  
+  
+  
   for (let i = 1; i <= 6; i++) {
     keyFunctions[i.toString()] = function () {
-      if (guardians[i]) {
-        guardians[i].toggleModes();
-        
+      if (getCurrentGameState() === GAME_STATES.PLAYING) {
+        if (guardians[i]) {
+          guardians[i].toggleModes();
+          
+        }
       }
+      
     };
   }
 
   keyFunctions["r"] = function () {
-    for (const guardian of guardians) {
-      guardian.isRetreating = true;
+    if (getCurrentGameState() === GAME_STATES.PLAYING) {
+      for (const guardian of guardians) {
+        guardian.isRetreating = true;
+      }
     }
   }
 
   keyFunctions["a"] = function () {
-    for (const guardian of guardians) {
-      guardian.isRetreating = false;
+    if (getCurrentGameState() === GAME_STATES.PLAYING) {
+      for (const guardian of guardians) {
+        guardian.isRetreating = false;
+      }
     }
   }
 
-  document.addEventListener("keydown", (event) => {
+  document.addEventListener("keydown", function test(event) {
+    keyDownListener = test;
     const key = event.key;
     if (key in keyFunctions) {
       keyFunctions[key]();
@@ -69,4 +81,14 @@ function addKeyListener() {
   });
 }
 
-export { useGameStart, restoreAllHealth, addKeyListener }
+function getKeyDownListener() { return keyDownListener}
+
+function clearKeyListener() {
+  document.removeEventListener("keydown", keyDownListener);
+}
+
+
+
+
+
+export { useGameStart, restoreAllHealth, addKeyListener, getKeyDownListener, clearKeyListener }

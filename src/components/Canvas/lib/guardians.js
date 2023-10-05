@@ -208,7 +208,6 @@ class Character extends Sprite {
     }
 
     switchSprite(sprite) {
-        // console.log(sprite)
         if (this.image === this.sprites.attack.image && 
             this.framesCurrent < this.sprites.attack.framesMax - 1) {
             return;
@@ -224,18 +223,15 @@ class Character extends Sprite {
         }
         else if (this.image === this.sprites.death.image &&
             this.framesCurrent === this.sprites.death.framesMax -1) {
-                // console.log('Dead')
             if (this.isKnockedOut) return this.framesHold = this.knockedOutLifeTime;
-            // console.log('Dead Hold') 
             if (sprite != 'idle') {
                 return this.framesHold = this.sprites.death.framesDeathHold
             }           
-            
         }
         else if(this.isKnockedOut === false) {
             this.framesHold = 5
         }
-        // console.log('switching');
+
         switch (sprite) {
             case 'idle':
                 if (this.image !== this.sprites.idle.image) {
@@ -398,12 +394,16 @@ class Guardian extends Character {
     }
 
     toggleModes() {
+        console.log("Current Mode: " + this.currentMode);
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
+                
                 this.currentMode = CHAR_MODES.MODE_2;
+                console.log("Current Mode: " + this.currentMode);
                 break;
             case CHAR_MODES.MODE_2:
                 this.currentMode = CHAR_MODES.MODE_1;
+                console.log("Current Mode: " + this.currentMode);
                 break;
             default:
                 this.currentMode = CHAR_MODES.MODE_1;
