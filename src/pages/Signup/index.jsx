@@ -100,7 +100,7 @@ const Signup = () => {
 
         try {
             const response = await axios.post(
-                "http://127.0.0.1:5000/register",
+                "https://vanguardians-server.onrender.com/register",
                 JSON.stringify({ username, password }),
                 {
                     headers: { "Content-Type": "application/json" },
