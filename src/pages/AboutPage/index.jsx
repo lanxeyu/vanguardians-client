@@ -9,13 +9,13 @@ const AboutPage = () => {
                 In a realm where time and reality intertwine, a profound convergence unfolds. A van,
                 bearing the essence of another world, materializes amidst an ancient forest in an
                 alternate reality. Here, where myths and legends breathe, and the line between
-                fantasy and reality blurs, the van beckons to six extraordinary heroes: Lanxe, Alex,
-                Duncan, Stephanie, James, and Robbie.
+                fantasy and reality blurs, the van beckons to six extraordinary guardians: Lanxe,
+                Alex, Duncan, Stephanie, James, and Robbie.
                 <br />
                 <br />
                 Drawn by an inexplicable force, they stand united before this enigmatic vessel,
                 their hearts resonating with a purpose unknown. A tale of epic proportions begins,
-                as these heroes make a solemn vow to protect the van at all costs.
+                as these guardians make a solemn vow to protect the van at all costs.
                 <br />
                 <br />
                 But lurking in the shadows of this forest realm are hordes of monstrous beings,
@@ -25,15 +25,15 @@ const AboutPage = () => {
                 <br />
                 <br />
                 The fate of this otherworldly van, and perhaps the very fabric of reality itself,
-                will be decided in this battle. Prepare to stand alongside these heroes as they
+                will be decided in this battle. Prepare to stand alongside these guardians as they
                 confront the unknown, to protect the van that holds the key to their destiny.
                 <br />
                 <br />
                 In this time-bending adventure, where the boundaries of imagination dissolve, your
                 role as the guardian of the van's secret shall be revealed. Embrace the magic, face
                 the darkness, and embark on a legendary quest like no other. The fate of two worlds
-                hangs in the balance, and the heroes are calling upon you to join them in this epic
-                battle against the forces of fantasy and van...
+                hangs in the balance, and the guardians are calling upon you to join them in this
+                epic battle against the forces of fantasy and van...
             </div>
         </div>
     );
