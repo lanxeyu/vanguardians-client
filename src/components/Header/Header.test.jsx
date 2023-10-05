@@ -35,14 +35,14 @@ describe('Header', () => {
         expect(nav).toBeInTheDocument();
     });
     
-    it('has seven nav links', () => {
+    it('has eight nav links', () => {
         const links = screen.getAllByRole('link');
-        expect(links.length).toBe(7);
+        expect(links.length).toBe(8);
     });
 
-    it('navbar display "VanGuardians", "Home", "About" "Leaderboard", "Guardians", "Game", "Login" ' , () => {
+    it('navbar display "VanGuardians", "Home", "About" "Leaderboard", "Guardians", "Game", "Login", "Sign Up" ' , () => {
         const links = screen.getAllByRole('link');
-        const texts = ["VanGuardians", "Home", "About", "Leaderboard", "Guardians", "Game", "Login"];
+        const texts = ["VanGuardians", "Home", "About", "Leaderboard", "Guardians", "Game", "Login", "Sign Up"];
         links.forEach((link, i) => {
             expect(link.textContent).toBe(texts[i]);
         });
