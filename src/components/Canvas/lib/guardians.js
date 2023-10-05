@@ -542,7 +542,7 @@ class James extends Guardian {
         this.position = { x, y };
         this.width = 150;
         this.height = 70;
-        this.maxHealth = 1;
+        this.maxHealth = 120;
         this.currHealth = this.maxHealth;
         this.atk = 7;
         this.atkSpd = 1500;
@@ -599,7 +599,7 @@ class James extends Guardian {
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1) {
-            // new Fireball(this.position.x + this.width - 23, this.position.y - 23, "images/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
+            new Fireball(this.position.x + this.width - 23, this.position.y - 23, "images/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
             setTimeout(() => {
                 this.isAttacking = false;
             }, 5);
@@ -947,7 +947,7 @@ class Projectile extends Sprite {
 }
 
 class Lightning extends Projectile {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 250, y:-200 },) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 5, offset = { x: 250, y:-200 },) {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
