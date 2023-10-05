@@ -52,6 +52,7 @@ import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattr
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
 import { useAuth } from "../../context/AuthProvider";
+import axios from "axios";
 
 const Canvas = () => {
     const { user, setUser } = useAuth();
@@ -61,7 +62,6 @@ const Canvas = () => {
     // const [totalKills, setTotalKills] = useState(0);
 
     async function saveScoresToServer () {
-        e.preventDefault();
 
         const data = {
             value: getScores(),
@@ -75,14 +75,9 @@ const Canvas = () => {
                 console.log("Score Saved Successfully");
             }
         } catch (error) {
-            if (!error?.response) {
-                setErrMsg("No server response");
-            } else if (errMsg.response?.status === 400) {
-                setErrMsg("Missing username or password");
-            }
-            errRef.current.focus();
+            console.log('saveScoresToServer: ', error)
         }
-    };
+    }
 
     function initGame(canvas) {
         resetAllGroups();

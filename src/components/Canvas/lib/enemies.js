@@ -110,10 +110,8 @@ class Enemy extends Character {
             removeFromGroup(this, allSprites);
             removeFromGroup(this, enemies);
             incrementTotalKills();
-            console.log(this.name);
             switch(this.name) {
                 case "skeleton":
-                    console.log('incrementing skeleton');
                     incrementScoreByValue(100);
                 break;
                 case "goblin":
@@ -151,7 +149,7 @@ class Skeleton extends Enemy {
         this.atkSpd = 2000;
         this.atkRange = 100;
         this.movSpd = 2;
-        this.expGrant = 4;
+        this.expGrant = 3;
 
         this.knockBackStrength = -7;
 
