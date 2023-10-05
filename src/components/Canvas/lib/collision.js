@@ -10,7 +10,6 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
         if (
             spriteA.atkBox &&
             spriteA.isAttacking == true) {
-            // console.log(spriteA.name);
             for (const spriteB of spriteGroup2) {
                 if (isAtkBoxColliding(spriteA.atkBox, spriteB) && (!spriteA.isKnockedOut || !spriteB.isKnockedOut)) {
                     spriteB.getDamaged(spriteA.atk)
