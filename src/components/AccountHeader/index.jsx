@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth, setUser } from "../../context/AuthProvider";
 
 const AccountHeader = () => {
     const [name, setName] = useState('Duncan');
@@ -34,7 +34,7 @@ const AccountHeader = () => {
 
     return (
         <div id="account-header-wrapper">
-            <button id="account-header-button" onClick={toggleDropdown}>{name}</button>
+            <button id="account-header-button" onClick={toggleDropdown}><img src="/im"></img>{name}</button>
             <div id="account-header-dropdown-list">
                     <NavLink className="account-header-dropdown-item" to="/stats">
                         Stats

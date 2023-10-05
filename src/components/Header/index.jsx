@@ -7,11 +7,6 @@ import { useAuth } from "../../context/AuthProvider";
 import AccountHeader from "../AccountHeader";
 
 export default function Header() {
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setUser("");
-    };
-
     const { user } = useAuth();
 
     return (

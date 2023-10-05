@@ -58,6 +58,30 @@ const Canvas = () => {
     // const [scores, setScores] = useState(0);
     // const [totalKills, setTotalKills] = useState(0);
 
+    async function saveScoresToServer () {
+        e.preventDefault();
+
+        const data = {
+            value: getScores(),
+            user_id: 1,
+        };
+
+        try {
+            const response = await axios.post("http://127.0.0.1:5000/scores", data);
+
+
+
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("No server response");
+            } else if (errMsg.response?.status === 400) {
+                setErrMsg("Missing username or password");
+            }
+            errRef.current.focus();
+        }
+    };
+
+
     function initGame(canvas) {
         resetAllGroups();
         resetWaveCounter();
@@ -109,9 +133,9 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
-        spawnJames();
+        // spawnJames();
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
@@ -208,6 +232,7 @@ const Canvas = () => {
                         if (init) {
                             init = false;
                             audioManager.stopBackgroundMusic();
+                            saveScoresToServer();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
