@@ -1,5 +1,5 @@
 #leaderboard-container {
-    height: calc(100% - 4.9em);
+    height: calc(100% - 5.1em);
     width: 100%;
     /* background-color: #fffeee; */
     display: flex;
@@ -17,9 +17,7 @@
     justify-content: center;
     height: 20%;
     font-weight: bold;
-    font-size: 3.75em;
+    font-size: 5em;
     letter-spacing: 0.2rem;
     /* margin-bottom: 2.5rem; */
-    
-    
 }
