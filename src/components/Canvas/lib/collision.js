@@ -1,7 +1,9 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, Spear, Lightning, Explosion, Spear2, Slash } from "./guardians";
+import { Duncan, James, Spear, Lightning, Explosion, Spear2, Slash, Fireball, FireballExplosion, LivingBomb } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
+import { FireballEffect, LivingBombEffect } from "./effects";
+import { CHAR_MODES } from "./statemanagers";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
@@ -28,7 +30,29 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                     else if (spriteA instanceof Troll){
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
-
+                    else if (spriteA instanceof James) {
+                        console.log(spriteA.currentMode);
+                        if (spriteA.currentMode === CHAR_MODES.MODE_2) {
+                            console.log('Explode');
+                            spriteB.getKnockedBack(spriteA.knockBackStrength)
+                            spriteA.getKnockedBack(10)
+                            spriteA.isUnstoppable = false;
+                            spriteA.getKnockedOut();
+                            new LivingBomb(spriteB.position.x + (spriteB.width / 2), spriteB.position.y + (spriteB.height / 2), "images/James/Explosion.png")
+                        }
+                    }
+                    if (spriteB instanceof James) {
+                        console.log(spriteB.currentMode);
+                        console.log('Attacked James');
+                        if (spriteB.currentMode === CHAR_MODES.MODE_2) {
+                            console.log('Explode Retaliation');
+                            spriteA.getKnockedBack(spriteB.knockBackStrength)
+                            spriteB.getKnockedBack(10)
+                            spriteA.isUnstoppable = false;
+                            spriteB.getKnockedOut();
+                            new LivingBomb(spriteB.position.x - (spriteB.width / 2), spriteB.position.y - (spriteB.height / 2), "images/James/Explosion.png")
+                        }
+                    }
                 }
             }
         }
@@ -90,7 +114,25 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 200);
                     setTimeout(() => removeFromGroup(spriteA, allSprites), 200);
                 }
-                
+
+                else if(spriteA instanceof Fireball) {
+                    spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                    new FireballExplosion(spriteB.position.x, spriteB.position.y, "images/James/Explosion.png")
+                }
+                else if (spriteA instanceof FireballExplosion) {
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                    new FireballEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/Explosion.png");
+                }
+                else if (spriteA instanceof LivingBomb) {
+                    removeFromGroup(spriteA, guardianProjectiles)
+                    removeFromGroup(spriteA, allSprites)
+                    new LivingBombEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/Explosion.png");
+
+                }
+
                 // ENEMIES
             }
         }

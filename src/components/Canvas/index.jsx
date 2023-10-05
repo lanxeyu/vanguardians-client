@@ -34,9 +34,11 @@ import {
     drawForeground,
     drawUI,
     drawBackground,
+    drawFX,
     updateAllSprites,
     van,
     ui,
+    fx,
     clearAllSprites,
     drawPopUpMsgs,
     resetAllGroups,
@@ -107,16 +109,16 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
         // spawnJames();
-        spawnAlex();
+        // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
         }
 
-        new TopBar(canvas.width / 2 - 40, 0, 140, 70, getScores());
+        new TopBar(canvas.width / 2 - 40, 0, 140, 70);
         new BottomBar(0, canvas.height, canvas.width, 168, null);
 
         setTotalKills(0);
@@ -149,6 +151,7 @@ const Canvas = () => {
                     case GAME_STATES.MAIN_MENU:
                         if (init) {
                             init = false;
+                            audioManager.stopBackgroundMusic();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
@@ -192,6 +195,7 @@ const Canvas = () => {
                         drawAllHealthbars(context);
                         drawGuardianProjectiles(context);
                         drawGuardianHealingProjectiles(context);
+                        drawFX(context);
                         drawDamageNumbers(context);
                         drawPopUpMsgs(context);
 
@@ -203,6 +207,7 @@ const Canvas = () => {
                     case GAME_STATES.END_SCREEN:
                         if (init) {
                             init = false;
+                            audioManager.stopBackgroundMusic();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
@@ -273,7 +278,11 @@ const Canvas = () => {
                 false
             );
 
-            return () => cancelAnimationFrame(timerIdHolder.timerId);
+            return () => 
+            {
+                cancelAnimationFrame(timerIdHolder.timerId);
+                audioManager.stopBackgroundMusic();
+            }
         }
     }, []);
 

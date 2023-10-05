@@ -41,19 +41,20 @@ body {
     display: flex;
     height: 30%;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     /* padding: 2% 0; */
 }
 
 #home-text-container > h2 {
-    padding: 1% 0 3% 0;
+    padding: 1.5% 0 0% 0;
     /* margin-bottom: 2%; */
 }
 
 #link-to-game {
     width: max-content;
     height: max-content;
+    padding: 3% 0 1% 0;
 }
 
 #play-button-container {
@@ -67,8 +68,20 @@ body {
     padding: 0.166665em;
     font-size: 3.75em;
     cursor: pointer;
-    border: 3px solid grey;
+    border: 0.05em solid grey;
+    border-bottom: 0.10em solid grey;
     border-style: outset;
+    
+    /* border-bottom: 0.1em solid transparent; */
+}
+
+#play-button:hover {
+    border-style: inset;
+    border-top: 0.075em solid grey;
+    border-left: 0.05em solid grey;
+    border-right: 0.05em solid #000;
+    border-bottom: 0.05em solid #000;
+    background-color: #ebebeb;
 }
 
 #popup-container {

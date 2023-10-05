@@ -12,6 +12,7 @@ let foreground = [];
 let guardianHealingProjectiles = [];
 let popUpMsgs = [];
 let timers = [];
+let fx = [];
 
 function addToGroup(sprite, group) {
     group.push(sprite);
@@ -49,6 +50,7 @@ function resetAllGroups() {
     guardianHealingProjectiles.length = 0;
     popUpMsgs = [];
     timers = [];
+    fx = [];
 }
 
 function drawGuardians(context) {
@@ -114,6 +116,12 @@ function drawPopUpMsgs(context) {
     }
 }
 
+function drawFX(context) {
+    for (const sprite of fx) {
+        sprite.draw(context);
+    }
+}
+
 function drawForeground(context) {
     for (const sprite of foreground) {
         sprite.draw(context)
@@ -147,6 +155,7 @@ export {
     resetAllGroups,
     popUpMsgs,
     timers,
+    fx,
     drawGuardians,
     drawEnemies,
     drawGuardianProjectiles,
@@ -158,5 +167,6 @@ export {
     drawVan,
     drawBackground,
     drawForeground,
-    drawUI
+    drawUI,
+    drawFX
 };

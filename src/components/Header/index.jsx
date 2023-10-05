@@ -41,11 +41,17 @@ export default function Header() {
                             Logout
                         </NavLink>
                     ) : (
-                        <NavLink to="/login" style={styles}>
-                            Login
-                        </NavLink>
+                        <>
+                            <NavLink to="/login" style={styles}>
+                                Login
+                            </NavLink>
+                            <NavLink to="/signup" style={styles}>
+                                Sign Up
+                            </NavLink>
+                        </>
+                        
                     )}
-                    {/* <NavLink to="/signup" style={styles}>Sign Up</NavLink> */}
+                    
                 </nav>
             </header>
             <Outlet />
