@@ -1,57 +1,57 @@
 .guardian-card-link {
-  margin: 0.5em 1%;
-  transition: transform .4s;
-  height: 24em;
-  width: 18em;
+    margin: 0.5em 1%;
+    transition: transform 0.4s;
+    height: 24em;
+    width: 18em;
+    border: 3px solid #004657;
+    border-style: outset;
 }
 
 .guardian-card-link:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
-.guardian-card-link, .guardian-card-link > * {
-  text-decoration: none;
+.guardian-card-link,
+.guardian-card-link > * {
+    text-decoration: none;
 }
 
 .guardian-card {
-  height: 100%;
-  width: 100%;
-  background-color:#001b23;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
+    height: 100%;
+    width: 100%;
+    background-color: #001b23;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
 }
 
 .guardian-card-name {
-  font-size: 2.0em;
+    font-size: 2em;
 }
 
 .guardian-card-image-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
 }
 
 .guardian-card-image-bg {
-  position: absolute;
+    position: absolute;
 }
 
 .guardian-card-image {
-  height: 80%;
-  width: auto;
+    height: 80%;
+    width: auto;
 }
 
 .guardian-card-type {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
-
- 
 
 /* .guardian-card> img:hover{
   transform: scale(1.1);
 } */
-
