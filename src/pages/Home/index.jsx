@@ -40,7 +40,11 @@ const Home = () => {
                         <button id="close-button" onClick={toggleShowHowToPlay}>
                             X
                         </button>
-                        <p>How to play...</p>
+                        <p>VanGuardians is a Party-Management game where your Guardians fight enemies automatically, but they can switch between 2 modes of fighting. You must take control of the party by switching their individual modes.</p>
+                        <br></br>
+                            <p>Switch Guardian Mode by pressing keys '1' through '6'</p>
+                            <p>Command Guardians to retreat by pressing 'R'</p>
+                            <p>Command Guardians to advance by pressing 'A'</p>
                     </div>
                 </div>
             )}
