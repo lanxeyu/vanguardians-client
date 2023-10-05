@@ -34,9 +34,11 @@ import {
     drawForeground,
     drawUI,
     drawBackground,
+    drawFX,
     updateAllSprites,
     van,
     ui,
+    fx,
     clearAllSprites,
     drawPopUpMsgs,
     resetAllGroups,
@@ -107,15 +109,10 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
-<<<<<<< HEAD
-        spawnJames();
-        // spawnAlex();
-=======
         // spawnJames();
-        spawnAlex();
->>>>>>> 098d1183eb00f9581dc217fff0f94ebefe21a0cf
+        // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
@@ -154,6 +151,7 @@ const Canvas = () => {
                     case GAME_STATES.MAIN_MENU:
                         if (init) {
                             init = false;
+                            audioManager.stopBackgroundMusic();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
@@ -197,6 +195,7 @@ const Canvas = () => {
                         drawAllHealthbars(context);
                         drawGuardianProjectiles(context);
                         drawGuardianHealingProjectiles(context);
+                        drawFX(context);
                         drawDamageNumbers(context);
                         drawPopUpMsgs(context);
 
@@ -208,6 +207,7 @@ const Canvas = () => {
                     case GAME_STATES.END_SCREEN:
                         if (init) {
                             init = false;
+                            audioManager.stopBackgroundMusic();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
@@ -278,7 +278,11 @@ const Canvas = () => {
                 false
             );
 
-            return () => cancelAnimationFrame(timerIdHolder.timerId);
+            return () => 
+            {
+                cancelAnimationFrame(timerIdHolder.timerId);
+                audioManager.stopBackgroundMusic();
+            }
         }
     }, []);
 

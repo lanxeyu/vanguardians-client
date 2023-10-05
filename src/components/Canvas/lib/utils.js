@@ -44,7 +44,7 @@ function addKeyListener() {
     keyFunctions[i.toString()] = function () {
       if (guardians[i]) {
         guardians[i].toggleModes();
-        new SwitchMode('Switch!', guardians[i].position.x, guardians[i].position.y)
+        
       }
     };
   }
