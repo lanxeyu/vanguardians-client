@@ -1,24 +1,25 @@
 .game {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
 #canvas-left-border {
-  background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     width: calc((100% - 1366px) / 2);
     height: 768px;
 }
 
 #canvas-right-border {
-  background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     width: calc((100% - 1366px) / 2);
     height: 768px;
 }
 
 #game-footer {
-  background-color: #001b23;
-  height: calc(100% - 768px);
-  width: 100%;
+    background-color: #001b23;
+    height: calc(100% - 768px);
+    width: 100%;
+    border-top: 0.2em solid black;
 }
