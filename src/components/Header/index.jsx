@@ -20,7 +20,7 @@ export default function Header() {
                         Home
                     </NavLink>
                     <NavLink to="/about" style={styles}>
-                        About
+                        Lore
                     </NavLink>
                     <NavLink to="/guardians" style={styles}>
                         Guardians
@@ -43,9 +43,7 @@ export default function Header() {
                                 Sign Up
                             </NavLink>
                         </>
-                        
                     )}
-                    
                 </nav>
             </header>
             <Outlet />
