@@ -83,7 +83,10 @@ class Van extends Sprite {
             this.currExp = 0;
             this.maxExp = 10 * 2 ** this.lvl;
             restoreAllHealth();
-            spawnGuardians();
+            if (guardians.length < 7) {
+                spawnGuardians();
+            }
+            
             new LevelUp(`Level Up!`, this.position.x + (this.width / 2) + 60, this.position.y - 30);          
         }
     }
