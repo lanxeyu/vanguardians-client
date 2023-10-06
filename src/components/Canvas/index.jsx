@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { initCanvas } from "./lib/canvas";
 import { Background, Foreground } from "./lib/sprite";
-import { PortraitIcon, TopBar, BottomBar } from "./lib/gui";
+import { PortraitIcon, GroupCommandIcon, TopBar, BottomBar } from "./lib/gui";
 import { Van } from "./lib/van";
 import {
     spawnAlex,
@@ -36,6 +36,7 @@ import {
     drawBackground,
     drawFX,
     updateAllSprites,
+    portraits,
     van,
     ui,
     fx,
@@ -45,7 +46,7 @@ import {
     drawEnemyProjectiles,
 } from "./lib/groups";
 import { loadFonts } from "./lib/resources";
-import { GAME_STATES, setCurrentGameState, getCurrentGameState } from "./lib/statemanagers";
+import { GAME_STATES, GROUP_COMMANDS, setCurrentGameState, getCurrentGameState, setCurrentGroupCommand } from "./lib/statemanagers";
 import { useGameStart, addKeyListener, clearKeyListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
@@ -81,6 +82,7 @@ const Canvas = () => {
     function initGame(canvas) {
         resetAllGroups();
         resetWaveCounter();
+        setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
         new Background(0, 0, 1366, 766, 0, 0, "images/starsky-bg.png", 0);
         new Background(
             0,
@@ -137,6 +139,8 @@ const Canvas = () => {
         for (let i = 0; i < guardians.length; i++) {
             new PortraitIcon(guardians[i], 20, canvas.height - 160 - 120, i);
         }
+
+        new GroupCommandIcon(portraits.length * 20, canvas.height - 160 - 120, portraits.length);
 
         new TopBar(canvas.width / 2 - 40, 0, 140, 70);
         new BottomBar(0, canvas.height, canvas.width, 168, null);
@@ -229,7 +233,7 @@ const Canvas = () => {
                         if (init) {
                             init = false;
                             audioManager.stopBackgroundMusic();
-                            saveScoresToServer();
+                            // saveScoresToServer();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";

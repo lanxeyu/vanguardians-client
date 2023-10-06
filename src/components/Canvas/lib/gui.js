@@ -1,6 +1,6 @@
 import { Sprite } from "./sprite";
 import { addToGroup, ui, portraits } from "./groups";
-import { CHAR_MODES, CHAR_STATES } from "./statemanagers";
+import { CHAR_MODES, CHAR_STATES, GROUP_COMMANDS, getCurrentGroupCommand } from "./statemanagers";
 import { getScores } from "./stattracker";
 
 class PortraitIcon extends Sprite {
@@ -101,6 +101,91 @@ class PortraitIcon extends Sprite {
     update() {
         this.currentHPBar = this.barWidth * (this.guardian.currHealth / this.guardian.maxHealth);
         this.currentEXPBar = this.barWidth * (this.guardian.currExp / this.guardian.maxExp);
+    }
+}
+
+class GroupCommandIcon extends Sprite {
+    constructor(x, y, increment) {
+        super();
+        addToGroup(this, ui);
+        // addToGroup(this, portraits)
+        this.name = "groupcommandicon";
+        this.spacing = 10;
+        this.width = 118;
+        this.height = 74;
+
+        let posX = x + (increment * this.width) + (increment * this.spacing);
+        this.position = { x: posX, y };
+        this.increment = increment;
+
+        this.advanceText = "ADVANCE";
+        this.retreatText = "RETREAT";
+        this.textSpacing = 25;
+        this.textHeight = 32;
+        this.textWidth = 118;
+    }
+
+    draw(context) {
+
+        // context.fillStyle = "rgb(255, 233, 58)";
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+        context.fillStyle = 'rgb(255, 255, 255)'
+        context.font = "20px Silkscreen";
+        context.textAlign = "left"
+
+        let tempX1 = this.position.x + 5;
+        let tempX2 = this.position.x + 5;
+        
+        for (let i = 0; i <= this.advanceText.length; ++i){
+            let ch = this.advanceText.charAt(i);
+            if (i == 0) {
+                context.fillStyle = 'rgb(255, 255, 255)';
+            }
+            else {
+                context.fillStyle = 'rgb(178, 178, 178)';
+            }
+
+            context.fillText(ch, tempX1, this.position.y + 25);
+            tempX1 += context.measureText(ch).width;
+        }
+
+        
+        for (let i = 0; i <= this.retreatText.length; ++i){
+            let ch = this.retreatText.charAt(i);
+            if (i == 0) {
+                context.fillStyle = 'rgb(255, 255, 255)';
+            }
+            else {
+                context.fillStyle = 'rgb(178, 178, 178)';
+            }
+            
+            context.fillText(ch, tempX2, this.position.y + this.textHeight + 25);
+            tempX2 += context.measureText(ch).width;
+        }
+
+        // context.fillText(this.advanceText, this.position.x + 5, this.position.y + 22)
+        // context.fillText(this.retreatText, this.position.x + 5, this.position.y + this.textHeight + 22)
+
+        context.lineWidth = 2;
+        context.strokeStyle = 'rgb(255,255,255)'
+
+        if (getCurrentGroupCommand() === GROUP_COMMANDS.ADVANCE) {
+
+            context.strokeRect(this.position.x, this.position.y + 3, this.textWidth, this.textHeight);
+        }
+        else if (getCurrentGroupCommand() === GROUP_COMMANDS.RETREAT) {
+            
+            context.strokeRect(this.position.x, this.position.y + this.textHeight + 3, this.textWidth, this.textHeight);
+        }
+
+        
+    }
+
+    update() {
+        this.increment = portraits.length;
+        let posX = (this.increment * 64) + (this.increment * this.spacing) + 32;
+        this.position.x = posX;
     }
 }
 
@@ -280,4 +365,4 @@ class BottomBar extends Sprite {
     }
 }
 
-export { PortraitIcon, TopBar, BottomBar };
+export { PortraitIcon, GroupCommandIcon, TopBar, BottomBar };

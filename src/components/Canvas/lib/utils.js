@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
 import { SwitchMode } from "./utilclasses";
-import { GAME_STATES, getCurrentGameState, setCurrentGameState } from "./statemanagers";
+import { GAME_STATES, getCurrentGameState, setCurrentGameState, setCurrentGroupCommand, getCurrentGroupCommand, GROUP_COMMANDS } from "./statemanagers";
 import { audioManager } from "./audio";
 
 let keyDownListener = null;
@@ -58,17 +58,13 @@ function addKeyListener() {
 
   keyFunctions["r"] = function () {
     if (getCurrentGameState() === GAME_STATES.PLAYING) {
-      for (const guardian of guardians) {
-        guardian.isRetreating = true;
-      }
+      setCurrentGroupCommand(GROUP_COMMANDS.RETREAT);
     }
   }
 
   keyFunctions["a"] = function () {
     if (getCurrentGameState() === GAME_STATES.PLAYING) {
-      for (const guardian of guardians) {
-        guardian.isRetreating = false;
-      }
+      setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
     }
   }
 
