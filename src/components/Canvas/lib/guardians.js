@@ -1,6 +1,6 @@
 import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
 import { Sprite } from "./sprite";
-import { CHAR_MODES, CHAR_STATES } from "./statemanagers"
+import { CHAR_MODES, CHAR_STATES, GROUP_COMMANDS, getCurrentGroupCommand } from "./statemanagers"
 import { KnockedOut, SwitchMode } from "./utilclasses";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
@@ -373,6 +373,7 @@ class Guardian extends Character {
     update() {
         // console.log(this.currHealth);
         // console.log(this.isKnockedOut);
+        this.checkGroupCommands();
         if (this.currHealth <= 0) {
             this.getKnockedOut();
         }
@@ -391,7 +392,7 @@ class Guardian extends Character {
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
-        
+
         this.updateAnimation();
     }
 
@@ -412,6 +413,19 @@ class Guardian extends Character {
         }
         new SwitchMode('Switch!', this.position.x, this.position.y)
         this.toggleAttributes();
+    }
+
+    checkGroupCommands() {
+        switch (getCurrentGroupCommand()) {
+            case GROUP_COMMANDS.ADVANCE:
+                this.isRetreating = false;
+                break;
+            case GROUP_COMMANDS.RETREAT:
+                this.isRetreating = true;
+                break;
+            default:
+                this.isRetreating = false;
+        }
     }
 
     draw(context) {
@@ -660,8 +674,7 @@ class James extends Guardian {
     // }
 
     update() {
-        // console.log(this.currHealth);
-        // console.log(this.isKnockedOut);
+        this.checkGroupCommands();
         if (this.currHealth <= 0) {
             this.getKnockedOut();
         }
@@ -685,8 +698,6 @@ class James extends Guardian {
                 this.knockedOutElapsed = this.knockedOutLifeTime
             }
             else {
-                // console.log("Time Diff: " + (this.endTime - new Date()));
-                // console.log("KnockedOutLifeTime: " + this.knockedOutLifeTime);
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
