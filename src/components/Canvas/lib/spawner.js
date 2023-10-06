@@ -3,6 +3,7 @@ import { Skeleton, Goblin, Demon, Troll, Mushroom } from "./enemies";
 import { van, guardians } from "./groups";
 import { PortraitIcon } from "./gui";
 import { LevelUp, WaveMessage } from "./utilclasses";
+import { GAME_STATES, setCurrentGameState } from "./statemanagers";
 
 function spawnGuardians() {
     switch (van[0].lvl) {
@@ -225,7 +226,7 @@ function spawnEnemies() {
             break;
             
         default:
-            // Win Game logic
+            setCurrentGameState(GAME_STATES.END_SCREEN);
             break;
     }
 }
