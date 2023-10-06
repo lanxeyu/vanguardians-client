@@ -190,6 +190,39 @@ function spawnEnemies() {
                 spawnDemon()
             }
             break;
+        case 21:
+            for (let i = 0; i < 40; i++) {
+                spawnTroll()
+            }
+            for (let i = 0; i < 40; i++) {
+                spawnSkeleton()
+            } 
+            for (let i = 0; i < 60; i++) {
+                spawnGoblin()
+            } 
+            for (let i = 0; i < 30; i++) {
+                spawnDemon()
+            }
+            break;
+        case 22:
+            for (let i = 0; i < 40; i++) {
+                spawnTroll()
+            }
+            for (let i = 0; i < 40; i++) {
+                spawnSkeleton()
+            } 
+            for (let i = 0; i < 100; i++) {
+                spawnGoblin()
+            } 
+            for (let i = 0; i < 30; i++) {
+                spawnDemon()
+            }
+            break;
+        case 23:
+            for (let i = 0; i < 60; i++) {
+                spawnTroll()
+            }
+            break;
             
         default:
             // Win Game logic
