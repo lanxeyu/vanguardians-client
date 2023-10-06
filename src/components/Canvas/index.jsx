@@ -233,7 +233,7 @@ const Canvas = () => {
                         if (init) {
                             init = false;
                             audioManager.stopBackgroundMusic();
-                            // saveScoresToServer();
+                            saveScoresToServer();
                         }
 
                         context.fillStyle = "rgb(255, 255, 255)";
