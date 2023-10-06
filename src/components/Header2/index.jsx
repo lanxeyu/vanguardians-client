@@ -7,7 +7,6 @@ import { useAuth } from "../../context/AuthProvider";
 import AccountHeader from "../AccountHeader";
 
 export default function Header2() {
-
     const { user } = useAuth();
 
     return (
@@ -18,7 +17,7 @@ export default function Header2() {
                         Home
                     </NavLink>
                     <NavLink to="/about" style={styles}>
-                        About
+                        Lore
                     </NavLink>
                     <NavLink to="/guardians" style={styles}>
                         Guardians
@@ -29,7 +28,7 @@ export default function Header2() {
                     <NavLink to="/game" style={styles}>
                         Game
                     </NavLink>
- 
+
                     {localStorage.getItem("username") ? (
                         <AccountHeader />
                     ) : (
@@ -42,7 +41,6 @@ export default function Header2() {
                             </NavLink>
                         </>
                     )}
-
                 </nav>
             </header>
             <Outlet />
