@@ -16,8 +16,8 @@ const Leaderboard = () => {
       if (response.status === 200) {
           const data = response.data;
           
-          console.log(data)
-          
+          // console.log(data)
+
           setLeaderboardData(data);      
       }
       else {

@@ -8,6 +8,13 @@ import AccountHeader from "../AccountHeader";
 
 export default function Header() {
     const { user } = useAuth();
+    const [ tokenExists, setTokenExists ] = useState('false');
+
+    useEffect(() => {
+        if (localStorage.getItem("token") !== null) {
+            setTokenExists(true);
+        }
+    }, []);
 
     return (
         <>
@@ -32,9 +39,9 @@ export default function Header() {
                         Game
                     </NavLink>
 
-                    {localStorage.getItem("username") ? (
-                        <AccountHeader />
-                    ) : (
+                    { localStorage.getItem("token") ? 
+                        <AccountHeader /> 
+                        : (
                         <>
                             <NavLink to="/login" style={styles}>
                                 Login

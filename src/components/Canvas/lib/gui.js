@@ -339,7 +339,7 @@ class BottomBar extends Sprite {
 
     setTarget(target) { 
         this.target = target;
-        console.log("Setting target")
+        // console.log("Setting target")
         if (this.target.name === "lanxe") {
             this.targetImage.src = "images/lanxe-portrait.png"
         }

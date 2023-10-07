@@ -65,7 +65,7 @@ const Canvas = () => {
 
         const data = {
             value: getScores(),
-            user_id: user.user_id,
+            user_id: localStorage.getItem("user_id"),
         };
 
         try {
@@ -80,6 +80,7 @@ const Canvas = () => {
     }
 
     function initGame(canvas) {
+        // console.log('Initialisation');
         resetAllGroups();
         resetWaveCounter();
         setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
@@ -131,9 +132,9 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        spawnSteph();
+        // spawnSteph();
         // spawnRobbie();
-        // spawnJames();
+        spawnJames();
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
@@ -153,7 +154,8 @@ const Canvas = () => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
         const timerIdHolder = {timerId: null};
-
+        
+        clearKeyListener();
         addKeyListener();
         loadFonts();
 
@@ -292,7 +294,7 @@ const Canvas = () => {
                                         if (ui[j].name === "bottombar")
                                             ui[j].setTarget(guardians[i]);
                                     }
-                                    console.log(`${guardians[i].name} has been Clicked!`);
+                                    //console.log(`${guardians[i].name} has been Clicked!`);
                                     break; // Break out of loop if element found
                                 }
                             }
@@ -309,6 +311,7 @@ const Canvas = () => {
                 cancelAnimationFrame(timerIdHolder.timerId);
                 audioManager.stopBackgroundMusic();
                 clearKeyListener();
+                resetAllGroups();
             }
         }
     }, []);

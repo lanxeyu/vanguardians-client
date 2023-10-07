@@ -397,16 +397,17 @@ class Guardian extends Character {
     }
 
     toggleModes() {
-        console.log("Current Mode: " + this.currentMode);
+        // console.log(this.name);
+        // console.log("Current Mode Before: " + this.currentMode);
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
                 
                 this.currentMode = CHAR_MODES.MODE_2;
-                console.log("Current Mode: " + this.currentMode);
+                // console.log("Current Mode After: " + this.currentMode);
                 break;
             case CHAR_MODES.MODE_2:
                 this.currentMode = CHAR_MODES.MODE_1;
-                console.log("Current Mode: " + this.currentMode);
+                // console.log("Current Mode After: " + this.currentMode);
                 break;
             default:
                 this.currentMode = CHAR_MODES.MODE_1;
@@ -566,7 +567,7 @@ class James extends Guardian {
         this.atkRange = 1100;
         this.movSpd = 4;
 
-        this.knockBackStrength = 10;
+        this.knockBackStrength = 1;
         this.damageResistance = 0;
         this.knockBackResistance = 0;
 
@@ -684,7 +685,7 @@ class James extends Guardian {
             this.updatePosition();
         }
         else {
-            console.log(this.position.y);
+            // console.log(this.position.y);
             let floor = 490;
             let bottom = this.position.y + this.height;
             let fallSpd = 2;
@@ -711,7 +712,7 @@ class James extends Guardian {
                 this.currentMode = CHAR_MODES.MODE_2;
                 break;
             case CHAR_MODES.MODE_2:
-                console.log(this.isUnstoppable);
+                // console.log(this.isUnstoppable);
                 if (this.isUnstoppable) return;
                 this.currentMode = CHAR_MODES.MODE_1;
                 break;

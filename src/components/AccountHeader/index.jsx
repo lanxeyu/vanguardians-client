@@ -37,8 +37,8 @@ const AccountHeader = () => {
 
     return (
         <div id="account-header-wrapper">
-            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{localStorage.getItem("username") }</button>
-            <div id="account-header-dropdown-list">
+            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{localStorage.getItem("username")}</button>
+            <div id="account-header-dropdown-list" on>
                     <NavLink className="account-header-dropdown-item" to="/stats">
                         Stats
                     </NavLink>

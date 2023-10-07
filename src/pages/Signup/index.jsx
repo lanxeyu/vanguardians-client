@@ -37,15 +37,15 @@ const Signup = () => {
 
     useEffect(() => {
         const result = USER_REGEX.test(username);
-        console.log(result);
-        console.log(username);
+        // console.log(result);
+        // console.log(username);
         setValidName(result);
     }, [username]);
 
     useEffect(() => {
         const result = PWD_REGEX.test(password);
-        console.log(result);
-        console.log(password);
+        // console.log(result);
+        // console.log(password);
         setValidPwd(result);
         const match = password === matchPwd;
         setValidMatch(match);
@@ -60,7 +60,7 @@ const Signup = () => {
             if (validName) {
                 document.querySelector("#userNameCheck svg path").classList.add("valid");
             } else {
-                console.log(document.querySelector("#userNameCross svg path"));
+                // console.log(document.querySelector("#userNameCross svg path"));
                 document.querySelector("#userNameCross svg path").classList.add("invalid");
             }
         }
@@ -96,7 +96,7 @@ const Signup = () => {
             return;
         }
 
-        console.log(JSON.stringify({ username, password }));
+        // console.log(JSON.stringify({ username, password }));
 
         try {
             const response = await axios.post(
@@ -108,7 +108,7 @@ const Signup = () => {
                 }
             );
 
-            console.log(JSON.stringify(response?.data));
+            // console.log(JSON.stringify(response?.data));
 
             navigate("/login");
             //clear state and controlled inputs

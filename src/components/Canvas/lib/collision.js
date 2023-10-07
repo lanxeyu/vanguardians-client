@@ -30,24 +30,20 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
                     else if (spriteA instanceof James) {
-                        console.log(spriteA.currentMode);
+                        // console.log(spriteA.currentMode);
                         if (spriteA.currentMode === CHAR_MODES.MODE_2) {
-                            console.log('Explode');
-                            spriteB.getKnockedBack(spriteA.knockBackStrength)
-                            spriteA.getKnockedBack(10)
+                            spriteB.getKnockedBack(25) // Enemy
+                            spriteA.getKnockedBack(15) // James
                             spriteA.isUnstoppable = false;
                             spriteA.getKnockedOut();
                             new LivingBomb(spriteB.position.x + (spriteB.width / 2), spriteB.position.y + (spriteB.height / 2), "images/James/Explosion.png")
                         }
                     }
                     if (spriteB instanceof James) {
-                        console.log(spriteB.currentMode);
-                        console.log('Attacked James');
                         if (spriteB.currentMode === CHAR_MODES.MODE_2) {
-                            console.log('Explode Retaliation');
-                            spriteA.getKnockedBack(spriteB.knockBackStrength)
-                            spriteB.getKnockedBack(10)
-                            spriteA.isUnstoppable = false;
+                            spriteA.getKnockedBack(25) // Enemy
+                            spriteB.getKnockedBack(15) // James
+                            spriteB.isUnstoppable = false;
                             spriteB.getKnockedOut();
                             new LivingBomb(spriteB.position.x - (spriteB.width / 2), spriteB.position.y - (spriteB.height / 2), "images/James/Explosion.png")
                         }
@@ -123,7 +119,7 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 else if (spriteA instanceof FireballExplosion) {
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
-                    new FireballEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/Explosion.png");
+                    new FireballEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-2.png");
                 }
                 else if (spriteA instanceof LivingBomb) {
                     removeFromGroup(spriteA, guardianProjectiles)
