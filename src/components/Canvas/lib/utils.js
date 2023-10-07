@@ -41,10 +41,8 @@ function restoreAllHealth() {
 }
 
 let KeyDownSingleton = (function () {
-  let keyDownInstance;
-
-  function createInstance() {
-      const keyFunctions = {};
+  const keyDownInstance = document.addEventListener("keydown", function test(event) {
+    const keyFunctions = {};
       for (let i = 1; i <= 6; i++) {
         keyFunctions[i.toString()] = function () {
           // console.log("Pressed: " + i.toString());
@@ -71,15 +69,18 @@ let KeyDownSingleton = (function () {
           setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
         }
       }
+      
+    const key = event.key;
+    if (key in keyFunctions) {
+      // console.log(key);
+      keyFunctions[key]();
+    }
+  });
 
-      document.addEventListener("keydown", function test(event) {
-        keyDownInstance = test;
-        const key = event.key;
-        if (key in keyFunctions) {
-          // console.log(key);
-          keyFunctions[key]();
-        }
-      });
+  function createInstance() {
+      
+
+      
       
 
       return keyDownInstance;
@@ -87,9 +88,10 @@ let KeyDownSingleton = (function () {
 
   return {
       getInstance: function () {
-          if (!keyDownInstance) {
-              keyDownInstance = createInstance();
-          }
+          // if (!keyDownInstance) {
+          //     console.log("Key Listener does not exist");
+
+          // }
           return keyDownInstance;
       }
   };

@@ -35,6 +35,7 @@ export default function AccountHeader() {
         const listElement = document.getElementById("account-header-dropdown-list");
         if (listElement.classList.contains('expand')) {
             listElement.classList.remove('expand');
+            document.getElementById('account-header-button').classList.remove('account-header-open');
         }
     }
     

@@ -47,7 +47,7 @@ import {
 } from "./lib/groups";
 import { loadFonts } from "./lib/resources";
 import { GAME_STATES, GROUP_COMMANDS, setCurrentGameState, getCurrentGameState, setCurrentGroupCommand } from "./lib/statemanagers";
-import { useGameStart, addKeyListener, clearKeyListener, addKeyDownListener } from "./lib/utils";
+import { useGameStart, addKeyDownListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
@@ -154,8 +154,7 @@ const Canvas = () => {
         const canvas = document.querySelector("canvas");
         const context = canvas.getContext("2d");
         const timerIdHolder = {timerId: null};
-        
-        clearKeyListener();
+
         // addKeyListener();
         addKeyDownListener();
         loadFonts();
@@ -311,7 +310,6 @@ const Canvas = () => {
             {
                 cancelAnimationFrame(timerIdHolder.timerId);
                 audioManager.stopBackgroundMusic();
-                clearKeyListener();
                 resetAllGroups();
             }
         }
