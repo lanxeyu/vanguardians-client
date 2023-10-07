@@ -44,6 +44,7 @@ class Character extends Sprite {
             this.switchSprite('hit')
             if (this.damageResistance > 0) {
                 const reducedDamage = damage / this.damageResistance;
+                console.log(reducedDamage);
                 if (reducedDamage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -52,6 +53,7 @@ class Character extends Sprite {
                 }
                 
             } else {
+                console.log(damage);
                 if (damage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -194,7 +196,7 @@ class Character extends Sprite {
     }
 
     updateAttacking() {
-        if (!this.isStunned && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
+        if (!this.isStunned && !this.isKnockedOut && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
             this.attack();
             this.atkCooldown = this.atkSpd;
             this.atkTimer = setTimeout(() => {
@@ -568,8 +570,8 @@ class James extends Guardian {
         this.movSpd = 4;
 
         this.knockBackStrength = 1;
-        this.damageResistance = 0;
-        this.knockBackResistance = 0;
+        this.damageResistance = 1;
+        this.knockBackResistance = 1;
 
         this.isUnstoppable = false;
 
@@ -595,8 +597,8 @@ class James extends Guardian {
     toggleAttributes() {
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.damageResistance = 0;
-                this.knockBackResistance = 0;
+                this.damageResistance = 1;
+                this.knockBackResistance = 1;
                 this.atkSpd = 1500;
                 this.atk = 7;
                 break;
@@ -607,8 +609,8 @@ class James extends Guardian {
                 this.atk = 1;
                 break;
             default:
-                this.damageResistance = 0;
-                this.knockBackResistance = 0;
+                this.damageResistance = 1;
+                this.knockBackResistance = 1;
         }
     }
 
@@ -1131,17 +1133,18 @@ class LivingBomb extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
         
         this.position = { x, y };
-        this.atk = 50;
+        this.atk = 60;
         this.movSpd = 0;
         this.width = 250;
         this.height = 250;
-        this.knockbackStrength = 20;
+        this.position.x - (this.width / 3)
+        this.knockbackStrength = 25;
     }
 
     draw(context) {
-        // super.draw(context);
+        super.draw(context);
         // context.fillStyle = "pink";
-        // context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        // context.fillRect(this.position.x - (this.width / 3), this.position.y, this.width, this.height);
     }
 
 

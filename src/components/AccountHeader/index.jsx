@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./index.css";
 import { useAuth } from "../../context/AuthProvider";
 
-const AccountHeader = () => {
+export default function AccountHeader() {
     // const [name, setName] = useState('Duncan');
-    const { setUser, user } = useAuth()
+    // const { setUser, user } = useAuth()
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
         localStorage.removeItem("user_id");
-        setUser("");
+        // setUser("");
     };
 
     function toggleDropdown(e) {
@@ -30,6 +30,13 @@ const AccountHeader = () => {
             listElement.classList.add('expand');
         }
     }
+
+    function closeDropDown(e) {
+        const listElement = document.getElementById("account-header-dropdown-list");
+        if (listElement.classList.contains('expand')) {
+            listElement.classList.remove('expand');
+        }
+    }
     
     useEffect(() => {
         
@@ -38,17 +45,15 @@ const AccountHeader = () => {
     return (
         <div id="account-header-wrapper">
             <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{localStorage.getItem("username")}</button>
-            <div id="account-header-dropdown-list" on>
-                    <NavLink className="account-header-dropdown-item" to="/stats">
+            <div id="account-header-dropdown-list" onMouseLeave={closeDropDown}>
+                    <Link className="account-header-dropdown-item" to="/stats">
                         Stats
-                    </NavLink>
-                    <NavLink className="account-header-dropdown-item" to="/" onClick={handleLogout} >
+                    </Link>
+                    <Link reloadDocument className="account-header-dropdown-item" to="/" onClick={handleLogout} >
                         Logout
-                    </NavLink>
+                    </Link>
 
             </div>
         </div>
     );
 };
-
-export default AccountHeader;

@@ -40,7 +40,7 @@ export default function Header() {
                     </NavLink>
 
                     { localStorage.getItem("token") ? 
-                        <AccountHeader /> 
+                         <AccountHeader /> 
                         : (
                         <>
                             <NavLink to="/login" style={styles}>

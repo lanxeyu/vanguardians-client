@@ -47,7 +47,7 @@ import {
 } from "./lib/groups";
 import { loadFonts } from "./lib/resources";
 import { GAME_STATES, GROUP_COMMANDS, setCurrentGameState, getCurrentGameState, setCurrentGroupCommand } from "./lib/statemanagers";
-import { useGameStart, addKeyListener, clearKeyListener } from "./lib/utils";
+import { useGameStart, addKeyListener, clearKeyListener, addKeyDownListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
@@ -132,9 +132,9 @@ const Canvas = () => {
 
         // spawnDuncan();
         // spawnLanxe();
-        // spawnSteph();
+        spawnSteph();
         // spawnRobbie();
-        spawnJames();
+        // spawnJames();
         // spawnAlex();
 
         for (let i = 0; i < guardians.length; i++) {
@@ -156,7 +156,8 @@ const Canvas = () => {
         const timerIdHolder = {timerId: null};
         
         clearKeyListener();
-        addKeyListener();
+        // addKeyListener();
+        addKeyDownListener();
         loadFonts();
 
         let scores = 0;

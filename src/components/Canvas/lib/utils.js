@@ -40,6 +40,61 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
+let KeyDownSingleton = (function () {
+  let keyDownInstance;
+
+  function createInstance() {
+      const keyFunctions = {};
+      for (let i = 1; i <= 6; i++) {
+        keyFunctions[i.toString()] = function () {
+          // console.log("Pressed: " + i.toString());
+          // console.log("Guardians Length: " + guardians.length);
+    
+          if (getCurrentGameState() === GAME_STATES.PLAYING) {
+            if (guardians[i] && guardians.length > i) {
+              guardians[i].toggleModes();
+              
+            }
+          }
+          
+        };
+      }
+    
+      keyFunctions["r"] = function () {
+        if (getCurrentGameState() === GAME_STATES.PLAYING) {
+          setCurrentGroupCommand(GROUP_COMMANDS.RETREAT);
+        }
+      }
+    
+      keyFunctions["a"] = function () {
+        if (getCurrentGameState() === GAME_STATES.PLAYING) {
+          setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
+        }
+      }
+
+      document.addEventListener("keydown", function test(event) {
+        keyDownInstance = test;
+        const key = event.key;
+        if (key in keyFunctions) {
+          // console.log(key);
+          keyFunctions[key]();
+        }
+      });
+      
+
+      return keyDownInstance;
+  }
+
+  return {
+      getInstance: function () {
+          if (!keyDownInstance) {
+              keyDownInstance = createInstance();
+          }
+          return keyDownInstance;
+      }
+  };
+})();
+
 
 function addKeyListener() {
   
@@ -84,14 +139,18 @@ function addKeyListener() {
   });
 }
 
+function addKeyDownListener() {
+  KeyDownSingleton.getInstance();
+}
+
 function getKeyDownListener() { return keyDownListener}
 
 function clearKeyListener() {
-  document.removeEventListener("keydown", keyDownListener);
+  // document.removeEventListener("keydown", keyDownListener);
 }
 
 
 
 
 
-export { useGameStart, restoreAllHealth, addKeyListener, getKeyDownListener, clearKeyListener }
+export { useGameStart, restoreAllHealth, addKeyListener, getKeyDownListener, clearKeyListener, addKeyDownListener }

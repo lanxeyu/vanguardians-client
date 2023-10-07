@@ -32,20 +32,20 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                     else if (spriteA instanceof James) {
                         // console.log(spriteA.currentMode);
                         if (spriteA.currentMode === CHAR_MODES.MODE_2) {
-                            spriteB.getKnockedBack(25) // Enemy
+                            spriteB.getKnockedBack(5) // Enemy
                             spriteA.getKnockedBack(15) // James
                             spriteA.isUnstoppable = false;
                             spriteA.getKnockedOut();
-                            new LivingBomb(spriteB.position.x + (spriteB.width / 2), spriteB.position.y + (spriteB.height / 2), "images/James/Explosion.png")
+                            new LivingBomb(spriteB.position.x - (spriteB.width / 2), spriteB.position.y - (spriteB.height / 2), "images/James/Explosion.png")
                         }
                     }
                     if (spriteB instanceof James) {
                         if (spriteB.currentMode === CHAR_MODES.MODE_2) {
-                            spriteA.getKnockedBack(25) // Enemy
+                            spriteA.getKnockedBack(5) // Enemy
                             spriteB.getKnockedBack(15) // James
                             spriteB.isUnstoppable = false;
                             spriteB.getKnockedOut();
-                            new LivingBomb(spriteB.position.x - (spriteB.width / 2), spriteB.position.y - (spriteB.height / 2), "images/James/Explosion.png")
+                            new LivingBomb(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/Explosion.png")
                         }
                     }
                 }
@@ -69,6 +69,7 @@ function checkHealingProjectileCollisions(spriteGroup1, spriteGroup2) {
 
 function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
+        let effectTriggered = false;
         for (const spriteB of spriteGroup2) {
             if (areSpritesColliding(spriteA, spriteB)) {
                 if(spriteA.atk !== "Stunned"){
@@ -96,7 +97,10 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 else if (spriteA instanceof Lightning) {
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 5)
                     setTimeout(() => removeFromGroup(spriteA, allSprites), 5)
-                    new Explosion(spriteB.position.x, spriteB.position.y, "images/Robbie/Explosion.png")
+                    if (!effectTriggered) {
+                        new Explosion(spriteB.position.x, spriteB.position.y, "images/Robbie/Explosion.png")
+                        effectTriggered = true;
+                    }
                 }
 
                 else if(spriteA instanceof Explosion) {
@@ -114,17 +118,30 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                     spriteB.getKnockedBack(spriteA.knockBackStrength)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
-                    new FireballExplosion(spriteB.position.x, spriteB.position.y, "images/James/Explosion.png")
+                    if (!effectTriggered) {
+                        new FireballExplosion(spriteB.position.x, spriteB.position.y, "images/James/Explosion.png")
+                        effectTriggered = true;
+                    }
+                    
                 }
                 else if (spriteA instanceof FireballExplosion) {
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
-                    new FireballEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-2.png");
+                    if (!effectTriggered) {
+                        new FireballEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-b.png");
+                        effectTriggered = true;
+                    }
+                    
                 }
                 else if (spriteA instanceof LivingBomb) {
+                    spriteB.getKnockedBack(spriteA.knockBackStrength)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
-                    new LivingBombEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-2.png");
+                    if (!effectTriggered) {
+                        new LivingBombEffect(spriteA.position.x - (spriteA.width / 2), spriteA.position.y - (spriteA.height / 2), "images/James/explosion-2.png");
+                        effectTriggered = true;
+                    }
+                    
                 }
 
                 // ENEMIES
