@@ -1,6 +1,7 @@
 import { addToGroup, removeFromGroup, allSprites, guardians, enemies, van } from "./groups";
 import { Character } from "./guardians";
 import { incrementTotalKills, incrementScoreByValue } from "./stattracker";
+import { audioManager } from "./audio";
 
 // --------------------  ENEMY CLASSES  -------------------------
 // (x, y, imageSrc, scale, framesMax, offset, sprites)
@@ -165,6 +166,11 @@ class Skeleton extends Enemy {
             height: 100,
         }
     }
+
+    attack() {
+        audioManager.playGoblinSfx()
+        super.attack()
+    }
 }
 
 class Goblin extends Enemy {
@@ -196,6 +202,11 @@ class Goblin extends Enemy {
             width: this.atkRange,
             height: 100,        
         }
+    }
+
+    attack() {
+        audioManager.playGoblinSfx()
+        super.attack()
     }
 }
 
@@ -233,6 +244,11 @@ class Demon extends Enemy {
 
     // No need to update target as it is constantly the van
     updateTarget() {}
+
+    attack() {
+        audioManager.playDemonSfx()
+        super.attack()
+    }
 }
 
 class Troll extends Enemy {
