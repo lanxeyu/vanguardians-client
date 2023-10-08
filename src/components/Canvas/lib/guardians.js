@@ -1,4 +1,4 @@
-import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles, removeFromGroup } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES, GROUP_COMMANDS, getCurrentGroupCommand } from "./statemanagers"
 import { KnockedOut, SwitchMode } from "./utilclasses";
@@ -44,7 +44,7 @@ class Character extends Sprite {
             this.switchSprite('hit')
             if (this.damageResistance > 0) {
                 const reducedDamage = damage / this.damageResistance;
-                console.log(reducedDamage);
+                //console.log(reducedDamage);
                 if (reducedDamage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -53,7 +53,7 @@ class Character extends Sprite {
                 }
                 
             } else {
-                console.log(damage);
+                //console.log(damage);
                 if (damage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -975,6 +975,10 @@ class Lightning extends Projectile {
         this.position.y += this.movSpd;
     }
 
+    update() {
+        if (this.position.y >= 800) removeFromGroup(this, guardianProjectiles);
+        super.update();
+    }
     // draw(context) {
     //     context.fillStyle = "orange";
     //     context.fillRect(this.position.x, this.position.y, this.width, this.height);

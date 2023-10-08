@@ -1,5 +1,5 @@
 #about-container {
-    background: url("/src/components/Canvas/images/about-bg.png");
+    background: url("/images/about-bg.png");
     background-position: 10vh;
     height: calc(100% - 5.1em);
     width: 100%;

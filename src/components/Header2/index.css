@@ -1,29 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee&family=Silkscreen:wght@400;700&display=swap&family=Rubik&display=swap");
 
-* {
-    padding: 0px;
-    margin: 0px;
-    font-family: Silkscreen;
-    color: #fefceb;
-}
-
-html,
-body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-}
-
-#root {
-    height: 100%;
-    width: 100%;
-    /* background-image: url("/src/components/Canvas/img/starsky-bg.png"); */
-    background-size: auto 100%;
-}
-
 nav > a {
-    border-left: solid 2px #cb6f5384;
+    border-left: solid 0.125em #cb6f5384;
     padding: 0.5em 1em;
     font-size: 1.5em;
 }

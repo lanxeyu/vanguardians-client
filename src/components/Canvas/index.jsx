@@ -92,7 +92,7 @@ const Canvas = () => {
             329,
             0,
             -(168 + 329),
-            "images/cloud1-bg.png",
+            "/images/cloud1-bg.png",
             1
         );
         new Background(
@@ -102,11 +102,11 @@ const Canvas = () => {
             113,
             0,
             -(168 + 113),
-            "images/cloud2-bg.png",
+            "/images/cloud2-bg.png",
             1
         );
 
-        new Background(0, 0, 3326, 840, 0, -98, "images/middleground2.png", 3);
+        new Background(0, 0, 3326, 840, 0, -98, "/images/middleground2.png", 3);
         new Foreground(
             0,
             canvas.height,
@@ -114,7 +114,7 @@ const Canvas = () => {
             288,
             0,
             -278,
-            "images/ground.png",
+            "/images/ground.png",
             5
         );
         new Foreground(
@@ -124,11 +124,11 @@ const Canvas = () => {
             168,
             0,
             -293,
-            "images/grass.png",
+            "/images/grass.png",
             5
         );
 
-        new Van(50, 348, "images/van2.png");
+        new Van(50, 348, "/images/van2.png");
 
         // spawnDuncan();
         // spawnLanxe();

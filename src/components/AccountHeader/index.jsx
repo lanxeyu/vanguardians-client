@@ -45,7 +45,7 @@ export default function AccountHeader() {
 
     return (
         <div id="account-header-wrapper">
-            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="images\account-icon.png"></img>{localStorage.getItem("username")}</button>
+            <button id="account-header-button" onClick={toggleDropdown}><img id="account-header-icon" src="/images/account-icon.png"></img>{localStorage.getItem("username")}</button>
             <div id="account-header-dropdown-list" onMouseLeave={closeDropDown}>
                     <Link className="account-header-dropdown-item" to="/stats">
                         Stats
