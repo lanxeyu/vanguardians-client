@@ -44,7 +44,7 @@ class Character extends Sprite {
             this.switchSprite('hit')
             if (this.damageResistance > 0) {
                 const reducedDamage = damage / this.damageResistance;
-                console.log(reducedDamage);
+                //console.log(reducedDamage);
                 if (reducedDamage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -53,7 +53,7 @@ class Character extends Sprite {
                 }
                 
             } else {
-                console.log(damage);
+                //console.log(damage);
                 if (damage > this.currHealth) {
                     this.currHealth = 0;
                 }
