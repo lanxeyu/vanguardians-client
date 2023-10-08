@@ -1,4 +1,4 @@
-import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles, removeFromGroup } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES, GROUP_COMMANDS, getCurrentGroupCommand } from "./statemanagers"
 import { KnockedOut, SwitchMode } from "./utilclasses";
@@ -975,6 +975,10 @@ class Lightning extends Projectile {
         this.position.y += this.movSpd;
     }
 
+    update() {
+        if (this.position.y >= 800) removeFromGroup(this, guardianProjectiles);
+        super.update();
+    }
     // draw(context) {
     //     context.fillStyle = "orange";
     //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
