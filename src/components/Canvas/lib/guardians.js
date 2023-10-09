@@ -45,7 +45,6 @@ class Character extends Sprite {
             this.switchSprite('hit')
             if (this.damageResistance > 0) {
                 const reducedDamage = damage / this.damageResistance;
-                //console.log(reducedDamage);
                 if (reducedDamage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -54,7 +53,6 @@ class Character extends Sprite {
                 }
                 
             } else {
-                //console.log(damage);
                 if (damage > this.currHealth) {
                     this.currHealth = 0;
                 }
@@ -529,6 +527,7 @@ class Robbie extends Guardian {
         } 
                 
         else if(this.currentMode === CHAR_MODES.MODE_2){
+            audioManager.playHealSfx()
             this.switchSprite('attack2')
             this.isAttacking = true;
             new Heal(this.target.position.x, this.target.position.y -20)
@@ -616,6 +615,7 @@ class James extends Guardian {
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1) {
+            audioManager.playFireballSfx()
             new Fireball(this.position.x + this.width - 23, this.position.y - 23, "images/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
             setTimeout(() => {
                 this.isAttacking = false;
@@ -656,7 +656,6 @@ class James extends Guardian {
                         }
                     }
                     else {
-                        // console.log('No Target');
                         this.isUnstoppable = true;
                         this.position.x += this.movSpd * 4;
                     }
@@ -836,7 +835,7 @@ class Duncan extends Guardian {
     }
 
     attack() {
-        audioManager.playDuncanSfx()
+        audioManager.playDuncanHitSfx()
         super.attack()
     }
 }
@@ -890,6 +889,7 @@ class Alex extends Guardian {
             }, 5);
 
         } else if(this.currentMode == CHAR_MODES.MODE_2){
+            audioManager.playHeal2Sfx()
             this.switchSprite('attack2')
             for (const guardian of guardians) {
                 new Heal2(guardian.position.x, guardian.position.y -20)
@@ -960,7 +960,7 @@ class Lightning extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
-        this.atk = "Stunned";
+        this.atk = 5;
         this.movSpd = 10;
         this.width = 70;
         this.height = 595;
@@ -1042,7 +1042,7 @@ class Fireball extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 5;
-        this.movSpd = 4;    
+        this.movSpd = 7;    
         this.width = 46;
         this.height = 46;
 
@@ -1078,19 +1078,12 @@ class Fireball extends Projectile {
                 }
             }
             else {
-                // console.log('No Target');
                 this.position.x += this.movSpd;
             }
             
         }
         this.updateAnimation();
     }
-
-    // draw(context) {
-    //     super.draw(context);
-    //     context.fillStyle = "rgb(255, 200, 200)";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class FireballExplosion extends Projectile {

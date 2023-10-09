@@ -1,106 +1,135 @@
 import backgroundMusic from '/audio/bgmusic2.mp3';
 import spearSfx from '/audio/spear.wav';
+import spearHitSfx from '/audio/spearhit.wav';
+import duncanSfx from '/audio/duncanattack.wav';
+import duncanHitSfx from '/audio/duncanhit.wav';
+import duncanDefSfx from '/audio/duncandefense.wav';
 import lightningSfx from '/audio/lightning.wav';
-import slashSfx from '/audio/slash.wav'
-import duncanSfx from '/audio/duncanattack.wav'
-import skeletonSfx from '/audio/swordattack.wav'
-import goblinSfx from '/audio/goblinattack.wav'
-import swordHitSfx from '/audio/swordhit.wav'
-import lanxeSfx from '/audio/lanxeattack.wav'
-import demonSfx from '/audio/demonattack.wav'
-import switchSfx from '/audio/switch.wav'
+import lightningHitSfx from '/audio/lightninghit.wav';
+import lanxeSfx from '/audio/lanxeattack.wav';
+import lanxeHitSfx from '/audio/lanxehit.wav';
+import slashSfx from '/audio/slash.wav';
+import slashHitSfx from '/audio/slashhit.wav';
+import fireballSfx from '/audio/fireball.wav';
+import fireballHitSfx from '/audio/fireballhit.wav';
+import healSfx from '/audio/heal.wav';
+import heal2Sfx from '/audio/heal2.wav';
+import skeletonSfx from '/audio/skeletonattack.wav';
+import goblinSfx from '/audio/goblinattack.wav';
+import demonSfx from '/audio/demonattack.wav';
+import trollSfx from '/audio/trollattack.wav';
+import switchSfx from '/audio/switch.wav';
+import arSfx from '/audio/ar.wav';
 
 class AudioManager {
   constructor() {
     this.backgroundMusic = new Audio(backgroundMusic);
-    this.backgroundMusic.volume = 0.1
-    this.backgroundMusic.currentTime = 0.7
-
-    this.spearSfx = new Audio(spearSfx)
-    this.spearSfx.volume = 0.1
-
-    this.lightningSfx = new Audio(lightningSfx)
-    this.lightningSfx.volume = 0.5
-
-    this.slashSfx = new Audio(slashSfx)
-    this.slashSfx.volume = 0.1
-
-    this.duncanSfx = new Audio(duncanSfx)
-    this.duncanSfx.volume = 0.1
-
-    this.skeletonSfx = new Audio(skeletonSfx)
-    this.skeletonSfx.volume = 0.1
-
-    this.goblinSfx = new Audio(goblinSfx)
-    this.goblinSfx.volume = 0.1
-
-    this.swordHitSfx = new Audio(swordHitSfx)
-    this.swordHitSfx.volume = 0.1
-
-    this.lanxeSfx = new Audio(lanxeSfx)
-    this.lanxeSfx.volume = 0.1
-
-    this.demonSfx = new Audio(demonSfx)
-    this.demonSfx.volume = 0.1
-
-    this.switchSfx = new Audio(switchSfx)
-    this.switchSfx.volume = 0.1
+    this.backgroundMusic.volume = 0.1;
+    this.backgroundMusic.currentTime = 0.7;
   }
 
   playBackgroundMusic() {
-    this.backgroundMusic.play()
+    this.backgroundMusic.play();
   }
 
   pauseBackgroundMusic() {
-    this.backgroundMusic.pause()
+    this.backgroundMusic.pause();
   }
 
   stopBackgroundMusic() {
-    this.backgroundMusic.pause()
-    this.backgroundMusic.currentTime = 0.7
+    this.backgroundMusic.pause();
+    this.backgroundMusic.currentTime = 0.7;
+  }
+
+  playSfx(audio, volume = 0.1) {
+    const soundEffectInstance = new Audio(audio);
+    soundEffectInstance.volume = volume;
+    soundEffectInstance.play();
   }
 
   playSpearSfx() {
-    this.spearSfx.play()
-  }
-  
-  playLightningSfx() {
-    this.lightningSfx.play()
+    this.playSfx(spearSfx);
   }
 
-  playSlashSfx() {
-    this.slashSfx.play()
+  playSpearHitSfx() {
+    this.playSfx(spearHitSfx, 0.05);
   }
 
   playDuncanSfx() {
-    this.duncanSfx.play()
+    this.playSfx(duncanSfx);
   }
 
-  playSkeletonSfx() {
-    this.skeletonSfx.play()
+  playDuncanHitSfx() {
+    this.playSfx(duncanHitSfx);
   }
 
-  playGoblinSfx() {
-    this.goblinSfx.play()
+  playDuncanDefSfx() {
+    this.playSfx(duncanDefSfx);
   }
 
-  playSwordHitSfx() {
-    this.swordHitSfx.play()
+  playLightningSfx() {
+    this.playSfx(lightningSfx, 0.5);
+  }
+
+  playLightningHitSfx() {
+    this.playSfx(lightningHitSfx);
   }
 
   playLanxeSfx() {
-    this.lanxeSfx.play()
+    this.playSfx(lanxeSfx);
+  }
+
+  playLanxeHitSfx() {
+    this.playSfx(lanxeHitSfx);
+  }
+
+  playSlashSfx() {
+    this.playSfx(slashSfx);
+  }
+
+  playSlashHitSfx() {
+    this.playSfx(slashHitSfx);
+  }
+
+  playFireballSfx() {
+    this.playSfx(fireballSfx);
+  }
+
+  playFireballHitSfx() {
+    this.playSfx(fireballHitSfx);
+  }
+
+  playHealSfx() {
+    this.playSfx(healSfx);
+  }
+
+  playHeal2Sfx() {
+    this.playSfx(heal2Sfx);
+  }
+
+  playSkeletonSfx() {
+    this.playSfx(skeletonSfx);
+  }
+
+  playGoblinSfx() {
+    this.playSfx(goblinSfx);
   }
 
   playDemonSfx() {
-    this.demonSfx.play()
+    this.playSfx(demonSfx);
+  }
+
+  playTrollSfx() {
+    this.playSfx(trollSfx);
   }
 
   playSwitchSfx() {
-    this.switchSfx.play()
+    this.playSfx(switchSfx);
   }
 
-
+  playArSfx() {
+    this.playSfx(arSfx);
+  }
 }
 
 export const audioManager = new AudioManager();

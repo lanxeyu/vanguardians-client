@@ -168,7 +168,7 @@ class Skeleton extends Enemy {
     }
 
     attack() {
-        audioManager.playGoblinSfx()
+        audioManager.playSkeletonSfx()
         super.attack()
     }
 }
@@ -280,6 +280,11 @@ class Troll extends Enemy {
             width: 200,
             height: 100,
         }
+    }
+
+    attack() {
+        audioManager.playTrollSfx()
+        super.attack()
     }
 }
 

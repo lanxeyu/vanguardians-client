@@ -1,9 +1,10 @@
 import { DamageNumber, HealNumber } from "./utilclasses";
-import { Duncan, James, Spear, Lightning, Explosion, Spear2, Slash, Fireball, FireballExplosion, LivingBomb } from "./guardians";
+import { Duncan, James, Spear, Lightning, Explosion, Spear2, Slash, Fireball, FireballExplosion, LivingBomb, Lanxe } from "./guardians";
 import { Skeleton, Troll } from "./enemies";
 import { allSprites, guardianHealingProjectiles, guardianProjectiles, removeFromGroup } from "./groups";
 import { FireballEffect, LivingBombEffect } from "./effects";
 import { CHAR_MODES } from "./statemanagers";
+import { audioManager } from "./audio";
 
 function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
     for (const spriteA of spriteGroup1) {
@@ -17,20 +18,14 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
 
                     // --------- SPECIAL HIT INTERACTIONS ---------
 
-                    // GUARDIANS             
+                    // GUARDIANS ATTACKING             
                     if (spriteA instanceof Duncan) {
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
-
-                    // ENEMIES
-                    else if (spriteA instanceof Skeleton){
-                        spriteB.getKnockedBack(spriteA.knockBackStrength)
-                    }
-                    else if (spriteA instanceof Troll){
+                    else if (spriteA instanceof Lanxe) {
                         spriteB.getKnockedBack(spriteA.knockBackStrength)
                     }
                     else if (spriteA instanceof James) {
-                        // console.log(spriteA.currentMode);
                         if (spriteA.currentMode === CHAR_MODES.MODE_2) {
                             spriteB.getKnockedBack(5) // Enemy
                             spriteA.getKnockedBack(15) // James
@@ -39,7 +34,22 @@ function checkAtkBoxCollisions(spriteGroup1, spriteGroup2) {
                             new LivingBomb(spriteB.position.x - (spriteB.width / 2), spriteB.position.y - (spriteB.height / 2), "/images/James/Explosion.png")
                         }
                     }
-                    if (spriteB instanceof James) {
+
+                    // ENEMIES ATTACKING
+                    else if (spriteA instanceof Skeleton){
+                        spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    }
+                    else if (spriteA instanceof Troll){
+                        spriteB.getKnockedBack(spriteA.knockBackStrength)
+                    }
+
+
+                    // GUARDIANS RECEIVING ATTACK             
+                    if (spriteB instanceof Duncan && spriteB.currentMode == CHAR_MODES.MODE_2) {
+                        audioManager.playDuncanDefSfx()
+                    }
+
+                    else if (spriteB instanceof James) {
                         if (spriteB.currentMode === CHAR_MODES.MODE_2) {
                             spriteA.getKnockedBack(5) // Enemy
                             spriteB.getKnockedBack(15) // James
@@ -72,24 +82,21 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
         let effectTriggered = false;
         for (const spriteB of spriteGroup2) {
             if (areSpritesColliding(spriteA, spriteB)) {
-                if(spriteA.atk !== "Stunned"){
-                    spriteB.getDamaged(spriteA.atk)
-                    new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
-                } else {
-                    new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y + 20)
-                }
-                
-
+                spriteB.getDamaged(spriteA.atk)
+                new DamageNumber(spriteA.atk, spriteB.position.x, spriteB.position.y)
+            
                 // --------- SPECIAL HIT INTERACTIONS ---------
 
                 // GUARDIANS             
                 if (spriteA instanceof Spear) {
+                    audioManager.playSpearHitSfx()
                     spriteB.getKnockedBack(spriteA.knockBackStrength)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
                 }
                 
                 if (spriteA instanceof Spear2) {
+                    audioManager.playSpearHitSfx()
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)
                 }
@@ -104,17 +111,21 @@ function checkProjectileCollisions(spriteGroup1, spriteGroup2) {
                 }
 
                 else if(spriteA instanceof Explosion) {
+                    // audioManager.playLightningHitSfx() // Too loud on multiple instances
+                    new DamageNumber("Stunned", spriteB.position.x, spriteB.position.y + 20)
                     spriteB.getStunned(spriteA.stunDuration)
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 20)
                     setTimeout(() => removeFromGroup(spriteA, allSprites), 20)
                 }
 
                 else if(spriteA instanceof Slash) {
+                    // audioManager.playSlashHitSfx() // Too loud on multiple instances
                     setTimeout(() => removeFromGroup(spriteA, guardianProjectiles), 200);
                     setTimeout(() => removeFromGroup(spriteA, allSprites), 200);
                 }
 
                 else if(spriteA instanceof Fireball) {
+                    audioManager.playFireballHitSfx()
                     spriteB.getKnockedBack(spriteA.knockBackStrength)
                     removeFromGroup(spriteA, guardianProjectiles)
                     removeFromGroup(spriteA, allSprites)

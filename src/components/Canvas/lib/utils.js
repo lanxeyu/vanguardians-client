@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
-import { SwitchMode } from "./utilclasses";
 import { GAME_STATES, getCurrentGameState, setCurrentGameState, setCurrentGroupCommand, getCurrentGroupCommand, GROUP_COMMANDS } from "./statemanagers";
 import { audioManager } from "./audio";
 
@@ -45,9 +44,6 @@ let KeyDownSingleton = (function () {
     const keyFunctions = {};
       for (let i = 1; i <= 6; i++) {
         keyFunctions[i.toString()] = function () {
-          // console.log("Pressed: " + i.toString());
-          // console.log("Guardians Length: " + guardians.length);
-    
           if (getCurrentGameState() === GAME_STATES.PLAYING) {
             if (guardians[i] && guardians.length > i) {
               guardians[i].toggleModes();
@@ -72,26 +68,12 @@ let KeyDownSingleton = (function () {
       
     const key = event.key;
     if (key in keyFunctions) {
-      // console.log(key);
       keyFunctions[key]();
     }
   });
 
-  function createInstance() {
-      
-
-      
-      
-
-      return keyDownInstance;
-  }
-
   return {
       getInstance: function () {
-          // if (!keyDownInstance) {
-          //     console.log("Key Listener does not exist");
-
-          // }
           return keyDownInstance;
       }
   };
@@ -106,8 +88,6 @@ function addKeyListener() {
   
   for (let i = 1; i <= 6; i++) {
     keyFunctions[i.toString()] = function () {
-      // console.log("Pressed: " + i.toString());
-      // console.log("Guardians Length: " + guardians.length);
 
       if (getCurrentGameState() === GAME_STATES.PLAYING) {
         if (guardians[i] && guardians.length > i) {
@@ -135,7 +115,6 @@ function addKeyListener() {
     keyDownListener = test;
     const key = event.key;
     if (key in keyFunctions) {
-      // console.log(key);
       keyFunctions[key]();
     }
   });
