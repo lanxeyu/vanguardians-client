@@ -3,7 +3,7 @@ let silkscreenFont = null;
 function getSilkscreenFont() {
     if (silkscreenFont === null) {
         silkscreenFont = new FontFace("Silkscreen",
-        "url(src/components/canvas/fonts/Silkscreen-Regular.ttf)")
+        "url(fonts/Silkscreen-Regular.ttf)")
     }
 
     return silkscreenFont;

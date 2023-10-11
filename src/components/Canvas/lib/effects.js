@@ -41,26 +41,26 @@ class Effects extends Sprite {
     }
 
     update() {
-        if (this.framesCurrent = this.framesMax - 1) {
-            // console.log(this.framesCurrent);
+        if (this.framesCurrent === this.framesMax - 1) {
             removeFromGroup(this, fx);
         }
-        
-        this.updateAnimation();
 
+        this.updateAnimation();
     }
 }
 
 class FireballEffect extends Effects {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 7, offset = { x: 0, y: 0 }) {
+    constructor(x, y, imageSrc, scale = 5, framesMax = 7, offset = { x: 0, y: -40 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         addToGroup(this, fx);
 
         this.framesCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold = 2000;
+        this.framesHold = 8;
 
         this.framesMax = framesMax;
+
+
         
         // for (const sprite in this.sprites) {
         //     sprites[sprite].image = new Image()
@@ -70,13 +70,13 @@ class FireballEffect extends Effects {
 }
 
 class LivingBombEffect extends Effects {
-    constructor(x, y, imageSrc, scale = 5, framesMax = 10, offset = { x: 0, y: 0 }) {
+    constructor(x, y, imageSrc, scale = 4, framesMax = 10, offset = { x: 0, y: -70 }) {
         super(x, y, imageSrc, scale, framesMax, offset);
         addToGroup(this, fx);
 
         this.framesCurrent = 0;
         this.framesElapsed = 0;
-        this.framesHold = 100;
+        this.framesHold = 10;
 
         this.framesMax = framesMax;
         

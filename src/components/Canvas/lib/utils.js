@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { guardians, van } from "./groups";
-import { SwitchMode } from "./utilclasses";
 import { GAME_STATES, getCurrentGameState, setCurrentGameState, setCurrentGroupCommand, getCurrentGroupCommand, GROUP_COMMANDS } from "./statemanagers";
 import { audioManager } from "./audio";
 
@@ -40,14 +39,58 @@ function restoreAllHealth() {
   van[0].currHealth = van[0].maxHealth
 }
 
+let KeyDownSingleton = (function () {
+  const keyDownInstance = document.addEventListener("keydown", function test(event) {
+    const keyFunctions = {};
+      for (let i = 1; i <= 6; i++) {
+        keyFunctions[i.toString()] = function () {
+          if (getCurrentGameState() === GAME_STATES.PLAYING) {
+            if (guardians[i] && guardians.length > i) {
+              guardians[i].toggleModes();
+              
+            }
+          }
+          
+        };
+      }
+    
+      keyFunctions["r"] = function () {
+        if (getCurrentGameState() === GAME_STATES.PLAYING) {
+          setCurrentGroupCommand(GROUP_COMMANDS.RETREAT);
+        }
+      }
+    
+      keyFunctions["a"] = function () {
+        if (getCurrentGameState() === GAME_STATES.PLAYING) {
+          setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
+        }
+      }
+      
+    const key = event.key;
+    if (key in keyFunctions) {
+      keyFunctions[key]();
+    }
+  });
+
+  return {
+      getInstance: function () {
+          return keyDownInstance;
+      }
+  };
+})();
+
+
 function addKeyListener() {
+  
+
   const keyFunctions = {};  
   
   
   for (let i = 1; i <= 6; i++) {
     keyFunctions[i.toString()] = function () {
+
       if (getCurrentGameState() === GAME_STATES.PLAYING) {
-        if (guardians[i]) {
+        if (guardians[i] && guardians.length > i) {
           guardians[i].toggleModes();
           
         }
@@ -77,14 +120,18 @@ function addKeyListener() {
   });
 }
 
+function addKeyDownListener() {
+  KeyDownSingleton.getInstance();
+}
+
 function getKeyDownListener() { return keyDownListener}
 
 function clearKeyListener() {
-  document.removeEventListener("keydown", keyDownListener);
+  // document.removeEventListener("keydown", keyDownListener);
 }
 
 
 
 
 
-export { useGameStart, restoreAllHealth, addKeyListener, getKeyDownListener, clearKeyListener }
+export { useGameStart, restoreAllHealth, addKeyListener, getKeyDownListener, clearKeyListener, addKeyDownListener }

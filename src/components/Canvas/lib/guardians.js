@@ -1,7 +1,8 @@
-import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles } from "./groups";
+import { addToGroup, guardians, enemies, guardianProjectiles, guardianHealingProjectiles, removeFromGroup } from "./groups";
 import { Sprite } from "./sprite";
 import { CHAR_MODES, CHAR_STATES, GROUP_COMMANDS, getCurrentGroupCommand } from "./statemanagers"
 import { KnockedOut, SwitchMode } from "./utilclasses";
+import { audioManager } from "./audio";
 
 // --------------------  CHARACTER CLASS - Parent of Guardian & Enemy classes  --------------------
 class Character extends Sprite {
@@ -194,7 +195,7 @@ class Character extends Sprite {
     }
 
     updateAttacking() {
-        if (!this.isStunned && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
+        if (!this.isStunned && !this.isKnockedOut && this.target && this.checkTargetInRange() && this.atkCooldown <= 0) {
             this.attack();
             this.atkCooldown = this.atkSpd;
             this.atkTimer = setTimeout(() => {
@@ -310,13 +311,11 @@ class Guardian extends Character {
 
     getKnockedOut() {
         if (this.isKnockedOut === false) {
-            // console.log("knockedout");
             let tempDate = new Date();
             this.endTime = new Date(tempDate.getTime() + this.knockedOutLifeTime);
             this.knockedOutElapsed = 0;
             new KnockedOut("Knocked Out", this.position.x + (this.width / 2), this.position.y)
             setTimeout(() => {
-                // console.log('recovered');
                 this.isKnockedOut = false;
                 this.switchSprite('idle')
                 new KnockedOut("Recovered", this.position.x + (this.width / 2), this.position.y)
@@ -371,8 +370,6 @@ class Guardian extends Character {
     }
 
     update() {
-        // console.log(this.currHealth);
-        // console.log(this.isKnockedOut);
         this.checkGroupCommands();
         if (this.currHealth <= 0) {
             this.getKnockedOut();
@@ -387,8 +384,6 @@ class Guardian extends Character {
                 this.knockedOutElapsed = this.knockedOutLifeTime
             }
             else {
-                // console.log("Time Diff: " + (this.endTime - new Date()));
-                // console.log("KnockedOutLifeTime: " + this.knockedOutLifeTime);
                 this.knockedOutElapsed =  this.knockedOutLifeTime - (this.endTime - new Date())
             }
         }
@@ -397,16 +392,13 @@ class Guardian extends Character {
     }
 
     toggleModes() {
-        console.log("Current Mode: " + this.currentMode);
+        audioManager.playSwitchSfx();
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                
                 this.currentMode = CHAR_MODES.MODE_2;
-                console.log("Current Mode: " + this.currentMode);
                 break;
             case CHAR_MODES.MODE_2:
                 this.currentMode = CHAR_MODES.MODE_1;
-                console.log("Current Mode: " + this.currentMode);
                 break;
             default:
                 this.currentMode = CHAR_MODES.MODE_1;
@@ -486,6 +478,11 @@ class Lanxe extends Guardian {
                 this.damageResistance = 1;
         }
     }
+
+    attack() {
+        audioManager.playLanxeSfx()
+        super.attack()
+    }
 }
 
 class Robbie extends Guardian {
@@ -521,6 +518,7 @@ class Robbie extends Guardian {
     attack() {
         if(this.currentMode === CHAR_MODES.MODE_1){
             this.switchSprite('attack')
+            audioManager.playLightningSfx()
             this.isAttacking = true;
             new Lightning(this.target.position.x, this.target.position.y - 650, "images/Robbie/Lightning.png");
             setTimeout(() => {
@@ -529,6 +527,7 @@ class Robbie extends Guardian {
         } 
                 
         else if(this.currentMode === CHAR_MODES.MODE_2){
+            audioManager.playHealSfx()
             this.switchSprite('attack2')
             this.isAttacking = true;
             new Heal(this.target.position.x, this.target.position.y -20)
@@ -566,9 +565,9 @@ class James extends Guardian {
         this.atkRange = 1100;
         this.movSpd = 4;
 
-        this.knockBackStrength = 10;
-        this.damageResistance = 0;
-        this.knockBackResistance = 0;
+        this.knockBackStrength = 1;
+        this.damageResistance = 1;
+        this.knockBackResistance = 1;
 
         this.isUnstoppable = false;
 
@@ -594,8 +593,8 @@ class James extends Guardian {
     toggleAttributes() {
         switch (this.currentMode) {
             case CHAR_MODES.MODE_1:
-                this.damageResistance = 0;
-                this.knockBackResistance = 0;
+                this.damageResistance = 1;
+                this.knockBackResistance = 1;
                 this.atkSpd = 1500;
                 this.atk = 7;
                 break;
@@ -606,8 +605,8 @@ class James extends Guardian {
                 this.atk = 1;
                 break;
             default:
-                this.damageResistance = 0;
-                this.knockBackResistance = 0;
+                this.damageResistance = 1;
+                this.knockBackResistance = 1;
         }
     }
 
@@ -616,6 +615,7 @@ class James extends Guardian {
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1) {
+            audioManager.playFireballSfx()
             new Fireball(this.position.x + this.width - 23, this.position.y - 23, "images/James/Move.png", 3, 6, { x: 46, y: 46 }, this.target)
             setTimeout(() => {
                 this.isAttacking = false;
@@ -656,7 +656,6 @@ class James extends Guardian {
                         }
                     }
                     else {
-                        // console.log('No Target');
                         this.isUnstoppable = true;
                         this.position.x += this.movSpd * 4;
                     }
@@ -666,12 +665,6 @@ class James extends Guardian {
             }
             
     }
-
-    // updateAttacking() {
-    //     if (this.currentMode == CHAR_MODES.MODE_2) {
-    //         super.updateAttacking();
-    //     }
-    // }
 
     update() {
         this.checkGroupCommands();
@@ -684,7 +677,6 @@ class James extends Guardian {
             this.updatePosition();
         }
         else {
-            console.log(this.position.y);
             let floor = 490;
             let bottom = this.position.y + this.height;
             let fallSpd = 2;
@@ -711,7 +703,6 @@ class James extends Guardian {
                 this.currentMode = CHAR_MODES.MODE_2;
                 break;
             case CHAR_MODES.MODE_2:
-                console.log(this.isUnstoppable);
                 if (this.isUnstoppable) return;
                 this.currentMode = CHAR_MODES.MODE_1;
                 break;
@@ -759,6 +750,7 @@ class Steph extends Guardian {
 
     attack() {
         this.switchSprite('attack')
+        audioManager.playSpearSfx()
         this.isAttacking = true;
 
         if (this.currentMode == CHAR_MODES.MODE_1){
@@ -838,10 +830,14 @@ class Duncan extends Guardian {
 
     updateAttacking() {
         if (this.currentMode == CHAR_MODES.MODE_1) {
-            super.updateAttacking();
+            super.updateAttacking()
         }
     }
 
+    attack() {
+        audioManager.playDuncanHitSfx()
+        super.attack()
+    }
 }
 
 class Alex extends Guardian {
@@ -885,6 +881,7 @@ class Alex extends Guardian {
     attack() {
         this.isAttacking = true;
         if (this.currentMode == CHAR_MODES.MODE_1){
+            audioManager.playSlashSfx()
             this.switchSprite('attack')
             new Slash(this.position.x, this.position.y, "images/Alex/Projectile.png");
             setTimeout(() => {
@@ -892,6 +889,7 @@ class Alex extends Guardian {
             }, 5);
 
         } else if(this.currentMode == CHAR_MODES.MODE_2){
+            audioManager.playHeal2Sfx()
             this.switchSprite('attack2')
             for (const guardian of guardians) {
                 new Heal2(guardian.position.x, guardian.position.y -20)
@@ -962,7 +960,7 @@ class Lightning extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
 
         this.position = { x, y };
-        this.atk = "Stunned";
+        this.atk = 5;
         this.movSpd = 10;
         this.width = 70;
         this.height = 595;
@@ -972,15 +970,10 @@ class Lightning extends Projectile {
         this.position.y += this.movSpd;
     }
 
-    // draw(context) {
-    //     context.fillStyle = "orange";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
-
-    // explodeOnImpact() {
-    //     if (this.position.y === this.target.position.y)
-    //         new Explosion(this.position.x, this.position.y + 100, "images/Robbie/Explosion.png");
-    // }
+    update() {
+        if (this.position.y >= 800) removeFromGroup(this, guardianProjectiles);
+        super.update();
+    }
 }
 
 class Explosion extends Projectile {
@@ -994,11 +987,6 @@ class Explosion extends Projectile {
         this.height = 150;
         this.stunDuration = 1000;
     }
-
-    // draw(context) {
-    //     context.fillStyle = "pink";
-    //     context.fillRect(this.position.x - 75, this.position.y, this.width, this.height);
-    // }
 }
 
 class Spear extends Projectile {
@@ -1054,7 +1042,7 @@ class Fireball extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
         this.position = { x, y };
         this.atk = 5;
-        this.movSpd = 4;    
+        this.movSpd = 7;    
         this.width = 46;
         this.height = 46;
 
@@ -1090,19 +1078,12 @@ class Fireball extends Projectile {
                 }
             }
             else {
-                // console.log('No Target');
                 this.position.x += this.movSpd;
             }
             
         }
         this.updateAnimation();
     }
-
-    // draw(context) {
-    //     super.draw(context);
-    //     context.fillStyle = "rgb(255, 200, 200)";
-    //     context.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // }
 }
 
 class FireballExplosion extends Projectile {
@@ -1130,17 +1111,18 @@ class LivingBomb extends Projectile {
         super(x, y, imageSrc, scale, framesMax, offset);
         
         this.position = { x, y };
-        this.atk = 50;
+        this.atk = 60;
         this.movSpd = 0;
         this.width = 250;
         this.height = 250;
-        this.knockbackStrength = 20;
+        this.position.x - (this.width / 3)
+        this.knockbackStrength = 25;
     }
 
     draw(context) {
-        // super.draw(context);
+        super.draw(context);
         // context.fillStyle = "pink";
-        // context.fillRect(this.position.x - (this.width / 2), this.position.y - (this.height / 2), this.width, this.height);
+        // context.fillRect(this.position.x - (this.width / 3), this.position.y, this.width, this.height);
     }
 
 

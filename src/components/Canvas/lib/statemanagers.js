@@ -1,5 +1,7 @@
 // --------------------  STATE MANAGERS -----------------------------
 
+import { audioManager } from "./audio";
+
 const CHAR_STATES = {
     IDLE: 0,
     FORWARD: 1,
@@ -31,6 +33,7 @@ function setCurrentGameState(gameState) {
 }
 
 function setCurrentGroupCommand(groupCommand) {
+    audioManager.playArSfx()
     currentGroupCommand = groupCommand;
 }
 

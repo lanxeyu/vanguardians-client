@@ -47,7 +47,7 @@ import {
 } from "./lib/groups";
 import { loadFonts } from "./lib/resources";
 import { GAME_STATES, GROUP_COMMANDS, setCurrentGameState, getCurrentGameState, setCurrentGroupCommand } from "./lib/statemanagers";
-import { useGameStart, addKeyListener, clearKeyListener } from "./lib/utils";
+import { useGameStart, addKeyDownListener } from "./lib/utils";
 import { setScores, getScores, getTotalKills, setTotalKills } from "./lib/stattracker";
 import "../../pages/Home/index.css";
 import { audioManager } from "./lib/audio";
@@ -65,7 +65,7 @@ const Canvas = () => {
 
         const data = {
             value: getScores(),
-            user_id: user.user_id,
+            user_id: localStorage.getItem("user_id"),
         };
 
         try {
@@ -80,6 +80,7 @@ const Canvas = () => {
     }
 
     function initGame(canvas) {
+        // console.log('Initialisation');
         resetAllGroups();
         resetWaveCounter();
         setCurrentGroupCommand(GROUP_COMMANDS.ADVANCE);
@@ -91,7 +92,7 @@ const Canvas = () => {
             329,
             0,
             -(168 + 329),
-            "images/cloud1-bg.png",
+            "/images/cloud1-bg.png",
             1
         );
         new Background(
@@ -101,11 +102,11 @@ const Canvas = () => {
             113,
             0,
             -(168 + 113),
-            "images/cloud2-bg.png",
+            "/images/cloud2-bg.png",
             1
         );
 
-        new Background(0, 0, 3326, 840, 0, -98, "images/middleground2.png", 3);
+        new Background(0, 0, 3326, 840, 0, -98, "/images/middleground2.png", 3);
         new Foreground(
             0,
             canvas.height,
@@ -113,7 +114,7 @@ const Canvas = () => {
             288,
             0,
             -278,
-            "images/ground.png",
+            "/images/ground.png",
             5
         );
         new Foreground(
@@ -123,11 +124,11 @@ const Canvas = () => {
             168,
             0,
             -293,
-            "images/grass.png",
+            "/images/grass.png",
             5
         );
 
-        new Van(50, 348, "images/van2.png");
+        new Van(50, 348, "/images/van2.png");
 
         // spawnDuncan();
         // spawnLanxe();
@@ -154,7 +155,8 @@ const Canvas = () => {
         const context = canvas.getContext("2d");
         const timerIdHolder = {timerId: null};
 
-        addKeyListener();
+        // addKeyListener();
+        addKeyDownListener();
         loadFonts();
 
         let scores = 0;
@@ -292,7 +294,7 @@ const Canvas = () => {
                                         if (ui[j].name === "bottombar")
                                             ui[j].setTarget(guardians[i]);
                                     }
-                                    console.log(`${guardians[i].name} has been Clicked!`);
+                                    //console.log(`${guardians[i].name} has been Clicked!`);
                                     break; // Break out of loop if element found
                                 }
                             }
@@ -308,7 +310,7 @@ const Canvas = () => {
             {
                 cancelAnimationFrame(timerIdHolder.timerId);
                 audioManager.stopBackgroundMusic();
-                clearKeyListener();
+                resetAllGroups();
             }
         }
     }, []);

@@ -56,13 +56,13 @@ const Home = () => {
             )}
 
             <div id="images-container">
-                <img src="images\fantasywarrior.gif" alt="fantasy warrior" />
-                <img src="images\heavyarmor.gif" alt="heavy armor" />
-                <img src="images\fireworm.gif" alt="fireworm" />
-                <img src="images\van2.png" alt="van" />
-                <img src="images\martialhero.gif" alt="martial hero" />
-                <img src="images\wizard.gif" alt="wizard" />
-                <img src="images\huntress.gif" alt="huntress" />
+                <img src="/images/fantasywarrior.gif" alt="fantasy warrior" />
+                <img src="/images/heavyarmor.gif" alt="heavy armor" />
+                <img src="/images/fireworm.gif" alt="fireworm" />
+                <img src="/images/van2.png" alt="van" />
+                <img src="/images/martialhero.gif" alt="martial hero" />
+                <img src="/images/wizard.gif" alt="wizard" />
+                <img src="/images/huntress.gif" alt="huntress" />
             </div>
             {/* <div id="home-footer"></div> */}
         </div>

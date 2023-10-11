@@ -34,32 +34,32 @@ class PortraitIcon extends Sprite {
         this.portraitImage = new Image()
 
         if (this.guardian.name === "lanxe") {
-            this.portraitImage.src = "images/lanxe-portrait.png"
+            this.portraitImage.src = "/images/lanxe-portrait.png"
         }
         else if (this.guardian.name === "robbie") {
-            this.portraitImage.src = "images/robbie-portrait.png"
+            this.portraitImage.src = "/images/robbie-portrait.png"
         }
         else if (this.guardian.name === "james") {
-            this.portraitImage.src = "images/james-portrait.png"
+            this.portraitImage.src = "/images/james-portrait.png"
         }
         else if (this.guardian.name === "duncan") {
-            this.portraitImage.src = "images/duncan-portrait.png"
+            this.portraitImage.src = "/images/duncan-portrait.png"
         }
         else if (this.guardian.name === "steph") {
-            this.portraitImage.src = "images/steph-portrait.png"
+            this.portraitImage.src = "/images/steph-portrait.png"
         }
         else if (this.guardian.name === "alex") {
-            this.portraitImage.src = "images/alex-portrait.png"
+            this.portraitImage.src = "/images/alex-portrait.png"
         }
         else if (this.guardian.name === "van") {
             // console.log("van found")
-            this.portraitImage.src = "images/van-portrait.png"
+            this.portraitImage.src = "/images/van-portrait.png"
         }
 
         this.mode1Image = new Image();
-        this.mode1Image.src = 'images/mode-1.png'
+        this.mode1Image.src = '/images/mode-1.png'
         this.mode2Image = new Image();
-        this.mode2Image.src = 'images/mode-2.png'
+        this.mode2Image.src = '/images/mode-2.png'
 
     }
 
@@ -241,19 +241,19 @@ class BottomBar extends Sprite {
         this.height = height;
 
         this.roots = new Image();
-        this.roots.src = 'images/roots.png';
+        this.roots.src = '/images/roots.png';
 
         this.barWidth = 180;
         this.barHeight = 18;
 
         this.mode1Image = new Image();
-        this.mode1Image.src = 'images/mode-1.png'
+        this.mode1Image.src = '/images/mode-1.png'
         this.mode1LargeImage = new Image();
-        this.mode1LargeImage.src = 'images/mode-1-large.png'
+        this.mode1LargeImage.src = '/images/mode-1-large.png'
         this.mode2Image = new Image();
-        this.mode2Image.src = 'images/mode-2.png'
+        this.mode2Image.src = '/images/mode-2.png'
         this.mode2LargeImage = new Image();
-        this.mode2LargeImage.src = 'images/mode-2-large.png'
+        this.mode2LargeImage.src = '/images/mode-2-large.png'
 
         this.targetImage = new Image();
         if (target) {
@@ -261,7 +261,7 @@ class BottomBar extends Sprite {
             this.currentHPBar = this.target.currHealth;
             this.currentEXPBar = this.target.currExp;
             if (this.target.name === "van") {
-                this.targetImage.src = 'images/van-portrait.png';
+                this.targetImage.src = '/images/van-portrait.png';
             }    
         }
         else {
@@ -339,27 +339,27 @@ class BottomBar extends Sprite {
 
     setTarget(target) { 
         this.target = target;
-        console.log("Setting target")
+        // console.log("Setting target")
         if (this.target.name === "lanxe") {
-            this.targetImage.src = "images/lanxe-portrait.png"
+            this.targetImage.src = "/images/lanxe-portrait.png"
         }
         else if (this.target.name === "robbie") {
-            this.targetImage.src = "images/robbie-portrait.png"
+            this.targetImage.src = "/images/robbie-portrait.png"
         }
         else if (this.target.name === "james") {
-            this.targetImage.src = "images/james-portrait.png"
+            this.targetImage.src = "/images/james-portrait.png"
         }
         else if (this.target.name === "duncan") {
-            this.targetImage.src = "images/duncan-portrait.png"
+            this.targetImage.src = "/images/duncan-portrait.png"
         }
         else if (this.target.name === "steph") {
-            this.targetImage.src = "images/steph-portrait.png"
+            this.targetImage.src = "/images/steph-portrait.png"
         }
         else if (this.target.name === "alex") {
-            this.targetImage.src = "images/alex-portrait.png"
+            this.targetImage.src = "/images/alex-portrait.png"
         }
         else if (this.target.name === "van") {
-            this.targetImage.src = "images/van-portrait.png"
+            this.targetImage.src = "/images/van-portrait.png"
         }
 
     }
